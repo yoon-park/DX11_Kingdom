@@ -4,8 +4,6 @@
 #include <EngineBase/EngineDirectory.h>
 #include "EngineOption.h"
 
-UEngineWindow UEngineCore::EngineWindow;
-
 UEngineCore::UEngineCore()
 {
 
@@ -16,12 +14,14 @@ UEngineCore::~UEngineCore()
 
 }
 
-void UEngineCore::Start(HINSTANCE _Inst)
+UEngineCore* GEngine = nullptr;
+
+void UEngineCore::EngineStart(HINSTANCE _Inst)
 {
+	FEngineOption Option;
 	UEngineDirectory Dir;
 	Dir.MoveToSearchChild("Config");
 
-	FEngineOption Option;
 	if (Dir.IsFile("EngineOption.EData") == false)
 	{
 		UEngineFile File = Dir.GetPathFromFile("EngineOption.EData");
@@ -43,6 +43,8 @@ void UEngineCore::Start(HINSTANCE _Inst)
 
 	EngineWindow.Open(Option.WindowTitle);
 	EngineWindow.SetWindowScale(Option.WindowScale);
+
+	UserCorePtr->Initialize();
 
 	UEngineWindow::WindowMessageLoop(
 		nullptr,
