@@ -17,6 +17,10 @@ public:
 	UEngineSerializer& operator=(const UEngineSerializer& _Other) = delete;
 	UEngineSerializer& operator=(UEngineSerializer&& _Other) noexcept = delete;
 
+	void operator>>(int& _Data)
+	{
+		Read(&_Data, sizeof(int));
+	}
 	void operator>>(std::string& _Data)
 	{
 		int Size = 0;
@@ -30,32 +34,28 @@ public:
 		Read(&_Data[0], Size);
 	}
 
-	void operator<<(int& _Data) 
+	void operator<<(const int& _Data)
 	{
 		Write(&_Data, sizeof(int));
 	}
-
-	void operator<<(bool& _Data)
+	void operator<<(const bool& _Data)
 	{
 		Write(&_Data, sizeof(bool));
 	}
-
-	void operator<<(std::string& _Data)
+	void operator<<(const std::string& _Data)
 	{
 		int Size = static_cast<int>(_Data.size());
 		operator<<(Size);
-		Write(&_Data[0], Size);
+		Write(_Data.c_str(), Size);
 	}
 
-	void operator>>(int& _Data)
-	{
-		Read(&_Data, sizeof(int));
-	}
-
-	void Read(void* _Data, unsigned int _Size);
-	void Write(void* _Data, unsigned int _Size);
+	void Read(void* _Data, size_t _Size);
+	void Write(const void* _Data, size_t _Size);
+	void WriteText(const std::string& _Text);
 
 	void BufferResize(int _Size);
+
+	std::string ToString();
 
 protected:
 
@@ -66,3 +66,9 @@ private:
 	std::vector<char> Data;
 };
 
+class UEngineSerializeObject
+{
+public:
+	virtual void Serialize(UEngineSerializer& _Ser) = 0;
+	virtual void DeSerialize(UEngineSerializer& _Ser) = 0;
+};

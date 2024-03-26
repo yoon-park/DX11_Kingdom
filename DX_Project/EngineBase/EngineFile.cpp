@@ -93,6 +93,11 @@ void UEngineFile::Load(UEngineSerializer& _Data)
 	}
 
 	__int64 Size = GetFileSize();
+	if (Size <= 0)
+	{
+		MsgBoxAssert("사이즈가 0인 파일을 읽으려고 시도했습니다. : " + GetFullPath());
+	}
+
 	_Data.BufferResize(static_cast<int>(Size));
 	fread(&_Data.Data[0], Size, 1, FileHandle);
 }

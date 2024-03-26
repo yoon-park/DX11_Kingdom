@@ -49,3 +49,33 @@ std::wstring UEngineString::AnsiToUniCode(std::string_view _View)
 
 	return Result;
 }
+
+std::vector<std::string> UEngineString::StringCutting(std::string& _Value, std::string_view _Start, std::string_view _End)
+{
+	std::vector<std::string> Result;
+
+	size_t StartFindOffset = 0;
+
+	while (true)
+	{
+		StartFindOffset = _Value.find_first_of(_Start, StartFindOffset);
+
+		if (StartFindOffset == std::string::npos)
+		{
+			break;
+		}
+
+		size_t EndFindOffset = _Value.find_first_of(_End, StartFindOffset);
+
+		if (EndFindOffset == std::string::npos)
+		{
+			break;
+		}
+
+		std::string ParseString = _Value.substr(StartFindOffset + 1, EndFindOffset - StartFindOffset - 1);
+		Result.push_back(ParseString);
+		StartFindOffset = EndFindOffset;
+	}
+
+	return Result;
+}

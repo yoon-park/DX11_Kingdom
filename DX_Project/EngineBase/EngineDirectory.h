@@ -18,9 +18,10 @@ public:
 	UEngineDirectory& operator=(UEngineDirectory&& _Other) noexcept = delete;
 	*/
 
-	UEngineFile NewFile(std::string_view FileName);
-
+	bool IsFile(std::string_view _FileName);
+	UEngineFile GetPathFromFile(std::string_view FileName);
 	void MoveToSearchChild(std::string_view _Path);
+
 	std::list<UEngineDirectory> AllDirectory(bool _Recursive = false);
 	std::list<UEngineFile> AllFile(std::vector<std::string> _Ext = std::vector<std::string>(), bool _Recursive = false);
 

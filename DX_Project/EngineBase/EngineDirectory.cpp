@@ -20,7 +20,13 @@ UEngineDirectory::~UEngineDirectory()
 
 }
 
-UEngineFile UEngineDirectory::NewFile(std::string_view FileName)
+bool UEngineDirectory::IsFile(std::string_view _FileName)
+{
+	std::filesystem::path FilePath = GetFullPath() + "\\" + _FileName.data();
+	return std::filesystem::exists(FilePath);
+}
+
+UEngineFile UEngineDirectory::GetPathFromFile(std::string_view FileName)
 {
 	std::string NewFilePath = GetFullPath() + "\\" + FileName.data();
 	return std::filesystem::path(NewFilePath);
