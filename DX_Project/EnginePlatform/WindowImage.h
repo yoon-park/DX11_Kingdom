@@ -1,4 +1,5 @@
 #pragma once
+#include "EngineResources.h"
 
 enum class EImageLoadType
 {
@@ -25,7 +26,7 @@ public:
 
 class UEngineWindow;
 
-class UWindowImage : public UPathObject
+class UWindowImage : public UEngineResources<UWindowImage>
 {
 	friend UEngineWindow;
 

@@ -47,6 +47,7 @@ private:
 
 	void EngineStart(HINSTANCE _Inst);
 	void EngineUpdate();
+	void EngineEnd();
 };
 
 extern UEngineCore* GEngine;

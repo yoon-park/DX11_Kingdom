@@ -31,6 +31,9 @@
     <Filter Include="PreCompile">
       <UniqueIdentifier>{3afc5777-2220-4d0f-ac2f-3a07d8bebaee}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Resources\Image">
+      <UniqueIdentifier>{087fbe76-f647-446f-9a72-75b3c94b84c0}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="EngineWindow.cpp">
@@ -38,9 +41,6 @@
     </ClCompile>
     <ClCompile Include="EngineInput.cpp">
       <Filter>Input</Filter>
-    </ClCompile>
-    <ClCompile Include="WindowImage.cpp">
-      <Filter>Window</Filter>
     </ClCompile>
     <ClCompile Include="EngineSound.cpp">
       <Filter>Resources\Sound</Filter>
@@ -51,6 +51,9 @@
     <ClCompile Include="PreCompile.cpp">
       <Filter>PreCompile</Filter>
     </ClCompile>
+    <ClCompile Include="WindowImage.cpp">
+      <Filter>Resources\Image</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="EngineWindow.h">
@@ -58,9 +61,6 @@
     </ClInclude>
     <ClInclude Include="EngineInput.h">
       <Filter>Input</Filter>
-    </ClInclude>
-    <ClInclude Include="WindowImage.h">
-      <Filter>Window</Filter>
     </ClInclude>
     <ClInclude Include="ThirdParty\FMOD\inc\fmod.hpp">
       <Filter>ThirdParty\FMOD\inc</Filter>
@@ -94,6 +94,9 @@
     </ClInclude>
     <ClInclude Include="PreCompile.h">
       <Filter>PreCompile</Filter>
+    </ClInclude>
+    <ClInclude Include="WindowImage.h">
+      <Filter>Resources\Image</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

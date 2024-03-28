@@ -48,10 +48,12 @@ void UEngineCore::EngineOptionInit()
 
 void UEngineCore::EngineStart(HINSTANCE _Inst)
 {
-	EngineOptionInit();
+	LeakCheck;
 
+	EngineOptionInit();
 	EngineWindow.Open(EngineOption.WindowTitle);
 	EngineWindow.SetWindowScale(EngineOption.WindowScale);
+
 	EngineDevice.Initialize(EngineWindow);
 
 	{
@@ -61,7 +63,7 @@ void UEngineCore::EngineStart(HINSTANCE _Inst)
 
 	UEngineWindow::WindowMessageLoop(
 		std::bind(&UEngineCore::EngineUpdate, this),
-		nullptr
+		std::bind(&UEngineCore::EngineEnd, this)
 	);
 }
 
@@ -69,4 +71,11 @@ void UEngineCore::EngineUpdate()
 {
 	float DeltaTime = MainTimer.TimeCheck();
 	UEngineInput::KeyCheckTick(DeltaTime);
+}
+
+void UEngineCore::EngineEnd()
+{
+	UEngineSound::ResourcesRelease();
+
+	/* 다른 종류 리소스들 */
 }

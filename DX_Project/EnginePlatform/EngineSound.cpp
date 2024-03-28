@@ -7,20 +7,12 @@
 #pragma comment(lib, "fmod_vc.lib")
 #endif
 
-std::map<std::string, UEngineSound*> UEngineSound::Resources;
-float UEngineSound::GlobalVolume = 1.0f;
-
-void UEngineSoundPlayer::SetVolume(float _Volume)
-{
-	Control->setVolume(_Volume * UEngineSound::GlobalVolume);
-}
-
 FMOD::System* SoundSystem = nullptr;
 
 class ResControl
 {
 public:
-	ResControl() 
+	ResControl()
 	{
 		if (FMOD_RESULT::FMOD_OK != FMOD::System_Create(&SoundSystem))
 		{
@@ -35,48 +27,24 @@ public:
 		}
 	}
 
-	~ResControl() 
+	~ResControl()
 	{
-		UEngineSound::ResourcesRelease();
-		SoundSystem->release();
-		SoundSystem = nullptr;
+		if (SoundSystem != nullptr)
+		{
+			SoundSystem->release();
+			SoundSystem = nullptr;
+		}
 	}
 };
 
 ResControl Inst;
 
-void UEngineSound::ResourcesRelease()
+void UEngineSoundPlayer::SetVolume(float _Volume)
 {
-	for (std::pair<const std::string, UEngineSound*>& Pair : Resources)
-	{
-		delete Pair.second;
-	}
-
-	Resources.clear();
+	Control->setVolume(_Volume * UEngineSound::GlobalVolume);
 }
 
-UEngineSound::UEngineSound() 
-{
-
-}
-
-UEngineSound::~UEngineSound() 
-{
-
-}
-
-
-void UEngineSound::ResLoad(std::string_view _Path)
-{
-	SoundSystem->createSound(_Path.data(), FMOD_LOOP_NORMAL, nullptr, &SoundHandle);
-	if (SoundHandle == nullptr)
-	{
-		MsgBoxAssert("사운드 로드에 실패했습니다. : " + std::string(_Path));
-		return;
-	}
-
-	//SoundSystem->playSound(SoundHandle, nullptr, false, nullptr);
-}
+float UEngineSound::GlobalVolume = 1.0f;
 
 void UEngineSound::SetGlobalVolume(float _Value)
 {
@@ -93,17 +61,41 @@ void UEngineSound::SetGlobalVolume(float _Value)
 	}
 }
 
+void UEngineSound::Load(std::string_view _Path, std::string_view _Name)
+{
+	std::string UpperName = UEngineString::ToUpper(_Name);
+
+	if (IsRes(UpperName) == true)
+	{
+		MsgBoxAssert("이미 로드된 사운드를 다시 로드하려 했습니다. : " + UpperName);
+		return;
+	}
+
+	std::shared_ptr<UEngineSound> NewSound = CreateResName(_Name, _Path);
+	NewSound->ResLoad(_Path);
+}
+
+void UEngineSound::Update()
+{
+	if (SoundSystem == nullptr)
+	{
+		MsgBoxAssert("사운드시스템에 치명적인 오류가 있습니다.");
+	}
+
+	SoundSystem->update();
+}
+
 UEngineSoundPlayer UEngineSound::SoundPlay(std::string_view _Name)
 {
 	std::string UpperName = UEngineString::ToUpper(_Name);
 
-	if (Resources.contains(UpperName) == false)
+	if (IsRes(UpperName.c_str()) == false)
 	{
-		MsgBoxAssert("로드하지 않은 사운드를 재생하려고 했습니다. : " + UpperName);
+		MsgBoxAssert("로드되지 않은 사운드를 재생하려고 했습니다. : " + UpperName);
 		return UEngineSoundPlayer();
 	}
 
-	UEngineSound* FindSound = Resources[UpperName];
+	std::shared_ptr <UEngineSound> FindSound = FindRes(UpperName);
 
 	UEngineSoundPlayer Result;
 	SoundSystem->playSound(FindSound->SoundHandle, nullptr, false, &Result.Control);
@@ -119,27 +111,25 @@ UEngineSoundPlayer UEngineSound::SoundPlay(std::string_view _Name)
 	return Result;
 }
 
-void UEngineSound::Load(std::string_view _Path, std::string_view _Name)
+UEngineSound::UEngineSound()
 {
-	std::string UpperName = UEngineString::ToUpper(_Name);
 
-	if (Resources.contains(UpperName) == true)
+}
+
+UEngineSound::~UEngineSound()
+{
+
+}
+
+void UEngineSound::ResLoad(std::string_view _Path)
+{
+	SoundSystem->createSound(_Path.data(), FMOD_LOOP_NORMAL, nullptr, &SoundHandle);
+	
+	if (SoundHandle == nullptr)
 	{
-		MsgBoxAssert("이미 로드된 사운드를 다시 로드하려 했습니다.");
+		MsgBoxAssert("사운드 로드에 실패했습니다. : " + std::string(_Path));
 		return;
 	}
 
-	UEngineSound* NewSound = new UEngineSound();
-	NewSound->ResLoad(_Path);
-	Resources[UpperName] = NewSound;
-}
-
-void UEngineSound::Update()
-{
-	if (SoundSystem == nullptr)
-	{
-		MsgBoxAssert("사운드시스템에 치명적인 오류가 있습니다.");
-	}
-
-	SoundSystem->update();
+	//SoundSystem->playSound(SoundHandle, nullptr, false, nullptr);
 }

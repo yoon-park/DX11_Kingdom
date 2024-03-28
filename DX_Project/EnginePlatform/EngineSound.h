@@ -1,4 +1,5 @@
 #pragma once
+#include "EngineResources.h"
 #include "ThirdParty\FMOD\inc\fmod.hpp"
 
 class UEngineSoundPlayer 
@@ -47,13 +48,12 @@ private:
 	FMOD::Channel* Control = nullptr;
 };
 
-class UEngineSound
+class UEngineSound : public UEngineResources<UEngineSound>
 {
 	friend class ResControl;
 
 private:
 	friend UEngineSoundPlayer;
-	static std::map<std::string, UEngineSound*> Resources;
 	static float GlobalVolume;
 
 public:
@@ -84,7 +84,4 @@ protected:
 
 private:
 	FMOD::Sound* SoundHandle = nullptr;
-
-	static void ResourcesRelease();
 };
-
