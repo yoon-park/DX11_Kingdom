@@ -3,7 +3,8 @@
 
 #include <EngineBase/EngineFile.h>
 #include <EngineBase/EngineDirectory.h>
-#include "EngineOption.h"
+
+UEngineCore* GEngine = nullptr;
 
 UEngineCore::UEngineCore()
 {
@@ -12,14 +13,19 @@ UEngineCore::UEngineCore()
 
 UEngineCore::~UEngineCore()
 {
+	UEngineDirectory Dir;
+	Dir.MoveToSearchChild("Config");
 
+	UEngineFile File = Dir.GetPathFromFile("EngineOption.EData");
+	UEngineSerializer Ser;
+	EngineOption.Serialize(Ser);
+
+	File.Open(EIOOpenMode::Write, EIODataType::Text);
+	File.Save(Ser);
 }
 
-UEngineCore* GEngine = nullptr;
-
-void UEngineCore::EngineStart(HINSTANCE _Inst)
+void UEngineCore::EngineOptionInit()
 {
-	FEngineOption Option;
 	UEngineDirectory Dir;
 	Dir.MoveToSearchChild("Config");
 
@@ -27,7 +33,7 @@ void UEngineCore::EngineStart(HINSTANCE _Inst)
 	{
 		UEngineFile File = Dir.GetPathFromFile("EngineOption.EData");
 		UEngineSerializer Ser;
-		Option.Serialize(Ser);
+		EngineOption.Serialize(Ser);
 
 		File.Open(EIOOpenMode::Write, EIODataType::Text);
 		File.Save(Ser);
@@ -39,18 +45,30 @@ void UEngineCore::EngineStart(HINSTANCE _Inst)
 		File = Dir.GetPathFromFile("EngineOption.EData");
 		File.Open(EIOOpenMode::Read, EIODataType::Text);
 		File.Load(Ser);
-		Option.DeSerialize(Ser);
+		EngineOption.DeSerialize(Ser);
+	}
+}
+
+void UEngineCore::EngineStart(HINSTANCE _Inst)
+{
+	EngineOptionInit();
+
+	EngineWindow.Open(EngineOption.WindowTitle);
+	EngineWindow.SetWindowScale(EngineOption.WindowScale);
+
+	{
+		UserCorePtr->Initialize();
+		MainTimer.TimeCheckStart();
 	}
 
-	EngineWindow.Open(Option.WindowTitle);
-	EngineWindow.SetWindowScale(Option.WindowScale);
-
-	UserCorePtr->Initialize();
-
 	UEngineWindow::WindowMessageLoop(
-		nullptr,
+		std::bind(&UEngineCore::EngineUpdate, this),
 		nullptr
-		//std::bind(&UEngineCore::Update, &Core),
-		//std::bind(&UEngineCore::End, &Core)
 	);
+}
+
+void UEngineCore::EngineUpdate()
+{
+	float DeltaTime = MainTimer.TimeCheck();
+	UEngineInput::KeyCheckTick(DeltaTime);
 }

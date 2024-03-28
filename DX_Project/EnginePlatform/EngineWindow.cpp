@@ -32,7 +32,7 @@ void UEngineWindow::Init(HINSTANCE _hInst)
 	hInstance = _hInst;
 }
 
-unsigned __int64 UEngineWindow::WindowMessageLoop(void(*_Update)(), void(*_End)())
+unsigned __int64 UEngineWindow::WindowMessageLoop(std::function<void()> _Update, std::function<void()> _End)
 {
 	MSG msg = {};
 

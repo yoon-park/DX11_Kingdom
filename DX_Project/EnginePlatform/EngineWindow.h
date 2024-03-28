@@ -2,6 +2,7 @@
 #include <Windows.h>
 #include <string>
 #include <memory>
+#include <functional>
 
 #include <EngineBase\EngineMath.h>
 
@@ -19,7 +20,7 @@ public:
 	UEngineWindow& operator=(UEngineWindow&& _Other) noexcept = delete;
 
 	static void Init(HINSTANCE _hInst);
-	static unsigned __int64 WindowMessageLoop(void(*_Update)(), void(*_End)());
+	static unsigned __int64 WindowMessageLoop(std::function<void()> _Update, std::function<void()> _End);
 
 	std::shared_ptr<UWindowImage> GetWindowImage()
 	{

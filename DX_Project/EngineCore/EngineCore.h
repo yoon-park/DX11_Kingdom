@@ -2,6 +2,7 @@
 #include <Windows.h>
 
 #include <EnginePlatform/EngineWindow.h>
+#include "EngineOption.h"
 
 #pragma comment (lib, "EngineBase.lib")
 #pragma comment (lib, "EnginePlatform.lib")
@@ -40,10 +41,16 @@ public:
 protected:
 
 private:
+	FEngineOption EngineOption;
+	UEngineTime MainTimer;
 	UEngineWindow EngineWindow;
-	UserCore* UserCorePtr;
+
+	UserCore* UserCorePtr = nullptr;
+
+	void EngineOptionInit();
 
 	void EngineStart(HINSTANCE _Inst);
+	void EngineUpdate();
 };
 
 extern UEngineCore* GEngine;
