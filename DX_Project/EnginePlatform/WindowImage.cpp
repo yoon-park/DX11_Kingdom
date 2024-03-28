@@ -1,16 +1,6 @@
 #include "PreCompile.h"
 #include "WindowImage.h"
 
-#include <Windows.h>
-
-#include <EngineBase\EngineDebug.h>
-#include <EngineBase\EngineString.h>
-#include <EngineBase\EngineDirectory.h>
-#include <EngineBase\EngineFile.h>
-
-#pragma comment(lib, "Msimg32.lib")
-#pragma comment(lib, "Gdiplus.lib")
-
 UWindowImage::UWindowImage()
 {
 

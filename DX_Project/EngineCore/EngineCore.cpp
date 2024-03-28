@@ -1,9 +1,6 @@
 #include "PreCompile.h"
 #include "EngineCore.h"
 
-#include <EngineBase/EngineFile.h>
-#include <EngineBase/EngineDirectory.h>
-
 UEngineCore* GEngine = nullptr;
 
 UEngineCore::UEngineCore()

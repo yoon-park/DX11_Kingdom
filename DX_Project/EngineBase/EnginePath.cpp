@@ -1,8 +1,6 @@
 #include "PreCompile.h"
 #include "EnginePath.h"
 
-#include <Windows.h>
-
 #include "EngineDebug.h"
 
 UEnginePath::UEnginePath() 
@@ -60,7 +58,7 @@ void UEnginePath::Move(std::string_view _Path)
 	NextPath.append(_Path);
 
 	bool Check = std::filesystem::exists(NextPath);
-	if (false == Check)
+	if (Check == false)
 	{
 		MsgBoxAssert(NextPath.string() + "라는 경로는 존재하지 않습니다");
 	}

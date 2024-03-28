@@ -1,12 +1,6 @@
 #pragma once
-#include <Windows.h>
-
-#include <EnginePlatform/EngineWindow.h>
 #include "EngineOption.h"
 #include "EngineGraphicDevice.h"
-
-#pragma comment (lib, "EngineBase.lib")
-#pragma comment (lib, "EnginePlatform.lib")
 
 class UserCore
 {

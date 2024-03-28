@@ -1,5 +1,4 @@
 #pragma once
-#include <EngineCore/EngineCore.h>
 
 class UContentsCore : public UserCore
 {

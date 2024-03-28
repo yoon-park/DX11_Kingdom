@@ -2,18 +2,18 @@
 
 #include <EnginePlatform/PreCompile.h>
 
-// DirectX
-#include <d3d11_4.h>		// DX 메인 헤더
-#include <d3dcompiler.h>	// 쉐이더 컴파일러
+#include <EnginePlatform/EngineInput.h>
+#include <EnginePlatform/EngineSound.h>
+#include <EnginePlatform/EngineResources.h>
+#include <EnginePlatform/EngineWindow.h>
+#include <EnginePlatform/WindowImage.h>
 
 // FMOD
 #include <EnginePlatform/ThirdParty/FMOD/inc/fmod.hpp>
 
-#include <EnginePlatform/EngineSound.h>
-#include <EnginePlatform/EngineWindow.h>
-#include <EnginePlatform/EngineWindow.h>
-#include <EnginePlatform/EngineResources.h>
-#include <EnginePlatform/EngineInput.h>
+// DirectX
+#include <d3d11_4.h>		// DX 메인 헤더
+#include <d3dcompiler.h>	// 쉐이더 컴파일러
 
 #pragma comment(lib, "d3d11")
 #pragma comment(lib, "d3dcompiler")

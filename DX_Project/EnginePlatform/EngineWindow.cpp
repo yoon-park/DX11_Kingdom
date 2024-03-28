@@ -1,7 +1,6 @@
 #include "PreCompile.h"
 #include "EngineWindow.h"
 
-#include <EngineBase\EngineDebug.h>
 #include "WindowImage.h"
 
 bool UEngineWindow::WindowLive = true;

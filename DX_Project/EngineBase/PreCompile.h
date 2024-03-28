@@ -2,15 +2,26 @@
 
 #include <Windows.h>
 #include <assert.h>
+#include <objidl.h>
+#include <gdiplus.h>
+#include <cmath>
+#include <random>
+#include <time.h>
+
 #include <string>
 #include <string_view>
 #include <functional>
 #include <memory>
+#include <filesystem>
 
 #include <map>
 #include <list>
 #include <set>
 #include <vector>
+
+#include <sstream>
+#include <iostream>
+#include <format>
 
 #include <chrono>
 

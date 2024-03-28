@@ -1,14 +1,4 @@
 #pragma once
-#include <Windows.h>
-#include <objidl.h>
-#include <gdiplus.h>
-#include <string>
-#include <string_view>
-
-#include <EngineBase\EngineDebug.h>
-#include <EngineBase\EngineMath.h>
-#include <EngineBase\Transform.h>
-#include <EngineBase\PathObject.h>
 
 enum class EImageLoadType
 {
