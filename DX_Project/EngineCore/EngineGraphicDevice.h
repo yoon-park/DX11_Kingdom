@@ -20,7 +20,10 @@ protected:
 private:
 	struct ID3D11Device* Device = nullptr;
 	struct ID3D11DeviceContext* Context = nullptr;
+	struct IDXGIAdapter* Adapter = nullptr;
+	struct IDXGISwapChain* SwapChain = nullptr;
 	const class UEngineWindow* WindowPtr;
 
-	struct IDXGIAdapter* GetHighPerFormanceAdapter();
+	struct IDXGIAdapter* GetHighPerformanceAdapter();
+	void CreateSwapChain();
 };

@@ -1,6 +1,8 @@
 #include "PreCompile.h"
 #include "EngineCore.h"
 
+#include "EngineTexture.h"
+
 UEngineCore* GEngine = nullptr;
 
 UEngineCore::UEngineCore()
@@ -76,6 +78,5 @@ void UEngineCore::EngineUpdate()
 void UEngineCore::EngineEnd()
 {
 	UEngineSound::ResourcesRelease();
-
-	/* 다른 종류 리소스들 */
+	UEngineTexture::ResourcesRelease();
 }
