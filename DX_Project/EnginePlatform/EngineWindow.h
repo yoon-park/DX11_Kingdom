@@ -22,50 +22,45 @@ public:
 	static void Init(HINSTANCE _hInst);
 	static unsigned __int64 WindowMessageLoop(std::function<void()> _Update, std::function<void()> _End);
 
-	std::shared_ptr<UWindowImage> GetWindowImage()
+	HWND GetHWND() const
+	{
+		return hWnd;
+	}
+	std::shared_ptr<UWindowImage> GetWindowImage() const
 	{
 		return WindowImage;
 	}
-
-	std::shared_ptr<UWindowImage> GetBackBufferImage()
+	std::shared_ptr<UWindowImage> GetBackBufferImage() const
 	{
 		return BackBufferImage;
 	}
-
-	FVector GetWindowScale()
+	FVector GetWindowScale() const
 	{
 		return Scale;
 	}
-
 	FVector GetMousePosition();
 
 	void SetWindowPosition(const FVector& _Pos);
 	void SetWindowScale(const FVector& _Scale);
-
+	void SetWindowTitle(std::string_view _Text)
+	{
+		SetWindowTextA(hWnd, _Text.data());
+	}
 	void SetClearColor(Color8Bit _Color)
 	{
 		_Color.A = 0;
 		ClearColor = _Color;
 	}
-
-	void SetWindowTitle(std::string_view _Text)
-	{
-		SetWindowTextA(hWnd, _Text.data());
-	}
-
 	void SetWindowSmallIcon();
+	void CursorOff();
 
 	void Open(std::string_view _Title = "Title", std::string_view _IconPath = "");
-
+	void ScreenClear();
+	void ScreenUpdate();
 	void Off()
 	{
 		WindowLive = false;
 	}
-
-	void ScreenClear();
-	void ScreenUpdate();
-
-	void CursorOff();
 
 protected:
 

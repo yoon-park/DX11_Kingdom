@@ -3,6 +3,7 @@
 
 #include <EnginePlatform/EngineWindow.h>
 #include "EngineOption.h"
+#include "EngineGraphicDevice.h"
 
 #pragma comment (lib, "EngineBase.lib")
 #pragma comment (lib, "EnginePlatform.lib")
@@ -44,6 +45,7 @@ private:
 	FEngineOption EngineOption;
 	UEngineTime MainTimer;
 	UEngineWindow EngineWindow;
+	UEngineGraphicDevice EngineDevice;
 
 	UserCore* UserCorePtr = nullptr;
 

@@ -172,6 +172,10 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="EngineCore.h" />
+    <ClInclude Include="EngineGraphicDevice.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="EngineOption.h">
       <SubType>
       </SubType>
@@ -183,6 +187,10 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="EngineCore.cpp" />
+    <ClCompile Include="EngineGraphicDevice.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
     <ClCompile Include="EngineOption.cpp">
       <SubType>
       </SubType>

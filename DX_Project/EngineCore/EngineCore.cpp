@@ -55,6 +55,7 @@ void UEngineCore::EngineStart(HINSTANCE _Inst)
 
 	EngineWindow.Open(EngineOption.WindowTitle);
 	EngineWindow.SetWindowScale(EngineOption.WindowScale);
+	EngineDevice.Initialize(EngineWindow);
 
 	{
 		UserCorePtr->Initialize();

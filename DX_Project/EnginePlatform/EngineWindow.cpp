@@ -109,6 +109,11 @@ void UEngineWindow::SetWindowSmallIcon()
 
 }
 
+void UEngineWindow::CursorOff()
+{
+	ShowCursor(FALSE);
+}
+
 void UEngineWindow::Open(std::string_view _Title /*= "Title"*/, std::string_view _IconPath /*= ""*/)
 {
 	HICON hIcon = nullptr;
@@ -163,7 +168,7 @@ void UEngineWindow::Open(std::string_view _Title /*= "Title"*/, std::string_view
 
 	HDC hDC = GetDC(hWnd);
 
-	if (nullptr == WindowImage)
+	if (WindowImage == nullptr)
 	{
 		WindowImage = std::make_shared<UWindowImage>();
 		WindowImage->Create(hDC);
@@ -189,9 +194,4 @@ void UEngineWindow::ScreenUpdate()
 	CopyTrans.SetScale({ Scale.iX(), Scale.iY() });
 
 	WindowImage->BitCopy(BackBufferImage, CopyTrans);
-}
-
-void UEngineWindow::CursorOff()
-{
-	ShowCursor(FALSE);
 }
