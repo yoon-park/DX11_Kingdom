@@ -27,7 +27,7 @@ UEngineGraphicDevice::~UEngineGraphicDevice()
 	}
 }
 
-void UEngineGraphicDevice::Initialize(const UEngineWindow& _Window)
+void UEngineGraphicDevice::Initialize(const UEngineWindow& _Window, const float4& _ClearColor)
 {
 	if (_Window.GetHWND() == nullptr)
 	{
@@ -41,7 +41,7 @@ void UEngineGraphicDevice::Initialize(const UEngineWindow& _Window)
 #endif
 	
 	D3D_FEATURE_LEVEL Level = D3D_FEATURE_LEVEL_11_0;
-	Adapter = GetHighPerFormanceAdapter();
+	Adapter = GetHighPerformanceAdapter();
 
 	if (Adapter == nullptr)
 	{
@@ -99,7 +99,23 @@ void UEngineGraphicDevice::Initialize(const UEngineWindow& _Window)
 
 	WindowPtr = &_Window;
 
-	CreateSwapChain();
+	CreateSwapChain(_ClearColor);
+}
+
+void UEngineGraphicDevice::RenderStart()
+{
+	BackBufferRenderTarget->Clear();
+}
+
+void UEngineGraphicDevice::RenderEnd()
+{
+	HRESULT Result = SwapChain->Present(0, 0);
+
+	if (Result == DXGI_ERROR_DEVICE_REMOVED || Result == DXGI_ERROR_DEVICE_RESET)
+	{
+		MsgBoxAssert("해상도 또는 디바이스 관련 설정이 변경 되었습니다.");
+		return;
+	}
 }
 
 IDXGIAdapter* UEngineGraphicDevice::GetHighPerformanceAdapter()
@@ -150,7 +166,7 @@ IDXGIAdapter* UEngineGraphicDevice::GetHighPerformanceAdapter()
 	return Adapter;
 }
 
-void UEngineGraphicDevice::CreateSwapChain()
+void UEngineGraphicDevice::CreateSwapChain(const float4& _ClearColor)
 {
 	float4 Resolution = WindowPtr->GetWindowScale();
 
@@ -188,5 +204,5 @@ void UEngineGraphicDevice::CreateSwapChain()
 	}
 
 	std::shared_ptr<UEngineTexture> Texture = UEngineTexture::Create(DXBackBufferTexture);
-	std::shared_ptr<UEngineRenderTarget> RenderTarget = UEngineRenderTarget::Create(Texture);
+	BackBufferRenderTarget = UEngineRenderTarget::Create(Texture, _ClearColor);
 }

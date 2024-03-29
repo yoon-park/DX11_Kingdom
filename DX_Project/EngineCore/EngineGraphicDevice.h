@@ -1,6 +1,7 @@
 #pragma once
 
-class UEngineWindow;
+//class UEngineWindow;
+class UEngineRenderTarget;
 
 class UEngineGraphicDevice
 {
@@ -13,7 +14,20 @@ public:
 	UEngineGraphicDevice& operator=(const UEngineGraphicDevice& _Other) = delete;
 	UEngineGraphicDevice& operator=(UEngineGraphicDevice&& _Other) noexcept = delete;
 
-	void Initialize(const UEngineWindow& _Window);
+	struct ID3D11Device* GetDevice()
+	{
+		return Device;
+	}
+
+	struct ID3D11DeviceContext* GetContext()
+	{
+		return Context;
+	}
+
+	void Initialize(const UEngineWindow& _Window, const float4& _ClearColor);
+
+	void RenderStart();
+	void RenderEnd();
 
 protected:
 
@@ -23,7 +37,8 @@ private:
 	struct IDXGIAdapter* Adapter = nullptr;
 	struct IDXGISwapChain* SwapChain = nullptr;
 	const class UEngineWindow* WindowPtr;
+	std::shared_ptr<UEngineRenderTarget> BackBufferRenderTarget = nullptr;
 
 	struct IDXGIAdapter* GetHighPerformanceAdapter();
-	void CreateSwapChain();
+	void CreateSwapChain(const float4& _ClearColor);
 };

@@ -51,12 +51,12 @@ void UEngineCore::EngineOptionInit()
 void UEngineCore::EngineStart(HINSTANCE _Inst)
 {
 	LeakCheck;
+	GEngine = this;
 
 	EngineOptionInit();
 	EngineWindow.Open(EngineOption.WindowTitle);
 	EngineWindow.SetWindowScale(EngineOption.WindowScale);
-
-	EngineDevice.Initialize(EngineWindow);
+	EngineDevice.Initialize(EngineWindow, EngineOption.ClearColor);
 
 	{
 		UserCorePtr->Initialize();
@@ -73,6 +73,9 @@ void UEngineCore::EngineUpdate()
 {
 	float DeltaTime = MainTimer.TimeCheck();
 	UEngineInput::KeyCheckTick(DeltaTime);
+
+	EngineDevice.RenderStart();
+	EngineDevice.RenderEnd();
 }
 
 void UEngineCore::EngineEnd()

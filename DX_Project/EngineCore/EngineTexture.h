@@ -14,12 +14,22 @@ public:
 	static std::shared_ptr<UEngineTexture> Create(ID3D11Texture2D* _Texture)
 	{
 		std::shared_ptr<UEngineTexture> NewRes = CreateResUnName();
-		NewRes->Texture = _Texture;
+		NewRes->CreateRes(_Texture);
 		return NewRes;
+	}
+
+	ID3D11RenderTargetView* GetRTV()
+	{
+		return RTV;
 	}
 
 protected:
 
 private:
-	ID3D11Texture2D* Texture = nullptr;
+	ID3D11Texture2D* Texture2D = nullptr;
+	ID3D11RenderTargetView* RTV = nullptr;
+	D3D11_TEXTURE2D_DESC Desc;
+
+	void CreateRes(ID3D11Texture2D* _Texture);
+	void CreateRenderTargetView();
 };

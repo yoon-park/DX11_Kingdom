@@ -28,6 +28,21 @@ public:
 		Core.EngineStart(_Inst);
 	}
 
+	UEngineGraphicDevice& GetEngineDevice()
+	{
+		return EngineDevice;
+	}
+
+	struct ID3D11Device* GetDirectXDevice()
+	{
+		return EngineDevice.GetDevice();
+	}
+
+	struct ID3D11DeviceContext* GetDirectXContext()
+	{
+		return EngineDevice.GetContext();
+	}
+
 	void SetWindowScale(FVector _Scale)
 	{
 		EngineWindow.SetWindowScale(_Scale);
