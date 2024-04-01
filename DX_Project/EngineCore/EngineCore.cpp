@@ -2,6 +2,7 @@
 #include "EngineCore.h"
 
 #include "EngineTexture.h"
+#include "Level.h"
 
 UEngineCore* GEngine = nullptr;
 
@@ -64,17 +65,25 @@ void UEngineCore::EngineStart(HINSTANCE _Inst)
 	}
 
 	UEngineWindow::WindowMessageLoop(
-		std::bind(&UEngineCore::EngineUpdate, this),
+		std::bind(&UEngineCore::EngineFrameUpdate, this),
 		std::bind(&UEngineCore::EngineEnd, this)
 	);
 }
 
-void UEngineCore::EngineUpdate()
+void UEngineCore::EngineFrameUpdate()
 {
 	float DeltaTime = MainTimer.TimeCheck();
 	UEngineInput::KeyCheckTick(DeltaTime);
 
+	if (NextLevel != nullptr)
+	{
+		CurLevel = NextLevel;
+		NextLevel = nullptr;
+	}
+
+	// CurLevel->Tick(DeltaTime);
 	EngineDevice.RenderStart();
+	// CurLevel->Render(DeltaTime);
 	EngineDevice.RenderEnd();
 }
 
@@ -82,4 +91,13 @@ void UEngineCore::EngineEnd()
 {
 	UEngineSound::ResourcesRelease();
 	UEngineTexture::ResourcesRelease();
+}
+
+std::shared_ptr<ULevel> UEngineCore::NewLevelCreate(std::string& _Name, std::shared_ptr<AActor> _GameMode)
+{
+	std::shared_ptr<ULevel> Level = std::make_shared<ULevel>();
+	Level->PushActor(_GameMode);
+	Level->BeginPlay();
+	Levels[_Name] = Level;
+	return Level;
 }

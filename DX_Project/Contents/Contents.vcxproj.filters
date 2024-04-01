@@ -7,6 +7,12 @@
     <ClInclude Include="ContentsCore.h">
       <Filter>Core</Filter>
     </ClInclude>
+    <ClInclude Include="PlayGameMode.h">
+      <Filter>PlayLevel</Filter>
+    </ClInclude>
+    <ClInclude Include="Player.h">
+      <Filter>PlayLevel</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="PreCompile.cpp">
@@ -15,6 +21,12 @@
     <ClCompile Include="ContentsCore.cpp">
       <Filter>Core</Filter>
     </ClCompile>
+    <ClCompile Include="PlayGameMode.cpp">
+      <Filter>PlayLevel</Filter>
+    </ClCompile>
+    <ClCompile Include="Player.cpp">
+      <Filter>PlayLevel</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="PreCompile">
@@ -22,6 +34,9 @@
     </Filter>
     <Filter Include="Core">
       <UniqueIdentifier>{cebef509-928e-4040-8cac-62d686d7e361}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="PlayLevel">
+      <UniqueIdentifier>{e3c5afe5-3e1d-4e41-a320-511c8e59947e}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

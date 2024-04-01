@@ -175,6 +175,14 @@
       <SubType>
       </SubType>
     </ClInclude>
+    <ClInclude Include="Player.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="PlayGameMode.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="PreCompile.h">
       <SubType>
       </SubType>
@@ -182,6 +190,14 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ContentsCore.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="Player.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="PlayGameMode.cpp">
       <SubType>
       </SubType>
     </ClCompile>

@@ -12,6 +12,7 @@
 #include <EngineBase/Transform.h>
 #include <EngineBase/NameObject.h>
 #include <EngineBase/PathObject.h>
+#include <EngineBase/TransformObject.h>
 #include <EngineBase/EngineString.h>
 #include <EngineBase/EngineTime.h>
 
