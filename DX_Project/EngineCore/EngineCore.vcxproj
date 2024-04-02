@@ -187,8 +187,20 @@
       <SubType>
       </SubType>
     </ClInclude>
+    <ClInclude Include="EngineBuffer.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="EngineCore.h" />
     <ClInclude Include="EngineGraphicDevice.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="EngineIndexBuffer.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="EngineMesh.h">
       <SubType>
       </SubType>
     </ClInclude>
@@ -201,6 +213,14 @@
       </SubType>
     </ClInclude>
     <ClInclude Include="EngineTexture.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="EngineVertex.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="EngineVertexBuffer.h">
       <SubType>
       </SubType>
     </ClInclude>
@@ -250,8 +270,21 @@
       <SubType>
       </SubType>
     </ClCompile>
+    <ClCompile Include="EngineBuffer.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
     <ClCompile Include="EngineCore.cpp" />
     <ClCompile Include="EngineGraphicDevice.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="EngineGraphicDevice_Resources.cpp" />
+    <ClCompile Include="EngineIndexBuffer.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="EngineMesh.cpp">
       <SubType>
       </SubType>
     </ClCompile>
@@ -264,6 +297,10 @@
       </SubType>
     </ClCompile>
     <ClCompile Include="EngineTexture.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="EngineVertexBuffer.cpp">
       <SubType>
       </SubType>
     </ClCompile>

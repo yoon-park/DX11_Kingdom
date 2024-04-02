@@ -49,6 +49,21 @@
     <ClInclude Include="DefaultSceneComponent.h">
       <Filter>Object\Component</Filter>
     </ClInclude>
+    <ClInclude Include="EngineVertex.h">
+      <Filter>Resources\Mesh</Filter>
+    </ClInclude>
+    <ClInclude Include="EngineBuffer.h">
+      <Filter>Resources\Mesh\Buffer</Filter>
+    </ClInclude>
+    <ClInclude Include="EngineVertexBuffer.h">
+      <Filter>Resources\Mesh\Buffer</Filter>
+    </ClInclude>
+    <ClInclude Include="EngineIndexBuffer.h">
+      <Filter>Resources\Mesh\Buffer</Filter>
+    </ClInclude>
+    <ClInclude Include="EngineMesh.h">
+      <Filter>Resources\Mesh</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="PreCompile.cpp">
@@ -99,6 +114,21 @@
     <ClCompile Include="DefaultSceneComponent.cpp">
       <Filter>Object\Component</Filter>
     </ClCompile>
+    <ClCompile Include="EngineBuffer.cpp">
+      <Filter>Resources\Mesh\Buffer</Filter>
+    </ClCompile>
+    <ClCompile Include="EngineVertexBuffer.cpp">
+      <Filter>Resources\Mesh\Buffer</Filter>
+    </ClCompile>
+    <ClCompile Include="EngineIndexBuffer.cpp">
+      <Filter>Resources\Mesh\Buffer</Filter>
+    </ClCompile>
+    <ClCompile Include="EngineGraphicDevice_Resources.cpp">
+      <Filter>Device</Filter>
+    </ClCompile>
+    <ClCompile Include="EngineMesh.cpp">
+      <Filter>Resources\Mesh</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="PreCompile">
@@ -127,6 +157,12 @@
     </Filter>
     <Filter Include="Object\Component">
       <UniqueIdentifier>{a5d85c8c-2653-4d92-ad32-18d81cc46dab}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resources\Mesh">
+      <UniqueIdentifier>{36bd423a-809a-45e4-8f9a-d285973dcd0e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resources\Mesh\Buffer">
+      <UniqueIdentifier>{53889efc-fe92-4e49-8c5e-8d441b27abb9}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

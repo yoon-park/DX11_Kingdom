@@ -1,9 +1,10 @@
 #include "PreCompile.h"
 #include "EngineCore.h"
 
-#include "EngineTexture.h"
 #include "Level.h"
 #include "GameMode.h"
+#include "EngineVertexBuffer.h"
+#include "EngineTexture.h"
 
 UEngineCore* GEngine = nullptr;
 
@@ -90,8 +91,7 @@ void UEngineCore::EngineFrameUpdate()
 
 void UEngineCore::EngineEnd()
 {
-	UEngineSound::ResourcesRelease();
-	UEngineTexture::ResourcesRelease();
+	EngineDevice.EngineResourcesRelease();
 }
 
 std::shared_ptr<ULevel> UEngineCore::NewLevelCreate(std::string& _Name, std::shared_ptr<AActor> _GameMode)

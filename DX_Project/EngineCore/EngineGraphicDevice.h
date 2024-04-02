@@ -1,10 +1,12 @@
 #pragma once
 
-//class UEngineWindow;
+class UEngineCore;
 class UEngineRenderTarget;
 
 class UEngineGraphicDevice
 {
+	friend UEngineCore;
+
 public:
 	UEngineGraphicDevice();
 	~UEngineGraphicDevice();
@@ -41,4 +43,7 @@ private:
 
 	struct IDXGIAdapter* GetHighPerformanceAdapter();
 	void CreateSwapChain(const float4& _ClearColor);
+
+	void EngineResourcesInit();
+	void EngineResourcesRelease();
 };

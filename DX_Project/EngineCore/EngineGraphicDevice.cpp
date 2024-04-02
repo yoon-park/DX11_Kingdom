@@ -100,6 +100,7 @@ void UEngineGraphicDevice::Initialize(const UEngineWindow& _Window, const float4
 	WindowPtr = &_Window;
 
 	CreateSwapChain(_ClearColor);
+	EngineResourcesInit();
 }
 
 void UEngineGraphicDevice::RenderStart()
@@ -199,7 +200,7 @@ void UEngineGraphicDevice::CreateSwapChain(const float4& _ClearColor)
 	
 	if (SwapChain->GetBuffer(0, __uuidof(ID3D11Texture2D), reinterpret_cast<void**>(&DXBackBufferTexture)) != S_OK)
 	{
-		MsgBoxAssert("백버퍼 텍스처를 얻어오지 못했습니다.");
+		MsgBoxAssert("백버퍼 텍스처를 가져오지 못했습니다.");
 		return;
 	}
 
