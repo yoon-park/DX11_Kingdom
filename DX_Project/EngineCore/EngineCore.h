@@ -36,13 +36,13 @@ public:
 	{
 		std::string UpperName = UEngineString::ToUpper(_Name);
 
-		if (true == Levels.contains(UpperName))
+		if (Levels.contains(UpperName) == true)
 		{
 			MsgBoxAssert("이미 존재하는 레벨을 또 만들려고 했습니다.");
 			return;
 		}
 
-		std::shared_ptr<AActor> NewGameMode = std::make_shared<GameModeType>();
+		std::shared_ptr<GameModeType> NewGameMode = std::make_shared<GameModeType>();
 
 		NewGameMode->SetOrder(INT_MIN);
 
@@ -53,7 +53,7 @@ public:
 	{
 		std::string UpperName = UEngineString::ToUpper(_Name);
 
-		if (true != Levels.contains(UpperName))
+		if (Levels.contains(UpperName) != true)
 		{
 			MsgBoxAssert("존재하지 않는 레벨을 지정하려고 했습니다.");
 			return;
