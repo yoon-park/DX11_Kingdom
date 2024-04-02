@@ -179,6 +179,10 @@
       <SubType>
       </SubType>
     </ClInclude>
+    <ClInclude Include="Camera.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="EngineCore.h" />
     <ClInclude Include="EngineGraphicDevice.h">
       <SubType>
@@ -231,6 +235,10 @@
       </SubType>
     </ClCompile>
     <ClCompile Include="ActorComponent.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="Camera.cpp">
       <SubType>
       </SubType>
     </ClCompile>

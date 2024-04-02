@@ -81,9 +81,9 @@ void UEngineCore::EngineFrameUpdate()
 		NextLevel = nullptr;
 	}
 
-	// CurLevel->Tick(DeltaTime);
+	CurLevel->Tick(DeltaTime);
 	EngineDevice.RenderStart();
-	// CurLevel->Render(DeltaTime);
+	CurLevel->Render(DeltaTime);
 	EngineDevice.RenderEnd();
 }
 

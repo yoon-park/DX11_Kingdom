@@ -1,9 +1,11 @@
 #pragma once
 #include "SceneComponent.h"
 
-class URenderer : public USceneComponent
+class URenderer : public USceneComponent, public std::enable_shared_from_this<URenderer>
 {
 	GENERATED_BODY(USceneComponent)
+
+	friend ULevel;
 
 public:
 	URenderer();
@@ -19,5 +21,5 @@ protected:
 	void Tick(float _DeltaTime) override;
 
 private:
-
+	void Render(float _DeltaTime);
 };

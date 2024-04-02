@@ -3,6 +3,8 @@
 
 class AActor;
 class AGameMode;
+class URenderer;
+class UCamera;
 class UEngineCore;
 
 class ULevel final : public UTickObject, public UNameObject
@@ -10,6 +12,7 @@ class ULevel final : public UTickObject, public UNameObject
 	GENERATED_BODY(UTickObject)
 
 	friend AActor;
+	friend URenderer;
 	friend UEngineCore;
 
 public:
@@ -35,11 +38,16 @@ public:
 
 protected:
 	void Tick(float _DeltaTime) override;
+	void Render(float _DeltaTime);
 
 private:
 	std::shared_ptr<AGameMode> GameMode;
 	std::map<int, std::list<std::shared_ptr<AActor>>> Actors;
+	std::map<int, std::list<std::shared_ptr<URenderer>>> Renderers;
+
+	std::shared_ptr<UCamera> MainCamera = nullptr;
+	std::shared_ptr<UCamera> UICamera = nullptr;
 
 	void PushActor(std::shared_ptr<AActor> _Actor);
-	void ActorInit(std::shared_ptr<AActor> _Actor);
+	void PushRenderer(std::shared_ptr<URenderer> _Renderer);
 };
