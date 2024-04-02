@@ -2,6 +2,7 @@
 #include "Actor.h"
 
 #include "SceneComponent.h"
+#include "DefaultSceneComponent.h"
 
 AActor::AActor()
 {
@@ -32,6 +33,14 @@ void AActor::Tick(float _DeltaTime)
 	for (size_t i = 0; i < Components.size(); i++)
 	{
 		Components[i]->Tick(_DeltaTime);
+	}
+}
+
+void AActor::RootCheck()
+{
+	if (RootComponent == nullptr)
+	{
+		RootComponent = CreateDefaultSubObject<UDefaultSceneComponent>("UDefaultSceneComponent");
 	}
 }
 

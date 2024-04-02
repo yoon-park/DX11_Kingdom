@@ -53,6 +53,7 @@ void ULevel::PushActor(std::shared_ptr<AActor> _Actor)
 	}
 
 	_Actor->SetWorld(this);
+	_Actor->RootCheck();
 	_Actor->BeginPlay();
 
 	Actors[_Actor->GetOrder()].push_back(_Actor);

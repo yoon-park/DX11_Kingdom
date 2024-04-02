@@ -3,7 +3,7 @@
 
 APlayer::APlayer()
 {
-	Renderer = CreateDefaultSubobject<URenderer>("Renderer");
+	Renderer = CreateDefaultSubObject<URenderer>("Renderer");
 }
 
 APlayer::~APlayer()

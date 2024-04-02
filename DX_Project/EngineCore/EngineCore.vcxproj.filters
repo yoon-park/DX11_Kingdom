@@ -46,6 +46,9 @@
     <ClInclude Include="Camera.h">
       <Filter>Object\Render</Filter>
     </ClInclude>
+    <ClInclude Include="DefaultSceneComponent.h">
+      <Filter>Object\Component</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="PreCompile.cpp">
@@ -92,6 +95,9 @@
     </ClCompile>
     <ClCompile Include="Camera.cpp">
       <Filter>Object\Render</Filter>
+    </ClCompile>
+    <ClCompile Include="DefaultSceneComponent.cpp">
+      <Filter>Object\Component</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

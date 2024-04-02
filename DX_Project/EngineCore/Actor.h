@@ -23,7 +23,7 @@ public:
 	AActor& operator=(AActor&& _Other) noexcept = delete;
 
 	template<typename ComponentType>
-	std::shared_ptr<ComponentType> CreateDefaultSubobject(std::string_view _Name)
+	ComponentType* CreateDefaultSubObject(std::string_view _Name)
 	{
 		if (ULevel::IsActorConstructor == false)
 		{
@@ -34,7 +34,7 @@ public:
 
 		PushComponent(NewComponent, _Name);
 
-		return std::dynamic_pointer_cast<ComponentType>(NewComponent);
+		return dynamic_cast<ComponentType*>(NewComponent.get());
 	}
 
 protected:
@@ -45,5 +45,6 @@ private:
 	USceneComponent* RootComponent = nullptr;
 	std::vector<std::shared_ptr<UActorComponent>> Components;
 
+	void RootCheck();
 	void PushComponent(std::shared_ptr<UActorComponent> _Component, std::string_view _Name);
 };
