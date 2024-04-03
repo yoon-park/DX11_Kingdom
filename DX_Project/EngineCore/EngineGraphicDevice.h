@@ -1,11 +1,13 @@
 #pragma once
 
 class UEngineCore;
+class ULevel;
 class UEngineRenderTarget;
 
 class UEngineGraphicDevice
 {
 	friend UEngineCore;
+	friend ULevel;
 
 public:
 	UEngineGraphicDevice();
@@ -40,6 +42,11 @@ private:
 	struct IDXGISwapChain* SwapChain = nullptr;
 	const class UEngineWindow* WindowPtr;
 	std::shared_ptr<UEngineRenderTarget> BackBufferRenderTarget = nullptr;
+
+	std::shared_ptr<UEngineRenderTarget> GetBackBufferRenderTarget()
+	{
+		return BackBufferRenderTarget;
+	}
 
 	struct IDXGIAdapter* GetHighPerformanceAdapter();
 	void CreateSwapChain(const float4& _ClearColor);

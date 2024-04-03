@@ -52,3 +52,8 @@ void UEngineMesh::InputAssembler2Setting()
 
 	GEngine->GetDirectXContext()->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
 }
+
+void UEngineMesh::IndexedDraw()
+{
+	GEngine->GetDirectXContext()->DrawIndexed(IndexBuffer->Count, 0, 0);
+}

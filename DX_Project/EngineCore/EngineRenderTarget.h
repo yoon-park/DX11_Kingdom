@@ -1,9 +1,12 @@
 #pragma once
 
+class ULevel;
 class UEngineTexture;
 
 class UEngineRenderTarget : public UEngineResources<UEngineRenderTarget>
 {
+	friend ULevel;
+
 public:
 	UEngineRenderTarget();
 	~UEngineRenderTarget();
@@ -30,4 +33,5 @@ private:
 	std::vector<float4> ClearColors;
 
 	void AddNewTexture(std::shared_ptr<UEngineTexture> _Texture, const float4& _Color);
+	void Setting();
 };

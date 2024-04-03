@@ -1,9 +1,11 @@
 #include "PreCompile.h"
 #include "Level.h"
 
+#include "EngineCore.h"
 #include "GameMode.h"
 #include "Renderer.h"
 #include "Camera.h"
+#include "EngineRenderTarget.h"
 
 bool ULevel::IsActorConstructor = true;
 
@@ -33,6 +35,18 @@ void ULevel::Tick(float _DeltaTime)
 
 void ULevel::Render(float _DeltaTime)
 {
+	D3D11_VIEWPORT View;
+
+	View.Width = 1280.0f;
+	View.Height = 720.0f;
+	View.TopLeftX = 0;
+	View.TopLeftY = 0;
+	View.MinDepth = 0;
+	View.MaxDepth = 1;
+
+	GEngine->GetDirectXContext()->RSSetViewports(1, &View);
+	GEngine->GetEngineDevice().BackBufferRenderTarget->Setting();
+
 	for (std::pair<const int, std::list<std::shared_ptr<URenderer>>>& RenderGroup : Renderers)
 	{
 		std::list<std::shared_ptr<URenderer>>& GroupRenderers = RenderGroup.second;

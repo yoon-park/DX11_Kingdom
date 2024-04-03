@@ -54,5 +54,5 @@ void URenderer::Render(float _DeltaTime)
 	Material->RasterizerSetting();
 	Material->PixelShaderSetting();
 
-	// Mesh->Draw();
+	Mesh->IndexedDraw();
 }

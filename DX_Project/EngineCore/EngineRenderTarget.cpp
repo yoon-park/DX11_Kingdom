@@ -14,7 +14,6 @@ UEngineRenderTarget::~UEngineRenderTarget()
 
 }
 
-
 void UEngineRenderTarget::AddNewTexture(std::shared_ptr<UEngineTexture> _Texture, const float4& _Color)
 {
 	Textures.push_back(_Texture);
@@ -22,6 +21,10 @@ void UEngineRenderTarget::AddNewTexture(std::shared_ptr<UEngineTexture> _Texture
 	ClearColors.push_back(_Color);
 }
 
+void UEngineRenderTarget::Setting()
+{
+	GEngine->GetDirectXContext()->OMSetRenderTargets(static_cast<UINT>(RTVs.size()), &RTVs[0], nullptr);
+}
 
 void UEngineRenderTarget::Clear()
 {

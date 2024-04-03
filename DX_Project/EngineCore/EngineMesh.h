@@ -36,4 +36,5 @@ private:
 
 	void InputAssembler1Setting();
 	void InputAssembler2Setting();
+	void IndexedDraw();
 };
