@@ -64,6 +64,21 @@
     <ClInclude Include="EngineMesh.h">
       <Filter>Resources\Mesh</Filter>
     </ClInclude>
+    <ClInclude Include="EngineShader.h">
+      <Filter>Resources\Material\Shader</Filter>
+    </ClInclude>
+    <ClInclude Include="EngineVertexShader.h">
+      <Filter>Resources\Material\Shader</Filter>
+    </ClInclude>
+    <ClInclude Include="EnginePixelShader.h">
+      <Filter>Resources\Material\Shader</Filter>
+    </ClInclude>
+    <ClInclude Include="EngineRasterizer.h">
+      <Filter>Resources\Material</Filter>
+    </ClInclude>
+    <ClInclude Include="EngineMaterial.h">
+      <Filter>Resources\Material</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="PreCompile.cpp">
@@ -129,6 +144,21 @@
     <ClCompile Include="EngineMesh.cpp">
       <Filter>Resources\Mesh</Filter>
     </ClCompile>
+    <ClCompile Include="EngineShader.cpp">
+      <Filter>Resources\Material\Shader</Filter>
+    </ClCompile>
+    <ClCompile Include="EngineVertexShader.cpp">
+      <Filter>Resources\Material\Shader</Filter>
+    </ClCompile>
+    <ClCompile Include="EnginePixelShader.cpp">
+      <Filter>Resources\Material\Shader</Filter>
+    </ClCompile>
+    <ClCompile Include="EngineRasterizer.cpp">
+      <Filter>Resources\Material</Filter>
+    </ClCompile>
+    <ClCompile Include="EngineMaterial.cpp">
+      <Filter>Resources\Material</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="PreCompile">
@@ -163,6 +193,12 @@
     </Filter>
     <Filter Include="Resources\Mesh\Buffer">
       <UniqueIdentifier>{53889efc-fe92-4e49-8c5e-8d441b27abb9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resources\Material">
+      <UniqueIdentifier>{94d302d6-545d-4971-b30e-da9147691227}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resources\Material\Shader">
+      <UniqueIdentifier>{526aff29-e81c-4931-a0ac-bfb3e67d1738}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

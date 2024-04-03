@@ -28,5 +28,11 @@
 #include <EngineCore/EngineMesh.h>
 #include <EngineCore/EngineVertex.h>
 
+#include <EngineCore/EnginePixelShader.h>
+#include <EngineCore/EngineShader.h>
+#include <EngineCore/EngineVertexShader.h>
+#include <EngineCore/EngineMaterial.h>
+#include <EngineCore/EngineRasterizer.h>
+
 #include <EngineCore/EngineRenderTarget.h>
 #include <EngineCore/EngineTexture.h>

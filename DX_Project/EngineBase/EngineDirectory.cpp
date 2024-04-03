@@ -37,7 +37,7 @@ void UEngineDirectory::MoveToSearchChild(std::string_view _Path)
 {
 	while (true)
 	{
-		std::list<UEngineDirectory> Dir = AllDirectory();
+		std::vector<UEngineDirectory> Dir = GetAllDirectory();
 
 		for (UEngineDirectory& _Dir : Dir)
 		{
@@ -60,19 +60,19 @@ void UEngineDirectory::MoveToSearchChild(std::string_view _Path)
 	}
 }
 
-std::list<UEngineDirectory> UEngineDirectory::AllDirectory(bool _Recursive)
+std::vector<UEngineDirectory> UEngineDirectory::GetAllDirectory(bool _Recursive)
 {
-	std::list<UEngineDirectory> Result;
+	std::vector<UEngineDirectory> Result;
 	AllDirectoryRecursive(Path.string(), Result, _Recursive);
 	return Result;
 }
 
-std::list<UEngineFile> UEngineDirectory::AllFile(
+std::vector<UEngineFile> UEngineDirectory::GetAllFile(
 	std::vector<std::string> _Ext,
 	bool _Rescursive
 )
 {
-	std::list<UEngineFile> Result;
+	std::vector<UEngineFile> Result;
 
 	for (size_t i = 0; i < _Ext.size(); i++)
 	{
@@ -83,7 +83,7 @@ std::list<UEngineFile> UEngineDirectory::AllFile(
 	return Result;
 }
 
-void UEngineDirectory::AllDirectoryRecursive(const std::string_view _Path, std::list<UEngineDirectory>& _Result, bool _Recursive/* = false*/)
+void UEngineDirectory::AllDirectoryRecursive(const std::string_view _Path, std::vector<UEngineDirectory>& _Result, bool _Recursive/* = false*/)
 {
 	std::filesystem::directory_iterator DirIter = std::filesystem::directory_iterator(_Path);
 
@@ -109,7 +109,7 @@ void UEngineDirectory::AllDirectoryRecursive(const std::string_view _Path, std::
 
 void UEngineDirectory::AllFileRecursive(
 	const std::string_view _Path,
-	std::list<UEngineFile>& _Result,
+	std::vector<UEngineFile>& _Result,
 	std::vector<std::string> _Ext,
 	bool _Recursive)
 {

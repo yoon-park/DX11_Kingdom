@@ -1,8 +1,14 @@
 #pragma once
 #include "EngineBuffer.h"
 
+class URenderer;
+class UEngineMesh;
+
 class UEngineVertexBuffer : public UEngineResources<UEngineVertexBuffer>, public UEngineBuffer
 {
+	friend URenderer;
+	friend UEngineMesh;
+
 public:
 	UEngineVertexBuffer();
 	~UEngineVertexBuffer();
@@ -25,6 +31,8 @@ protected:
 private:
 	UINT Size = 0;
 	UINT Count = 0;
+	UINT Offset = 0;
 
 	void ResCreate(const void* _Data, UINT _Size, UINT _Count);
+	void Setting();
 };

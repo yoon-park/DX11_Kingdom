@@ -2,7 +2,6 @@
 #include "EngineFile.h"
 
 #include "EngineDebug.h"
-#include "EngineSerializer.h"
 
 UEngineFile::UEngineFile() 
 {
@@ -23,6 +22,16 @@ UEngineFile::~UEngineFile()
 __int64 UEngineFile::GetFileSize()
 {
 	return static_cast<int>(std::filesystem::file_size(Path));
+}
+
+std::string UEngineFile::GetString()
+{
+	Open(EIOOpenMode::Read, EIODataType::Text);
+	UEngineSerializer Ser;
+	Load(Ser);
+	Close();
+
+	return Ser.ToString();
 }
 
 void UEngineFile::Close()

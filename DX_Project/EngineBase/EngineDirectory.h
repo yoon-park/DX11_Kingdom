@@ -21,13 +21,13 @@ public:
 	UEngineFile GetPathFromFile(std::string_view FileName);
 	void MoveToSearchChild(std::string_view _Path);
 
-	std::list<UEngineDirectory> AllDirectory(bool _Recursive = false);
-	std::list<UEngineFile> AllFile(std::vector<std::string> _Ext = std::vector<std::string>(), bool _Recursive = false);
+	std::vector<UEngineDirectory> GetAllDirectory(bool _Recursive = false);
+	std::vector<UEngineFile> GetAllFile(std::vector<std::string> _Ext = std::vector<std::string>(), bool _Recursive = false);
 
 protected:
 
 private:
-	void AllDirectoryRecursive(const std::string_view _Path, std::list<UEngineDirectory>& _Result, bool _Recursive = false);
-	void AllFileRecursive(const std::string_view _Path, std::list<UEngineFile>& _Result, std::vector<std::string> _Ext = std::vector<std::string>(), bool _Recursive = false);
+	void AllDirectoryRecursive(const std::string_view _Path, std::vector<UEngineDirectory>& _Result, bool _Recursive = false);
+	void AllFileRecursive(const std::string_view _Path, std::vector<UEngineFile>& _Result, std::vector<std::string> _Ext = std::vector<std::string>(), bool _Recursive = false);
 };
 

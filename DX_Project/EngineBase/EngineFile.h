@@ -30,6 +30,7 @@ public:
 	*/
 
 	__int64 GetFileSize();
+	std::string GetString();
 
 	void Open(EIOOpenMode _OpenType, EIODataType _DataType);
 	void Close();

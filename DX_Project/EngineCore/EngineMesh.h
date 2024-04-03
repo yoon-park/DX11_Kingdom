@@ -4,6 +4,8 @@
 
 class UEngineMesh : public UEngineResources<UEngineMesh>
 {
+	friend URenderer;
+
 public:
 	UEngineMesh();
 	~UEngineMesh();
@@ -31,4 +33,7 @@ protected:
 private:
 	std::shared_ptr<UEngineVertexBuffer> VertexBuffer = nullptr;
 	std::shared_ptr<UEngineIndexBuffer> IndexBuffer = nullptr;
+
+	void InputAssembler1Setting();
+	void InputAssembler2Setting();
 };

@@ -32,3 +32,15 @@ void UEngineVertexBuffer::ResCreate(const void* _Data, UINT _Size, UINT _Count)
 		return;
 	}
 }
+
+void UEngineVertexBuffer::Setting()
+{
+#ifdef _DEBUG
+	if (Buffer == nullptr)
+	{
+		MsgBoxAssert("만들어지지 않은 버텍스 버퍼를 세팅하려 했습니다. : " + GetName());
+	}
+#endif
+
+	GEngine->GetDirectXContext()->IASetVertexBuffers(0, 1, &Buffer, &Size, &Offset);
+}
