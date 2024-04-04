@@ -21,6 +21,10 @@ void URenderer::SetMesh(std::string_view _Name)
 		return;
 	}
 
+	if (Material != nullptr)
+	{
+		Layout = UEngineInputLayout::Create(Mesh->VertexBuffer, Material->GetVertexShader());
+	}
 }
 
 void URenderer::SetMaterial(std::string_view _Name)
@@ -31,6 +35,11 @@ void URenderer::SetMaterial(std::string_view _Name)
 	{
 		MsgBoxAssert("존재하지 않는 머티리얼을 세팅하려고 했습니다. : " + std::string(_Name));
 		return;
+	}
+
+	if (Mesh != nullptr)
+	{
+		Layout = UEngineInputLayout::Create(Mesh->VertexBuffer, Material->GetVertexShader());
 	}
 }
 
@@ -48,11 +57,24 @@ void URenderer::Tick(float _DeltaTime)
 
 void URenderer::Render(float _DeltaTime)
 {
+	// Input Assembler1
 	Mesh->InputAssembler1Setting();
+	Layout->Setting();
+
+	// Vertex Shader
 	Material->VertexShaderSetting();
+
+	// Input Assembler2
 	Mesh->InputAssembler2Setting();
+
+	// Rasterizer
 	Material->RasterizerSetting();
+
+	// Pixel Shader
 	Material->PixelShaderSetting();
 
+	// OM
+
+	// Draw
 	Mesh->IndexedDraw();
 }

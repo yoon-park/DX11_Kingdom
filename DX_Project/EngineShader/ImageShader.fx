@@ -9,6 +9,8 @@ ImageVSOutPut ImageShader_VS(FEngineVertex _Input)
 {
     ImageVSOutPut Out = (ImageVSOutPut) 0;
     Out.POSITION = _Input.POSITION;
+    //Out.POSITION.xyz = _Input.POSITION.xyz * 2.0f;
+    //Out.POSITION.w = 1.0f;
     return Out;
 }
 

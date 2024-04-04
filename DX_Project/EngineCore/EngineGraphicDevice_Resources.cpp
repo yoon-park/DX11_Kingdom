@@ -11,20 +11,37 @@
 
 void MeshInit()
 {
+	FEngineVertex::Info.AddInputLayout("POSITION", DXGI_FORMAT::DXGI_FORMAT_R32G32B32A32_FLOAT);
+	FEngineVertex::Info.AddInputLayout("COLOR", DXGI_FORMAT::DXGI_FORMAT_R32G32B32A32_FLOAT);
+	
 	{
 		std::vector<FEngineVertex> VertexData;
 		VertexData.resize(4);
-		VertexData[0] = { {-0.5f, 0.5f, 0.0f, 1.0f} };
-		VertexData[1] = { {0.5f, 0.5f, 0.0f, 1.0f} };
-		VertexData[2] = { {0.5f, -0.5f, 0.0f, 1.0f} };
-		VertexData[3] = { {-0.5f, -0.5f, 0.0f, 1.0f} };
 
-		std::shared_ptr<UEngineVertexBuffer> VertexBuffer = UEngineVertexBuffer::Create("Rect", VertexData);
+		{
+			VertexData[0] = { {-0.5f, 0.5f, 0.0f, 1.0f} };
+			VertexData[1] = { {0.5f, 0.5f, 0.0f, 1.0f} };
+			VertexData[2] = { {0.5f, -0.5f, 0.0f, 1.0f} };
+			VertexData[3] = { {-0.5f, -0.5f, 0.0f, 1.0f} };
+
+			std::shared_ptr<UEngineVertexBuffer> VertexBuffer = UEngineVertexBuffer::Create("Rect", VertexData);
+		}
 
 		std::vector<UINT> IndexData = { 0, 1, 2, 0, 2, 3 };
 		std::shared_ptr<UEngineIndexBuffer> IndexBuffer = UEngineIndexBuffer::Create("Rect", IndexData);
 
 		UEngineMesh::Create("Rect");
+
+		{
+			VertexData[0].POSITION *= 2.0f;
+			VertexData[1].POSITION *= 2.0f;
+			VertexData[2].POSITION *= 2.0f;
+			VertexData[3].POSITION *= 2.0f;
+
+			std::shared_ptr<UEngineVertexBuffer> VertexBuffer = UEngineVertexBuffer::Create("FullRect", VertexData);
+		}
+
+		UEngineMesh::Create("FullRect", "FullRect", "Rect");
 	}
 }
 

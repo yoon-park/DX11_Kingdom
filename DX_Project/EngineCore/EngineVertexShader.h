@@ -1,10 +1,14 @@
 #pragma once
 #include "EngineShader.h"
 
+#include "EngineInputLayout.h"
+
+class UEngineInputLayout;
 class UEngineMaterial;
 
 class UEngineVertexShader : public UEngineResources<UEngineVertexShader>, public UEngineShader
 {
+	friend UEngineInputLayout;
 	friend UEngineMaterial;
 
 public:
@@ -20,7 +24,8 @@ public:
 		std::string_view _Path,
 		std::string_view _EntryPoint,
 		UINT _High = 5,
-		UINT _Low = 0)
+		UINT _Low = 0
+	)
 	{
 		std::shared_ptr<UEngineVertexShader> Res = CreateResName(_Path);
 		Res->ResLoad(_EntryPoint, _High, _Low);
@@ -32,7 +37,8 @@ public:
 		std::string_view _Path,
 		std::string_view _EntryPoint,
 		UINT _High = 5,
-		UINT _Low = 0)
+		UINT _Low = 0
+	)
 	{
 		std::shared_ptr<UEngineVertexShader> Res = CreateResName(_Name, _Path);
 		Res->ResLoad(_EntryPoint, _High, _Low);
@@ -43,6 +49,8 @@ protected:
 
 private:
 	ID3D11VertexShader* ShaderPtr = nullptr;
+	ID3D11InputLayout* Layout = nullptr;
+	std::shared_ptr<UEngineInputLayout> InputLayout;
 
 	void ResLoad(std::string_view _EntryPoint, UINT _High, UINT Low);
 	void Setting();

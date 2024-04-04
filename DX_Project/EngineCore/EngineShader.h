@@ -1,7 +1,11 @@
 #pragma once
 
+class UEngineInputLayout;
+
 class UEngineShader
 {
+	friend UEngineInputLayout;
+
 public:
 	UEngineShader();
 	~UEngineShader();

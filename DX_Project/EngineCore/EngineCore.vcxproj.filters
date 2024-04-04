@@ -79,6 +79,12 @@
     <ClInclude Include="EngineMaterial.h">
       <Filter>Resources\Material</Filter>
     </ClInclude>
+    <ClInclude Include="DirectXHelper.h">
+      <Filter>Device</Filter>
+    </ClInclude>
+    <ClInclude Include="EngineInputLayout.h">
+      <Filter>Resources\Mesh</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="PreCompile.cpp">
@@ -158,6 +164,15 @@
     </ClCompile>
     <ClCompile Include="EngineMaterial.cpp">
       <Filter>Resources\Material</Filter>
+    </ClCompile>
+    <ClCompile Include="DirectXHelper.cpp">
+      <Filter>Device</Filter>
+    </ClCompile>
+    <ClCompile Include="EngineVertex.cpp">
+      <Filter>Resources\Mesh</Filter>
+    </ClCompile>
+    <ClCompile Include="EngineInputLayout.cpp">
+      <Filter>Resources\Mesh</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

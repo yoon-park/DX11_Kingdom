@@ -2,11 +2,14 @@
 #include "EngineBuffer.h"
 
 class URenderer;
+class UVertexLayoutInfo;
+class UEngineInputLayout;
 class UEngineMesh;
 
 class UEngineVertexBuffer : public UEngineResources<UEngineVertexBuffer>, public UEngineBuffer
 {
 	friend URenderer;
+	friend UEngineInputLayout;
 	friend UEngineMesh;
 
 public:
@@ -23,6 +26,7 @@ public:
 	{
 		std::shared_ptr<UEngineVertexBuffer> Res = CreateResName(_Name);
 		Res->ResCreate(&_Data[0], static_cast<UINT>(sizeof(VertexType)), static_cast<UINT>(_Data.size()));
+		Res->LayoutInfoPtr = &VertexType::Info;
 		return Res;
 	}
 
@@ -32,6 +36,7 @@ private:
 	UINT Size = 0;
 	UINT Count = 0;
 	UINT Offset = 0;
+	UVertexLayoutInfo* LayoutInfoPtr;
 
 	void ResCreate(const void* _Data, UINT _Size, UINT _Count);
 	void Setting();

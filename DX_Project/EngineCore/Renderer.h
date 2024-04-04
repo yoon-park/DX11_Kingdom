@@ -1,6 +1,7 @@
 #pragma once
 #include "SceneComponent.h"
 
+#include "EngineInputLayout.h"
 #include "EngineMesh.h"
 #include "EngineMaterial.h"
 
@@ -27,6 +28,7 @@ protected:
 	void Tick(float _DeltaTime) override;
 
 private:
+	std::shared_ptr<UEngineInputLayout> Layout;
 	std::shared_ptr<UEngineMesh> Mesh;
 	std::shared_ptr<UEngineMaterial> Material;
 

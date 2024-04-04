@@ -6,6 +6,7 @@
 #include <EngineCore/EngineCore.h>
 #include <EngineCore/EngineOption.h>
 
+#include <EngineCore/DirectXHelper.h>
 #include <EngineCore/EngineGraphicDevice.h>
 
 #include <EngineCore/Actor.h>
@@ -25,6 +26,7 @@
 #include <EngineCore/EngineBuffer.h>
 #include <EngineCore/EngineIndexBuffer.h>
 #include <EngineCore/EngineVertexBuffer.h>
+#include <EngineCore/EngineInputLayout.h>
 #include <EngineCore/EngineMesh.h>
 #include <EngineCore/EngineVertex.h>
 
