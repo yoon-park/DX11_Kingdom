@@ -11,7 +11,7 @@ enum class ECollisionType
 
 class CollisionFunctionInit;
 
-class FTransform
+struct FTransform
 {
 	friend CollisionFunctionInit;
 
@@ -44,6 +44,17 @@ public:
 
 	static bool PointToRect(const FTransform& _Left, const FTransform& _Right);
 	static bool PointToCircle(const FTransform& _Left, const FTransform& _Right);
+
+	float4 Scale;
+	float4 Rotation;
+	float4 Position;
+	float4x4 ScaleMat;
+	float4x4 RotationMat;
+	float4x4 PositionMat;
+	float4x4 World;
+	float4x4 View;
+	float4x4 Projection;
+	float4x4 WVP;
 
 	FVector GetScale() const
 	{
@@ -166,8 +177,6 @@ public:
 protected:
 
 private:
-	FVector Scale = FVector::One;
-	FVector Rotation = FVector::Zero;
-	FVector Position = FVector::Zero;
+
 };
 

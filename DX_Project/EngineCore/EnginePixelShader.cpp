@@ -18,6 +18,8 @@ UEnginePixelShader::~UEnginePixelShader()
 
 void UEnginePixelShader::ResLoad(std::string_view _EntryPoint, UINT _High, UINT _Low)
 {
+	EntryName = _EntryPoint;
+
 	std::string Path = GetPath();
 	const char* PathPtr = Path.c_str();
 	std::wstring WPath = UEngineString::AnsiToUniCode(PathPtr);
@@ -71,6 +73,8 @@ void UEnginePixelShader::ResLoad(std::string_view _EntryPoint, UINT _High, UINT 
 		MsgBoxAssert("픽셀 쉐이더 생성에 실패했습니다.");
 		return;
 	}
+
+	ShaderResCheck();
 }
 
 void UEnginePixelShader::Setting()

@@ -25,6 +25,7 @@ public:
 CollisionFunctionInit Inst;
 
 FTransform::FTransform()
+	: Scale(FVector::One), Rotation(FVector::Zero), Position(FVector::Zero)
 {
 
 }

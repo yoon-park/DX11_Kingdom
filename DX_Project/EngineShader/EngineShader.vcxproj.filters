@@ -17,5 +17,11 @@
     <None Include="EngineVertex.hlsli">
       <Filter>Header</Filter>
     </None>
+    <None Include="TransformData.hlsli">
+      <Filter>Header</Filter>
+    </None>
+    <None Include="EngineShaderBase.hlsli">
+      <Filter>Header</Filter>
+    </None>
   </ItemGroup>
 </Project>

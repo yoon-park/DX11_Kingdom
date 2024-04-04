@@ -30,6 +30,7 @@
 #include <EngineCore/EngineMesh.h>
 #include <EngineCore/EngineVertex.h>
 
+#include <EngineCore/EngineShaderResources.h>
 #include <EngineCore/EnginePixelShader.h>
 #include <EngineCore/EngineShader.h>
 #include <EngineCore/EngineVertexShader.h>

@@ -85,6 +85,9 @@
     <ClInclude Include="EngineInputLayout.h">
       <Filter>Resources\Mesh</Filter>
     </ClInclude>
+    <ClInclude Include="EngineShaderResources.h">
+      <Filter>Resources\Material\Shader\ShaderResources</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="PreCompile.cpp">
@@ -174,6 +177,9 @@
     <ClCompile Include="EngineInputLayout.cpp">
       <Filter>Resources\Mesh</Filter>
     </ClCompile>
+    <ClCompile Include="EngineShaderResources.cpp">
+      <Filter>Resources\Material\Shader\ShaderResources</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="PreCompile">
@@ -214,6 +220,9 @@
     </Filter>
     <Filter Include="Resources\Material\Shader">
       <UniqueIdentifier>{526aff29-e81c-4931-a0ac-bfb3e67d1738}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resources\Material\Shader\ShaderResources">
+      <UniqueIdentifier>{e714d2e2-00d7-47a5-95b6-4dd120168f8e}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>
