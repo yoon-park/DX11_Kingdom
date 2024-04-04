@@ -4,6 +4,7 @@
 
 
 #include <EngineCore/EngineCore.h>
+#include <EngineCore/EngineEnums.h>
 #include <EngineCore/EngineOption.h>
 
 #include <EngineCore/DirectXHelper.h>
@@ -23,19 +24,20 @@
 #include <EngineCore/TickObject.h>
 #include <EngineCore/WorldObject.h>
 
-#include <EngineCore/EngineBuffer.h>
-#include <EngineCore/EngineIndexBuffer.h>
-#include <EngineCore/EngineVertexBuffer.h>
-#include <EngineCore/EngineInputLayout.h>
-#include <EngineCore/EngineMesh.h>
-#include <EngineCore/EngineVertex.h>
-
+#include <EngineCore/EngineConstantBuffer.h>
 #include <EngineCore/EngineShaderResources.h>
 #include <EngineCore/EnginePixelShader.h>
 #include <EngineCore/EngineShader.h>
 #include <EngineCore/EngineVertexShader.h>
 #include <EngineCore/EngineMaterial.h>
 #include <EngineCore/EngineRasterizer.h>
+
+#include <EngineCore/EngineBuffer.h>
+#include <EngineCore/EngineIndexBuffer.h>
+#include <EngineCore/EngineVertexBuffer.h>
+#include <EngineCore/EngineInputLayout.h>
+#include <EngineCore/EngineMesh.h>
+#include <EngineCore/EngineVertex.h>
 
 #include <EngineCore/EngineRenderTarget.h>
 #include <EngineCore/EngineTexture.h>

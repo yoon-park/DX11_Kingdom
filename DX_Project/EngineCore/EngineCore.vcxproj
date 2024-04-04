@@ -195,7 +195,12 @@
       <SubType>
       </SubType>
     </ClInclude>
+    <ClInclude Include="EngineConstantBuffer.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="EngineCore.h" />
+    <ClInclude Include="EngineEnums.h" />
     <ClInclude Include="EngineGraphicDevice.h">
       <SubType>
       </SubType>
@@ -307,6 +312,10 @@
       </SubType>
     </ClCompile>
     <ClCompile Include="EngineBuffer.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="EngineConstantBuffer.cpp">
       <SubType>
       </SubType>
     </ClCompile>

@@ -3,7 +3,7 @@
 
 URenderer::URenderer()
 {
-
+	Resources = std::make_shared<UEngineShaderResources>();
 }
 
 URenderer::~URenderer()
@@ -40,6 +40,15 @@ void URenderer::SetMaterial(std::string_view _Name)
 	if (Mesh != nullptr)
 	{
 		Layout = UEngineInputLayout::Create(Mesh->VertexBuffer, Material->GetVertexShader());
+	}
+
+	if (true)
+	{
+		std::shared_ptr<UEngineShaderResources> RendererResources = Resources;
+		std::shared_ptr<UEngineShaderResources> VertexResources = Material->GetVertexShader()->Resources;
+		std::shared_ptr<UEngineShaderResources> PixelResources = Material->GetPixelShader()->Resources;
+
+		RendererResources->ConstantBuffers;
 	}
 }
 

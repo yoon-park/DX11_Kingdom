@@ -5,7 +5,7 @@
 
 UEngineVertexShader::UEngineVertexShader()
 {
-
+	Type = EShaderType::Vertex;
 }
 
 UEngineVertexShader::~UEngineVertexShader()

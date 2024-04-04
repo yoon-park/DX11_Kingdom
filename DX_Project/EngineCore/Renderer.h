@@ -4,6 +4,9 @@
 #include "EngineInputLayout.h"
 #include "EngineMesh.h"
 #include "EngineMaterial.h"
+#include "EngineShaderResources.h"
+
+class UEngineShaderResources;
 
 class URenderer : public USceneComponent, public std::enable_shared_from_this<URenderer>
 {
@@ -19,6 +22,8 @@ public:
 	URenderer(URenderer&& _Other) noexcept = delete;
 	URenderer& operator=(const URenderer& _Other) = delete;
 	URenderer& operator=(URenderer&& _Other) noexcept = delete;
+
+	std::shared_ptr<UEngineShaderResources> Resources;
 
 	void SetMesh(std::string_view _Name);
 	void SetMaterial(std::string_view _Name);

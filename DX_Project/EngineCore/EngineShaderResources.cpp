@@ -1,7 +1,11 @@
 #include "PreCompile.h"
 #include "EngineShaderResources.h"
 
-void UEngineShaderResources::ShaderResourcesCheck(std::string_view _EntryName, ID3DBlob* _ShaderCode)
+void UEngineShaderResources::ShaderResourcesCheck(
+	EShaderType _Type,
+	std::string_view _EntryName,
+	ID3DBlob* _ShaderCode
+)
 {
 	if (_ShaderCode == nullptr)
 	{
@@ -37,6 +41,12 @@ void UEngineShaderResources::ShaderResourcesCheck(std::string_view _EntryName, I
 			D3D11_SHADER_BUFFER_DESC ConstantBufferDesc = {};
 
 			BufferInfo->GetDesc(&ConstantBufferDesc);
+
+			_EntryName;
+			std::shared_ptr<UEngineConstantBuffer> Buffer = UEngineConstantBuffer::CreateAndFind(_Type, ResDesc.Name, ConstantBufferDesc.Size);
+			std::string UpperName = UEngineString::ToUpper(ResDesc.Name);
+			ConstantBuffers[_Type][UpperName].Res = Buffer;
+
 			break;
 		}
 		case D3D_SIT_TEXTURE:

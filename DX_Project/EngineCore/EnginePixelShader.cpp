@@ -5,7 +5,7 @@
 
 UEnginePixelShader::UEnginePixelShader()
 {
-
+	Type = EShaderType::Pixel;
 }
 
 UEnginePixelShader::~UEnginePixelShader()
