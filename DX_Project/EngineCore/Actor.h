@@ -22,6 +22,8 @@ public:
 	AActor& operator=(const AActor& _Other) = delete;
 	AActor& operator=(AActor&& _Other) noexcept = delete;
 
+	FTransform& GetActorTransform();
+
 	template<typename ComponentType>
 	ComponentType* CreateDefaultSubObject(std::string_view _Name)
 	{

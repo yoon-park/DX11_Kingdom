@@ -2,8 +2,12 @@
 #include "EngineBuffer.h"
 #include "EngineEnums.h"
 
+class UEngineConstantBufferSetter;
+
 class UEngineConstantBuffer : public UEngineResources<UEngineConstantBuffer>, public UEngineBuffer
 {
+	friend UEngineConstantBufferSetter;
+
 public:
 	UEngineConstantBuffer();
 	~UEngineConstantBuffer();
@@ -51,10 +55,13 @@ public:
 		return Res;
 	}
 
+	void ChangeData(const void* _Data, UINT _Size);
+
 protected:
 
 private:
 	static std::map<EShaderType, std::map<std::string, std::map<int, std::shared_ptr<UEngineConstantBuffer>>>> ConstantBuffers;
 
 	void ResCreate(UINT _ByteSize);
+	void Setting(EShaderType _Type, UINT _Slot);
 };

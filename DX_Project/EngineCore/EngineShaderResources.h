@@ -2,11 +2,21 @@
 #include "EngineEnums.h"
 #include "EngineConstantBuffer.h"
 
-class UEngineConstantBufferSetter
+class USetterBase
 {
 public:
+	EShaderType Type = EShaderType::NONE;
+	int Slot = -1;
+};
+
+class UEngineConstantBufferSetter : public USetterBase
+{
+public:
+	const void* CPUData = nullptr;
+	UINT BufferSize = 0;
 	std::shared_ptr<class UEngineConstantBuffer> Res;
-	void* SettingCPU = nullptr;
+
+	void Setting();
 };
 
 class URenderer;
@@ -18,6 +28,17 @@ class UEngineShaderResources
 	friend UEngineShader;
 
 public:
+	bool IsConstantBuffer(std::string_view _Name);
+
+	template<typename Value>
+	void SettingConstantBuffer(std::string_view _Name, Value& _Data)
+	{
+		SettingConstantBuffer(_Name, &_Data, static_cast<UINT>(sizeof(Value)));
+	}
+
+	void SettingConstantBuffer(std::string_view _Name, const void* _Data, UINT _Size);
+
+	void SettingAllShaderResources();
 
 protected:
 

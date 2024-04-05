@@ -14,6 +14,11 @@ AActor::~AActor()
 
 }
 
+FTransform& AActor::GetActorTransform()
+{
+	return RootComponent->Transform;
+}
+
 void AActor::BeginPlay()
 {
 	Super::BeginPlay();
@@ -24,7 +29,6 @@ void AActor::BeginPlay()
 		Components[i]->BeginPlay();
 	}
 }
-
 
 void AActor::Tick(float _DeltaTime)
 {
@@ -46,6 +50,7 @@ void AActor::RootCheck()
 
 void AActor::PushComponent(std::shared_ptr<UActorComponent> _Component, std::string_view _Name)
 {
+	_Component->SetActor(this);
 	_Component->SetName(_Name);
 	Components.push_back(_Component);
 

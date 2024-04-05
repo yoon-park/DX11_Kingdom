@@ -17,6 +17,9 @@ APlayer::~APlayer()
 void APlayer::BeginPlay()
 {
 	Super::BeginPlay();
+
+	FTransform& Transform = GetActorTransform();
+	Renderer->Resources->SettingConstantBuffer("FTransform", Transform);
 }
 
 void APlayer::Tick(float _DeltaTime)

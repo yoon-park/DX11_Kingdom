@@ -1,4 +1,4 @@
-cbuffer FTransform : register(b0)
+cbuffer FTransform : register(b10)
 {
     float4 Scale;
     float4 Rotation;

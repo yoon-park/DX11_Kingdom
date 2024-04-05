@@ -32,6 +32,8 @@ protected:
 	void BeginPlay() override;
 	void Tick(float _DeltaTime) override;
 
+	void ResCopy();
+
 private:
 	std::shared_ptr<UEngineInputLayout> Layout;
 	std::shared_ptr<UEngineMesh> Mesh;

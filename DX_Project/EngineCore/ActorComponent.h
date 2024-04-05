@@ -5,6 +5,8 @@
 
 class UActorComponent : public UTickObject, public UNameObject, public UWorldObject
 {
+	friend AActor;
+
 public:
 	UActorComponent();
 	~UActorComponent();
@@ -18,4 +20,9 @@ protected:
 
 private:
 	AActor* Actor = nullptr;
+
+	void SetActor(AActor* _Actor)
+	{
+		Actor = _Actor;
+	}
 };
