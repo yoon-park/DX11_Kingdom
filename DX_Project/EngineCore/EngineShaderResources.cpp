@@ -54,7 +54,7 @@ void UEngineShaderResources::ShaderResourcesCheck(
 		case D3D_SIT_SAMPLER:
 			break;
 		default:
-			MsgBoxAssert("처리할수 없는 타입입니다.");
+			MsgBoxAssert("처리할 수 없는 타입입니다.");
 			break;
 		}
 	}
