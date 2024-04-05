@@ -175,6 +175,22 @@ bool FTransform::PointToRect(const FTransform& _Left, const FTransform& _Right)
 	return RectToPoint(_Right, _Left);
 }
 
+void FTransform::TransformUpdate()
+{
+	ScaleMat.Scale(Scale);
+	RotationMat.RotationDeg(Rotation);
+	PositionMat.Position(Position);
+
+	World = ScaleMat * RotationMat * PositionMat;
+}
+
+void FTransform::CalculateViewAndProjection(FMatrix _View, FMatrix _Projection)
+{
+	View = _View;
+	Projection = _Projection;
+	WVP = World * _View * _Projection;
+}
+
 bool FTransform::Collision(ECollisionType _ThisType, ECollisionType _OtherType, const FTransform& _Other)
 {
 	if (CollisionFunction[static_cast<int>(_ThisType)][static_cast<int>(_OtherType)] == nullptr)

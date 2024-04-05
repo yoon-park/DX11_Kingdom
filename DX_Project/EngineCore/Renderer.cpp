@@ -81,6 +81,11 @@ void URenderer::ResCopy()
 	}
 }
 
+void URenderer::RenderingTransformUpdate(std::shared_ptr<UCamera> _Camera)
+{
+	Transform.CalculateViewAndProjection(_Camera->GetView(), _Camera->GetProjection());
+}
+
 void URenderer::Render(float _DeltaTime)
 {
 	// Input Assembler1

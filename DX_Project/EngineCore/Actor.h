@@ -23,6 +23,16 @@ public:
 	AActor& operator=(AActor&& _Other) noexcept = delete;
 
 	FTransform& GetActorTransform();
+	FVector GetActorLocation();
+	FVector GetActorForwardVector();
+	FVector GetActorRightVector();
+	FVector GetActorUpVector();
+
+	void SetActorScale3D(FVector _Value);
+	void SetActorLocation(FVector _Value);
+
+	void AddActorScale3D(FVector _Value);
+	void AddActorLocation(FVector _Value);
 
 	template<typename ComponentType>
 	ComponentType* CreateDefaultSubObject(std::string_view _Name)

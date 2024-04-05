@@ -26,14 +26,22 @@ public:
 
 	static bool IsActorConstructor;
 
+	std::shared_ptr<UCamera> GetMainCamera()
+	{
+		return MainCamera;
+	}
+
 	template<typename ActorType>
-	void SpawnActor(std::string _Name, int _Order = 0)
+	std::shared_ptr<ActorType> SpawnActor(std::string _Name, int _Order = 0)
 	{
 		IsActorConstructor = true;
 		std::shared_ptr<AActor> NewActor = std::make_shared<ActorType>();
+		NewActor->RootCheck();
 		IsActorConstructor = false;
 		
 		PushActor(NewActor);
+
+		return std::dynamic_pointer_cast<ActorType>(NewActor);
 	}
 
 protected:

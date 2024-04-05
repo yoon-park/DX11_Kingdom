@@ -31,6 +31,31 @@ public:
 		Core.EngineStart(_Inst);
 	}
 
+	UEngineGraphicDevice& GetEngineDevice()
+	{
+		return EngineDevice;
+	}
+
+	struct ID3D11Device* GetDirectXDevice()
+	{
+		return EngineDevice.GetDevice();
+	}
+
+	struct ID3D11DeviceContext* GetDirectXContext()
+	{
+		return EngineDevice.GetContext();
+	}
+
+	FVector GetWindowScale() const
+	{
+		return EngineWindow.GetWindowScale();
+	}
+
+	void SetWindowScale(FVector _Scale)
+	{
+		EngineWindow.SetWindowScale(_Scale);
+	}
+
 	template<typename GameModeType>
 	void CreateLevel(std::string_view _Name)
 	{
@@ -59,26 +84,6 @@ public:
 			return;
 		}
 		NextLevel = Levels[UpperName];
-	}
-
-	UEngineGraphicDevice& GetEngineDevice()
-	{
-		return EngineDevice;
-	}
-
-	struct ID3D11Device* GetDirectXDevice()
-	{
-		return EngineDevice.GetDevice();
-	}
-
-	struct ID3D11DeviceContext* GetDirectXContext()
-	{
-		return EngineDevice.GetContext();
-	}
-
-	void SetWindowScale(FVector _Scale)
-	{
-		EngineWindow.SetWindowScale(_Scale);
 	}
 
 protected:

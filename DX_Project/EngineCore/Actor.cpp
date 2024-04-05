@@ -19,6 +19,46 @@ FTransform& AActor::GetActorTransform()
 	return RootComponent->Transform;
 }
 
+FVector AActor::GetActorForwardVector()
+{
+	return RootComponent->Transform.GetForward();
+}
+
+FVector AActor::GetActorRightVector()
+{
+	return RootComponent->Transform.GetRight();
+}
+
+FVector AActor::GetActorUpVector()
+{
+	return RootComponent->Transform.GetUp();
+}
+
+FVector AActor::GetActorLocation()
+{
+	return RootComponent->Transform.GetPosition();
+}
+
+void AActor::SetActorScale3D(FVector _Value)
+{
+	RootComponent->Transform.SetScale(_Value);
+}
+
+void AActor::SetActorLocation(FVector _Value)
+{
+	RootComponent->Transform.SetPosition(_Value);
+}
+
+void AActor::AddActorScale3D(FVector _Value)
+{
+	RootComponent->Transform.AddScale(_Value);
+}
+
+void AActor::AddActorLocation(FVector _Value)
+{
+	RootComponent->Transform.AddPosition(_Value);
+}
+
 void AActor::BeginPlay()
 {
 	Super::BeginPlay();

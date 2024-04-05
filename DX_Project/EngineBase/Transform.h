@@ -76,19 +76,52 @@ public:
 		return Scale.hX();
 	}
 
+	FVector GetForward()
+	{
+		return World.ArrVector[2].Normalize2DReturn();
+	}
+
+	FVector GetBack()
+	{
+		return -GetForward();
+	}
+
+	FVector GetRight()
+	{
+		return World.ArrVector[0].Normalize2DReturn();
+	}
+
+	FVector GetLeft()
+	{
+		return -GetRight();
+	}
+
+	FVector GetUp()
+	{
+		return World.ArrVector[1].Normalize2DReturn();
+	}
+
+	FVector GetDown()
+	{
+		return -GetUp();
+	}
+
 	void SetScale(FVector _Value)
 	{
 		Scale = _Value;
+		TransformUpdate();
 	}
 
 	void SetRotation(FVector _Value)
 	{
 		Rotation = _Value;
+		TransformUpdate();
 	}
 
 	void SetPosition(FVector _Value)
 	{
 		Position = _Value;
+		TransformUpdate();
 	}
 
 	void SetRadius(float _Radius)
@@ -99,17 +132,17 @@ public:
 
 	void AddScale(FVector _Value)
 	{
-		Scale += _Value;
+		SetScale(Scale + _Value);
 	}
 
 	void AddRotation(FVector _Value)
 	{
-		Rotation += _Value;
+		SetRotation(Rotation + _Value);
 	}
 
 	void AddPosition(FVector _Value)
 	{
-		Position += _Value;
+		SetPosition(Position + _Value);
 	}
 
 	FVector LeftTop() const
@@ -172,6 +205,10 @@ public:
 		return std::lround(Bottom());
 	}
 
+	void TransformUpdate();
+
+	void CalculateViewAndProjection(FMatrix _View, FMatrix _Projection);
+
 	bool Collision(ECollisionType _ThisType, ECollisionType _OtherType, const FTransform& _Other);
 
 protected:
@@ -179,4 +216,3 @@ protected:
 private:
 
 };
-

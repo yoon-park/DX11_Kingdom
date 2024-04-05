@@ -5,6 +5,7 @@
 #include "EngineMesh.h"
 #include "EngineMaterial.h"
 #include "EngineShaderResources.h"
+#include "Camera.h"
 
 class UEngineShaderResources;
 
@@ -39,5 +40,6 @@ private:
 	std::shared_ptr<UEngineMesh> Mesh;
 	std::shared_ptr<UEngineMaterial> Material;
 
+	void RenderingTransformUpdate(std::shared_ptr<UCamera> _Camera);
 	void Render(float _DeltaTime);
 };
