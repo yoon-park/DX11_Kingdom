@@ -1,4 +1,5 @@
 #pragma once
+#include "EngineSampler.h"
 
 class UEngineTexture : public UEngineResources<UEngineTexture>
 {
@@ -29,6 +30,7 @@ private:
 	ID3D11Texture2D* Texture2D = nullptr;
 	ID3D11RenderTargetView* RTV = nullptr;
 	D3D11_TEXTURE2D_DESC Desc;
+	std::shared_ptr<UEngineSampler> Sampler;
 
 	void CreateRes(ID3D11Texture2D* _Texture);
 	void CreateRenderTargetView();

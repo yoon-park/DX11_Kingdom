@@ -19,6 +19,7 @@ void APlayer::BeginPlay()
 	Super::BeginPlay();
 
 	SetActorScale3D(FVector(100.0f, 100.0f, 100.0f));
+	Renderer->Resources->SettingConstantBuffer("OutPutColor", Color);
 }
 
 void APlayer::Tick(float _DeltaTime)
@@ -45,5 +46,35 @@ void APlayer::Tick(float _DeltaTime)
 	if (UEngineInput::IsPress('S') == true)
 	{
 		AddActorLocation(FVector::Down * _DeltaTime * Speed);
+	}
+
+	if (UEngineInput::IsPress(VK_NUMPAD1) == true)
+	{
+		Color.X += _DeltaTime;
+	}
+
+	if (UEngineInput::IsPress(VK_NUMPAD2) == true)
+	{
+		Color.X -= _DeltaTime;
+	}
+
+	if (UEngineInput::IsPress(VK_NUMPAD4) == true)
+	{
+		Color.Y += _DeltaTime;
+	}
+
+	if (UEngineInput::IsPress(VK_NUMPAD5) == true)
+	{
+		Color.Y -= _DeltaTime;
+	}
+
+	if (UEngineInput::IsPress(VK_NUMPAD7) == true)
+	{
+		Color.Z += _DeltaTime;
+	}
+
+	if (UEngineInput::IsPress(VK_NUMPAD8) == true)
+	{
+		Color.Z -= _DeltaTime;
 	}
 }

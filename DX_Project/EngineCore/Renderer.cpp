@@ -42,7 +42,8 @@ void URenderer::SetMaterial(std::string_view _Name)
 		Layout = UEngineInputLayout::Create(Mesh->VertexBuffer, Material->GetVertexShader());
 	}
 
-	ResCopy();
+	ResCopy(Material->GetVertexShader().get());
+	ResCopy(Material->GetPixelShader().get());
 
 	if (Resources->IsConstantBuffer("FTransform") == true)
 	{
@@ -62,21 +63,18 @@ void URenderer::Tick(float _DeltaTime)
 	Super::Tick(_DeltaTime);
 }
 
-void URenderer::ResCopy()
+void URenderer::ResCopy(UEngineShader* _Shader)
 {
-	if (Material->GetVertexShader() != nullptr)
+	std::map<EShaderType, std::map<std::string, UEngineConstantBufferSetter>>& RendererConstantBuffers = Resources->ConstantBuffers;
+	std::shared_ptr<UEngineShaderResources> ShaderResources = _Shader->Resources;
+
+	std::map<EShaderType, std::map<std::string, UEngineConstantBufferSetter>>& ShaderConstantBuffers = ShaderResources->ConstantBuffers;
+
+	for (std::pair<const EShaderType, std::map<std::string, UEngineConstantBufferSetter>> Setters : ShaderConstantBuffers)
 	{
-		std::map<EShaderType, std::map<std::string, UEngineConstantBufferSetter>>& RendererConstantBuffers = Resources->ConstantBuffers;
-		std::shared_ptr<UEngineShaderResources> ShaderResources = Material->GetVertexShader()->Resources;
-
-		std::map<EShaderType, std::map<std::string, UEngineConstantBufferSetter>>& ShaderConstantBuffers = ShaderResources->ConstantBuffers;
-
-		for (std::pair<const EShaderType, std::map<std::string, UEngineConstantBufferSetter>> Setters : ShaderConstantBuffers)
+		for (std::pair<const std::string, UEngineConstantBufferSetter> ConstantBufferSetter : Setters.second)
 		{
-			for (std::pair<const std::string, UEngineConstantBufferSetter> ConstantBufferSetter : Setters.second)
-			{
-				RendererConstantBuffers[Setters.first][ConstantBufferSetter.first] = ConstantBufferSetter.second;
-			}
+			RendererConstantBuffers[Setters.first][ConstantBufferSetter.first] = ConstantBufferSetter.second;
 		}
 	}
 }

@@ -25,6 +25,7 @@
 #include <EngineCore/WorldObject.h>
 
 #include <EngineCore/EngineConstantBuffer.h>
+#include <EngineCore/EngineSampler.h>
 #include <EngineCore/EngineShaderResources.h>
 #include <EngineCore/EnginePixelShader.h>
 #include <EngineCore/EngineShader.h>

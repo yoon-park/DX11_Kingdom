@@ -19,6 +19,13 @@ public:
 	void Setting();
 };
 
+class UEngineTextureSetter : public USetterBase
+{
+public:
+	std::shared_ptr<class UEngineTexture> Tex;
+	std::shared_ptr<class UEngineSampler> Smp;
+};
+
 class URenderer;
 class UEngineShader;
 
@@ -44,6 +51,7 @@ protected:
 
 private:
 	std::map<EShaderType, std::map<std::string, UEngineConstantBufferSetter>> ConstantBuffers;
+	std::map<EShaderType, std::map<std::string, UEngineTextureSetter>> Textures;
 
 	void ShaderResourcesCheck(EShaderType _Type, std::string_view _EntryName, ID3DBlob* _ShaderCode);
 };

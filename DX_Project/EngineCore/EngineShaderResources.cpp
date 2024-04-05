@@ -88,10 +88,9 @@ void UEngineShaderResources::ShaderResourcesCheck(
 	for (UINT i = 0; i < Info.BoundResources; i++)
 	{
 		D3D11_SHADER_INPUT_BIND_DESC ResDesc;
-
 		CompileInfo->GetResourceBindingDesc(i, &ResDesc);
-
 		D3D_SHADER_INPUT_TYPE Type = ResDesc.Type;
+		std::string UpperName = UEngineString::ToUpper(ResDesc.Name);
 
 		switch (Type)
 		{
@@ -99,13 +98,10 @@ void UEngineShaderResources::ShaderResourcesCheck(
 		{
 			ID3D11ShaderReflectionConstantBuffer* BufferInfo = CompileInfo->GetConstantBufferByName(ResDesc.Name);
 			D3D11_SHADER_BUFFER_DESC ConstantBufferDesc = {};
-
 			BufferInfo->GetDesc(&ConstantBufferDesc);
 
 			_EntryName;
 			std::shared_ptr<UEngineConstantBuffer> Buffer = UEngineConstantBuffer::CreateAndFind(_Type, ResDesc.Name, ConstantBufferDesc.Size);
-			std::string UpperName = UEngineString::ToUpper(ResDesc.Name);
-			
 			UEngineConstantBufferSetter& NewSetter = ConstantBuffers[_Type][UpperName];
 			NewSetter.Type = _Type;
 			NewSetter.Slot = ResDesc.BindPoint;
@@ -115,9 +111,14 @@ void UEngineShaderResources::ShaderResourcesCheck(
 			break;
 		}
 		case D3D_SIT_TEXTURE:
-			break;
 		case D3D_SIT_SAMPLER:
+		{
+			UEngineTextureSetter& NewSetter = Textures[_Type][UpperName];
+			NewSetter.Type = _Type;
+			NewSetter.Slot = ResDesc.BindPoint;
+
 			break;
+		}
 		default:
 			MsgBoxAssert("처리할 수 없는 타입입니다.");
 			break;

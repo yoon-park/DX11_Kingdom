@@ -94,6 +94,9 @@
     <ClInclude Include="EngineEnums.h">
       <Filter>Core</Filter>
     </ClInclude>
+    <ClInclude Include="EngineSampler.h">
+      <Filter>Resources\Material\Shader\ShaderResources</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="PreCompile.cpp">
@@ -187,6 +190,9 @@
       <Filter>Resources\Material\Shader\ShaderResources</Filter>
     </ClCompile>
     <ClCompile Include="EngineConstantBuffer.cpp">
+      <Filter>Resources\Material\Shader\ShaderResources</Filter>
+    </ClCompile>
+    <ClCompile Include="EngineSampler.cpp">
       <Filter>Resources\Material\Shader\ShaderResources</Filter>
     </ClCompile>
   </ItemGroup>
