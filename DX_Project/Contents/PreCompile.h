@@ -42,3 +42,7 @@
 
 #include <EngineCore/EngineRenderTarget.h>
 #include <EngineCore/EngineTexture.h>
+
+#include <EngineCore/ThirdParty/DirectXTex/inc/DirectXTex.h>
+
+#pragma comment (lib, "DirectXTex.lib")
