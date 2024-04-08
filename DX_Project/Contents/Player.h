@@ -1,6 +1,7 @@
 #pragma once
 
 class URenderer;
+
 class APlayer : public AActor
 {
 	GENERATED_BODY(AActor)

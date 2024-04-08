@@ -8,10 +8,16 @@
       <Filter>Core</Filter>
     </ClInclude>
     <ClInclude Include="PlayGameMode.h">
-      <Filter>PlayLevel</Filter>
+      <Filter>Level\PlayLevel</Filter>
     </ClInclude>
     <ClInclude Include="Player.h">
-      <Filter>PlayLevel</Filter>
+      <Filter>Level\PlayLevel</Filter>
+    </ClInclude>
+    <ClInclude Include="TitleLogo.h">
+      <Filter>Level\TitleLevel</Filter>
+    </ClInclude>
+    <ClInclude Include="TitleGameMode.h">
+      <Filter>Level\TitleLevel</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -22,10 +28,16 @@
       <Filter>Core</Filter>
     </ClCompile>
     <ClCompile Include="PlayGameMode.cpp">
-      <Filter>PlayLevel</Filter>
+      <Filter>Level\PlayLevel</Filter>
     </ClCompile>
     <ClCompile Include="Player.cpp">
-      <Filter>PlayLevel</Filter>
+      <Filter>Level\PlayLevel</Filter>
+    </ClCompile>
+    <ClCompile Include="TitleLogo.cpp">
+      <Filter>Level\TitleLevel</Filter>
+    </ClCompile>
+    <ClCompile Include="TitleGameMode.cpp">
+      <Filter>Level\TitleLevel</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -35,8 +47,14 @@
     <Filter Include="Core">
       <UniqueIdentifier>{cebef509-928e-4040-8cac-62d686d7e361}</UniqueIdentifier>
     </Filter>
-    <Filter Include="PlayLevel">
+    <Filter Include="Level">
+      <UniqueIdentifier>{1c922ad2-cb8a-40f7-af1a-f7ddd38ce671}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Level\PlayLevel">
       <UniqueIdentifier>{e3c5afe5-3e1d-4e41-a320-511c8e59947e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Level\TitleLevel">
+      <UniqueIdentifier>{71a32318-c34b-4791-abdf-873500f747a7}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

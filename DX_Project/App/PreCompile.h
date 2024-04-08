@@ -3,5 +3,7 @@
 #include <Contents/PreCompile.h>
 
 #include <Contents/ContentsCore.h>
+#include <Contents/TitleGameMode.h>
+#include <Contents/TitleLogo.h>
 #include <Contents/Player.h>
 #include <Contents/PlayGameMode.h>
