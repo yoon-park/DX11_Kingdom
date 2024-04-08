@@ -34,7 +34,7 @@ public:
 		UINT _High = 5,
 		UINT _Low = 0)
 	{
-		std::shared_ptr<UEnginePixelShader> Res = CreateResName(_Name, _Path);
+		std::shared_ptr<UEnginePixelShader> Res = CreateResName(_Path, _Name);
 		Res->ResLoad(_EntryPoint, _High, _Low);
 		return Res;
 	}

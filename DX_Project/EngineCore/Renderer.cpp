@@ -65,16 +65,54 @@ void URenderer::Tick(float _DeltaTime)
 
 void URenderer::ResCopy(UEngineShader* _Shader)
 {
-	std::map<EShaderType, std::map<std::string, UEngineConstantBufferSetter>>& RendererConstantBuffers = Resources->ConstantBuffers;
-	std::shared_ptr<UEngineShaderResources> ShaderResources = _Shader->Resources;
-
-	std::map<EShaderType, std::map<std::string, UEngineConstantBufferSetter>>& ShaderConstantBuffers = ShaderResources->ConstantBuffers;
-
-	for (std::pair<const EShaderType, std::map<std::string, UEngineConstantBufferSetter>> Setters : ShaderConstantBuffers)
 	{
-		for (std::pair<const std::string, UEngineConstantBufferSetter> ConstantBufferSetter : Setters.second)
+		std::map<EShaderType, std::map<std::string, UEngineConstantBufferSetter>>& RendererConstantBuffers
+			= Resources->ConstantBuffers;
+
+		std::shared_ptr<UEngineShaderResources> ShaderResources = _Shader->Resources;
+		std::map<EShaderType, std::map<std::string, UEngineConstantBufferSetter>>& ShaderConstantBuffers
+			= ShaderResources->ConstantBuffers;
+
+		for (std::pair<const EShaderType, std::map<std::string, UEngineConstantBufferSetter>> Setters : ShaderConstantBuffers)
 		{
-			RendererConstantBuffers[Setters.first][ConstantBufferSetter.first] = ConstantBufferSetter.second;
+			for (std::pair<const std::string, UEngineConstantBufferSetter> Setter : Setters.second)
+			{
+				RendererConstantBuffers[Setters.first][Setter.first] = Setter.second;
+			}
+		}
+	}
+
+	{
+		std::map<EShaderType, std::map<std::string, UEngineTextureSetter>>& RendererTexture
+			= Resources->Textures;
+
+		std::shared_ptr<UEngineShaderResources> ShaderResources = _Shader->Resources;
+		std::map<EShaderType, std::map<std::string, UEngineTextureSetter>>& ShaderTextures
+			= ShaderResources->Textures;
+
+		for (std::pair<const EShaderType, std::map<std::string, UEngineTextureSetter>> Setters : ShaderTextures)
+		{
+			for (std::pair<const std::string, UEngineTextureSetter> Setter : Setters.second)
+			{
+				RendererTexture[Setters.first][Setter.first] = Setter.second;
+			}
+		}
+	}
+
+	{
+		std::map<EShaderType, std::map<std::string, UEngineSamplerSetter>>& RendererSampler
+			= Resources->Samplers;
+
+		std::shared_ptr<UEngineShaderResources> ShaderResources = _Shader->Resources;
+		std::map<EShaderType, std::map<std::string, UEngineSamplerSetter>>& ShaderSamplers
+			= ShaderResources->Samplers;
+
+		for (std::pair<const EShaderType, std::map<std::string, UEngineSamplerSetter>> Setters : ShaderSamplers)
+		{
+			for (std::pair<const std::string, UEngineSamplerSetter> Setter : Setters.second)
+			{
+				RendererSampler[Setters.first][Setter.first] = Setter.second;
+			}
 		}
 	}
 }

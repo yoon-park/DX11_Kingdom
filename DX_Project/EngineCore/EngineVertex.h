@@ -46,5 +46,5 @@ struct FEngineVertex
 	static UVertexLayoutInfo Info;
 
 	float4 POSITION;
-	float4 COLOR;
+	float4 TEXCOORD;
 };

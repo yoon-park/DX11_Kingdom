@@ -40,7 +40,7 @@ public:
 		UINT _Low = 0
 	)
 	{
-		std::shared_ptr<UEngineVertexShader> Res = CreateResName(_Name, _Path);
+		std::shared_ptr<UEngineVertexShader> Res = CreateResName(_Path, _Name);
 		Res->ResLoad(_EntryPoint, _High, _Low);
 		return Res;
 	}

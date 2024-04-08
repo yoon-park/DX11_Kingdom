@@ -3,12 +3,15 @@
 struct ImageVSOutPut
 {
     float4 POSITION : SV_POSITION;
+    float4 TEXCOORD : TEXCOORD;
 };
 
 ImageVSOutPut ImageShader_VS(FEngineVertex _Input)
 {
     ImageVSOutPut Out = (ImageVSOutPut) 0;
+    
     Out.POSITION = mul(_Input.POSITION, WVP);
+    Out.TEXCOORD = _Input.TEXCOORD;
     
     return Out;
 }
@@ -19,12 +22,13 @@ struct ImagePSOutPut
 };
 
 Texture2D Image : register(t0);
-SamplerState Sampler : register(s0);
+SamplerState Image_Sampler : register(s0);
 
 ImagePSOutPut ImageShader_PS(ImageVSOutPut _Input)
 {
     ImagePSOutPut Out = (ImagePSOutPut) 0;
-    Out.COLOR = Image.Sample(Sampler, float2(0.0f, 0.0f));
+    
+    Out.COLOR = Sampling(Image, _Input.TEXCOORD);
     
     return Out;
 }

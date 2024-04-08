@@ -22,8 +22,17 @@ public:
 class UEngineTextureSetter : public USetterBase
 {
 public:
-	std::shared_ptr<class UEngineTexture> Tex;
-	std::shared_ptr<class UEngineSampler> Smp;
+	std::shared_ptr<class UEngineTexture> Res;
+
+	void Setting();
+};
+
+class UEngineSamplerSetter : public USetterBase
+{
+public:
+	std::shared_ptr<class UEngineSampler> Res;
+
+	void Setting();
 };
 
 class URenderer;
@@ -44,7 +53,7 @@ public:
 	}
 
 	void SettingConstantBuffer(std::string_view _Name, const void* _Data, UINT _Size);
-
+	void SettingTexture(std::string_view _TexName, std::string_view _ImageName, std::string_view _SamperName);
 	void SettingAllShaderResources();
 
 protected:
@@ -52,6 +61,7 @@ protected:
 private:
 	std::map<EShaderType, std::map<std::string, UEngineConstantBufferSetter>> ConstantBuffers;
 	std::map<EShaderType, std::map<std::string, UEngineTextureSetter>> Textures;
+	std::map<EShaderType, std::map<std::string, UEngineSamplerSetter>> Samplers;
 
 	void ShaderResourcesCheck(EShaderType _Type, std::string_view _EntryName, ID3DBlob* _ShaderCode);
 };

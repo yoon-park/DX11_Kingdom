@@ -33,6 +33,7 @@ public:
 	std::string GetString();
 
 	void Open(EIOOpenMode _OpenType, EIODataType _DataType);
+	void Read(void* _Data, size_t _Size);
 	void Close();
 
 	void Save(UEngineSerializer& _Data);

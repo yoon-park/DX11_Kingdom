@@ -18,8 +18,9 @@ void APlayer::BeginPlay()
 {
 	Super::BeginPlay();
 
-	SetActorScale3D(FVector(100.0f, 100.0f, 100.0f));
+	SetActorScale3D(FVector(300.0f, 300.0f, 100.0f));
 	Renderer->Resources->SettingConstantBuffer("OutPutColor", Color);
+	Renderer->Resources->SettingTexture("Image", "deer_walk_0.png", "POINT");
 }
 
 void APlayer::Tick(float _DeltaTime)

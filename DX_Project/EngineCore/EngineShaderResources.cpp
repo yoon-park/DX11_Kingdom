@@ -1,9 +1,21 @@
 #include "PreCompile.h"
 #include "EngineShaderResources.h"
+#include "EngineTexture.h"
+#include "EngineSampler.h"
 
 void UEngineConstantBufferSetter::Setting()
 {
 	Res->ChangeData(CPUData, BufferSize);
+	Res->Setting(Type, Slot);
+}
+
+void UEngineTextureSetter::Setting()
+{
+	Res->Setting(Type, Slot);
+}
+
+void UEngineSamplerSetter::Setting()
+{
 	Res->Setting(Type, Slot);
 }
 
@@ -48,6 +60,50 @@ void UEngineShaderResources::SettingConstantBuffer(std::string_view _Name, const
 	}
 }
 
+void UEngineShaderResources::SettingTexture(std::string_view _TexName, std::string_view _ImageName, std::string_view _SamplerName)
+{
+	std::shared_ptr<UEngineTexture> FindTexture = UEngineTexture::FindRes(_ImageName);
+	std::shared_ptr<UEngineSampler> FindSampler = UEngineSampler::FindRes(_SamplerName);
+
+	if (FindTexture == nullptr)
+	{
+		MsgBoxAssert("존재하지 않는 텍스처를 세팅하려 했습니다.");
+		return;
+	}
+
+	if (FindSampler == nullptr)
+	{
+		MsgBoxAssert("존재하지 않는 샘플러를 세팅하려 했습니다.");
+		return;
+	}
+
+	std::string UpperName = UEngineString::ToUpper(_TexName);
+	std::string SmpUpperName = UpperName + "_SAMPLER";
+
+	for (std::pair<const EShaderType, std::map<std::string, UEngineTextureSetter>>& Pair : Textures)
+	{
+		std::map<std::string, UEngineTextureSetter>& TexMap = Pair.second;
+		std::map<std::string, UEngineSamplerSetter>& SmpMap = Samplers[Pair.first];
+
+		if (TexMap.contains(UpperName) == false)
+		{
+			continue;
+		}
+
+		if (SmpMap.contains(SmpUpperName) == false)
+		{
+			MsgBoxAssert("텍스처와 한쌍인 샘플러가 존재하지 않습니다.");
+			continue;
+		}
+
+		UEngineTextureSetter& TexSetter = TexMap[UpperName];
+		UEngineSamplerSetter& SmpSetter = SmpMap[SmpUpperName];
+
+		TexSetter.Res = FindTexture;
+		SmpSetter.Res = FindSampler;
+	}
+}
+
 void UEngineShaderResources::SettingAllShaderResources()
 {
 	for (std::pair<const EShaderType, std::map<std::string, UEngineConstantBufferSetter>>& Pair : ConstantBuffers)
@@ -55,6 +111,26 @@ void UEngineShaderResources::SettingAllShaderResources()
 		std::map<std::string, UEngineConstantBufferSetter>& ResMap = Pair.second;
 
 		for (std::pair<const std::string, UEngineConstantBufferSetter>& Setter : ResMap)
+		{
+			Setter.second.Setting();
+		}
+	}
+
+	for (std::pair<const EShaderType, std::map<std::string, UEngineTextureSetter>>& Pair : Textures)
+	{
+		std::map<std::string, UEngineTextureSetter>& ResMap = Pair.second;
+
+		for (std::pair<const std::string, UEngineTextureSetter>& Setter : ResMap)
+		{
+			Setter.second.Setting();
+		}
+	}
+
+	for (std::pair<const EShaderType, std::map<std::string, UEngineSamplerSetter>>& Pair : Samplers)
+	{
+		std::map<std::string, UEngineSamplerSetter>& ResMap = Pair.second;
+
+		for (std::pair<const std::string, UEngineSamplerSetter>& Setter : ResMap)
 		{
 			Setter.second.Setting();
 		}
@@ -111,12 +187,19 @@ void UEngineShaderResources::ShaderResourcesCheck(
 			break;
 		}
 		case D3D_SIT_TEXTURE:
-		case D3D_SIT_SAMPLER:
 		{
+			ResDesc.Name;
 			UEngineTextureSetter& NewSetter = Textures[_Type][UpperName];
 			NewSetter.Type = _Type;
 			NewSetter.Slot = ResDesc.BindPoint;
-
+			break;
+		}
+		case D3D_SIT_SAMPLER:
+		{
+			ResDesc.Name;
+			UEngineSamplerSetter& NewSetter = Samplers[_Type][UpperName];
+			NewSetter.Type = _Type;
+			NewSetter.Slot = ResDesc.BindPoint;
 			break;
 		}
 		default:

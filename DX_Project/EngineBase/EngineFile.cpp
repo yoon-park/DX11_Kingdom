@@ -34,14 +34,6 @@ std::string UEngineFile::GetString()
 	return Ser.ToString();
 }
 
-void UEngineFile::Close()
-{
-	if (FileHandle != nullptr)
-	{
-		fclose(FileHandle);
-	}
-}
-
 void UEngineFile::Open(EIOOpenMode _OpenType, EIODataType _DataType)
 {
 	std::string Path = GetFullPath();
@@ -79,6 +71,19 @@ void UEngineFile::Open(EIOOpenMode _OpenType, EIODataType _DataType)
 	if (FileHandle == nullptr)
 	{
 		MsgBoxAssert("파일 오픈에 실패했습니다. : " + Path);
+	}
+}
+
+void UEngineFile::Read(void* _Data, size_t _Size)
+{
+	fread_s(_Data, _Size, _Size, 1, FileHandle);
+}
+
+void UEngineFile::Close()
+{
+	if (FileHandle != nullptr)
+	{
+		fclose(FileHandle);
 	}
 }
 
