@@ -11,11 +11,25 @@ void UEngineConstantBufferSetter::Setting()
 
 void UEngineTextureSetter::Setting()
 {
+#ifdef _DEBUG
+	if (Res == nullptr)
+	{
+		MsgBoxAssert(GetName() + " : 텍스처가 세팅되지 않았습니다.");
+	}
+#endif
+
 	Res->Setting(Type, Slot);
 }
 
 void UEngineSamplerSetter::Setting()
 {
+#ifdef _DEBUG
+	if (Res == nullptr)
+	{
+		MsgBoxAssert(GetName() + " : 샘플러가 세팅되지 않았습니다.");
+	}
+#endif
+
 	Res->Setting(Type, Slot);
 }
 
@@ -39,6 +53,12 @@ bool UEngineShaderResources::IsConstantBuffer(std::string_view _Name)
 void UEngineShaderResources::SettingConstantBuffer(std::string_view _Name, const void* _Data, UINT _Size)
 {
 	std::string UpperName = UEngineString::ToUpper(_Name);
+
+	if (IsConstantBuffer(UpperName) == false)
+	{
+		MsgBoxAssert("존재하지 않는 상수버퍼에 세팅하려 했습니다. : " + UpperName);
+		return;
+	}
 
 	for (std::pair<const EShaderType, std::map<std::string, UEngineConstantBufferSetter>>& Pair : ConstantBuffers)
 	{
@@ -179,6 +199,7 @@ void UEngineShaderResources::ShaderResourcesCheck(
 			_EntryName;
 			std::shared_ptr<UEngineConstantBuffer> Buffer = UEngineConstantBuffer::CreateAndFind(_Type, ResDesc.Name, ConstantBufferDesc.Size);
 			UEngineConstantBufferSetter& NewSetter = ConstantBuffers[_Type][UpperName];
+			NewSetter.SetName(ResDesc.Name);
 			NewSetter.Type = _Type;
 			NewSetter.Slot = ResDesc.BindPoint;
 			NewSetter.BufferSize = ConstantBufferDesc.Size;
@@ -190,6 +211,7 @@ void UEngineShaderResources::ShaderResourcesCheck(
 		{
 			ResDesc.Name;
 			UEngineTextureSetter& NewSetter = Textures[_Type][UpperName];
+			NewSetter.SetName(ResDesc.Name);
 			NewSetter.Type = _Type;
 			NewSetter.Slot = ResDesc.BindPoint;
 			break;
@@ -198,6 +220,7 @@ void UEngineShaderResources::ShaderResourcesCheck(
 		{
 			ResDesc.Name;
 			UEngineSamplerSetter& NewSetter = Samplers[_Type][UpperName];
+			NewSetter.SetName(ResDesc.Name);
 			NewSetter.Type = _Type;
 			NewSetter.Slot = ResDesc.BindPoint;
 			break;

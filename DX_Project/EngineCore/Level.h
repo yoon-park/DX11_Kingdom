@@ -48,6 +48,9 @@ protected:
 	void Tick(float _DeltaTime) override;
 	void Render(float _DeltaTime);
 
+	void LevelStart(ULevel* _PrevLevel) override;
+	void LevelEnd(ULevel* _NextLevel) override;
+
 private:
 	std::shared_ptr<AGameMode> GameMode;
 	std::map<int, std::list<std::shared_ptr<AActor>>> Actors;

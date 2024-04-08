@@ -2,7 +2,7 @@
 #include "EngineEnums.h"
 #include "EngineConstantBuffer.h"
 
-class USetterBase
+class USetterBase : public UNameObject
 {
 public:
 	EShaderType Type = EShaderType::NONE;

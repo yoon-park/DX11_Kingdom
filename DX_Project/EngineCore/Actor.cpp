@@ -76,6 +76,11 @@ void AActor::Tick(float _DeltaTime)
 
 	for (size_t i = 0; i < Components.size(); i++)
 	{
+		if (Components[i]->IsActive() == false)
+		{
+			continue;
+		}
+
 		Components[i]->Tick(_DeltaTime);
 	}
 }
