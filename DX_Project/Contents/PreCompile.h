@@ -19,6 +19,7 @@
 
 #include <EngineCore/Camera.h>
 #include <EngineCore/Renderer.h>
+#include <EngineCore/SpriteRenderer.h>
 
 #include <EngineCore/Level.h>
 #include <EngineCore/TickObject.h>
@@ -41,6 +42,7 @@
 #include <EngineCore/EngineVertex.h>
 
 #include <EngineCore/EngineRenderTarget.h>
+#include <EngineCore/EngineSprite.h>
 #include <EngineCore/EngineTexture.h>
 
 #include <EngineCore/ThirdParty/DirectXTex/inc/DirectXTex.h>

@@ -54,6 +54,7 @@ public:
 
 	void SettingConstantBuffer(std::string_view _Name, const void* _Data, UINT _Size);
 	void SettingTexture(std::string_view _TexName, std::string_view _ImageName, std::string_view _SamperName);
+	void SettingTexture(std::string_view _TexName, std::shared_ptr<UEngineTexture> _Texture, std::string_view _SamperName);
 	void SettingAllShaderResources();
 
 protected:

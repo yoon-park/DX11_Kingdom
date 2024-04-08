@@ -21,9 +21,17 @@ void UContentsCore::Initialize()
 		Dir.MoveToSearchChild("ContentsResources");
 		Dir.Move("Image");
 		std::vector<UEngineFile> Files = Dir.GetAllFile({ ".png" }, true);
+		
 		for (UEngineFile& File : Files)
 		{
-			UEngineTexture::Load(File.GetFullPath());
+			UEngineSprite::Load(File.GetFullPath());
+		}
+
+		std::vector<UEngineDirectory> Directorys = Dir.GetAllDirectory();
+		for (size_t i = 0; i < Directorys.size(); i++)
+		{
+			std::string Name = Directorys[i].GetFolderName();
+			UEngineSprite::LoadFolder(Directorys[i].GetFullPath());
 		}
 	}
 
@@ -32,6 +40,7 @@ void UContentsCore::Initialize()
 		Dir.MoveToSearchChild("ContentsResources");
 		Dir.Move("Sound");
 		std::vector<UEngineFile> Files = Dir.GetAllFile({ ".wav" });
+		
 		for (UEngineFile& File : Files)
 		{
 			UEngineSound::Load(File.GetFullPath());

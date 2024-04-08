@@ -21,14 +21,19 @@ struct ImagePSOutPut
     float4 COLOR : SV_Target0;
 };
 
-Texture2D Image : register(t0);
-SamplerState Image_Sampler : register(s0);
+TextureSet(Image, 0)
+
+cbuffer ResultColorValue : register(b10)
+{
+    float4 PlusColor;
+};
 
 ImagePSOutPut ImageShader_PS(ImageVSOutPut _Input)
 {
     ImagePSOutPut Out = (ImagePSOutPut) 0;
     
     Out.COLOR = Sampling(Image, _Input.TEXCOORD);
+    Out.COLOR.xyz += PlusColor.xyz;
     
     return Out;
 }

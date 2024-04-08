@@ -3,9 +3,7 @@
 
 ATitleLogo::ATitleLogo()
 {
-	Renderer = CreateDefaultSubObject<URenderer>("Renderer");
-	Renderer->SetMesh("Rect");
-	Renderer->SetMaterial("2DImage");
+	Renderer = CreateDefaultSubObject<USpriteRenderer>("Renderer");
 }
 
 ATitleLogo::~ATitleLogo()
@@ -20,7 +18,6 @@ void ATitleLogo::BeginPlay()
 	SetActorScale3D(FVector(700.0f, 300.0f, 100.0f));
 
 	DelayCallback(1.0f, std::bind(&ATitleLogo::RendererOff, this));
-
 	Renderer->Resources->SettingTexture("Image", "KingdomTitle.png", "POINT");
 }
 

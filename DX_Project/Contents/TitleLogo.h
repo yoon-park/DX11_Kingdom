@@ -21,6 +21,5 @@ protected:
 	void RendererOff();
 
 private:
-	URenderer* Renderer = nullptr;
-	float4 Color = FVector::Red;
+	USpriteRenderer* Renderer = nullptr;
 };

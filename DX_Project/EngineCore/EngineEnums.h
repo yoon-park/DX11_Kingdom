@@ -13,3 +13,10 @@ enum class ECameraType
 	Perspective,
 	Orthographic,
 };
+
+enum class ETextureSampling
+{
+	NONE,
+	LINEAR,
+	POINT,
+};

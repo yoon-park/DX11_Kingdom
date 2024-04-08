@@ -100,6 +100,12 @@
     <ClInclude Include="ThirdParty\DirectXTex\inc\DirectXTex.h">
       <Filter>ThirdParty\DirectXTex\inc</Filter>
     </ClInclude>
+    <ClInclude Include="SpriteRenderer.h">
+      <Filter>Object\Render</Filter>
+    </ClInclude>
+    <ClInclude Include="EngineSprite.h">
+      <Filter>Resources\Texture</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="PreCompile.cpp">
@@ -197,6 +203,12 @@
     </ClCompile>
     <ClCompile Include="EngineSampler.cpp">
       <Filter>Resources\Material\Shader\ShaderResources</Filter>
+    </ClCompile>
+    <ClCompile Include="SpriteRenderer.cpp">
+      <Filter>Object\Render</Filter>
+    </ClCompile>
+    <ClCompile Include="EngineSprite.cpp">
+      <Filter>Resources\Texture</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
