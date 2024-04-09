@@ -2,6 +2,7 @@
 #include "PlayGameMode.h"
 
 #include "Player.h"
+#include "PlayBack.h"
 
 APlayGameMode::APlayGameMode()
 {
@@ -21,6 +22,9 @@ void APlayGameMode::BeginPlay()
 	Camera->SetActorLocation(FVector(0.0f, 0.0f, -100.0f));
 
 	GetWorld()->SpawnActor<APlayer>("Player");
+
+	std::shared_ptr<APlayBack> Back = GetWorld()->SpawnActor<APlayBack>("PlayBack");
+	Back->SetActorLocation({ 0.0f, 0.0f, 500.0f });
 }
 
 
