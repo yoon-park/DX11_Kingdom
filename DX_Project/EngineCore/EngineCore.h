@@ -46,11 +46,6 @@ public:
 		return EngineDevice.GetContext();
 	}
 
-	FVector GetWindowScale() const
-	{
-		return EngineWindow.GetWindowScale();
-	}
-
 	FEngineOption GetEngineOption()
 	{
 		return EngineOption;
@@ -91,12 +86,13 @@ public:
 		NextLevel = Levels[UpperName];
 	}
 
+	UEngineWindow EngineWindow;
+
 protected:
 
 private:
 	FEngineOption EngineOption;
 	UEngineTime MainTimer;
-	UEngineWindow EngineWindow;
 	UEngineGraphicDevice EngineDevice;
 
 	UserCore* UserCorePtr = nullptr;

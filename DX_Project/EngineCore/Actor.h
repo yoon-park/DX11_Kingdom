@@ -28,10 +28,13 @@ public:
 	FVector GetActorRightVector();
 	FVector GetActorUpVector();
 
+	void SetActorTransform(const FTransform& _Transform);
 	void SetActorScale3D(FVector _Value);
+	void SetActorRotation(FVector _Value);
 	void SetActorLocation(FVector _Value);
 
 	void AddActorScale3D(FVector _Value);
+	void AddActorRotation(FVector _Value);
 	void AddActorLocation(FVector _Value);
 
 	template<typename ComponentType>

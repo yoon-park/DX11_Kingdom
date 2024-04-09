@@ -73,15 +73,6 @@ UEngineWindow::~UEngineWindow()
 	WindowImage = nullptr;
 }
 
-FVector UEngineWindow::GetMousePosition()
-{
-	POINT MousePoint;
-	GetCursorPos(&MousePoint);
-	ScreenToClient(hWnd, &MousePoint);
-
-	return FVector(MousePoint.x, MousePoint.y);
-}
-
 void UEngineWindow::SetWindowPosition(const FVector& _Pos)
 {
 	Position = _Pos;
@@ -193,4 +184,21 @@ void UEngineWindow::ScreenUpdate()
 	CopyTrans.SetScale({ Scale.iX(), Scale.iY() });
 
 	WindowImage->BitCopy(BackBufferImage, CopyTrans);
+}
+
+void UEngineWindow::CalculateMouseUpdate(float _DeltaTime)
+{
+	ScreenMousePos = GetMousePosition();
+	ScreenMouseDir = ScreenMousePrevPos - ScreenMousePos;
+	ScreenMouseDirNormal = ScreenMouseDir.Normalize2DReturn();
+	ScreenMousePrevPos = ScreenMousePos;
+}
+
+FVector UEngineWindow::GetMousePosition()
+{
+	POINT MousePoint;
+	GetCursorPos(&MousePoint);
+	ScreenToClient(hWnd, &MousePoint);
+
+	return FVector(MousePoint.x, MousePoint.y);
 }

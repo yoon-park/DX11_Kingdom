@@ -76,19 +76,9 @@ public:
 		return Scale.hX();
 	}
 
-	FVector GetForward()
-	{
-		return World.ArrVector[2].Normalize2DReturn();
-	}
-
-	FVector GetBack()
-	{
-		return -GetForward();
-	}
-
 	FVector GetRight()
 	{
-		return World.ArrVector[0].Normalize2DReturn();
+		return World.ArrVector[0].Normalize3DReturn();
 	}
 
 	FVector GetLeft()
@@ -98,12 +88,22 @@ public:
 
 	FVector GetUp()
 	{
-		return World.ArrVector[1].Normalize2DReturn();
+		return World.ArrVector[1].Normalize3DReturn();
 	}
 
 	FVector GetDown()
 	{
 		return -GetUp();
+	}
+
+	FVector GetForward()
+	{
+		return World.ArrVector[2].Normalize3DReturn();
+	}
+
+	FVector GetBack()
+	{
+		return -GetForward();
 	}
 
 	void SetScale(FVector _Value)
@@ -112,7 +112,7 @@ public:
 		TransformUpdate();
 	}
 
-	void SetRotation(FVector _Value)
+	void SetRotationDeg(FVector _Value)
 	{
 		Rotation = _Value;
 		TransformUpdate();
@@ -135,9 +135,9 @@ public:
 		SetScale(Scale + _Value);
 	}
 
-	void AddRotation(FVector _Value)
+	void AddRotationDeg(FVector _Value)
 	{
-		SetRotation(Rotation + _Value);
+		SetRotationDeg(Rotation + _Value);
 	}
 
 	void AddPosition(FVector _Value)

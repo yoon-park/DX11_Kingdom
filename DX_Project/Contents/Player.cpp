@@ -18,7 +18,7 @@ void APlayer::BeginPlay()
 	Super::BeginPlay();
 
 	SetActorScale3D(FVector(300.0f, 300.0f, 100.0f));
-	Renderer->SetSprite("Test_0.png");
+	Renderer->SetSprite("KingdomTitle.png");
 }
 
 void APlayer::Tick(float _DeltaTime)

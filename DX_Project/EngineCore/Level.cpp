@@ -13,6 +13,7 @@ ULevel::ULevel()
 {
 	MainCamera = SpawnActor<UCamera>("MainCamera");
 	UICamera = SpawnActor<UCamera>("NewActor");
+	UICamera->InputOff();
 }
 
 ULevel::~ULevel()

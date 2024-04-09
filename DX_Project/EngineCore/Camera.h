@@ -45,16 +45,19 @@ protected:
 	void Tick(float _DeltaTime) override;
 
 private:
-	bool IsFreeCamera = false;
-
+	FTransform PrevTransform;
+	FMatrix View;
+	FMatrix Projection;
+	D3D11_VIEWPORT ViewPort;
+	
+	ECameraType PrevProjectionType = ECameraType::Orthographic;
 	ECameraType ProjectionType = ECameraType::Orthographic;
 	float Near = 1.0f;
 	float Far = 10000.0f;
 	float FOV = 60.0f;
 
-	FMatrix View;
-	FMatrix Projection;
-	D3D11_VIEWPORT ViewPort;
+	bool IsFreeCamera = false;
+	float FreeCameraMoveSpeed = 500.0f;
 
 	void CameraTransformUpdate();
 };

@@ -42,9 +42,19 @@ FVector AActor::GetActorLocation()
 	return RootComponent->Transform.GetPosition();
 }
 
+void AActor::SetActorTransform(const FTransform& _Transform)
+{
+	RootComponent->Transform = _Transform;
+}
+
 void AActor::SetActorScale3D(FVector _Value)
 {
 	RootComponent->Transform.SetScale(_Value);
+}
+
+void AActor::SetActorRotation(FVector _Value)
+{
+	RootComponent->Transform.SetRotationDeg(_Value);
 }
 
 void AActor::SetActorLocation(FVector _Value)
@@ -55,6 +65,11 @@ void AActor::SetActorLocation(FVector _Value)
 void AActor::AddActorScale3D(FVector _Value)
 {
 	RootComponent->Transform.AddScale(_Value);
+}
+
+void AActor::AddActorRotation(FVector _Value)
+{
+	RootComponent->Transform.AddRotationDeg(_Value);
 }
 
 void AActor::AddActorLocation(FVector _Value)

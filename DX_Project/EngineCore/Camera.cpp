@@ -7,7 +7,7 @@ UCamera::UCamera()
 {
 	InputOn();
 
-	float4 Scale = GEngine->GetWindowScale();
+	float4 Scale = GEngine->EngineWindow.GetWindowScale();
 	ViewPort.Width = Scale.X;
 	ViewPort.Height = Scale.Y;
 
@@ -36,22 +36,96 @@ void UCamera::Tick(float _DeltaTime)
 {
 	int Key = GEngine->GetEngineOption().FreeCameraKey;
 
-	if (IsDown(Key))
+	if (IsFreeCamera == false && IsDown(Key))
 	{
+		PrevTransform = GetActorTransform();
+		PrevProjectionType = ProjectionType;
+		ProjectionType = ECameraType::Perspective;
 		IsFreeCamera = true;
+		OnlyInput(this);
+	}
+	else if (IsFreeCamera == true && IsDown(Key))
+	{
+		SetActorTransform(PrevTransform);
+		ProjectionType = PrevProjectionType;
+		IsFreeCamera = false;
+		OnlyInputStop();
+
+		return;
 	}
 
 	if (IsFreeCamera == false)
 	{
 		return;
 	}
+
+	if (IsDown('R') == true)
+	{
+		switch (ProjectionType)
+		{
+		case ECameraType::NONE:
+			break;
+		case ECameraType::Perspective:
+			ProjectionType = ECameraType::Orthographic;
+			break;
+		case ECameraType::Orthographic:
+			ProjectionType = ECameraType::Perspective;
+			break;
+		default:
+			break;
+		}
+	}
+
+	float Speed = FreeCameraMoveSpeed;
+
+	if (IsPress(VK_LSHIFT) == true)
+	{
+		Speed = Speed * 4.0f;
+	}
+
+	if (IsPress('A') == true)
+	{
+		AddActorLocation(GetActorTransform().GetLeft() * _DeltaTime * Speed);
+	}
+
+	if (IsPress('D') == true)
+	{
+		AddActorLocation(GetActorTransform().GetRight() * _DeltaTime * Speed);
+	}
+
+	if (IsPress('Q') == true)
+	{
+		AddActorLocation(GetActorTransform().GetUp() * _DeltaTime * Speed);
+	}
+
+	if (IsPress('E') == true)
+	{
+		AddActorLocation(GetActorTransform().GetDown() * _DeltaTime * Speed);
+	}
+
+	if (IsPress('W') == true)
+	{
+		AddActorLocation(GetActorTransform().GetForward() * _DeltaTime * Speed);
+	}
+
+	if (IsPress('S') == true)
+	{
+		AddActorLocation(GetActorTransform().GetBack() * _DeltaTime * Speed);
+	}
+
+	if (IsPress(VK_RBUTTON) == true)
+	{
+		float4 Rot = GEngine->EngineWindow.GetScreenMouseDirNormal();
+
+		AddActorRotation({ -Rot.Y, -Rot.X, 0.0f });
+	}
 }
 
 void UCamera::CameraTransformUpdate()
 {
-	View.View(GetActorLocation(), GetActorForwardVector(), GetActorUpVector());
+	View.LookToLH(GetActorLocation(), GetActorForwardVector(), GetActorUpVector());
 
-	FVector Scale = GEngine->GetWindowScale();
+	FVector Scale = GEngine->EngineWindow.GetWindowScale();
 
 	switch (ProjectionType)
 	{

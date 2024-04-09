@@ -28,10 +28,13 @@ struct float4
 public:
 	static const float4 Zero;
 	static const float4 One;
+
 	static const float4 Left;
 	static const float4 Right;
 	static const float4 Up;
 	static const float4 Down;
+	static const float4 Forward;
+	static const float4 Backward;
 
 	static const float4 White;
 	static const float4 Black;
@@ -57,6 +60,7 @@ public:
 
 		float Arr1D[4];
 		float Arr2D[1][4];
+		DirectX::XMVECTOR DirectVector;
 	};
 
 	float4()
@@ -225,6 +229,7 @@ public:
 
 	void Normalize3D()
 	{
+		/*
 		float Size = Size3D();
 		if (Size > 0.0f && isnan(Size) == false)
 		{
@@ -233,6 +238,8 @@ public:
 			Z /= Size;
 			W = 0.0f;
 		}
+		*/
+		DirectVector = DirectX::XMVector3Normalize(DirectVector);
 	}
 
 	float4 Normalize3DReturn() const
@@ -464,6 +471,7 @@ public:
 		float4 ArrVector[4];
 		float Arr1D[16] = { };
 		float Arr2D[4][4];
+		DirectX::XMMATRIX DirectMatrix;
 	};
 
 	float4x4()
@@ -494,6 +502,7 @@ public:
 
 	void Transpose()
 	{
+		/*
 		float4x4 Result = *this;
 		for (size_t y = 0; y < 4; y++)
 		{
@@ -502,13 +511,15 @@ public:
 				Result.Arr2D[y][x] = Arr2D[x][y];
 			}
 		}
-
 		*this = Result;
+		*/
+		DirectMatrix = DirectX::XMMatrixTranspose(DirectMatrix);
 	}
 
 	float4x4 TransposeReturn()
 	{
 		float4x4 Result = *this;
+		/*
 		for (size_t y = 0; y < 4; y++)
 		{
 			for (size_t x = 0; x < 4; x++)
@@ -516,28 +527,21 @@ public:
 				Result.Arr2D[y][x] = Arr2D[x][y];
 			}
 		}
+		*/
+		Result.DirectMatrix = DirectX::XMMatrixTranspose(DirectMatrix);
 		return Result;
 	}
 
 	void Scale(float4 _Value)
 	{
 		Identity();
+		/*
 		Arr2D[0][0] = _Value.X;
 		Arr2D[1][1] = _Value.Y;
 		Arr2D[2][2] = _Value.Z;
 		Arr2D[3][3] = 1.0f;
-	}
-
-	float4x4 RotationDeg(const float4 _Value)
-	{
-		Identity();
-		float4x4 X;
-		X.RotationXDeg(_Value.X);
-		float4x4 Y;
-		Y.RotationYDeg(_Value.Y);
-		float4x4 Z;
-		Z.RotationZDeg(_Value.Z);
-		return X * Y * Z;
+		*/
+		DirectMatrix = DirectX::XMMatrixScalingFromVector(_Value.DirectVector);
 	}
 
 	void RotationXDeg(float _Angle)
@@ -548,10 +552,13 @@ public:
 	void RotationXRad(float _Angle)
 	{
 		Identity();
+		/*
 		Arr2D[1][1] = cosf(_Angle);
 		Arr2D[1][2] = sinf(_Angle);
 		Arr2D[2][1] = -sinf(_Angle);
 		Arr2D[2][2] = cosf(_Angle);
+		*/
+		DirectMatrix = DirectX::XMMatrixRotationX(_Angle);
 	}
 
 	void RotationYDeg(float _Angle)
@@ -562,10 +569,13 @@ public:
 	void RotationYRad(float _Angle)
 	{
 		Identity();
+		/*
 		Arr2D[0][0] = cosf(_Angle);
 		Arr2D[0][2] = -sinf(_Angle);
 		Arr2D[2][0] = sinf(_Angle);
 		Arr2D[2][2] = cosf(_Angle);
+		*/
+		DirectMatrix = DirectX::XMMatrixRotationY(_Angle);
 	}
 
 	void RotationZDeg(float _Angle)
@@ -576,22 +586,42 @@ public:
 	void RotationZRad(float _Angle)
 	{
 		Identity();
+		/*
 		Arr2D[0][0] = cosf(_Angle);
 		Arr2D[0][1] = sinf(_Angle);
 		Arr2D[1][0] = -sinf(_Angle);
 		Arr2D[1][1] = cosf(_Angle);
+		*/
+		DirectMatrix = DirectX::XMMatrixRotationZ(_Angle);
+	}
+
+	void RotationDeg(const float4 _Value)
+	{
+		Identity();
+		float4x4 X;
+		float4x4 Y;
+		float4x4 Z;
+		X.RotationXDeg(_Value.X);
+		Y.RotationYDeg(_Value.Y);
+		Z.RotationZDeg(_Value.Z);
+
+		*this = X * Y * Z;
 	}
 
 	void Position(float4 _Value)
 	{
 		Identity();
+		/*
 		Arr2D[3][0] = _Value.X;
 		Arr2D[3][1] = _Value.Y;
 		Arr2D[3][2] = _Value.Z;
+		*/
+		DirectMatrix = DirectX::XMMatrixTranslationFromVector(_Value.DirectVector);
 	}
 
-	float4x4 View(const float4 _EyePos, const float4 _EyeDir, const float4 _EyeUp)
+	void LookToLH(const float4 _EyePos, const float4 _EyeDir, const float4 _EyeUp)
 	{
+		/*
 		float4x4 View;
 
 		FVector Up = _EyeUp.Normalize3DReturn();
@@ -614,8 +644,13 @@ public:
 		View.ArrVector[3].Z = float4::DotProduct3D(Forward, NegEyePos);
 
 		*this = View;
-
 		return View;
+		*/
+		DirectMatrix = DirectX::XMMatrixLookToLH(
+			_EyePos.DirectVector, 
+			_EyeDir.DirectVector, 
+			_EyeUp.DirectVector);
+		return;
 	}
 
 	void OrthographicLH(float _Width, float _Height, float _Near, float _Far)
@@ -639,7 +674,7 @@ public:
 	void PerspectiveFovRad(float _FovAngle, float _Width, float _Height, float _Near, float _Far)
 	{
 		Identity();
-
+		/*
 		Arr2D[2][3] = 1.0f;
 		Arr2D[3][3] = 0.0f;
 		
@@ -651,6 +686,12 @@ public:
 		Arr2D[2][2] = _Far / (_Far - _Near);
 
 		Arr2D[3][2] = -(_Near * _Far) / (_Far - _Near);
+		*/
+		DirectMatrix = DirectX::XMMatrixPerspectiveFovLH(
+			_FovAngle,
+			_Width / _Height,
+			_Near,
+			_Far);
 	}
 
 	void ViewPort(float _Width, float _Height, float _Left, float _Right, float _ZMin, float _ZMax)
