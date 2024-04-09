@@ -76,6 +76,11 @@ public:
 		return Infos[_Index];
 	}
 
+	size_t GetInfoSize()
+	{
+		return Infos.size();
+	}
+
 	void Cutting(std::shared_ptr<UEngineTexture> Texture, UINT _X, UINT _Y);
 
 protected:

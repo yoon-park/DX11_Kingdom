@@ -19,6 +19,8 @@ void ATitleLogo::BeginPlay()
 
 	DelayCallback(1.0f, std::bind(&ATitleLogo::RendererOff, this));
 	Renderer->SetSprite("CuttingTest.png", 11);
+	Renderer->CreateAnimation("Test", "CuttingTest.png", 0.1f);
+	Renderer->ChangeAnimation("Test");
 }
 
 void ATitleLogo::Tick(float _DeltaTime)
