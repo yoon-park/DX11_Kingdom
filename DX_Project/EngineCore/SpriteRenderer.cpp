@@ -100,12 +100,6 @@ void USpriteRenderer::CreateAnimation(
 	int _Start /*= -1*/,
 	int _End /*= -1*/)
 {
-	if (_Start > _End)
-	{
-		MsgBoxAssert("애니메이션을 역방향으로 생성할 수 없습니다.");
-		return;
-	}
-
 	std::shared_ptr<UEngineSprite> FindSprite = UEngineSprite::FindRes(_SpriteName);
 
 	if (FindSprite == nullptr)
@@ -123,7 +117,17 @@ void USpriteRenderer::CreateAnimation(
 	if (_Start < 0)
 	{
 		Start = 0;
-		End = static_cast<int>(FindSprite->GetInfoSize());
+	}
+
+	if (End < 0)
+	{
+		End = static_cast<int>(FindSprite->GetInfoSize()) - 1;
+	}
+
+	if (_Start > _End)
+	{
+		MsgBoxAssert("애니메이션을 역방향으로 생성할 수 없습니다.");
+		return;
 	}
 
 	for (int i = 0; i < End; i++)
