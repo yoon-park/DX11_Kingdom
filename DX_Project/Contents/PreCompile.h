@@ -31,6 +31,7 @@
 #include <EngineCore/EnginePixelShader.h>
 #include <EngineCore/EngineShader.h>
 #include <EngineCore/EngineVertexShader.h>
+#include <EngineCore/EngineBlend.h>
 #include <EngineCore/EngineMaterial.h>
 #include <EngineCore/EngineRasterizer.h>
 
