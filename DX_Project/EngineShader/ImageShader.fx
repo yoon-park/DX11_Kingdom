@@ -6,12 +6,18 @@ struct ImageVSOutPut
     float4 TEXCOORD : TEXCOORD;
 };
 
+cbuffer FCuttingData : register(b2)
+{
+    float4 CuttingPosition;
+    float4 CuttingSize;
+};
+
 ImageVSOutPut ImageShader_VS(FEngineVertex _Input)
 {
     ImageVSOutPut Out = (ImageVSOutPut) 0;
-    
     Out.POSITION = mul(_Input.POSITION, WVP);
-    Out.TEXCOORD = _Input.TEXCOORD;
+    Out.TEXCOORD.x = (_Input.TEXCOORD.x * CuttingSize.x) + CuttingPosition.x;
+    Out.TEXCOORD.y = (_Input.TEXCOORD.y * CuttingSize.y) + CuttingPosition.y;
     
     return Out;
 }
@@ -31,7 +37,6 @@ cbuffer ResultColorValue : register(b10)
 ImagePSOutPut ImageShader_PS(ImageVSOutPut _Input)
 {
     ImagePSOutPut Out = (ImagePSOutPut) 0;
-    
     Out.COLOR = Sampling(Image, _Input.TEXCOORD);
     Out.COLOR.xyz += PlusColor.xyz;
     

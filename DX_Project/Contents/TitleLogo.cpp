@@ -18,7 +18,7 @@ void ATitleLogo::BeginPlay()
 	SetActorScale3D(FVector(700.0f, 300.0f, 100.0f));
 
 	DelayCallback(1.0f, std::bind(&ATitleLogo::RendererOff, this));
-	Renderer->Resources->SettingTexture("Image", "KingdomTitle.png", "POINT");
+	Renderer->SetSprite("CuttingTest.png", 11);
 }
 
 void ATitleLogo::Tick(float _DeltaTime)
@@ -28,12 +28,12 @@ void ATitleLogo::Tick(float _DeltaTime)
 
 void ATitleLogo::RendererOn()
 {
-	Renderer->SetActive(true);
+	Renderer->SetSprite("CuttingTest.png", 11);
 	DelayCallback(1.0f, std::bind(&ATitleLogo::RendererOff, this));
 }
 
 void ATitleLogo::RendererOff()
 {
-	Renderer->SetActive(false);
+	Renderer->SetSprite("CuttingTest.png", 11);
 	DelayCallback(1.0f, std::bind(&ATitleLogo::RendererOn, this));
 }
