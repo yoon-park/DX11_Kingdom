@@ -5,7 +5,7 @@
 
 ATitleGameMode::ATitleGameMode()
 {
-
+	InputOn();
 }
 
 ATitleGameMode::~ATitleGameMode()
@@ -27,7 +27,7 @@ void ATitleGameMode::Tick(float _DeltaTime)
 {
 	Super::Tick(_DeltaTime);
 
-	if (UEngineInput::IsDown('P') == true)
+	if (IsDown('P') == true)
 	{
 		GEngine->ChangeLevel("PlayLevel");
 	}

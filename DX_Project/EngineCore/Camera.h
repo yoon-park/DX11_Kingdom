@@ -38,17 +38,23 @@ public:
 		Far = _Value;
 	}
 
+	void ViewPortSetting();
+
 protected:
+	void BeginPlay() override;
+	void Tick(float _DeltaTime) override;
 
 private:
-	float Near = 1.0f;
-	float Far = 10000.0f;
+	bool IsFreeCamera = false;
 
 	ECameraType ProjectionType = ECameraType::Orthographic;
+	float Near = 1.0f;
+	float Far = 10000.0f;
 	float FOV = 60.0f;
 
 	FMatrix View;
 	FMatrix Projection;
+	D3D11_VIEWPORT ViewPort;
 
 	void CameraTransformUpdate();
 };

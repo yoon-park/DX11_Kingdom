@@ -4,6 +4,9 @@
 #include "SceneComponent.h"
 #include "DefaultSceneComponent.h"
 
+std::set<AActor*> AActor::InputActors;
+std::set<AActor*> AActor::PrevInputActors;
+
 AActor::AActor()
 {
 
@@ -105,4 +108,128 @@ void AActor::PushComponent(std::shared_ptr<UActorComponent> _Component, std::str
 	{
 		RootComponent = SceneComponent.get();
 	}
+}
+
+void AActor::OnlyInput(AActor* _this)
+{
+	PrevInputActors = InputActors;
+	InputActors.clear();
+	InputActors.insert(_this);
+}
+
+void AActor::OnlyInputStop()
+{
+	InputActors.clear();
+	InputActors = PrevInputActors;
+}
+
+float AActor::GetPressTime(int _Key)
+{
+	if (InputActors.contains(this) == false)
+	{
+		return false;
+	}
+
+	return UEngineInput::GetPressTime(_Key);
+}
+
+void AActor::InputOn()
+{
+	InputActors.insert(this);
+}
+
+void AActor::InputOff()
+{
+	InputActors.erase(this);
+}
+
+bool AActor::IsAnykeyDown()
+{
+	if (InputActors.contains(this) == false)
+	{
+		return false;
+	}
+
+	return UEngineInput::IsAnykeyDown();
+}
+
+bool AActor::IsAnykeyPress() 
+{
+	if (InputActors.contains(this) == false)
+	{
+		return false;
+	}
+
+	return UEngineInput::IsAnykeyPress();
+}
+
+bool AActor::IsAnykeyUp()
+{
+	if (InputActors.contains(this) == false)
+	{
+		return false;
+	}
+
+	return UEngineInput::IsAnykeyUp();
+}
+
+bool AActor::IsAnykeyFree()
+{
+	if (InputActors.contains(this) == false)
+	{
+		return false;
+	}
+
+	return UEngineInput::IsAnykeyFree();
+}
+
+bool AActor::IsDown(int _Key)
+{
+	if (InputActors.contains(this) == false)
+	{
+		return false;
+	}
+
+	return UEngineInput::IsDown(_Key);
+}
+
+bool AActor::IsPress(int _Key)
+{
+	if (InputActors.contains(this) == false)
+	{
+		return false;
+	}
+
+	return UEngineInput::IsPress(_Key);
+}
+
+
+bool AActor::IsUp(int _Key)
+{
+	if (InputActors.contains(this) == false)
+	{
+		return false;
+	}
+
+	return UEngineInput::IsUp(_Key);
+}
+
+bool AActor::IsFree(int _Key) 
+{
+	if (InputActors.contains(this) == false)
+	{
+		return false;
+	}
+
+	return UEngineInput::IsFree(_Key);
+}
+
+bool AActor::IsDoubleClick(int _Key, float _ClickTime)
+{
+	if (InputActors.contains(this) == false)
+	{
+		return false;
+	}
+
+	return UEngineInput::IsDoubleClick(_Key, _ClickTime);
 }

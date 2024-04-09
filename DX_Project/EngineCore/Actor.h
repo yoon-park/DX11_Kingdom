@@ -57,6 +57,31 @@ private:
 	USceneComponent* RootComponent = nullptr;
 	std::vector<std::shared_ptr<UActorComponent>> Components;
 
-	void RootCheck();
 	void PushComponent(std::shared_ptr<UActorComponent> _Component, std::string_view _Name);
+	void RootCheck();
+
+// Input
+public:
+	static void OnlyInput(AActor* _this);
+	static void OnlyInputStop();
+
+	float GetPressTime(int _Key);
+
+	void InputOn();
+	void InputOff();
+
+	bool IsAnykeyDown();
+	bool IsAnykeyPress();
+	bool IsAnykeyUp();
+	bool IsAnykeyFree();
+
+	bool IsDown(int _Key);
+	bool IsPress(int _Key);
+	bool IsUp(int _Key);
+	bool IsFree(int _Key);
+	bool IsDoubleClick(int _Key, float _ClickTime);
+
+private:
+	static std::set<AActor*> InputActors;
+	static std::set<AActor*> PrevInputActors;
 };

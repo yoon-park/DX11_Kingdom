@@ -36,9 +36,8 @@ public:
 	{
 		IsActorConstructor = true;
 		std::shared_ptr<AActor> NewActor = std::make_shared<ActorType>();
-		NewActor->RootCheck();
+		ConstructorActor(NewActor);
 		IsActorConstructor = false;
-		
 		PushActor(NewActor);
 
 		return std::dynamic_pointer_cast<ActorType>(NewActor);
@@ -59,6 +58,7 @@ private:
 	std::shared_ptr<UCamera> MainCamera = nullptr;
 	std::shared_ptr<UCamera> UICamera = nullptr;
 
+	void ConstructorActor(std::shared_ptr<AActor> _Actor);
 	void PushActor(std::shared_ptr<AActor> _Actor);
 	void PushRenderer(std::shared_ptr<URenderer> _Renderer);
 };

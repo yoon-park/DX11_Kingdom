@@ -25,15 +25,3 @@ void ATitleLogo::Tick(float _DeltaTime)
 {
 	Super::Tick(_DeltaTime);
 }
-
-void ATitleLogo::RendererOn()
-{
-	Renderer->SetSprite("CuttingTest.png", 11);
-	DelayCallback(1.0f, std::bind(&ATitleLogo::RendererOff, this));
-}
-
-void ATitleLogo::RendererOff()
-{
-	Renderer->SetSprite("CuttingTest.png", 11);
-	DelayCallback(1.0f, std::bind(&ATitleLogo::RendererOn, this));
-}

@@ -1,6 +1,6 @@
 #pragma once
 
-class URenderer;
+class USpriteRenderer;
 
 class APlayer : public AActor
 {
@@ -20,6 +20,6 @@ protected:
 	void Tick(float _DeltaTime) override;
 
 private:
-	URenderer* Renderer;
+	USpriteRenderer* Renderer;
 	float4 Color;
 };

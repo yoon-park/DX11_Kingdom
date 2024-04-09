@@ -51,6 +51,11 @@ public:
 		return EngineWindow.GetWindowScale();
 	}
 
+	FEngineOption GetEngineOption()
+	{
+		return EngineOption;
+	}
+
 	void SetWindowScale(FVector _Scale)
 	{
 		EngineWindow.SetWindowScale(_Scale);
