@@ -51,6 +51,15 @@ void URenderer::SetMaterial(std::string_view _Name)
 	}
 }
 
+void URenderer::SetOrder(int _Order)
+{
+	int PrevOrder = GetOrder();
+
+	Super::SetOrder(_Order);
+
+	GetWorld()->ChangeOrderRenderer(shared_from_this(), PrevOrder, _Order);
+}
+
 void URenderer::BeginPlay()
 {
 	Super::BeginPlay();

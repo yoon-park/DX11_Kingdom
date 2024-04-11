@@ -22,6 +22,9 @@
     <ClInclude Include="PlayBack.h">
       <Filter>Level\PlayLevel</Filter>
     </ClInclude>
+    <ClInclude Include="ContentsEnum.h">
+      <Filter>Option</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="PreCompile.cpp">
@@ -61,6 +64,9 @@
     </Filter>
     <Filter Include="Level\TitleLevel">
       <UniqueIdentifier>{71a32318-c34b-4791-abdf-873500f747a7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Option">
+      <UniqueIdentifier>{749a2141-5991-4699-af2e-f0d917d31484}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

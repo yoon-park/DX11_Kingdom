@@ -48,6 +48,13 @@ public:
 		return float4(Desc.Width, Desc.Height);
 	}
 
+	Color8Bit GetColor(float4 _Pos, Color8Bit _DefaultColor)
+	{
+		return GetColor(_Pos.iX(), _Pos.iY(), _DefaultColor);
+	}
+
+	Color8Bit GetColor(unsigned int _X, unsigned int _Y, Color8Bit _DefaultColor);
+
 protected:
 
 private:

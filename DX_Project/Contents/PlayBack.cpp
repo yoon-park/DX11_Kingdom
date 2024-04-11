@@ -17,9 +17,9 @@ void APlayBack::BeginPlay()
 {
 	Super::BeginPlay();
 
-	SetActorScale3D(FVector(1280.0f, 720.0f, 100.0f));
-
 	Renderer->SetSprite("Back.png");
+	Renderer->SetAutoSize(1.0f, true);
+	Renderer->SetOrder(ERenderOrder::Back);
 }
 
 void APlayBack::Tick(float _DeltaTime)

@@ -21,10 +21,15 @@ void APlayGameMode::BeginPlay()
 	std::shared_ptr<UCamera> Camera = GetWorld()->GetMainCamera();
 	Camera->SetActorLocation(FVector(0.0f, 0.0f, -100.0f));
 
-	GetWorld()->SpawnActor<APlayer>("Player");
+	{
+		std::shared_ptr<APlayer> Actor = GetWorld()->SpawnActor<APlayer>("Player");
+		Actor->SetActorLocation({ 0.0f, 200.0f });
+	}
 
-	std::shared_ptr<APlayBack> Back = GetWorld()->SpawnActor<APlayBack>("PlayBack");
-	Back->SetActorLocation({ 0.0f, 0.0f, 500.0f });
+	{
+		std::shared_ptr<APlayBack> Back = GetWorld()->SpawnActor<APlayBack>("PlayBack");
+		Back->SetActorLocation({ 0.0f, 0.0f, 500.0f });
+	}
 }
 
 
