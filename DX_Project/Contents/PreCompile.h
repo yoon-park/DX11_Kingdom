@@ -10,6 +10,8 @@
 #include <EngineCore/DirectXHelper.h>
 #include <EngineCore/EngineGraphicDevice.h>
 
+#include <EngineCore/StateManager.h>
+
 #include <EngineCore/Actor.h>
 #include <EngineCore/GameMode.h>
 

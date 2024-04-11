@@ -59,7 +59,7 @@ public:
 	void CreateAnimation(
 		std::string_view _AnimationName,
 		std::string_view _SpriteName, 
-		float _Inter, 
+		float _Inter = 0.1f,
 		bool _Loop = true, 
 		int _Start = -1, 
 		int _End = -1);

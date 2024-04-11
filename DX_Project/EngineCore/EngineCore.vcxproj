@@ -297,6 +297,10 @@
       <SubType>
       </SubType>
     </ClInclude>
+    <ClInclude Include="StateManager.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="ThirdParty\DirectXTex\inc\DirectXTex.h" />
     <ClInclude Include="TickObject.h">
       <SubType>
@@ -432,6 +436,10 @@
       </SubType>
     </ClCompile>
     <ClCompile Include="SpriteRenderer.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="StateManager.cpp">
       <SubType>
       </SubType>
     </ClCompile>

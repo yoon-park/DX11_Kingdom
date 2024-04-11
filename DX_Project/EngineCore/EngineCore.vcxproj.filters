@@ -109,6 +109,9 @@
     <ClInclude Include="EngineBlend.h">
       <Filter>Resources\Material</Filter>
     </ClInclude>
+    <ClInclude Include="StateManager.h">
+      <Filter>Contents</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="PreCompile.cpp">
@@ -216,6 +219,9 @@
     <ClCompile Include="EngineBlend.cpp">
       <Filter>Resources\Material</Filter>
     </ClCompile>
+    <ClCompile Include="StateManager.cpp">
+      <Filter>Contents</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="PreCompile">
@@ -274,6 +280,9 @@
     </Filter>
     <Filter Include="ThirdParty\DirectXTex\inc">
       <UniqueIdentifier>{49798f0b-a42f-48c3-a85e-098f1700940f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents">
+      <UniqueIdentifier>{cd4d5cb8-d0b9-4d7c-bcf8-514a2bf68731}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
