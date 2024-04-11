@@ -19,6 +19,7 @@ void APlayer::BeginPlay()
 
 	SetActorScale3D(FVector(300.0f, 300.0f, 100.0f));
 	Renderer->SetSprite("KingdomTitle.png");
+	Renderer->SetAutoSize(10.0f, true);
 }
 
 void APlayer::Tick(float _DeltaTime)

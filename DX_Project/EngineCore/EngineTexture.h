@@ -43,6 +43,11 @@ public:
 		return RTV;
 	}
 
+	float4 GetScale()
+	{
+		return float4(Desc.Width, Desc.Height);
+	}
+
 protected:
 
 private:

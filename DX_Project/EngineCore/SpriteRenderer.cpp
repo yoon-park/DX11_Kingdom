@@ -52,12 +52,7 @@ void USpriteRenderer::SetSprite(std::string_view _Name, UINT _Index/* = 0*/)
 	}
 
 	FSpriteInfo Info = Sprite->GetSpriteInfo(_Index);
-	CuttingDataValue.CuttingPosition = Info.CuttingPosition;
-	CuttingDataValue.CuttingSize = Info.CuttingSize;
-	CurTexture = Info.Texture;
-
-	Resources->SettingTexture("Image", Info.Texture, "POINT");
-	SetSamplering(SamplingValue);
+	SetSpriteInfo(Info);
 }
 
 void USpriteRenderer::SetPlusColor(float4 _Color)
@@ -90,6 +85,35 @@ void USpriteRenderer::SetSamplering(ETextureSampling _Value)
 	default:
 		break;
 	}
+}
+
+void USpriteRenderer::SetAutoSize(float _ScaleRatio, bool _AutoSize)
+{
+	AutoSize = _AutoSize;
+	ScaleRatio = _ScaleRatio;
+
+	if (AutoSize == true && CurInfo.Texture != nullptr)
+	{
+		SetSpriteInfo(CurInfo);
+	}
+}
+
+void USpriteRenderer::SetSpriteInfo(const FSpriteInfo& _Info)
+{
+	CuttingDataValue.CuttingPosition = _Info.CuttingPosition;
+	CuttingDataValue.CuttingSize = _Info.CuttingSize;
+	CurTexture = _Info.Texture;
+
+	if (AutoSize == true)
+	{
+		float4 TexScale = _Info.Texture->GetScale();
+		Transform.SetScale(TexScale * CuttingDataValue.CuttingSize * ScaleRatio);
+	}
+
+	CurInfo = _Info;
+
+	Resources->SettingTexture("Image", _Info.Texture, "POINT");
+	SetSamplering(SamplingValue);
 }
 
 void USpriteRenderer::CreateAnimation(
@@ -194,11 +218,6 @@ void USpriteRenderer::Tick(float _DeltaTime)
 		CurAnimation->Update(_DeltaTime);
 
 		FSpriteInfo Info = CurAnimation->GetCurSpriteInfo();
-		CuttingDataValue.CuttingPosition = Info.CuttingPosition;
-		CuttingDataValue.CuttingSize = Info.CuttingSize;
-		CurTexture = Info.Texture;
-
-		Resources->SettingTexture("Image", Info.Texture, "POINT");
-		SetSamplering(SamplingValue);
+		SetSpriteInfo(Info);
 	}
 }

@@ -53,6 +53,8 @@ public:
 	void SetSprite(std::string_view _Name, UINT _Index = 0);
 	void SetPlusColor(float4 _Color);
 	void SetSamplering(ETextureSampling _Value);
+	void SetAutoSize(float _ScaleRatio, bool _AutoSize);
+	void SetSpriteInfo(const FSpriteInfo& _Info);
 
 	void CreateAnimation(
 		std::string_view _AnimationName,
@@ -78,6 +80,9 @@ private:
 	FCuttingData CuttingDataValue;
 	float4 PlusColor = float4::Zero;
 	ETextureSampling SamplingValue = ETextureSampling::POINT;
+	bool AutoSize = false;
+	float ScaleRatio = 1.0f;
+	FSpriteInfo CurInfo;
 	std::shared_ptr<UEngineTexture> CurTexture = nullptr;
 	std::shared_ptr<USpriteAnimation> CurAnimation = nullptr;
 
