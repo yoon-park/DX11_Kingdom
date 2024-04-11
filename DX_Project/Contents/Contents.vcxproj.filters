@@ -25,6 +25,9 @@
     <ClInclude Include="ContentsEnum.h">
       <Filter>Option</Filter>
     </ClInclude>
+    <ClInclude Include="ContentsConstValue.h">
+      <Filter>Option</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="PreCompile.cpp">
@@ -47,6 +50,9 @@
     </ClCompile>
     <ClCompile Include="PlayBack.cpp">
       <Filter>Level\PlayLevel</Filter>
+    </ClCompile>
+    <ClCompile Include="ContentsConstValue.cpp">
+      <Filter>Option</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

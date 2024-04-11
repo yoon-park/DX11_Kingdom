@@ -27,7 +27,7 @@ void APlayer::Tick(float _DeltaTime)
 {
 	Super::Tick(_DeltaTime);
 
-	float Speed = 100.0f;
+	float Speed = 500.0f;
 
 	if (IsPress('A') == true)
 	{
@@ -77,5 +77,25 @@ void APlayer::Tick(float _DeltaTime)
 	if (IsPress(VK_NUMPAD8) == true)
 	{
 		Color.Z -= _DeltaTime;
+	}
+
+	std::shared_ptr<UEngineTexture> Tex = UContentsConstValue::MapTex;
+
+#ifdef _DEBUG
+	if (Tex == nullptr)
+	{
+		MsgBoxAssert("충돌체크할 맵 이미지가 존재하지 않습니다.");
+	}
+#endif
+
+	float4 Pos = GetActorLocation();
+	Pos /= UContentsConstValue::TileSize;
+	Pos.Y = -Pos.Y;
+
+	Color8Bit Color = Tex->GetColor(Pos, Color8Bit::Black);
+
+	if (Color != Color8Bit::Black)
+	{
+		AddActorLocation(float4::Down * _DeltaTime * 200.0f);
 	}
 }

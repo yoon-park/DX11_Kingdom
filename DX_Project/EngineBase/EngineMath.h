@@ -298,6 +298,16 @@ public:
 		return std::lround(Y);
 	}
 
+	unsigned int uiX() const
+	{
+		return static_cast<unsigned int>(std::lround(X));
+	}
+
+	unsigned int uiY() const
+	{
+		return static_cast<unsigned int>(std::lround(Y));
+	}
+
 	float hX() const
 	{
 		return X * 0.5f;

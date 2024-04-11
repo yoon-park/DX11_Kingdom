@@ -18,17 +18,28 @@ void APlayGameMode::BeginPlay()
 {
 	Super::BeginPlay();
 
-	std::shared_ptr<UCamera> Camera = GetWorld()->GetMainCamera();
-	Camera->SetActorLocation(FVector(0.0f, 0.0f, -100.0f));
+	UContentsConstValue::MapTex = UEngineTexture::FindRes("Back.png");
+	UContentsConstValue::MapTexScale = UContentsConstValue::MapTex->GetScale();
+
+	{
+		std::shared_ptr<UCamera> Camera = GetWorld()->GetMainCamera();
+		Camera->SetActorLocation(FVector(640.0f, -360.0f, -100.0f));
+	}
 
 	{
 		std::shared_ptr<APlayer> Actor = GetWorld()->SpawnActor<APlayer>("Player");
-		Actor->SetActorLocation({ 0.0f, 200.0f });
+		Actor->SetActorLocation({ 640.0f, -360.0f, 200.0f });
 	}
 
 	{
 		std::shared_ptr<APlayBack> Back = GetWorld()->SpawnActor<APlayBack>("PlayBack");
-		Back->SetActorLocation({ 0.0f, 0.0f, 500.0f });
+		
+		float TileSize = UContentsConstValue::TileSize;
+		float4 TexScale = UContentsConstValue::MapTexScale;
+		float4 ImageScale = { TexScale.X * TileSize, TexScale.Y * TileSize, 0.0f };
+
+		Back->SetActorScale3D(ImageScale);
+		Back->SetActorLocation({ ImageScale.hX(), -ImageScale.hY(), 500.0f });
 	}
 }
 

@@ -30,6 +30,36 @@ UEngineTexture::~UEngineTexture()
 
 Color8Bit UEngineTexture::GetColor(unsigned int _X, unsigned int _Y, Color8Bit _DefaultColor)
 {
+	if (_X > GetScale().uiX())
+	{
+		return _DefaultColor;
+	}
+
+	if (_Y > GetScale().uiY())
+	{
+		return _DefaultColor;
+	}
+
+	DXGI_FORMAT Fmt = Image.GetMetadata().format;
+	unsigned char* Ptr = Image.GetPixels();
+
+	switch (Fmt)
+	{
+	case DXGI_FORMAT_B8G8R8A8_UNORM:
+	{
+		Color8Bit Result;
+		Ptr += ((_Y * GetScale().iX()) + _X) * 4;
+		Result.B = Ptr[0];
+		Result.G = Ptr[1];
+		Result.R = Ptr[2];
+		Result.A = Ptr[3];
+		return Result;
+	}
+	default:
+		MsgBoxAssert("아직 처리할수 없는 GetPixel 포맷입니다.");
+		break;
+	}
+
 	return Color8Bit();
 }
 

@@ -48,6 +48,7 @@
 
 #include <EngineCore/ThirdParty/DirectXTex/inc/DirectXTex.h>
 
+#include "ContentsConstValue.h"
 #include "ContentsEnum.h"
 
 #pragma comment (lib, "DirectXTex.lib")
