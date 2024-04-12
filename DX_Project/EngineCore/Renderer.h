@@ -26,6 +26,16 @@ public:
 
 	std::shared_ptr<UEngineShaderResources> Resources;
 
+	std::shared_ptr<UEngineMesh> GetMesh()
+	{
+		return Mesh;
+	}
+
+	std::shared_ptr<UEngineMaterial> GetMaterial()
+	{
+		return Material;
+	}
+
 	void SetMesh(std::string_view _Name);
 	void SetMaterial(std::string_view _Name);
 

@@ -34,7 +34,7 @@ void UEngineBlend::Setting()
 #ifdef _DEBUG
 	if (State == nullptr)
 	{
-		MsgBoxAssert("만들어지지 않은 블랜드를 세팅하려 했습니다. : " + GetName());
+		MsgBoxAssert("만들어지지 않은 블렌드를 세팅하려 했습니다. : " + GetName());
 	}
 #endif
 
