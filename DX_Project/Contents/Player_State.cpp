@@ -8,6 +8,11 @@ void APlayer::StateInit()
 	State.CreateState("Jump");
 	State.CreateState("Run");
 
+	Renderer->SetFrameCallback("Run", 0, [=]
+		{
+
+		});
+
 	USpriteRenderer* MyRender = Renderer;
 	
 	State.SetStartFunction("Idle", [=]

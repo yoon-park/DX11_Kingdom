@@ -34,7 +34,7 @@ void UContentsCore::Initialize()
 			UEngineSprite::LoadFolder(Directorys[i].GetFullPath());
 		}
 
-		UEngineSprite::CreateCutting("CuttingTest.png", 4, 3);
+		// UEngineSprite::CreateCutting("CuttingTest.png", 4, 3);
 	}
 
 	{

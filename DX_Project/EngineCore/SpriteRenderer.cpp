@@ -26,6 +26,16 @@ void USpriteAnimation::Update(float _DeltaTime)
 	}
 }
 
+void USpriteAnimation::FrameCallBackCheck()
+{
+	if (FrameCallback.contains(CurFrame) == false)
+	{
+		return;
+	}
+
+	FrameCallback[CurFrame]();
+}
+
 USpriteRenderer::USpriteRenderer()
 {
 	SetMesh("Rect");
@@ -39,6 +49,11 @@ USpriteRenderer::USpriteRenderer()
 USpriteRenderer::~USpriteRenderer()
 {
 
+}
+
+bool USpriteRenderer::IsCurAnimationEnd()
+{
+	return CurAnimation->IsEnd;
 }
 
 void USpriteRenderer::SetSprite(std::string_view _Name, UINT _Index/* = 0*/)
@@ -156,6 +171,19 @@ void USpriteRenderer::SetDir(EEngineDir _Dir)
 	}
 }
 
+void USpriteRenderer::SetFrameCallback(std::string_view _AnimationName, int _Index, std::function<void()> _Function)
+{
+	std::string UpperName = UEngineString::ToUpper(_AnimationName);
+
+	if (Animations.contains(UpperName) == false)
+	{
+		MsgBoxAssert("존재하지 않는 애니메이션을 콜백으로 지정할 수 없습니다. : " + std::string(_AnimationName));
+		return;
+	}
+
+	Animations[UpperName]->FrameCallback[_Index] = _Function;
+}
+
 void USpriteRenderer::CreateAnimation(
 	std::string_view _AnimationName,
 	std::string_view _SpriteName,
@@ -247,6 +275,8 @@ void USpriteRenderer::ChangeAnimation(std::string_view _AnimationName)
 	}
 
 	CurAnimation = Animations[UpperName];
+	CurAnimation->Reset();
+	CurAnimation->FrameCallBackCheck();
 }
 
 void USpriteRenderer::Tick(float _DeltaTime)

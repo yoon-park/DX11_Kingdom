@@ -14,7 +14,6 @@ class UEngineSprite;
 
 class USpriteAnimation : public UNameObject
 {
-
 public:
 	std::shared_ptr<UEngineSprite> Sprite;
 	std::vector<float> Inter;
@@ -22,11 +21,16 @@ public:
 	int CurFrame = 0;
 	float CurTime = 0.0f;
 	bool Loop = true;
+	bool IsEnd = false;
+
+	std::map<int, std::function<void()>> FrameCallback;
 
 	FSpriteInfo GetCurSpriteInfo()
 	{
 		return Sprite->GetSpriteInfo(Frame[CurFrame]);
 	}
+
+	void FrameCallBackCheck();
 
 	void Reset()
 	{
@@ -52,12 +56,16 @@ public:
 	USpriteRenderer& operator=(const USpriteRenderer& _Other) = delete;
 	USpriteRenderer& operator=(USpriteRenderer&& _Other) noexcept = delete;
 
+	bool IsCurAnimationEnd();
+
 	void SetSprite(std::string_view _Name, UINT _Index = 0);
 	void SetPlusColor(float4 _Color);
 	void SetSamplering(ETextureSampling _Value);
 	void SetAutoSize(float _ScaleRatio, bool _AutoSize);
 	void SetSpriteInfo(const FSpriteInfo& _Info);
 	void SetDir(EEngineDir _Dir);
+	void SetFrameCallback(std::string_view _AnimationName, int _Index, std::function<void()> _Function);
+
 
 	void CreateAnimation(
 		std::string_view _AnimationName,
