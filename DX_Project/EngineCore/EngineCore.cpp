@@ -1,10 +1,14 @@
 #include "PreCompile.h"
 #include "EngineCore.h"
 
-#include "Level.h"
-#include "GameMode.h"
+#include "EngineEditorGUI.h"
+#include "EngineDebugMsgWindow.h"
+
 #include "EngineVertexBuffer.h"
 #include "EngineTexture.h"
+
+#include "Level.h"
+#include "GameMode.h"
 
 UEngineCore* GEngine = nullptr;
 
@@ -61,6 +65,9 @@ void UEngineCore::EngineStart(HINSTANCE _Inst)
 	EngineWindow.SetWindowScale(EngineOption.WindowScale);
 	EngineDevice.Initialize(EngineWindow, EngineOption.ClearColor);
 
+	UEngineEditorGUI::GUIInit();
+	UEngineEditorGUI::CreateEditorWindow<UEngineDebugMsgWindow>("DebugMsgWindow");
+
 	{
 		UserCorePtr->Initialize();
 		MainTimer.TimeCheckStart();
@@ -70,6 +77,8 @@ void UEngineCore::EngineStart(HINSTANCE _Inst)
 		std::bind(&UEngineCore::EngineFrameUpdate, this),
 		std::bind(&UEngineCore::EngineEnd, this)
 	);
+
+	UEngineEditorGUI::GUIRelease();
 }
 
 void UEngineCore::EngineFrameUpdate()
@@ -91,8 +100,10 @@ void UEngineCore::EngineFrameUpdate()
 	}
 
 	CurLevel->Tick(DeltaTime);
+
 	EngineDevice.RenderStart();
 	CurLevel->Render(DeltaTime);
+	UEngineEditorGUI::GUIRender(DeltaTime);
 	EngineDevice.RenderEnd();
 }
 

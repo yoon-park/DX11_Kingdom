@@ -3,14 +3,19 @@
 #include <EngineCore/PreCompile.h>
 
 
+#include <EngineCore/StateManager.h>
+
 #include <EngineCore/EngineCore.h>
+#include <EngineCore/EngineDefines.h>
 #include <EngineCore/EngineEnums.h>
 #include <EngineCore/EngineOption.h>
 
 #include <EngineCore/DirectXHelper.h>
 #include <EngineCore/EngineGraphicDevice.h>
 
-#include <EngineCore/StateManager.h>
+#include <EngineCore/EngineDebugMsgWindow.h>
+#include <EngineCore/EngineEditorGUI.h>
+#include <EngineCore/EngineEditorWindow.h>
 
 #include <EngineCore/Actor.h>
 #include <EngineCore/GameMode.h>

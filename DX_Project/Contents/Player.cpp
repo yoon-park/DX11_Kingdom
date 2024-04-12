@@ -34,4 +34,19 @@ void APlayer::Tick(float _DeltaTime)
 	Super::Tick(_DeltaTime);
 
 	State.Update(_DeltaTime);
+
+	DebugMessageFunction();
+}
+
+void APlayer::DebugMessageFunction()
+{
+	{
+		std::string Msg = std::format("PlayerPos : {}\n", GetActorLocation().ToString());
+		UEngineDebugMsgWindow::PushMsg(Msg);
+	}
+
+	{
+		std::string Msg = std::format("MousePos : {}\n", GEngine->EngineWindow.GetScreenMousePos().ToString());
+		UEngineDebugMsgWindow::PushMsg(Msg);
+	}
 }

@@ -3,27 +3,13 @@
 
 #include "WindowImage.h"
 
-bool UEngineWindow::WindowLive = true;
 HINSTANCE UEngineWindow::hInstance;
+bool UEngineWindow::WindowLive = true;
+std::function<bool(HWND, UINT, WPARAM, LPARAM)> UEngineWindow::UserWndProcFunction;
 
-LRESULT CALLBACK UEngineWindow::WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
+void UEngineWindow::SetUserWindowCallBack(std::function<bool(HWND, UINT, WPARAM, LPARAM)> _UserWndProcFunction)
 {
-	switch (message)
-	{
-	case WM_PAINT:
-	{
-		PAINTSTRUCT ps;
-		HDC hdc = BeginPaint(hWnd, &ps);
-		EndPaint(hWnd, &ps);
-	}
-	break;
-	case WM_DESTROY:
-		WindowLive = false;
-		break;
-	default:
-		return DefWindowProc(hWnd, message, wParam, lParam);
-	}
-	return 0;
+	UserWndProcFunction = _UserWndProcFunction;
 }
 
 void UEngineWindow::Init(HINSTANCE _hInst)
@@ -60,6 +46,34 @@ unsigned __int64 UEngineWindow::WindowMessageLoop(std::function<void()> _Update,
 	}
 
 	return msg.wParam;
+}
+
+LRESULT CALLBACK UEngineWindow::WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
+{
+	if (UserWndProcFunction != nullptr)
+	{
+		if (UserWndProcFunction(hWnd, message, wParam, lParam) == true)
+		{
+			return true;
+		}
+	}
+
+	switch (message)
+	{
+	case WM_PAINT:
+	{
+		PAINTSTRUCT ps;
+		HDC hdc = BeginPaint(hWnd, &ps);
+		EndPaint(hWnd, &ps);
+	}
+	break;
+	case WM_DESTROY:
+		WindowLive = false;
+		break;
+	default:
+		return DefWindowProc(hWnd, message, wParam, lParam);
+	}
+	return 0;
 }
 
 UEngineWindow::UEngineWindow() 

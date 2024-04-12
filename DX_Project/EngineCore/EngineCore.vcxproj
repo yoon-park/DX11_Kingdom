@@ -204,6 +204,19 @@
       </SubType>
     </ClInclude>
     <ClInclude Include="EngineCore.h" />
+    <ClInclude Include="EngineDebugMsgWindow.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="EngineDefines.h" />
+    <ClInclude Include="EngineEditorGUI.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="EngineEditorWindow.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="EngineEnums.h" />
     <ClInclude Include="EngineGraphicDevice.h">
       <SubType>
@@ -277,6 +290,14 @@
       <SubType>
       </SubType>
     </ClInclude>
+    <ClInclude Include="imconfig.h" />
+    <ClInclude Include="imgui.h" />
+    <ClInclude Include="imgui_impl_dx11.h" />
+    <ClInclude Include="imgui_impl_win32.h" />
+    <ClInclude Include="imgui_internal.h" />
+    <ClInclude Include="imstb_rectpack.h" />
+    <ClInclude Include="imstb_textedit.h" />
+    <ClInclude Include="imstb_truetype.h" />
     <ClInclude Include="Level.h">
       <SubType>
       </SubType>
@@ -345,6 +366,18 @@
       </SubType>
     </ClCompile>
     <ClCompile Include="EngineCore.cpp" />
+    <ClCompile Include="EngineDebugMsgWindow.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="EngineEditorGUI.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="EngineEditorWindow.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
     <ClCompile Include="EngineGraphicDevice.cpp">
       <SubType>
       </SubType>
@@ -415,6 +448,13 @@
       <SubType>
       </SubType>
     </ClCompile>
+    <ClCompile Include="imgui.cpp" />
+    <ClCompile Include="imgui_demo.cpp" />
+    <ClCompile Include="imgui_draw.cpp" />
+    <ClCompile Include="imgui_impl_dx11.cpp" />
+    <ClCompile Include="imgui_impl_win32.cpp" />
+    <ClCompile Include="imgui_tables.cpp" />
+    <ClCompile Include="imgui_widgets.cpp" />
     <ClCompile Include="Level.cpp">
       <SubType>
       </SubType>

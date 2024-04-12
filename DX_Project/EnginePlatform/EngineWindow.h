@@ -13,6 +13,8 @@ public:
 	UEngineWindow& operator=(const UEngineWindow& _Other) = delete;
 	UEngineWindow& operator=(UEngineWindow&& _Other) noexcept = delete;
 
+	static void SetUserWindowCallBack(std::function<bool(HWND, UINT, WPARAM, LPARAM)> _UserWndProcFunction);
+	
 	static void Init(HINSTANCE _hInst);
 	static unsigned __int64 WindowMessageLoop(std::function<void()> _Update, std::function<void()> _End);
 
@@ -88,8 +90,10 @@ protected:
 
 private:
 	static HINSTANCE hInstance;
-	static LRESULT CALLBACK WndProc(HWND, UINT, WPARAM, LPARAM);
 	static bool WindowLive;
+	static std::function<bool(HWND, UINT, WPARAM, LPARAM)> UserWndProcFunction;
+	
+	static LRESULT CALLBACK WndProc(HWND, UINT, WPARAM, LPARAM);
 
 	HWND hWnd = nullptr;
 	FVector Position;
