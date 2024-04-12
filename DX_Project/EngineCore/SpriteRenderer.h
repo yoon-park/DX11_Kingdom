@@ -85,6 +85,8 @@ public:
 	void ChangeAnimation(std::string_view _AnimationName);
 
 protected:
+	void MaterialSettingEnd() override;
+
 	void Tick(float _DeltaTime) override;
 
 private:

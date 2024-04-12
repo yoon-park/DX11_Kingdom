@@ -163,6 +163,13 @@ void UEngineShaderResources::SettingAllShaderResources()
 	}
 }
 
+void UEngineShaderResources::Reset()
+{
+	ConstantBuffers.clear();
+	Textures.clear();
+	Samplers.clear();
+}
+
 void UEngineShaderResources::ShaderResourcesCheck(
 	EShaderType _Type,
 	std::string_view _EntryName,

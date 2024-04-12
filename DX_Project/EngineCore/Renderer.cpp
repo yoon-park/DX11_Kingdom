@@ -42,6 +42,7 @@ void URenderer::SetMaterial(std::string_view _Name)
 		Layout = UEngineInputLayout::Create(Mesh->VertexBuffer, Material->GetVertexShader());
 	}
 
+	Resources->Reset();
 	ResCopy(Material->GetVertexShader().get());
 	ResCopy(Material->GetPixelShader().get());
 
@@ -49,6 +50,8 @@ void URenderer::SetMaterial(std::string_view _Name)
 	{
 		Resources->SettingConstantBuffer("FTransform", Transform);
 	}
+
+	MaterialSettingEnd();
 }
 
 void URenderer::SetOrder(int _Order)

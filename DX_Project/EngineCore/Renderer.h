@@ -47,6 +47,8 @@ public:
 
 	void SetOrder(int _Order) override;
 
+	virtual void MaterialSettingEnd() {}
+
 protected:
 	void BeginPlay() override;
 	void Tick(float _DeltaTime) override;

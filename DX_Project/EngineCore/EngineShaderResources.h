@@ -57,6 +57,8 @@ public:
 	void SettingTexture(std::string_view _TexName, std::shared_ptr<UEngineTexture> _Texture, std::string_view _SamperName);
 	void SettingAllShaderResources();
 
+	void Reset();
+
 protected:
 
 private:

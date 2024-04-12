@@ -13,13 +13,10 @@ void APlayer::StateInit()
 
 		});
 
-	USpriteRenderer* MyRender = Renderer;
-	
-	State.SetStartFunction("Idle", [=]
+	State.SetStartFunction("Idle", [this]()
 		{
-			MyRender->ChangeAnimation("Idle");
-		}
-	);
+			this->Renderer->ChangeAnimation("Idle");
+		});
 
 	State.SetUpdateFunction("Idle", std::bind(&APlayer::Idle, this, std::placeholders::_1));
 

@@ -22,7 +22,7 @@ void APlayer::BeginPlay()
 	Renderer->CreateAnimation("Die", "Die");
 	Renderer->CreateAnimation("Idle", "Idle");
 	Renderer->CreateAnimation("Jump", "Jump");
-	Renderer->CreateAnimation("Run", "Run", 1.0f);
+	Renderer->CreateAnimation("Run", "Run", 0.1f);
 	StateInit();
 
 	Renderer->SetAutoSize(10.0f, true);

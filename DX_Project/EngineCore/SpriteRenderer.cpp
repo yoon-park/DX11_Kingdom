@@ -40,10 +40,6 @@ USpriteRenderer::USpriteRenderer()
 {
 	SetMesh("Rect");
 	SetMaterial("2DImage");
-	Resources->SettingTexture("Image", "EngineBaseTexture.png", "POINT");
-	CurTexture = nullptr;
-	Resources->SettingConstantBuffer("ResultColorValue", PlusColor);
-	Resources->SettingConstantBuffer("FCuttingData", CuttingDataValue);
 }
 
 USpriteRenderer::~USpriteRenderer()
@@ -277,6 +273,16 @@ void USpriteRenderer::ChangeAnimation(std::string_view _AnimationName)
 	CurAnimation = Animations[UpperName];
 	CurAnimation->Reset();
 	CurAnimation->FrameCallBackCheck();
+}
+
+void USpriteRenderer::MaterialSettingEnd()
+{
+	Super::MaterialSettingEnd();
+
+	Resources->SettingTexture("Image", "EngineBaseTexture.png", "POINT");
+	CurTexture = nullptr;
+	Resources->SettingConstantBuffer("ResultColorValue", PlusColor);
+	Resources->SettingConstantBuffer("FCuttingData", CuttingDataValue);
 }
 
 void USpriteRenderer::Tick(float _DeltaTime)
