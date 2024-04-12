@@ -2,6 +2,8 @@
 #include "Renderer.h"
 #include "EngineSprite.h"
 
+#include "EngineEnums.h"
+
 struct FCuttingData
 {
 	float4 CuttingPosition;
@@ -55,6 +57,7 @@ public:
 	void SetSamplering(ETextureSampling _Value);
 	void SetAutoSize(float _ScaleRatio, bool _AutoSize);
 	void SetSpriteInfo(const FSpriteInfo& _Info);
+	void SetDir(EEngineDir _Dir);
 
 	void CreateAnimation(
 		std::string_view _AnimationName,
@@ -83,6 +86,7 @@ private:
 	bool AutoSize = false;
 	float ScaleRatio = 1.0f;
 	FSpriteInfo CurInfo;
+	EEngineDir Dir = EEngineDir::MAX;
 	std::shared_ptr<UEngineTexture> CurTexture = nullptr;
 	std::shared_ptr<USpriteAnimation> CurAnimation = nullptr;
 

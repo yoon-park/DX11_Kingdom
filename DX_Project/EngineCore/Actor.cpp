@@ -22,6 +22,16 @@ FTransform& AActor::GetActorTransform()
 	return RootComponent->Transform;
 }
 
+FVector AActor::GetActorScale3D()
+{
+	return RootComponent->Transform.GetScale();
+}
+
+FVector AActor::GetActorLocation()
+{
+	return RootComponent->Transform.GetPosition();
+}
+
 FVector AActor::GetActorForwardVector()
 {
 	return RootComponent->Transform.GetForward();
@@ -35,11 +45,6 @@ FVector AActor::GetActorRightVector()
 FVector AActor::GetActorUpVector()
 {
 	return RootComponent->Transform.GetUp();
-}
-
-FVector AActor::GetActorLocation()
-{
-	return RootComponent->Transform.GetPosition();
 }
 
 void AActor::SetActorTransform(const FTransform& _Transform)

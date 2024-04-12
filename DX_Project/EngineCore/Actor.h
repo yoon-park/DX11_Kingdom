@@ -23,6 +23,7 @@ public:
 	AActor& operator=(AActor&& _Other) noexcept = delete;
 
 	FTransform& GetActorTransform();
+	FVector GetActorScale3D();
 	FVector GetActorLocation();
 	FVector GetActorForwardVector();
 	FVector GetActorRightVector();

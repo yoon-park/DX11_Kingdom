@@ -110,10 +110,50 @@ void USpriteRenderer::SetSpriteInfo(const FSpriteInfo& _Info)
 		Transform.SetScale(TexScale * CuttingDataValue.CuttingSize * ScaleRatio);
 	}
 
+	if (Dir != EEngineDir::MAX)
+	{
+		float4 Scale = Transform.GetScale();
+
+		switch (Dir)
+		{
+		case EEngineDir::Left:
+		{
+			if (Scale.X > 0)
+			{
+				Scale.X = -Scale.X;
+			}
+			break;
+		}
+		case EEngineDir::Right:
+		{
+			if (Scale.X < 0)
+			{
+				Scale.X = -Scale.X;
+			}
+			break;
+		}
+		case EEngineDir::MAX:
+		default:
+			break;
+		}
+
+		Transform.SetScale(Scale);
+	}
+
 	CurInfo = _Info;
 
 	Resources->SettingTexture("Image", _Info.Texture, "POINT");
 	SetSamplering(SamplingValue);
+}
+
+void USpriteRenderer::SetDir(EEngineDir _Dir)
+{
+	Dir = _Dir;
+
+	if (CurInfo.Texture != nullptr)
+	{
+		SetSpriteInfo(CurInfo);
+	}
 }
 
 void USpriteRenderer::CreateAnimation(

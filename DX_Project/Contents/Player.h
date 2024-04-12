@@ -15,6 +15,8 @@ public:
 	APlayer& operator=(const APlayer& _Other) = delete;
 	APlayer& operator=(APlayer&& _Other) noexcept = delete;
 
+	UStateManager State;
+
 protected:
 	void BeginPlay() override;
 	void Tick(float _DeltaTime) override;
@@ -22,4 +24,15 @@ protected:
 private:
 	USpriteRenderer* Renderer;
 	float4 Color;
+
+	// State
+	void StateInit();
+
+	void Die(float _DeltaTime);
+
+	void Idle(float _DeltaTime);
+	void Jump(float _DeltaTime);
+
+	void RunStart();
+	void Run(float _DeltaTime);
 };
