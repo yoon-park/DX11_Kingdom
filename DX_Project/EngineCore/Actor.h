@@ -7,7 +7,7 @@ class ULevel;
 class UActorComponent;
 class USceneComponent;
 
-class AActor : public UTickObject, public UWorldObject
+class AActor : public UTickObject, public UWorldObject, public UNameObject
 {
 	GENERATED_BODY(UTickObject)
 
@@ -33,6 +33,16 @@ public:
 	void SetActorScale3D(FVector _Value);
 	void SetActorRotation(FVector _Value);
 	void SetActorLocation(FVector _Value);
+
+	void SetRoot(USceneComponent* _Root)
+	{
+		if (RootComponent != nullptr)
+		{
+			MsgBoxAssert("이미 루트를 지정했습니다.");
+		}
+
+		RootComponent = _Root;
+	}
 
 	void AddActorScale3D(FVector _Value);
 	void AddActorRotation(FVector _Value);
@@ -62,7 +72,6 @@ private:
 	std::vector<std::shared_ptr<UActorComponent>> Components;
 
 	void PushComponent(std::shared_ptr<UActorComponent> _Component, std::string_view _Name);
-	void RootCheck();
 
 // Input
 public:

@@ -148,6 +148,9 @@
     <ClInclude Include="EngineDebugMsgWindow.h">
       <Filter>Editor</Filter>
     </ClInclude>
+    <ClInclude Include="Collision.h">
+      <Filter>Object\Collision</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="PreCompile.cpp">
@@ -288,6 +291,9 @@
     <ClCompile Include="EngineDebugMsgWindow.cpp">
       <Filter>Editor</Filter>
     </ClCompile>
+    <ClCompile Include="Collision.cpp">
+      <Filter>Object\Collision</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="PreCompile">
@@ -355,6 +361,9 @@
     </Filter>
     <Filter Include="Editor\Imgui">
       <UniqueIdentifier>{350bdac3-fb67-4e04-868f-c85d2aabbd68}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Object\Collision">
+      <UniqueIdentifier>{ce90726b-3e97-4b8f-bc83-a2546d6ae51a}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

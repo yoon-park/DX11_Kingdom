@@ -2,6 +2,7 @@
 #include "PlayGameMode.h"
 
 #include "Player.h"
+#include "Monster.h"
 #include "PlayBack.h"
 
 APlayGameMode::APlayGameMode()
@@ -27,8 +28,13 @@ void APlayGameMode::BeginPlay()
 	}
 
 	{
-		std::shared_ptr<APlayer> Actor = GetWorld()->SpawnActor<APlayer>("Player");
+		std::shared_ptr<APlayer> Actor = GetWorld()->SpawnActor<APlayer>("Player", EObjectOrder::Player);
 		Actor->SetActorLocation({ 640.0f, -360.0f, 200.0f });
+	}
+
+	{
+		std::shared_ptr<AMonster> Actor = GetWorld()->SpawnActor<AMonster>("Monster", EObjectOrder::Monster);
+		Actor->SetActorLocation({ 1040.0f, -360.0f, 200.0f });
 	}
 
 	{

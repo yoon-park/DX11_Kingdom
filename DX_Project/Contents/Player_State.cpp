@@ -8,14 +8,9 @@ void APlayer::StateInit()
 	State.CreateState("Jump");
 	State.CreateState("Run");
 
-	Renderer->SetFrameCallback("Run", 0, [=]
-		{
-
-		});
-
 	State.SetStartFunction("Idle", [this]()
 		{
-			this->Renderer->ChangeAnimation("Idle");
+
 		});
 
 	State.SetUpdateFunction("Idle", std::bind(&APlayer::Idle, this, std::placeholders::_1));
@@ -50,7 +45,7 @@ void APlayer::Jump(float _Update)
 
 void APlayer::RunStart()
 {
-	Renderer->ChangeAnimation("Run");
+
 }
 
 void APlayer::Run(float _DeltaTime)
@@ -79,13 +74,12 @@ void APlayer::Run(float _DeltaTime)
 
 	if (IsPress(VK_NUMPAD1) == true)
 	{
-		// AddActorRotation(float4{0.0f, 0.0f, 1.0f} * 360.0f * _DeltaTime);
-		// Color.X += _DeltaTime;
+		AddActorRotation(float4{0.0f, 0.0f, 1.0f} * 360.0f * _DeltaTime);
 	}
 
 	if (IsPress(VK_NUMPAD2) == true)
 	{
-		Color.X -= _DeltaTime;
+		AddActorRotation(float4{ 1.0f, 1.0f, 1.0f } * _DeltaTime);
 	}
 
 	if (IsPress(VK_NUMPAD4) == true)

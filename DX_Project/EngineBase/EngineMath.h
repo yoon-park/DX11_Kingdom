@@ -60,6 +60,8 @@ public:
 
 		float Arr1D[4];
 		float Arr2D[1][4];
+		DirectX::XMFLOAT3 DirectFloat3;
+		DirectX::XMFLOAT4 DirectFloat4;
 		DirectX::XMVECTOR DirectVector;
 	};
 
@@ -288,6 +290,57 @@ public:
 		return;
 	}
 
+	float4 DegToQuaternion() const
+	{
+		// Degree
+		float4 Result = *this;
+
+		// Radian
+		Result *= UEngineMath::DToR;
+		
+		// Quaternion
+		Result.DirectVector = DirectX::XMQuaternionRotationRollPitchYawFromVector(Result.DirectVector);
+		return Result;
+	}
+
+	float4 QuaternionToDeg() const
+	{
+		return QuaternionToRad() * UEngineMath::RToD;
+	}
+
+	float4 QuaternionToRad() const
+	{
+		float4 result;
+
+		double sinrCosp = 2.0f * (W * Z + X * Y);
+		double cosrCosp = 1.0f - 2.0f * (Z * Z + X * X);
+		result.Z = static_cast<float>(atan2(sinrCosp, cosrCosp));
+
+		double pitchTest = W * X - Y * Z;
+		double asinThreshold = 0.4999995f;
+		double sinp = 2.0f * pitchTest;
+
+		if (pitchTest < -asinThreshold)
+		{
+			result.X = -(0.5f * UEngineMath::PI);
+		}
+		else if (pitchTest > asinThreshold)
+		{
+			result.X = (0.5f * UEngineMath::PI);
+		}
+		else
+		{
+			result.X = static_cast<float>(asin(sinp));
+		}
+
+		double sinyCosp = 2.0f * (W * Y + X * Z);
+		double cosyCosp = 1.0f - 2.0f * (X * X + Y * Y);
+		result.Y = static_cast<float>(atan2(sinyCosp, cosyCosp));
+
+		return result;
+	}
+
+
 	int iX() const
 	{
 		return std::lround(X);
@@ -328,7 +381,7 @@ public:
 		return std::lround(hX());
 	}
 
-	float4 Half2D()
+	float4 Half2D() const
 	{
 		return { hX(), hY() };
 	}
@@ -633,6 +686,11 @@ public:
 		Arr2D[3][2] = _Value.Z;
 		*/
 		DirectMatrix = DirectX::XMMatrixTranslationFromVector(_Value.DirectVector);
+	}
+
+	void Decompose(float4& _Scale, float4& _Rotation, float4& _Position)
+	{
+		DirectX::XMMatrixDecompose(&_Scale.DirectVector, &_Rotation.DirectVector, &_Position.DirectVector, DirectMatrix);
 	}
 
 	void LookToLH(const float4 _EyePos, const float4 _EyeDir, const float4 _EyeUp)

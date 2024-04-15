@@ -23,6 +23,7 @@ protected:
 
 private:
 	USpriteRenderer* Renderer;
+	UCollision* Collision;
 	float4 Color;
 
 	void DebugMessageFunction();

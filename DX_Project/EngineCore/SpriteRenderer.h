@@ -56,7 +56,10 @@ public:
 	USpriteRenderer& operator=(const USpriteRenderer& _Other) = delete;
 	USpriteRenderer& operator=(USpriteRenderer&& _Other) noexcept = delete;
 
-	bool IsCurAnimationEnd();
+	inline EEngineDir GetDir() const
+	{
+		return Dir;
+	}
 
 	void SetSprite(std::string_view _Name, UINT _Index = 0);
 	void SetPlusColor(float4 _Color);
@@ -65,7 +68,6 @@ public:
 	void SetSpriteInfo(const FSpriteInfo& _Info);
 	void SetDir(EEngineDir _Dir);
 	void SetFrameCallback(std::string_view _AnimationName, int _Index, std::function<void()> _Function);
-
 
 	void CreateAnimation(
 		std::string_view _AnimationName,
@@ -83,6 +85,8 @@ public:
 		bool _Loop = true);
 
 	void ChangeAnimation(std::string_view _AnimationName);
+
+	bool IsCurAnimationEnd();
 
 protected:
 	void MaterialSettingEnd() override;

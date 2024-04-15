@@ -4,6 +4,8 @@
 APlayBack::APlayBack()
 {
 	Renderer = CreateDefaultSubObject<USpriteRenderer>("Renderer");
+
+	SetRoot(Renderer);
 	
 	InputOn();
 }

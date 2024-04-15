@@ -24,6 +24,8 @@
 #include <EngineCore/DefaultSceneComponent.h>
 #include <EngineCore/SceneComponent.h>
 
+#include <EngineCore/Collision.h>
+
 #include <EngineCore/Camera.h>
 #include <EngineCore/Renderer.h>
 #include <EngineCore/SpriteRenderer.h>

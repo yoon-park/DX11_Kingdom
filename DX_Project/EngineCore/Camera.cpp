@@ -2,10 +2,14 @@
 #include "Camera.h"
 
 #include "EngineCore.h"
+#include "DefaultSceneComponent.h"
 
 UCamera::UCamera()
 {
 	InputOn();
+
+	UDefaultSceneComponent* Root = CreateDefaultSubObject<UDefaultSceneComponent>("DefaultSceneComponent");
+	SetRoot(Root);
 
 	float4 Scale = GEngine->EngineWindow.GetWindowScale();
 	ViewPort.Width = Scale.X;

@@ -6,7 +6,33 @@ enum class ECollisionType
 	Point,
 	CirCle,
 	Rect,
+	RotRect,
+	Sphere,
+	Box,
+	RotBox,
 	Max,
+};
+
+class CollisionData
+{
+public:
+	union
+	{
+		// 구
+		DirectX::BoundingSphere Sphere;
+
+		// 회전하지 않은 사각형
+		DirectX::BoundingBox AABB;
+
+		// 회전한 사각형
+		DirectX::BoundingOrientedBox OBB;
+	};
+
+	CollisionData()
+		: OBB(DirectX::XMFLOAT3(0.0f, 0.0f, 0.0f), DirectX::XMFLOAT3(1.0f, 1.0f, 1.0f), DirectX::XMFLOAT4(0.0f, 0.0f, 0.0f, 1.0f))
+	{
+
+	}
 };
 
 class CollisionFunctionInit;
@@ -21,7 +47,7 @@ private:
 public:
 	FTransform();
 	FTransform(const FVector& _Pos, const FVector& _Scale)
-		: Position(_Pos), Scale(_Scale)
+		: LocalPosition(_Pos), LocalScale(_Scale)
 	{
 
 	}
@@ -36,21 +62,29 @@ public:
 
 	static bool CircleToCircle(const FTransform& _Left, const FTransform& _Right);
 	static bool CircleToRect(const FTransform& _Left, const FTransform& _Right);
+	static bool CircleToRotRect(const FTransform& _Left, const FTransform& _Right);
 	static bool CircleToPoint(const FTransform& _Left, const FTransform& _Right);
 
-	static bool RectToRect(const FTransform& _Left, const FTransform& _Right);
 	static bool RectToCircle(const FTransform& _Left, const FTransform& _Right);
+	static bool RectToRect(const FTransform& _Left, const FTransform& _Right);
 	static bool RectToPoint(const FTransform& _Left, const FTransform& _Right);
 
-	static bool PointToRect(const FTransform& _Left, const FTransform& _Right);
-	static bool PointToCircle(const FTransform& _Left, const FTransform& _Right);
+	static bool RotRectToRotRect(const FTransform& _Left, const FTransform& _Right);
 
-	float4 Scale;
-	float4 Rotation;
-	float4 Position;
+	static bool PointToCircle(const FTransform& _Left, const FTransform& _Right);
+	static bool PointToRect(const FTransform& _Left, const FTransform& _Right);
+
+	float4 LocalScale;
+	float4 LocalRotation;
+	float4 LocalPosition;
+	float4 WorldScale;
+	float4 WorldRotation;
+	float4 WorldPosition;
 	float4x4 ScaleMat;
 	float4x4 RotationMat;
 	float4x4 PositionMat;
+	float4x4 ParentMat;
+	float4x4 LocalWorld;
 	float4x4 World;
 	float4x4 View;
 	float4x4 Projection;
@@ -58,22 +92,22 @@ public:
 
 	FVector GetScale() const
 	{
-		return Scale;
+		return LocalScale;
 	}
 
 	FVector GetRotation() const
 	{
-		return Rotation;
+		return LocalRotation;
 	}
 
 	FVector GetPosition() const
 	{
-		return Position;
+		return LocalPosition;
 	}
 
 	float GetRadius() const
 	{
-		return Scale.hX();
+		return LocalScale.hX();
 	}
 
 	FVector GetRight()
@@ -106,43 +140,62 @@ public:
 		return -GetForward();
 	}
 
+	CollisionData GetCollisionData() const
+	{
+		CollisionData Result;
+		Result.OBB.Center = WorldPosition.DirectFloat3;
+		Result.OBB.Extents = (WorldScale * 0.5f).DirectFloat3;
+		Result.OBB.Orientation = WorldRotation.DegToQuaternion().DirectFloat4;
+	}
+
+	CollisionData GetCollisionData2D() const
+	{
+		CollisionData Result;
+		Result.OBB.Center = WorldPosition.DirectFloat3;
+		Result.OBB.Center.z = 0.0f;
+		Result.OBB.Extents = (WorldScale * 0.5f).DirectFloat3;
+		Result.OBB.Orientation = WorldRotation.DegToQuaternion().DirectFloat4;
+		
+		return Result;
+	}
+
 	void SetScale(FVector _Value)
 	{
-		Scale = _Value;
+		LocalScale = _Value;
 		TransformUpdate();
 	}
 
 	void SetRotationDeg(FVector _Value)
 	{
-		Rotation = _Value;
+		LocalRotation = _Value;
 		TransformUpdate();
 	}
 
 	void SetPosition(FVector _Value)
 	{
-		Position = _Value;
+		LocalPosition = _Value;
 		TransformUpdate();
 	}
 
 	void SetRadius(float _Radius)
 	{
-		Scale = float4::Zero;
-		Scale.X = _Radius * 2.0f;
+		LocalScale = float4::Zero;
+		LocalScale.X = _Radius * 2.0f;
 	}
 
 	void AddScale(FVector _Value)
 	{
-		SetScale(Scale + _Value);
+		SetScale(LocalScale + _Value);
 	}
 
 	void AddRotationDeg(FVector _Value)
 	{
-		SetRotationDeg(Rotation + _Value);
+		SetRotationDeg(LocalRotation + _Value);
 	}
 
 	void AddPosition(FVector _Value)
 	{
-		SetPosition(Position + _Value);
+		SetPosition(LocalPosition + _Value);
 	}
 
 	FVector LeftTop() const
@@ -167,22 +220,22 @@ public:
 
 	float Left() const
 	{
-		return Position.X - Scale.hX();
+		return LocalPosition.X - LocalScale.hX();
 	}
 
 	float Right() const
 	{
-		return Position.X + Scale.hX();
+		return LocalPosition.X + LocalScale.hX();
 	}
 
 	float Top() const
 	{
-		return Position.Y - Scale.hY();
+		return LocalPosition.Y - LocalScale.hY();
 	}
 
 	float Bottom() const
 	{
-		return Position.Y + Scale.hY();
+		return LocalPosition.Y + LocalScale.hY();
 	}
 
 	int iLeft() const

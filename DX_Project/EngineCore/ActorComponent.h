@@ -16,14 +16,19 @@ public:
 	UActorComponent& operator=(const UActorComponent& _Other) = delete;
 	UActorComponent& operator=(UActorComponent&& _Other) noexcept = delete;
 
-	bool IsActive()
+	AActor* GetActor()
 	{
-		return ActiveValue;
+		return Actor;
 	}
 
 	void SetActive(bool _Value)
 	{
 		ActiveValue = _Value;
+	}
+
+	bool IsActive()
+	{
+		return ActiveValue;
 	}
 
 protected:

@@ -47,6 +47,12 @@ void ULevel::Render(float _DeltaTime)
 
 		for (std::shared_ptr<URenderer> Renderer : GroupRenderers)
 		{
+			if (Renderer->GetActor()->RootComponent == nullptr)
+			{
+				MsgBoxAssert("루트컴포넌트가 지정되지 않은 액터입니다. : " + Renderer->GetActor()->GetName());
+				continue;
+			}
+
 			if (Renderer->IsActive() == false)
 			{
 				continue;
@@ -88,9 +94,10 @@ void ULevel::LevelEnd(ULevel* _NextLevel)
 	}
 }
 
-void ULevel::ConstructorActor(std::shared_ptr<AActor> _Actor)
+void ULevel::ConstructorActor(std::shared_ptr<AActor> _Actor, std::string_view _Name, int _Order)
 {
-	_Actor->RootCheck();
+	_Actor->SetName(_Name);
+	_Actor->SetOrder(_Order);
 }
 
 void ULevel::PushActor(std::shared_ptr<AActor> _Actor)
