@@ -33,49 +33,36 @@ FVector UWindowImage::GetScale()
 	return FVector(BitMapInfo.bmWidth, BitMapInfo.bmHeight);
 }
 
+Color8Bit UWindowImage::GetColor(int _X, int _Y, Color8Bit _DefaultColor)
+{
+	if (_X < 0)
+	{
+		return _DefaultColor;
+	}
+
+	if (_X >= GetScale().iX())
+	{
+		return _DefaultColor;
+	}
+
+	if (_Y < 0)
+	{
+		return _DefaultColor;
+	}
+
+	if (_Y >= GetScale().iY())
+	{
+		return _DefaultColor;
+	}
+
+	Color8Bit Color;
+	Color.Color = ::GetPixel(ImageDC, _X, _Y);
+	return Color;
+}
+
 void UWindowImage::SetCuttingTransform(const FTransform& _CuttingTrans, int _Index)
 {
 	Infos[_Index].CuttingTrans = _CuttingTrans;
-}
-
-bool UWindowImage::Create(HDC _MainDC)
-{
-	ImageDC = _MainDC;
-
-	if (ImageDC == nullptr)
-	{
-		return false;
-	}
-
-	return true;
-}
-
-bool UWindowImage::Create(std::shared_ptr<UWindowImage> _Image, const FVector& _Scale)
-{
-	HANDLE ImageHandle = CreateCompatibleBitmap(_Image->ImageDC, _Scale.iX(), _Scale.iY());
-
-	if (ImageHandle == nullptr)
-	{
-		MsgBoxAssert("이미지 생성에 실패했습니다.");
-		return false;
-	}
-
-	hBitMap = reinterpret_cast<HBITMAP>(ImageHandle);
-
-	ImageDC = CreateCompatibleDC(_Image->ImageDC);
-
-	if (ImageDC == nullptr)
-	{
-		MsgBoxAssert("이미지 생성에 실패했습니다.");
-		return false;
-	}
-
-	HBITMAP OldBitMap = reinterpret_cast<HBITMAP>(SelectObject(ImageDC, hBitMap));
-	DeleteObject(OldBitMap);
-
-	GetObject(hBitMap, sizeof(BITMAP), &BitMapInfo);
-
-	return true;
 }
 
 bool UWindowImage::Load(std::shared_ptr<UWindowImage> _Image)
@@ -83,7 +70,6 @@ bool UWindowImage::Load(std::shared_ptr<UWindowImage> _Image)
 	LoadType = EImageLoadType::IMG_Cutting;
 
 	UEnginePath Path = GetEnginePath();
-
 	std::string UpperExt = UEngineString::ToUpper(Path.GetExtension());
 
 	if (UpperExt == ".BMP")
@@ -107,7 +93,7 @@ bool UWindowImage::Load(std::shared_ptr<UWindowImage> _Image)
 
 		if (stat != Gdiplus::Status::Ok)
 		{
-			MsgBoxAssert(".png 형식 리소스 로드에 실패했습니다.");
+			MsgBoxAssert("png 형식 리소스 로드에 실패했습니다.");
 		}
 
 		delete pBitMap;
@@ -148,18 +134,16 @@ bool UWindowImage::LoadFolder(std::shared_ptr<UWindowImage> _Image)
 
 	if (EnginePath.IsDirectory() == false)
 	{
-		MsgBoxAssert("디렉토리 경로가 아닌 경로로 폴더를 로드하려고 했습니다");
+		MsgBoxAssert("디렉토리 경로가 아닌 경로로 폴더를 로드하려고 했습니다.");
 	}
 
 	UEngineDirectory Dir = EnginePath;
-
 	std::vector<UEngineFile> NewList = Dir.GetAllFile({ ".png", ".bmp" }, false);
 	Infos.reserve(NewList.size());
 
 	for (UEngineFile& File : NewList)
 	{
 		UEnginePath Path = File;
-
 		std::string UpperExt = UEngineString::ToUpper(Path.GetExtension());
 
 		if (UpperExt == ".BMP")
@@ -173,14 +157,17 @@ bool UWindowImage::LoadFolder(std::shared_ptr<UWindowImage> _Image)
 			ULONG_PTR gdiplusToken = 0;
 			Gdiplus::GdiplusStartupInput gdistartupinput;
 			Gdiplus::GdiplusStartup(&gdiplusToken, &gdistartupinput, nullptr);
+
 			std::wstring wPath = UEngineString::AnsiToUniCode(Path.GetFullPath());
+
 			Gdiplus::Image* pImage = Gdiplus::Image::FromFile(wPath.c_str());
 			Gdiplus::Bitmap* pBitMap = reinterpret_cast<Gdiplus::Bitmap*>(pImage->Clone());
+
 			Gdiplus::Status stat = pBitMap->GetHBITMAP(Gdiplus::Color(0, 0, 0, 0), &hBitMap);
 
-			if (stat != Gdiplus::Status::Ok)
+			if (Gdiplus::Status::Ok != stat)
 			{
-				MsgBoxAssert(".png 형식 리소스 로드에 실패했습니다.");
+				MsgBoxAssert("png 형식 리소스 로드에 실패했습니다.");
 			}
 
 			delete pBitMap;
@@ -188,6 +175,7 @@ bool UWindowImage::LoadFolder(std::shared_ptr<UWindowImage> _Image)
 
 			ImageType = EWIndowImageType::IMG_PNG;
 		}
+
 		ImageDC = CreateCompatibleDC(_Image->ImageDC);
 
 		if (ImageDC == nullptr)
@@ -198,6 +186,7 @@ bool UWindowImage::LoadFolder(std::shared_ptr<UWindowImage> _Image)
 
 		HBITMAP OldBitMap = reinterpret_cast<HBITMAP>(SelectObject(ImageDC, hBitMap));
 		DeleteObject(OldBitMap);
+
 		GetObject(hBitMap, sizeof(BITMAP), &BitMapInfo);
 
 		UImageInfo Info;
@@ -211,6 +200,59 @@ bool UWindowImage::LoadFolder(std::shared_ptr<UWindowImage> _Image)
 	return true;
 }
 
+bool UWindowImage::Create(std::shared_ptr<UWindowImage> _Image, const FVector& _Scale)
+{
+	HANDLE ImageHandle = CreateCompatibleBitmap(_Image->ImageDC, _Scale.iX(), _Scale.iY());
+
+	if (ImageHandle == nullptr)
+	{
+		MsgBoxAssert("이미지 생성에 실패했습니다.");
+		return false;
+	}
+
+	hBitMap = reinterpret_cast<HBITMAP>(ImageHandle);
+
+	ImageDC = CreateCompatibleDC(_Image->ImageDC);
+
+	if (ImageDC == nullptr)
+	{
+		MsgBoxAssert("이미지 생성에 실패했습니다.");
+		return false;
+	}
+
+	HBITMAP OldBitMap = reinterpret_cast<HBITMAP>(SelectObject(ImageDC, hBitMap));
+	DeleteObject(OldBitMap);
+
+	GetObject(hBitMap, sizeof(BITMAP), &BitMapInfo);
+
+	return true;
+}
+
+void UWindowImage::Cutting(int _X, int _Y)
+{
+	Infos.clear();
+
+	FVector CuttingScale = { GetScale().X / _X,  GetScale().Y / _Y };
+	FVector CuttingPos = { 0, 0 };
+
+	for (int i = 0; i < _Y; i++)
+	{
+		for (int i = 0; i < _X; i++)
+		{
+			UImageInfo Info;
+			Info.ImageDC = ImageDC;
+			Info.CuttingTrans.SetPosition(CuttingPos);
+			Info.CuttingTrans.SetScale(CuttingScale);
+			Infos.push_back(Info);
+
+			CuttingPos.X += CuttingScale.X;
+		}
+
+		CuttingPos.X = 0.0f;
+		CuttingPos.Y += CuttingScale.Y;
+	}
+}
+
 void UWindowImage::BitCopy(std::shared_ptr<UWindowImage> _CopyImage, const FTransform& _Trans)
 {
 	if (_CopyImage == nullptr)
@@ -222,15 +264,15 @@ void UWindowImage::BitCopy(std::shared_ptr<UWindowImage> _CopyImage, const FTran
 	HDC hdcSrc = _CopyImage->ImageDC;
 
 	BitBlt(
-		hdc, 						
-		_Trans.iLeft(), 			
-		_Trans.iTop(), 				
-		_Trans.GetScale().iX(), 	
-		_Trans.GetScale().iY(),		
-		hdcSrc,						
-		0,							
-		0,							
-		SRCCOPY						
+		hdc, 					
+		_Trans.iLeft(), 		
+		_Trans.iTop(), 			
+		_Trans.GetScale().iX(), 
+		_Trans.GetScale().iY(),	
+		hdcSrc,					
+		0,						
+		0,						
+		SRCCOPY					
 	);
 }
 
@@ -243,7 +285,7 @@ void UWindowImage::TransCopy(std::shared_ptr<UWindowImage> _CopyImage, const FTr
 
 	if (_Index >= _CopyImage->Infos.size())
 	{
-		MsgBoxAssert(GetName() + " : 이미지정보의 인덱스를 초과했습니다.");
+		MsgBoxAssert(GetName() + " : 이미지정보의 인덱스를 오버하여 사용했습니다.");
 	}
 
 	FTransform& ImageTrans = _CopyImage->Infos[_Index].CuttingTrans;
@@ -262,21 +304,21 @@ void UWindowImage::TransCopy(std::shared_ptr<UWindowImage> _CopyImage, const FTr
 	HDC hdcSrc = _CopyImage->Infos[_Index].ImageDC;
 
 	TransparentBlt(
-		hdc, 			
-		RenderLeft, 	
-		RenderTop, 		  
-		RenderScaleX,	
-		RenderScaleY,	
-		hdcSrc,			
-		ImageLeft,   	
-		ImageTop,   	
-		ImageScaleX, 	
-		ImageScaleY, 	
-		_Color.Color	
+		hdc, 		
+		RenderLeft, 
+		RenderTop, 	
+		RenderScaleX,
+		RenderScaleY,
+		hdcSrc,		
+		ImageLeft,   
+		ImageTop,   
+		ImageScaleX, 
+		ImageScaleY, 
+		_Color.Color
 	);
 }
 
-void UWindowImage::AlphaCopy(std::shared_ptr<UWindowImage> _CopyImage, const FTransform& _Trans, int _Index, Color8Bit _Color)
+void UWindowImage::AlphaCopy(std::shared_ptr<UWindowImage> _CopyImage, const FTransform& _Trans, int _Index, Color8Bit _Color /*= Color8Bit::Black*/)
 {
 	if (_CopyImage == nullptr)
 	{
@@ -285,7 +327,7 @@ void UWindowImage::AlphaCopy(std::shared_ptr<UWindowImage> _CopyImage, const FTr
 
 	if (_Index >= _CopyImage->Infos.size())
 	{
-		MsgBoxAssert(GetName() + " : 이미지정보의 인덱스를 초과했습니다.");
+		MsgBoxAssert(GetName() + " : 이미지정보의 인덱스를 오버하여 사용했습니다.");
 	}
 
 	FTransform& ImageTrans = _CopyImage->Infos[_Index].CuttingTrans;
@@ -310,16 +352,16 @@ void UWindowImage::AlphaCopy(std::shared_ptr<UWindowImage> _CopyImage, const FTr
 	Function.AlphaFormat = AC_SRC_ALPHA;
 
 	AlphaBlend(
-		hdc, 			
-		RenderLeft, 	
-		RenderTop, 		
-		RenderScaleX,	
-		RenderScaleY,	
-		hdcSrc,			
-		ImageLeft,   	
-		ImageTop,   	
-		ImageScaleX, 	
-		ImageScaleY, 	
+		hdc, 		
+		RenderLeft, 
+		RenderTop, 	
+		RenderScaleX,
+		RenderScaleY,
+		hdcSrc,		
+		ImageLeft,   
+		ImageTop,   
+		ImageScaleX, 
+		ImageScaleY, 
 		Function
 	);
 }
@@ -333,7 +375,7 @@ void UWindowImage::PlgCopy(std::shared_ptr<UWindowImage> _CopyImage, const FTran
 
 	if (_Index >= _CopyImage->Infos.size())
 	{
-		MsgBoxAssert(GetName() + " : 이미지정보의 인덱스를 초과했습니다.");
+		MsgBoxAssert(GetName() + " : 이미지정보의 인덱스를 오버하여 사용했습니다.");
 	}
 
 	UImageInfo& CurInfo = _CopyImage->Infos[_Index];
@@ -387,17 +429,19 @@ void UWindowImage::PlgCopy(std::shared_ptr<UWindowImage> _CopyImage, const FTran
 	);
 }
 
-void UWindowImage::TextCopy(const std::string& _Text, const std::string& _Font, float _Size, const FTransform& _Trans, Color8Bit _Color)
+void UWindowImage::TextCopy(const std::string& _Text, const std::string& _Font, float _Size, const FTransform& _Trans, Color8Bit _Color/* = Color8Bit::Black*/)
 {
 	Gdiplus::StringFormat stringFormat;
 	stringFormat.SetAlignment(Gdiplus::StringAlignmentCenter);
 	stringFormat.SetLineAlignment(Gdiplus::StringAlignmentCenter);
+
 	TextCopyFormat(_Text, _Font, stringFormat, _Size, _Trans, _Color);
 }
 
 void UWindowImage::TextCopy(const std::string& _Text, const std::string& _Font, float _Size, const FTransform& _Trans, Color8Bit _OutLineColor, Color8Bit _FillColor)
 {
 	Gdiplus::Graphics graphics(ImageDC);
+
 	std::wstring WFont = UEngineString::AnsiToUniCode(_Font);
 	Gdiplus::Font fnt(WFont.c_str(), _Size, Gdiplus::FontStyleBold | Gdiplus::FontStyleItalic, Gdiplus::UnitPixel);
 
@@ -410,6 +454,7 @@ void UWindowImage::TextCopy(const std::string& _Text, const std::string& _Font, 
 	Gdiplus::StringFormat stringFormat;
 	stringFormat.SetAlignment(Gdiplus::StringAlignmentCenter);
 	stringFormat.SetLineAlignment(Gdiplus::StringAlignmentCenter);
+
 	std::wstring WText = UEngineString::AnsiToUniCode(_Text);
 
 	float offsetsX[] = { -3.f, 3.f };
@@ -421,6 +466,7 @@ void UWindowImage::TextCopy(const std::string& _Text, const std::string& _Font, 
 			Gdiplus::RectF borderRect = rectF;
 			borderRect.X += dx;
 			borderRect.Y += dy;
+
 			graphics.DrawString(WText.c_str(), -1, &fnt, borderRect, &stringFormat, &OutLineBrush);
 		}
 	}
@@ -434,6 +480,7 @@ void UWindowImage::TextCopy(const std::string& _Text, const std::string& _Font, 
 			Gdiplus::RectF borderRect = rectF;
 			borderRect.X += dx;
 			borderRect.Y += dy;
+
 			graphics.DrawString(WText.c_str(), -1, &fnt, borderRect, &stringFormat, &fillBrush);
 		}
 	}
@@ -444,6 +491,7 @@ void UWindowImage::TextCopy(const std::string& _Text, const std::string& _Font, 
 	Gdiplus::StringFormat stringFormat;
 	stringFormat.SetAlignment(_SortOption1);
 	stringFormat.SetLineAlignment(_SortOption2);
+
 	TextCopyFormat(_Text, _Font, stringFormat, _Size, _Trans, _FillColor);
 }
 
@@ -454,80 +502,37 @@ void UWindowImage::TextCopyBold(const std::string& _Text, const std::string& _Fo
 	stringFormat.SetLineAlignment(Gdiplus::StringAlignmentCenter);
 
 	Gdiplus::Graphics graphics(ImageDC);
+
 	std::wstring WFont = UEngineString::AnsiToUniCode(_Font);
 	Gdiplus::Font fnt(WFont.c_str(), _Size, Gdiplus::FontStyleBold, Gdiplus::UnitPixel);
+
 	Gdiplus::SolidBrush hB(Gdiplus::Color(_Color.R, _Color.G, _Color.B));
+
 	FVector Pos = _Trans.GetPosition();
-	Gdiplus::RectF  rectF(_Trans.GetPosition().X, _Trans.GetPosition().Y, 0, 0);
+	Gdiplus::RectF  rectF(Pos.X, Pos.Y, 0, 0);
 
 	std::wstring WText = UEngineString::AnsiToUniCode(_Text);
+
 	graphics.DrawString(WText.c_str(), -1, &fnt, rectF, &stringFormat, &hB);
 }
 
-void UWindowImage::TextCopyFormat(const std::string& _Text, const std::string& _Font, const Gdiplus::StringFormat& stringFormat, float _Size, const FTransform& _Trans, Color8Bit _Color)
+void UWindowImage::TextCopyFormat(const std::string& _Text, const std::string& _Font, const Gdiplus::StringFormat& stringFormat, float _Size, const FTransform& _Trans, Color8Bit _Color /*= Color8Bit::Black*/)
 {
 	Gdiplus::Graphics graphics(ImageDC);
+
 	std::wstring WFont = UEngineString::AnsiToUniCode(_Font);
-	Gdiplus::Font fnt(WFont.c_str(), _Size, 0, Gdiplus::UnitPixel);
+	Gdiplus::Font fnt(WFont.c_str(), _Size, /*Gdiplus::FontStyleBold | Gdiplus::FontStyleItalic*/0, Gdiplus::UnitPixel);
+
+	//Gdiplus::HatchBrush hB(HatchStyle::HatchStyle05Percent, Gdiplus::Color(_Color.R, _Color.G, _Color.B), Gdiplus::Color::Transparent);
 	Gdiplus::SolidBrush hB(Gdiplus::Color(_Color.R, _Color.G, _Color.B));
+
 	FVector Pos = _Trans.GetPosition();
+	//Gdiplus::PointF ptf(Pos.X, Pos.Y);
 	Gdiplus::RectF  rectF(_Trans.GetPosition().X, _Trans.GetPosition().Y, 0, 0);
 
 	std::wstring WText = UEngineString::AnsiToUniCode(_Text);
+
 	graphics.DrawString(WText.c_str(), -1, &fnt, rectF, &stringFormat, &hB);
-}
-
-void UWindowImage::Cutting(int _X, int _Y)
-{
-	Infos.clear();
-
-	FVector CuttingScale = { GetScale().X / _X,  GetScale().Y / _Y };
-	FVector CuttingPos = { 0, 0 };
-
-	for (int i = 0; i < _Y; i++)
-	{
-		for (int i = 0; i < _X; i++)
-		{
-			UImageInfo Info;
-			Info.ImageDC = ImageDC;
-			Info.CuttingTrans.SetPosition(CuttingPos);
-			Info.CuttingTrans.SetScale(CuttingScale);
-			Infos.push_back(Info);
-
-			CuttingPos.X += CuttingScale.X;
-		}
-
-		CuttingPos.X = 0.0f;
-		CuttingPos.Y += CuttingScale.Y;
-	}
-}
-
-Color8Bit UWindowImage::GetColor(int _X, int _Y, Color8Bit _DefaultColor)
-{
-	if (_X < 0)
-	{
-		return _DefaultColor;
-	}
-
-	if (_Y < 0)
-	{
-		return _DefaultColor;
-	}
-
-	if (_X >= GetScale().iX())
-	{
-		return _DefaultColor;
-	}
-
-	if (_Y >= GetScale().iY())
-	{
-		return _DefaultColor;
-	}
-
-	Color8Bit Color;
-	Color.Color = ::GetPixel(ImageDC, _X, _Y);
-
-	return Color;
 }
 
 void UWindowImage::DrawRectangle(const FTransform& _Trans)
@@ -543,4 +548,16 @@ void UWindowImage::DrawEllipse(const FTransform& _Trans)
 void UWindowImage::TextPrint(std::string_view _Text, FVector _Pos)
 {
 	TextOutA(ImageDC, _Pos.iX(), _Pos.iY(), _Text.data(), static_cast<int>(_Text.size()));
+}
+
+bool UWindowImage::Create(HDC _MainDC)
+{
+	ImageDC = _MainDC;
+
+	if (ImageDC == nullptr)
+	{
+		return false;
+	}
+
+	return true;
 }

@@ -23,6 +23,7 @@ enum class ETextureSampling
 
 enum class EPivot
 {
+	RIGHT,
 	BOT,
 	MAX,
 };

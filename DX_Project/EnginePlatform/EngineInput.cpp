@@ -1,65 +1,62 @@
 #include "PreCompile.h"
 #include "EngineInput.h"
 
-std::map<int, UEngineInput::EngineKey> UEngineInput::AllKeys;
-
 bool UEngineInput::AnykeyDown = false;
 bool UEngineInput::AnykeyPress = false;
 bool UEngineInput::AnykeyUp = false;
 bool UEngineInput::AnykeyFree = true;
 
-void UEngineInput::EngineKey::KeyCheck(float _DeltaTime)
+std::map<int, UEngineInput::EngineKey> UEngineInput::AllKeys;
+
+void UEngineInput::KeyCheckTick(float _DeltaTime)
 {
-	if (GetAsyncKeyState(Key) != 0)
+	bool KeyCheck = false;
+
+	for (std::pair<const int, EngineKey>& Key : AllKeys)
 	{
-		PressTime += _DeltaTime;
-		if (Free == true)
+		EngineKey& CurKey = Key.second;
+		CurKey.KeyCheck(_DeltaTime);
+
+		if (CurKey.Press == true)
 		{
-			UpTime;
-			Down = true;
-			Press = true;
-			Up = false;
-			Free = false;
+			KeyCheck = true;
 		}
-		else if(Down == true)
+	}
+
+	if (KeyCheck == true)
+	{
+		if (AnykeyFree == true)
 		{
-			UpTime = 0.0f;
-			Down = false;
-			Press = true;
-			Up = false;
-			Free = false;
+			AnykeyDown = true;
+			AnykeyPress = true;
+			AnykeyUp = false;
+			AnykeyFree = false;
+		}
+		else if (AnykeyDown == true)
+		{
+			AnykeyDown = false;
+			AnykeyPress = true;
+			AnykeyUp = false;
+			AnykeyFree = false;
 		}
 	}
 	else
 	{
-		UpTime += _DeltaTime;
-		if (Press == true)
+		if (AnykeyPress == true)
 		{
-			PressTime = 0.0f;
-			Down = false;
-			Press = false;
-			Up = true;
-			Free = false;
+			AnykeyDown = false;
+			AnykeyPress = false;
+			AnykeyUp = true;
+			AnykeyFree = false;
 		}
-		else if(Up == true)
+		else if (AnykeyUp == true)
 		{
-			PressTime = 0.0f;
-			Down = false;
-			Press = false;
-			Up = false;
-			Free = true;
+			AnykeyDown = false;
+			AnykeyPress = false;
+			AnykeyUp = false;
+			AnykeyFree = true;
 		}
 	}
-}
-
-UEngineInput::UEngineInput()
-{
-
-}
-
-UEngineInput::~UEngineInput()
-{
-
 }
 
 void UEngineInput::InputInit()
@@ -168,55 +165,58 @@ void UEngineInput::InputInit()
 	}
 }
 
-void UEngineInput::KeyCheckTick(float _DeltaTime)
+void UEngineInput::EngineKey::KeyCheck(float _DeltaTime)
 {
-	bool KeyCheck = false;
-
-	for (std::pair<const int, EngineKey>& Key : AllKeys)
+	if (GetAsyncKeyState(Key) != 0)
 	{
-		EngineKey& CurKey = Key.second;
-		CurKey.KeyCheck(_DeltaTime);
-
-		if (CurKey.Press == true)
+		PressTime += _DeltaTime;
+		if (Free == true)
 		{
-			KeyCheck = true;
+			UpTime;
+			Down = true;
+			Press = true;
+			Up = false;
+			Free = false;
 		}
-	}
-
-	if (KeyCheck == true)
-	{
-		if (AnykeyFree == true)
+		else if(Down == true)
 		{
-			AnykeyDown = true;
-			AnykeyPress = true;
-			AnykeyUp = false;
-			AnykeyFree = false;
-		}
-		else if (AnykeyDown == true)
-		{
-			AnykeyDown = false;
-			AnykeyPress = true;
-			AnykeyUp = false;
-			AnykeyFree = false;
+			UpTime = 0.0f;
+			Down = false;
+			Press = true;
+			Up = false;
+			Free = false;
 		}
 	}
 	else
 	{
-		if (AnykeyPress == true)
+		UpTime += _DeltaTime;
+		if (Press == true)
 		{
-			AnykeyDown = false;
-			AnykeyPress = false;
-			AnykeyUp = true;
-			AnykeyFree = false;
+			PressTime = 0.0f;
+			Down = false;
+			Press = false;
+			Up = true;
+			Free = false;
 		}
-		else if (AnykeyUp == true)
+		else if(Up == true)
 		{
-			AnykeyDown = false;
-			AnykeyPress = false;
-			AnykeyUp = false;
-			AnykeyFree = true;
+			PressTime = 0.0f;
+			Down = false;
+			Press = false;
+			Up = false;
+			Free = true;
 		}
 	}
+}
+
+UEngineInput::UEngineInput()
+{
+
+}
+
+UEngineInput::~UEngineInput()
+{
+
 }
 
 class UInputInitCreator

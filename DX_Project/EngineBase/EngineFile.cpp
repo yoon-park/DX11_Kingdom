@@ -37,7 +37,6 @@ std::string UEngineFile::GetString()
 void UEngineFile::Open(EIOOpenMode _OpenType, EIODataType _DataType)
 {
 	std::string Path = GetFullPath();
-
 	std::string Mode;
 
 	switch (_OpenType)
@@ -74,9 +73,35 @@ void UEngineFile::Open(EIOOpenMode _OpenType, EIODataType _DataType)
 	}
 }
 
-void UEngineFile::Read(void* _Data, size_t _Size)
+void UEngineFile::Load(UEngineSerializer& _Data)
 {
-	fread_s(_Data, _Size, _Size, 1, FileHandle);
+	if (OpenMode != EIOOpenMode::Read)
+	{
+		MsgBoxAssert("읽기모드로 오픈하지 않은 파일을 읽으려고 했습니다.");
+	}
+
+	__int64 Size = GetFileSize();
+
+	if (Size <= 0)
+	{
+		MsgBoxAssert("사이즈가 0인 파일을 읽으려고 했습니다. : " + GetFullPath());
+	}
+
+	_Data.BufferResize(static_cast<int>(Size));
+	fread(&_Data.Data[0], Size, 1, FileHandle);
+}
+
+void UEngineFile::Save(UEngineSerializer& _Data)
+{
+	std::vector<char>& SaveData = _Data.Data;
+
+	if (OpenMode != EIOOpenMode::Write)
+	{
+		MsgBoxAssert("쓰기모드로 오픈하지 않은 파일에 쓰려고 했습니다.");
+	}
+
+	char* StartPtr = &SaveData[0];
+	fwrite(StartPtr, SaveData.size(), 1, FileHandle);
 }
 
 void UEngineFile::Close()
@@ -87,32 +112,7 @@ void UEngineFile::Close()
 	}
 }
 
-void UEngineFile::Save(UEngineSerializer& _Data)
+void UEngineFile::Read(void* _Data, size_t _Size)
 {
-	std::vector<char>& SaveData = _Data.Data;
-
-	if (OpenMode != EIOOpenMode::Write)
-	{
-		MsgBoxAssert("쓰기 모드로 오픈하지 않은 파일에 쓰려고 시도했습니다..");
-	}
-
-	char* StartPtr = &SaveData[0];
-	fwrite(StartPtr, SaveData.size(), 1, FileHandle);
-}
-
-void UEngineFile::Load(UEngineSerializer& _Data)
-{
-	if (OpenMode != EIOOpenMode::Read)
-	{
-		MsgBoxAssert("읽기 모드로 오픈하지 않은 파일을 읽으려고 시도했습니다.");
-	}
-
-	__int64 Size = GetFileSize();
-	if (Size <= 0)
-	{
-		MsgBoxAssert("사이즈가 0인 파일을 읽으려고 시도했습니다. : " + GetFullPath());
-	}
-
-	_Data.BufferResize(static_cast<int>(Size));
-	fread(&_Data.Data[0], Size, 1, FileHandle);
+	fread_s(_Data, _Size, _Size, 1, FileHandle);
 }

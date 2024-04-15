@@ -18,4 +18,3 @@ private:
 	UEngineString& operator=(const UEngineString& _Other) = delete;
 	UEngineString& operator=(UEngineString&& _Other) noexcept = delete;
 };
-

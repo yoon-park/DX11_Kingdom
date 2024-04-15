@@ -1,5 +1,8 @@
 #include "PreCompile.h"
 #include "Renderer.h"
+#include "EngineInputLayOut.h"
+#include "EngineShaderResources.h"
+#include "Camera.h"
 
 URenderer::URenderer()
 {
@@ -8,65 +11,13 @@ URenderer::URenderer()
 
 URenderer::~URenderer()
 {
-
-}
-
-void URenderer::SetMesh(std::string_view _Name)
-{
-	Mesh = UEngineMesh::FindRes(_Name);
-
-	if (Mesh == nullptr)
-	{
-		MsgBoxAssert("존재하지 않는 메쉬를 세팅하려 했습니다. : " + std::string(_Name));
-		return;
-	}
-
-	if (Material != nullptr)
-	{
-		Layout = UEngineInputLayout::Create(Mesh->VertexBuffer, Material->GetVertexShader());
-	}
-}
-
-void URenderer::SetMaterial(std::string_view _Name)
-{
-	Material = UEngineMaterial::FindRes(_Name);
-
-	if (Material == nullptr)
-	{
-		MsgBoxAssert("존재하지 않는 머티리얼을 세팅하려고 했습니다. : " + std::string(_Name));
-		return;
-	}
-
-	if (Mesh != nullptr)
-	{
-		Layout = UEngineInputLayout::Create(Mesh->VertexBuffer, Material->GetVertexShader());
-	}
-
-	Resources->Reset();
-	ResCopy(Material->GetVertexShader().get());
-	ResCopy(Material->GetPixelShader().get());
-
-	if (Resources->IsConstantBuffer("FTransform") == true)
-	{
-		Resources->SettingConstantBuffer("FTransform", Transform);
-	}
-
-	MaterialSettingEnd();
-}
-
-void URenderer::SetOrder(int _Order)
-{
-	int PrevOrder = GetOrder();
-
-	Super::SetOrder(_Order);
-
-	GetWorld()->ChangeOrderRenderer(shared_from_this(), PrevOrder, _Order);
 }
 
 void URenderer::BeginPlay()
 {
 	Super::BeginPlay();
 
+	// 해줘야 한다
 	GetWorld()->PushRenderer(shared_from_this());
 }
 
@@ -75,13 +26,107 @@ void URenderer::Tick(float _DeltaTime)
 	Super::Tick(_DeltaTime);
 }
 
+void URenderer::Render(float _DeltaTime)
+{
+	// 순서는 상관업습니다.
+
+	// 여기에서 이걸 하는 이유는 딱 1개입니다.
+	// 교육용으로 랜더링파이프라인의 순서에 따라 세팅해주려는 것뿐이지
+	// 꼭 아래의 순서대로 세팅을 해야만 랜더링이 되는게 아니에요.
+	// Mesh->Setting()
+
+	// InputAssembler1
+	Mesh->InputAssembler1Setting();
+	LayOut->Setting();
+
+	// VertexShader
+	Material->VertexShaderSetting();
+
+	// InputAssembler2
+	Mesh->InputAssembler2Setting();
+
+	// Rasterizer
+	Material->RasterizerSetting();
+
+	// PixelShader
+	Material->PixelShaderSetting();
+
+	Material->BlendSetting();
+
+	Resources->SettingAllShaderResources();
+
+	// Draw
+	Mesh->IndexedDraw();
+}
+
+void URenderer::SetOrder(int _Order)
+{
+	// UTickObject::SetOrder(_Order);
+
+	int PrevOrder = GetOrder();
+
+	Super::SetOrder(_Order);
+
+	if (nullptr != GetWorld())
+	{
+		GetWorld()->ChangeOrderRenderer(shared_from_this(), PrevOrder, _Order);
+	}
+}
+
+void URenderer::SetMesh(std::string_view _Name)
+{
+	Mesh = UEngineMesh::FindRes(_Name);
+
+	if (nullptr == Mesh)
+	{
+		MsgBoxAssert("존재하지 않는 매쉬를 세팅하려고 했습니다." + std::string(_Name));
+		return;
+	}
+
+	if (nullptr != Material)
+	{
+		LayOut = UEngineInputLayOut::Create(Mesh->VertexBuffer, Material->GetVertexShader());
+	}
+}
+
+void URenderer::SetMaterial(std::string_view _Name)
+{
+	Material = UEngineMaterial::FindRes(_Name);
+
+	if (nullptr == Material)
+	{
+		MsgBoxAssert("존재하지 않는 머티리얼를 세팅하려고 했습니다." + std::string(_Name));
+		return;
+	}
+
+	if (nullptr != Mesh)
+	{
+		LayOut = UEngineInputLayOut::Create(Mesh->VertexBuffer, Material->GetVertexShader());
+	}
+
+	Resources->Reset();
+	ResCopy(Material->GetVertexShader().get());
+	ResCopy(Material->GetPixelShader().get());
+
+	if (true == Resources->IsConstantBuffer("FTransform"))
+	{
+		Resources->SettingConstantBuffer("FTransform", Transform);
+	}
+
+	MaterialSettingEnd();
+
+}
+
 void URenderer::ResCopy(UEngineShader* _Shader)
 {
+
+	// 상수버퍼 복사
 	{
 		std::map<EShaderType, std::map<std::string, UEngineConstantBufferSetter>>& RendererConstantBuffers
 			= Resources->ConstantBuffers;
 
 		std::shared_ptr<UEngineShaderResources> ShaderResources = _Shader->Resources;
+
 		std::map<EShaderType, std::map<std::string, UEngineConstantBufferSetter>>& ShaderConstantBuffers
 			= ShaderResources->ConstantBuffers;
 
@@ -94,11 +139,13 @@ void URenderer::ResCopy(UEngineShader* _Shader)
 		}
 	}
 
+	// 텍스처 세팅 복사
 	{
 		std::map<EShaderType, std::map<std::string, UEngineTextureSetter>>& RendererTexture
 			= Resources->Textures;
 
 		std::shared_ptr<UEngineShaderResources> ShaderResources = _Shader->Resources;
+
 		std::map<EShaderType, std::map<std::string, UEngineTextureSetter>>& ShaderTextures
 			= ShaderResources->Textures;
 
@@ -111,11 +158,14 @@ void URenderer::ResCopy(UEngineShader* _Shader)
 		}
 	}
 
+
+	// 샘플러 세팅 복사
 	{
 		std::map<EShaderType, std::map<std::string, UEngineSamplerSetter>>& RendererSampler
 			= Resources->Samplers;
 
 		std::shared_ptr<UEngineShaderResources> ShaderResources = _Shader->Resources;
+
 		std::map<EShaderType, std::map<std::string, UEngineSamplerSetter>>& ShaderSamplers
 			= ShaderResources->Samplers;
 
@@ -127,35 +177,12 @@ void URenderer::ResCopy(UEngineShader* _Shader)
 			}
 		}
 	}
+
+
 }
+
 
 void URenderer::RenderingTransformUpdate(std::shared_ptr<UCamera> _Camera)
 {
 	Transform.CalculateViewAndProjection(_Camera->GetView(), _Camera->GetProjection());
-}
-
-void URenderer::Render(float _DeltaTime)
-{
-	// Input Assembler1
-	Mesh->InputAssembler1Setting();
-	Layout->Setting();
-
-	// Vertex Shader
-	Material->VertexShaderSetting();
-
-	// Input Assembler2
-	Mesh->InputAssembler2Setting();
-
-	// Rasterizer
-	Material->RasterizerSetting();
-
-	// Pixel Shader
-	Material->PixelShaderSetting();
-	
-	// OM
-	Material->BlendSetting();
-	Resources->SettingAllShaderResources();
-
-	// Draw
-	Mesh->IndexedDraw();
 }

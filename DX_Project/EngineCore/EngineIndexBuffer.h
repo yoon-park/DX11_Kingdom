@@ -2,15 +2,17 @@
 #include "EngineBuffer.h"
 
 class UEngineMesh;
-
+// Ό³Έν :
 class UEngineIndexBuffer : public UEngineResources<UEngineIndexBuffer>, public UEngineBuffer
 {
 	friend UEngineMesh;
 
 public:
+	// constrcuter destructer
 	UEngineIndexBuffer();
 	~UEngineIndexBuffer();
 
+	// delete Function
 	UEngineIndexBuffer(const UEngineIndexBuffer& _Other) = delete;
 	UEngineIndexBuffer(UEngineIndexBuffer&& _Other) noexcept = delete;
 	UEngineIndexBuffer& operator=(const UEngineIndexBuffer& _Other) = delete;
@@ -27,11 +29,14 @@ public:
 protected:
 
 private:
+	DXGI_FORMAT Format = DXGI_FORMAT::DXGI_FORMAT_R32_SINT;
+
 	UINT Size = 0;
 	UINT Count = 0;
 	UINT Offset = 0;
-	DXGI_FORMAT Format = DXGI_FORMAT::DXGI_FORMAT_R32_SINT;
-
+	
 	void ResCreate(const void* _Data, UINT _Size, UINT _Count);
+
 	void Setting();
 };
+

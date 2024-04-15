@@ -7,12 +7,10 @@ public:
 	UNameObject();
 	virtual ~UNameObject();
 
-	/*
-	UNameObject(const UNameObject& _Other) = delete;
-	UNameObject(UNameObject&& _Other) noexcept = delete;
-	UNameObject& operator=(const UNameObject& _Other) = delete;
-	UNameObject& operator=(UNameObject&& _Other) noexcept = delete;
-	*/
+	//UNameObject(const UNameObject& _Other) = delete;
+	//UNameObject(UNameObject&& _Other) noexcept = delete;
+	//UNameObject& operator=(const UNameObject& _Other) = delete;
+	//UNameObject& operator=(UNameObject&& _Other) noexcept = delete;
 
 	std::string GetName()
 	{

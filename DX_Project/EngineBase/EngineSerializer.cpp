@@ -1,12 +1,12 @@
 #include "PreCompile.h"
 #include "EngineSerializer.h"
 
-UEngineSerializer::UEngineSerializer()
+UEngineSerializer::UEngineSerializer() 
 {
 
 }
 
-UEngineSerializer::~UEngineSerializer()
+UEngineSerializer::~UEngineSerializer() 
 {
 
 }
@@ -19,7 +19,7 @@ void UEngineSerializer::Read(void* _Data, size_t _Size)
 
 void UEngineSerializer::Write(const void* _Data, size_t _Size)
 {
-	if (WriteOffset + _Size >= Data.size())
+	if (Data.size() <= WriteOffset + _Size)
 	{
 		Data.resize(Data.capacity() * 2 + _Size);
 	}

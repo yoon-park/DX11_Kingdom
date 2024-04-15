@@ -52,14 +52,13 @@ public:
 	void WriteText(const std::string& _Text);
 
 	void BufferResize(int _Size);
-
 	std::string ToString();
 
 protected:
 
 private:
-	unsigned int WriteOffset = 0;
 	unsigned int ReadOffset = 0;
+	unsigned int WriteOffset = 0;
 
 	std::vector<char> Data;
 };

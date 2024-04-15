@@ -11,7 +11,8 @@ UStateManager::~UStateManager()
 
 }
 
-void UStateManager::SetFunction(std::string_view _Name,
+void UStateManager::SetFunction(
+	std::string_view _Name,
 	std::function<void()> _Start /*= nullptr*/,
 	std::function<void(float)> _Update /*= nullptr*/,
 	std::function<void()> _End /*= nullptr*/
@@ -59,7 +60,7 @@ void UStateManager::SetEndFunction(std::string_view _Name, std::function<void()>
 
 	if (State == nullptr)
 	{
-		MsgBoxAssert("존재하지 않는 스테이트 입니다");
+		MsgBoxAssert("존재하지 않는 스테이트입니다.");
 	}
 
 	State->End = _Function;
@@ -69,6 +70,7 @@ void UStateManager::CreateState(std::string_view _Name)
 {
 	std::string UpperName = UEngineString::ToUpper(_Name);
 	States[UpperName] = std::make_shared<UState>();
+	States[UpperName]->SetName(_Name);
 }
 
 void UStateManager::ChangeState(std::string_view _Name)
@@ -107,7 +109,7 @@ void UStateManager::Update(float _Time)
 {
 	if (CurState == nullptr)
 	{
-		MsgBoxAssert("스테이트가 설정되어 있지 않습니다.");
+		MsgBoxAssert("스테이트를 설정하지 않고 스테이트매니저를 사용하려 했습니다.");
 	}
 
 	CurState->Update(_Time);

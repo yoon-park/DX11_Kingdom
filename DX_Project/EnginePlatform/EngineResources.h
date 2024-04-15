@@ -26,7 +26,7 @@ public:
 		{
 			return nullptr;
 		}
-
+		
 		return NameResources[UpperName];
 	}
 
@@ -34,7 +34,6 @@ public:
 	{
 		UEnginePath NewPath = UEnginePath(std::filesystem::path(_Path));
 		std::string FileName = NewPath.GetFileName();
-		
 		return CreateResName(_Path, FileName);
 	}
 
@@ -59,7 +58,6 @@ public:
 	{
 		std::shared_ptr<ResType> NewRes = std::make_shared<ResType>();
 		UnNameResources.push_back(NewRes);
-
 		return NewRes;
 	}
 

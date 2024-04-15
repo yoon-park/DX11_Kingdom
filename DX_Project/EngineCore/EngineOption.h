@@ -13,7 +13,6 @@ public:
 	{
 		{
 			std::string DebugOptionText;
-
 			DebugOptionText += std::format("WindowTitle : [{}]\n", WindowTitle);
 			DebugOptionText += std::format("WindowScale : [{}], [{}]\n", WindowScale.iX(), WindowScale.iY());
 			DebugOptionText += std::format("IsDebug : [{}]\n", IsDebug);
@@ -27,13 +26,13 @@ public:
 	void DeSerialize(UEngineSerializer& _Ser) override
 	{
 		std::string OptionText = _Ser.ToString();
-
 		std::vector<std::string> Values = UEngineString::StringCutting(OptionText, "[", "]");
 
 		int Index = 0;
 #define OPTIONINDEX Index++
 
 		WindowTitle = Values[OPTIONINDEX];
+
 		WindowScale.X = static_cast<float>(std::atof(Values[OPTIONINDEX].c_str()));
 		WindowScale.Y = static_cast<float>(std::atof(Values[OPTIONINDEX].c_str()));
 
@@ -47,7 +46,7 @@ public:
 		{
 			IsDebug = true;
 		}
-		else
+		else 
 		{
 			MsgBoxAssert("IsDebug 옵션이 이상한 글자로 채워져 있습니다.");
 		}
@@ -55,7 +54,7 @@ public:
 		ClearColor.X = static_cast<float>(std::atof(Values[OPTIONINDEX].c_str()));
 		ClearColor.Y = static_cast<float>(std::atof(Values[OPTIONINDEX].c_str()));
 		ClearColor.Z = static_cast<float>(std::atof(Values[OPTIONINDEX].c_str()));
-		
+
 		FreeCameraKey = Values[OPTIONINDEX][0];
 	}
 };

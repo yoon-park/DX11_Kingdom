@@ -3,13 +3,17 @@
 #include "EnginePixelShader.h"
 #include "EngineRasterizer.h"
 #include "EngineBlend.h"
+#include <EnginePlatform/EngineResources.h>
 
+// Ό³Έν :
 class UEngineMaterial : public UEngineResources<UEngineMaterial>
 {
 public:
+	// constrcuter destructer
 	UEngineMaterial();
 	~UEngineMaterial();
 
+	// delete Function
 	UEngineMaterial(const UEngineMaterial& _Other) = delete;
 	UEngineMaterial(UEngineMaterial&& _Other) noexcept = delete;
 	UEngineMaterial& operator=(const UEngineMaterial& _Other) = delete;
@@ -24,12 +28,10 @@ public:
 	{
 		return VertexShader;
 	}
-
 	std::shared_ptr<UEnginePixelShader> GetPixelShader()
 	{
 		return PixelShader;
 	}
-
 	std::shared_ptr<UEngineRasterizer> GetRasterizer()
 	{
 		return Rasterizer;
@@ -39,6 +41,7 @@ public:
 	{
 		return Blend;
 	}
+
 
 	void SetVertexShader(std::string_view _Name);
 	void SetPixelShader(std::string_view _Name);
@@ -57,4 +60,6 @@ private:
 	std::shared_ptr<UEnginePixelShader> PixelShader = nullptr;
 	std::shared_ptr<UEngineRasterizer> Rasterizer = nullptr;
 	std::shared_ptr<UEngineBlend> Blend = nullptr;
+	
 };
+

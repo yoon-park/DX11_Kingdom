@@ -5,11 +5,22 @@ class UEngineInput
 	friend class UInputInitCreator;
 
 private:
-	class EngineKey
+	class /*EngineInput::*/EngineKey
 	{
 		friend UEngineInput;
 
 	public:
+		EngineKey()
+		{
+
+		}
+
+		EngineKey(int _Key)
+			: Key(_Key)
+		{
+
+		}
+
 		bool Down = false; 
 		bool Press = false;
 		bool Up = false;
@@ -21,17 +32,6 @@ private:
 		int Key = -1;
 
 		void KeyCheck(float _DeltaTime);
-
-		EngineKey()
-		{
-
-		}
-
-		EngineKey(int _Key)
-			: Key(_Key)
-		{
-
-		}
 	};
 
 public:
@@ -47,7 +47,7 @@ public:
 	{
 		if (AllKeys.contains(_Key) == false)
 		{
-			MsgBoxAssert("입력설정이 존재하지 않는 키 입니다.");
+			MsgBoxAssert("입력설정이 존재하지 않는 키입니다.");
 		}
 
 		return AllKeys[_Key].PressTime;
@@ -57,7 +57,7 @@ public:
 	{
 		if (AllKeys.contains(_Key) == false)
 		{
-			MsgBoxAssert("입력설정이 존재하지 않는 키 입니다.");
+			MsgBoxAssert("입력설정이 존재하지 않는 키입니다.");
 		}
 
 		return AllKeys[_Key].Down;
@@ -67,7 +67,7 @@ public:
 	{
 		if (AllKeys.contains(_Key) == false)
 		{
-			MsgBoxAssert("입력설정이 존재하지 않는 키 입니다.");
+			MsgBoxAssert("입력설정이 존재하지 않는 키입니다.");
 		}
 
 		return AllKeys[_Key].Press;
@@ -77,7 +77,7 @@ public:
 	{
 		if (AllKeys.contains(_Key) == false)
 		{
-			MsgBoxAssert("입력설정이 존재하지 않는 키 입니다.");
+			MsgBoxAssert("입력설정이 존재하지 않는 키입니다.");
 		}
 
 		return AllKeys[_Key].Up;
@@ -87,7 +87,7 @@ public:
 	{
 		if (AllKeys.contains(_Key) == false)
 		{
-			MsgBoxAssert("입력설정이 존재하지 않는 키 입니다.");
+			MsgBoxAssert("입력설정이 존재하지 않는 키입니다.");
 		}
 
 		return AllKeys[_Key].Free;
@@ -97,13 +97,13 @@ public:
 	{
 		if (AllKeys.contains(_Key) == false)
 		{
-			MsgBoxAssert("입력설정이 존재하지 않는 키 입니다.");
+			MsgBoxAssert("입력설정이 존재하지 않는 키입니다.");
 		}
 
 		bool Value = AllKeys[_Key].Down;
 		float Time = AllKeys[_Key].UpTime;
 
-		if (AllKeys[_Key].Down && (AllKeys[_Key].UpTime < _ClickTime) == true)
+		if (AllKeys[_Key].Down == true && AllKeys[_Key].UpTime < _ClickTime)
 		{
 			return true;
 		}
@@ -134,16 +134,14 @@ public:
 	static void KeyCheckTick(float _DeltaTime);
 
 protected:
-	static std::map<int, EngineKey> AllKeys;
-
 	static bool AnykeyDown;
 	static bool AnykeyPress;
 	static bool AnykeyUp;
 	static bool AnykeyFree;
+	static std::map<int, EngineKey> AllKeys;
 
 	int Value;
 
 private:
 	static void InputInit();
 };
-

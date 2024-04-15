@@ -4,12 +4,12 @@
 #include "EngineTexture.h"
 #include "EngineRenderTarget.h"
 
-UEngineGraphicDevice::UEngineGraphicDevice()
+UEngineGraphicDevice::UEngineGraphicDevice() 
 {
 
 }
 
-UEngineGraphicDevice::~UEngineGraphicDevice()
+UEngineGraphicDevice::~UEngineGraphicDevice() 
 {
 	if (SwapChain != nullptr)
 	{
@@ -31,21 +31,32 @@ void UEngineGraphicDevice::Initialize(const UEngineWindow& _Window, const float4
 {
 	if (_Window.GetHWND() == nullptr)
 	{
-		MsgBoxAssert("Open되지 않은 윈도우로 그래픽카드를 초기화하려 시도했습니다.");
+		MsgBoxAssert("Open되지 않은 윈도우로 그래픽카드 장치를 초기화하려고 했습니다.");
 		return;
 	}
 
 	int iFlag = 0;
 #ifdef _DEBUG
 	iFlag = D3D11_CREATE_DEVICE_DEBUG;
+	/*
+	D3D11_CREATE_DEVICE_SINGLETHREADED = 0x1,
+	D3D11_CREATE_DEVICE_DEBUG = 0x2,
+	D3D11_CREATE_DEVICE_SWITCH_TO_REF = 0x4,
+	D3D11_CREATE_DEVICE_PREVENT_INTERNAL_THREADING_OPTIMIZATIONS = 0x8,
+	D3D11_CREATE_DEVICE_BGRA_SUPPORT = 0x20,
+	D3D11_CREATE_DEVICE_DEBUGGABLE = 0x40,
+	D3D11_CREATE_DEVICE_PREVENT_ALTERING_LAYER_SETTINGS_FROM_REGISTRY = 0x80,
+	D3D11_CREATE_DEVICE_DISABLE_GPU_TIMEOUT = 0x100,
+	D3D11_CREATE_DEVICE_VIDEO_SUPPORT = 0x800
+	*/
 #endif
-	
+
 	D3D_FEATURE_LEVEL Level = D3D_FEATURE_LEVEL_11_0;
-	Adapter = GetHighPerformanceAdapter();
+	Adapter = GetHighPerFormanceAdapter();
 
 	if (Adapter == nullptr)
 	{
-		MsgBoxAssert("그래픽카드가 존재하지 않습니다.");
+		MsgBoxAssert("그래픽카드가 존재하지 않는 컴퓨터입니다.");
 		return;
 	}
 
@@ -62,15 +73,15 @@ void UEngineGraphicDevice::Initialize(const UEngineWindow& _Window, const float4
 		&Context
 	);
 
-	if (Device == nullptr)
+	if (Context == nullptr)
 	{
-		MsgBoxAssert("그래픽카드의 메모리 제어 권한 디바이스를 생성하는데 실패했습니다.");
+		MsgBoxAssert("그래픽카드가 랜더링 제어 권한 컨텍스트를 생성하는데 실패했습니다.");
 		return;
 	}
 
-	if (Context == nullptr)
+	if (Device == nullptr)
 	{
-		MsgBoxAssert("그래픽카드의 랜더링 제어 권한 컨텍스트를 생성하는데 실패했습니다.");
+		MsgBoxAssert("그래픽카드가 메모리 제어 권한 디바이스를 생성하는데 실패했습니다.");
 		return;
 	}
 
@@ -82,7 +93,7 @@ void UEngineGraphicDevice::Initialize(const UEngineWindow& _Window, const float4
 
 	if (Level != D3D_FEATURE_LEVEL_11_0)
 	{
-		MsgBoxAssert("DirectX 11 버전을 사용할수 없는 그래픽카드입니다.");
+		MsgBoxAssert("DirectX 버전 11을 사용할수 없는 그래픽카드입니다.");
 		return;
 	}
 
@@ -92,7 +103,7 @@ void UEngineGraphicDevice::Initialize(const UEngineWindow& _Window, const float4
 	{
 		if (Result != RPC_E_CHANGED_MODE)
 		{
-			MsgBoxAssert("멀티스레드 옵션을 사용할 수 없습니다.");
+			MsgBoxAssert("멀티쓰레드 옵션을 사용할 수 없습니다.");
 			return;
 		}
 	}
@@ -100,6 +111,7 @@ void UEngineGraphicDevice::Initialize(const UEngineWindow& _Window, const float4
 	WindowPtr = &_Window;
 
 	CreateSwapChain(_ClearColor);
+
 	EngineResourcesInit();
 }
 
@@ -119,11 +131,10 @@ void UEngineGraphicDevice::RenderEnd()
 	}
 }
 
-IDXGIAdapter* UEngineGraphicDevice::GetHighPerformanceAdapter()
+IDXGIAdapter* UEngineGraphicDevice::GetHighPerFormanceAdapter()
 {
 	IDXGIFactory* Factory = nullptr;
 	IDXGIAdapter* Adapter = nullptr;
-
 	HRESULT HR = CreateDXGIFactory(__uuidof(IDXGIFactory), reinterpret_cast<void**>(&Factory));
 
 	if (Factory == nullptr)
@@ -134,7 +145,7 @@ IDXGIAdapter* UEngineGraphicDevice::GetHighPerformanceAdapter()
 
 	size_t VideoMemory = 0;
 
-	for (int Index = 0;; Index++)
+	for (int Index = 0; ; Index++)
 	{
 		IDXGIAdapter* CurAdapter = nullptr;
 		Factory->EnumAdapters(Index, &CurAdapter);
@@ -147,7 +158,7 @@ IDXGIAdapter* UEngineGraphicDevice::GetHighPerformanceAdapter()
 		DXGI_ADAPTER_DESC Desc;
 		CurAdapter->GetDesc(&Desc);
 
-		if (Desc.DedicatedVideoMemory >= VideoMemory)
+		if (VideoMemory <= Desc.DedicatedVideoMemory)
 		{
 			VideoMemory = Desc.DedicatedVideoMemory;
 
@@ -184,12 +195,11 @@ void UEngineGraphicDevice::CreateSwapChain(const float4& _ClearColor)
 	ScInfo.BufferUsage = DXGI_USAGE_RENDER_TARGET_OUTPUT | DXGI_USAGE_SHADER_INPUT;
 	ScInfo.SampleDesc.Quality = 0;
 	ScInfo.SampleDesc.Count = 1;
-	ScInfo.SwapEffect = DXGI_SWAP_EFFECT::DXGI_SWAP_EFFECT_FLIP_DISCARD;
+	ScInfo.SwapEffect = DXGI_SWAP_EFFECT::DXGI_SWAP_EFFECT_DISCARD;
 	ScInfo.Flags = DXGI_SWAP_CHAIN_FLAG_ALLOW_MODE_SWITCH;
 	ScInfo.Windowed = true;
 
 	IDXGIFactory* pF = nullptr;
-
 	Adapter->GetParent(__uuidof(IDXGIFactory), reinterpret_cast<void**>(&pF));
 	pF->CreateSwapChain(Device, &ScInfo, &SwapChain);
 
@@ -197,10 +207,10 @@ void UEngineGraphicDevice::CreateSwapChain(const float4& _ClearColor)
 	pF->Release();
 
 	ID3D11Texture2D* DXBackBufferTexture = nullptr;
-	
+
 	if (SwapChain->GetBuffer(0, __uuidof(ID3D11Texture2D), reinterpret_cast<void**>(&DXBackBufferTexture)) != S_OK)
 	{
-		MsgBoxAssert("백버퍼 텍스처를 가져오지 못했습니다.");
+		MsgBoxAssert("백버퍼텍스처를 얻어오지 못했습니다.");
 		return;
 	}
 

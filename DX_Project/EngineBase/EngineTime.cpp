@@ -8,6 +8,7 @@ UEngineTime::UEngineTime()
 
 UEngineTime::~UEngineTime() 
 {
+
 }
 
 void UEngineTime::TimeCheckStart()
@@ -27,6 +28,6 @@ float UEngineTime::TimeCheck()
 
 	DeltaTime = dTick / dCount;
 	PrevTime.QuadPart = CurTime.QuadPart;
-
+	
 	return static_cast<float>(DeltaTime);
 }

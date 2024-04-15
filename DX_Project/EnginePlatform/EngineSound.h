@@ -1,12 +1,13 @@
 #pragma once
 #include "EngineResources.h"
-#include "ThirdParty\FMOD\inc\fmod.hpp"
 
-class UEngineSoundPlayer 
+class UEngineSoundPlayer
 {
 	friend class UEngineSound;
 
 public:
+	void SetVolume(float _Volume);
+
 	void On()
 	{
 		Control->setPaused(false);
@@ -15,6 +16,20 @@ public:
 	void Off()
 	{
 		Control->setPaused(true);
+	}
+
+	void OnOffSwitch()
+	{
+		bool Check = false;
+		Control->getPaused(&Check);
+
+		if (Check == true)
+		{
+			Control->setPaused(false);
+		}
+		else {
+			Control->setPaused(true);
+		}
 	}
 
 	void Loop(int Count = -1)
@@ -27,23 +42,6 @@ public:
 		Control->setPosition(0, FMOD_TIMEUNIT_MS);
 	}
 
-	void OnOffSwitch()
-	{
-		bool Check = false;
-		Control->getPaused(&Check);
-
-		if (Check == true)
-		{
-			Control->setPaused(false);
-		}
-		else
-		{
-			Control->setPaused(true);
-		}
-	}
-
-	void SetVolume(float _Volume);
-
 private:
 	FMOD::Channel* Control = nullptr;
 };
@@ -54,6 +52,7 @@ class UEngineSound : public UEngineResources<UEngineSound>
 
 private:
 	friend UEngineSoundPlayer;
+
 	static float GlobalVolume;
 
 public:

@@ -1,32 +1,25 @@
 #pragma once
-#include "EngineEnums.h"
+#include <EngineBase/TransformObject.h>
 #include "Actor.h"
+#include "EngineEnums.h"
 
+// Ό³Έν :
 class ULevel;
-
 class UCamera : public AActor
 {
 	friend ULevel;
 	friend URenderer;
 
 public:
+	// constrcuter destructer
 	UCamera();
 	~UCamera();
 
+	// delete Function
 	UCamera(const UCamera& _Other) = delete;
 	UCamera(UCamera&& _Other) noexcept = delete;
 	UCamera& operator=(const UCamera& _Other) = delete;
 	UCamera& operator=(UCamera&& _Other) noexcept = delete;
-
-	inline FMatrix GetView()
-	{
-		return View;
-	}
-
-	inline FMatrix GetProjection()
-	{
-		return Projection;
-	}
 
 	inline void SetNear(float _Value)
 	{
@@ -38,6 +31,15 @@ public:
 		Far = _Value;
 	}
 
+	inline FMatrix GetView()
+	{
+		return View;
+	}
+	inline FMatrix GetProjection()
+	{
+		return Projection;
+	}
+
 	void ViewPortSetting();
 
 protected:
@@ -45,19 +47,24 @@ protected:
 	void Tick(float _DeltaTime) override;
 
 private:
-	FTransform PrevTransform;
+	bool IsFreeCamera = false;
+
+	float Near = 1.0f;
+	float Far = 10000.0f;
+
+	ECameraType ProjectionType = ECameraType::Orthographic;
+	float FOV = 60.0f;
+
 	FMatrix View;
 	FMatrix Projection;
 	D3D11_VIEWPORT ViewPort;
-	
-	ECameraType PrevProjectionType = ECameraType::Orthographic;
-	ECameraType ProjectionType = ECameraType::Orthographic;
-	float Near = 1.0f;
-	float Far = 10000.0f;
-	float FOV = 60.0f;
 
-	bool IsFreeCamera = false;
+	FTransform PrevTransform;
+
 	float FreeCameraMoveSpeed = 500.0f;
+
+	ECameraType PrevProjectionType = ECameraType::Orthographic;
 
 	void CameraTransformUpdate();
 };
+

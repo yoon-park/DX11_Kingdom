@@ -23,20 +23,6 @@ protected:
 
 private:
 	USpriteRenderer* Renderer;
-	UCollision* Collision;
-	float4 Color;
 
 	void DebugMessageFunction();
-
-	// State
-	void StateInit();
-	
-	void Die(float _DeltaTime);
-	
-	void Idle(float _DeltaTime);
-	
-	void Jump(float _DeltaTime);
-	
-	void RunStart();
-	void Run(float _DeltaTime);
 };

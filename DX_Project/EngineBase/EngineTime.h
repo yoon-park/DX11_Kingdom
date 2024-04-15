@@ -29,4 +29,3 @@ private:
 	double dCount;
 	double DeltaTime;
 };
-

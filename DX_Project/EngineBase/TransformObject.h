@@ -14,36 +14,6 @@ public:
 
 	FTransform Transform;
 
-	FVector GetLocalScale() const
-	{
-		return Transform.LocalScale;
-	}
-
-	FVector GetLocalRotation() const
-	{
-		return Transform.LocalRotation;
-	}
-
-	FVector GetLocalPosition() const
-	{
-		return Transform.LocalPosition;
-	}
-
-	FVector GetWorldScale() const
-	{
-		return Transform.WorldScale;
-	}
-
-	FVector GetWorldRotation() const
-	{
-		return Transform.WorldRotation;
-	}
-
-	FVector GetWorldPosition() const
-	{
-		return Transform.WorldPosition;
-	}
-
 	FVector GetWorldRight()
 	{
 		return Transform.World.ArrVector[0].Normalize3DReturn();
@@ -72,6 +42,36 @@ public:
 	FVector GetWorldBack()
 	{
 		return -GetWorldForward();
+	}
+
+	FVector GetLocalScale() const
+	{
+		return Transform.LocalScale;
+	}
+
+	FVector GetLocalRotation() const
+	{
+		return Transform.LocalRotation;
+	}
+
+	FVector GetLocalPosition() const
+	{
+		return Transform.LocalPosition;
+	}
+
+	FVector GetWorldScale() const
+	{
+		return Transform.WorldScale;
+	}
+
+	FVector GetWorldRotation() const
+	{
+		return Transform.WorldRotation;
+	}
+
+	FVector GetWorldPosition() const
+	{
+		return Transform.WorldPosition;
 	}
 
 	void SetParent(UTransformObject* _Parent)

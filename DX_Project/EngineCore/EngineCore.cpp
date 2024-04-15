@@ -5,19 +5,18 @@
 #include "EngineDebugMsgWindow.h"
 
 #include "EngineVertexBuffer.h"
-#include "EngineTexture.h"
 
-#include "Level.h"
 #include "GameMode.h"
+#include "Level.h"
 
 UEngineCore* GEngine = nullptr;
 
-UEngineCore::UEngineCore()
+UEngineCore::UEngineCore() 
 {
 
 }
 
-UEngineCore::~UEngineCore()
+UEngineCore::~UEngineCore() 
 {
 	UEngineDirectory Dir;
 	Dir.MoveToSearchChild("Config");
@@ -48,9 +47,10 @@ void UEngineCore::EngineOptionInit()
 	{
 		UEngineFile File = Dir.GetPathFromFile("EngineOption.EData");
 		UEngineSerializer Ser;
-		File = Dir.GetPathFromFile("EngineOption.EData");
+
 		File.Open(EIOOpenMode::Read, EIODataType::Text);
 		File.Load(Ser);
+
 		EngineOption.DeSerialize(Ser);
 	}
 }
@@ -58,9 +58,10 @@ void UEngineCore::EngineOptionInit()
 void UEngineCore::EngineStart(HINSTANCE _Inst)
 {
 	LeakCheck;
-	GEngine = this;
 
+	GEngine = this;
 	EngineOptionInit();
+
 	EngineWindow.Open(EngineOption.WindowTitle);
 	EngineWindow.SetWindowScale(EngineOption.WindowScale);
 	EngineDevice.Initialize(EngineWindow, EngineOption.ClearColor);
@@ -93,6 +94,7 @@ void UEngineCore::EngineFrameUpdate()
 		{
 			CurLevel->LevelEnd(NextLevel.get());
 		}
+
 		NextLevel->LevelStart(CurLevel.get());
 
 		CurLevel = NextLevel;
@@ -105,6 +107,8 @@ void UEngineCore::EngineFrameUpdate()
 	CurLevel->Render(DeltaTime);
 	UEngineEditorGUI::GUIRender(DeltaTime);
 	EngineDevice.RenderEnd();
+
+	CurLevel->Destroy();
 }
 
 void UEngineCore::EngineEnd()

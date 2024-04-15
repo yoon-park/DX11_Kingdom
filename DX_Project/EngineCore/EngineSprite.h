@@ -1,21 +1,28 @@
 #pragma once
+#include <EnginePlatform/EngineResources.h>
+
+#include <vector>
 #include "EngineTexture.h"
 
 class UEngineTexture;
-
 struct FSpriteInfo
 {
+	// UV값 0.0에서부터
 	FVector CuttingPosition = FVector::Zero;
+	// 1,1 까지를 
 	FVector CuttingSize = FVector::One;
 	std::shared_ptr<UEngineTexture> Texture = nullptr;
 };
 
+// 설명 :
 class UEngineSprite : public UEngineResources<UEngineSprite>
 {
 public:
+	// constrcuter destructer
 	UEngineSprite();
 	~UEngineSprite();
 
+	// delete Function
 	UEngineSprite(const UEngineSprite& _Other) = delete;
 	UEngineSprite(UEngineSprite&& _Other) noexcept = delete;
 	UEngineSprite& operator=(const UEngineSprite& _Other) = delete;
@@ -45,18 +52,18 @@ public:
 		return NewRes;
 	}
 
-	static std::shared_ptr<UEngineSprite> CreateCutting(std::string_view _Name, UINT _X, UINT _Y) 
+	static std::shared_ptr<UEngineSprite> CreateCutting(std::string_view _Name, UINT _X, UINT _Y)
 	{
 		std::shared_ptr<UEngineSprite> FindSprite = FindRes(_Name);
 		std::shared_ptr<UEngineTexture> Texture = nullptr;
 
-		if (FindSprite == nullptr)
+		if (nullptr == FindSprite)
 		{
 			Texture = UEngineTexture::FindRes(_Name);
 
-			if (Texture == nullptr)
+			if (nullptr == Texture)
 			{
-				MsgBoxAssert("텍스처가 로드되지 않아 스프라이트로 만들어 커팅할 수 없습니다. : " + std::string(_Name));
+				MsgBoxAssert("로드되지 않은 텍스처를 스프라이트로 만들어서 컷팅할수 없습니다." + std::string(_Name));
 				return nullptr;
 			}
 
@@ -71,14 +78,14 @@ public:
 		return FindSprite;
 	}
 
-	FSpriteInfo GetSpriteInfo(UINT _Index)
-	{
-		return Infos[_Index];
-	}
-
 	size_t GetInfoSize()
 	{
 		return Infos.size();
+	}
+
+	FSpriteInfo GetSpriteInfo(UINT _Index)
+	{
+		return Infos[_Index];
 	}
 
 	void Cutting(std::shared_ptr<UEngineTexture> Texture, UINT _X, UINT _Y);
@@ -89,5 +96,7 @@ private:
 	std::vector<FSpriteInfo> Infos;
 
 	void ResLoad();
+
 	void ResLoadFolder();
 };
+

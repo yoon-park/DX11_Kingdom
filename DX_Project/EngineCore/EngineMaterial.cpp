@@ -1,24 +1,26 @@
 #include "PreCompile.h"
 #include "EngineMaterial.h"
+#include "EngineVertexShader.h"
+#include "EnginePixelShader.h"
+#include "EngineRasterizer.h"
+#include <EngineBase/EngineDebug.h>
 
-UEngineMaterial::UEngineMaterial()
+UEngineMaterial::UEngineMaterial() 
 {
 	SetRasterizer("EngineBase");
 	SetBlend("EngineBase");
 }
 
-UEngineMaterial::~UEngineMaterial()
+UEngineMaterial::~UEngineMaterial() 
 {
-
 }
 
 void UEngineMaterial::SetVertexShader(std::string_view _Name)
 {
 	VertexShader = UEngineVertexShader::FindRes(_Name);
-
-	if (VertexShader == nullptr)
+	if (nullptr == VertexShader)
 	{
-		MsgBoxAssert("존재하지 않는 버텍스 쉐이더를 세팅하려 했습니다.");
+		MsgBoxAssert("존재하지 않는 버텍스 쉐이더를 세팅하려고 했습니다.");
 		return;
 	}
 }
@@ -26,10 +28,9 @@ void UEngineMaterial::SetVertexShader(std::string_view _Name)
 void UEngineMaterial::SetPixelShader(std::string_view _Name)
 {
 	PixelShader = UEnginePixelShader::FindRes(_Name);
-
-	if (PixelShader == nullptr)
+	if (nullptr == PixelShader)
 	{
-		MsgBoxAssert("존재하지 않는 픽셀 쉐이더를 세팅하려 했습니다.");
+		MsgBoxAssert("존재하지 않는 픽셀쉐이더를 세팅하려고 했습니다.");
 		return;
 	}
 }
@@ -37,10 +38,9 @@ void UEngineMaterial::SetPixelShader(std::string_view _Name)
 void UEngineMaterial::SetRasterizer(std::string_view _Name)
 {
 	Rasterizer = UEngineRasterizer::FindRes(_Name);
-
-	if (Rasterizer == nullptr)
+	if (nullptr == Rasterizer)
 	{
-		MsgBoxAssert("존재하지 않는 래스터라이저를 세팅하려 했습니다.");
+		MsgBoxAssert("존재하지 않는 레스터라이저를 세팅하려고 했습니다.");
 		return;
 	}
 }
@@ -48,20 +48,28 @@ void UEngineMaterial::SetRasterizer(std::string_view _Name)
 void UEngineMaterial::SetBlend(std::string_view _Name)
 {
 	Blend = UEngineBlend::FindRes(_Name);
-
-	if (Blend == nullptr)
+	if (nullptr == Blend)
 	{
-		MsgBoxAssert("존재하지 않는 블렌드를 세팅하려 했습니다.");
+		MsgBoxAssert("존재하지 않는 블랜드 세팅하려고 했습니다.");
 		return;
 	}
 }
 
+//void UEngineMaterial::Setting()
+//{
+//	// 순서도 상관없고 시기도 상관없다.
+//	// 세팅해주는게 중요하지.
+//	PixelShader->Setting();
+//	VertexShader->Setting();
+//	Rasterizer->Setting();
+//}
+
 void UEngineMaterial::VertexShaderSetting()
 {
 #ifdef _DEBUG
-	if (VertexShader == nullptr)
+	if (nullptr == VertexShader)
 	{
-		MsgBoxAssert("버텍스 쉐이더를 세팅하지 않고 렌더하려 했습니다.");
+		MsgBoxAssert("버텍스 쉐이더를 세팅하지 않고 랜더링 하려고 했습니다.");
 		return;
 	}
 #endif
@@ -69,25 +77,12 @@ void UEngineMaterial::VertexShaderSetting()
 	VertexShader->Setting();
 }
 
-void UEngineMaterial::PixelShaderSetting()
-{
-#ifdef _DEBUG
-	if (PixelShader == nullptr)
-	{
-		MsgBoxAssert("픽셀 쉐이더를 세팅하지 않고 랜더하려 했습니다.");
-		return;
-	}
-#endif
-
-	PixelShader->Setting();
-}
-
 void UEngineMaterial::RasterizerSetting()
 {
 #ifdef _DEBUG
-	if (Rasterizer == nullptr)
+	if (nullptr == Rasterizer)
 	{
-		MsgBoxAssert("래스터라이저를 세팅하지 않고 랜더하려 했습니다.");
+		MsgBoxAssert("레스터라이저를 세팅하지 않고 랜더링 하려고 했습니다.");
 		return;
 	}
 #endif
@@ -95,15 +90,29 @@ void UEngineMaterial::RasterizerSetting()
 	Rasterizer->Setting();
 }
 
+void UEngineMaterial::PixelShaderSetting()
+{
+#ifdef _DEBUG
+	if (nullptr == PixelShader)
+	{
+		MsgBoxAssert("픽셀쉐이더를 세팅하지 않고 랜더링 하려고 했습니다.");
+		return;
+	}
+#endif
+
+	PixelShader->Setting();
+}
+
 void UEngineMaterial::BlendSetting()
 {
 #ifdef _DEBUG
-	if (Blend == nullptr)
+	if (nullptr == Blend)
 	{
-		MsgBoxAssert("블렌드를 세팅하지 않고 랜더하려 했습니다.");
+		MsgBoxAssert("블랜드 세팅하지 않고 랜더링 하려고 했습니다.");
 		return;
 	}
 #endif
 
 	Blend->Setting();
+
 }

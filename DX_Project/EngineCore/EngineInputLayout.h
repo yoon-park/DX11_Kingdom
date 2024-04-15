@@ -1,28 +1,28 @@
 #pragma once
+#include <EnginePlatform/EngineResources.h>
 
 class URenderer;
 class UEngineVertexBuffer;
 class UEngineVertexShader;
-
-class UEngineInputLayout : public UEngineResources<UEngineInputLayout>
+// Ό³Έν :
+class UEngineInputLayOut : public UEngineResources<UEngineInputLayOut>
 {
 	friend URenderer;
 
 public:
-	UEngineInputLayout();
-	~UEngineInputLayout();
+	// constrcuter destructer
+	UEngineInputLayOut();
+	~UEngineInputLayOut();
 
-	UEngineInputLayout(const UEngineInputLayout& _Other) = delete;
-	UEngineInputLayout(UEngineInputLayout&& _Other) noexcept = delete;
-	UEngineInputLayout& operator=(const UEngineInputLayout& _Other) = delete;
-	UEngineInputLayout& operator=(UEngineInputLayout&& _Other) noexcept = delete;
+	// delete Function
+	UEngineInputLayOut(const UEngineInputLayOut& _Other) = delete;
+	UEngineInputLayOut(UEngineInputLayOut&& _Other) noexcept = delete;
+	UEngineInputLayOut& operator=(const UEngineInputLayOut& _Other) = delete;
+	UEngineInputLayOut& operator=(UEngineInputLayOut&& _Other) noexcept = delete;
 
-	static std::shared_ptr<UEngineInputLayout> Create(
-		std::shared_ptr<UEngineVertexBuffer> _Buffer,
-		std::shared_ptr<UEngineVertexShader> _Shader
-	)
+	static std::shared_ptr<UEngineInputLayOut> Create(std::shared_ptr<UEngineVertexBuffer> _Buffer, std::shared_ptr<UEngineVertexShader> _Shader)
 	{
-		std::shared_ptr<UEngineInputLayout> Res = CreateResUnName();
+		std::shared_ptr<UEngineInputLayOut> Res = CreateResUnName();
 		Res->ResCreate(_Buffer, _Shader);
 		return Res;
 	}
@@ -30,8 +30,9 @@ public:
 protected:
 
 private:
-	ID3D11InputLayout* Layout = nullptr;
+	ID3D11InputLayout* LayOut = nullptr;
 
 	void ResCreate(std::shared_ptr<UEngineVertexBuffer> _Buffer, std::shared_ptr<UEngineVertexShader> _Shader);
 	void Setting();
 };
+

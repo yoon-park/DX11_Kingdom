@@ -1,25 +1,26 @@
 #include "PreCompile.h"
 #include "EngineShader.h"
-
 #include "EngineShaderResources.h"
 
-UEngineShader::UEngineShader()
+UEngineShader::UEngineShader() 
 {
 	Resources = std::make_shared<UEngineShaderResources>();
 }
 
-UEngineShader::~UEngineShader()
+UEngineShader::~UEngineShader() 
 {
-	if (ErrorCodeBlob != nullptr)
+	if (nullptr != ErrorCodeBlob)
 	{
 		ErrorCodeBlob->Release();
 	}
 
-	if (ShaderCodeBlob != nullptr)
+	if (nullptr != ShaderCodeBlob)
 	{
 		ShaderCodeBlob->Release();
 	}
 }
+
+
 
 void UEngineShader::ShaderResCheck()
 {

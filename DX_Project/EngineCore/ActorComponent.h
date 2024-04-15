@@ -1,24 +1,28 @@
 #pragma once
-#include "TickObject.h"
-#include "WorldObject.h"
 #include "Actor.h"
+#include "TickObject.h"
+#include <EngineBase/NameObject.h>
+#include "WorldObject.h"
 
+// 설명 : 그냥 소유만 당하는 애들이 있고
 class UActorComponent : public UTickObject, public UNameObject, public UWorldObject
 {
 	friend AActor;
 
 public:
+	// constrcuter destructer
 	UActorComponent();
 	~UActorComponent();
 
+	// delete Function
 	UActorComponent(const UActorComponent& _Other) = delete;
 	UActorComponent(UActorComponent&& _Other) noexcept = delete;
 	UActorComponent& operator=(const UActorComponent& _Other) = delete;
 	UActorComponent& operator=(UActorComponent&& _Other) noexcept = delete;
 
-	AActor* GetActor()
+	bool IsActive()
 	{
-		return Actor;
+		return ActiveValue;
 	}
 
 	void SetActive(bool _Value)
@@ -26,19 +30,27 @@ public:
 		ActiveValue = _Value;
 	}
 
-	bool IsActive()
+	AActor* GetActor()
 	{
-		return ActiveValue;
+		return Actor;
+	}
+
+	virtual ULevel* GetWorld() override
+	{
+		return Actor->GetWorld();
 	}
 
 protected:
 
 private:
-	AActor* Actor = nullptr;
 	bool ActiveValue = true;
+
+	AActor* Actor = nullptr;
 
 	void SetActor(AActor* _Actor)
 	{
 		Actor = _Actor;
 	}
+
 };
+

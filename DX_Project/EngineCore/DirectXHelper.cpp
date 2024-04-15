@@ -134,7 +134,7 @@ UINT UDirectXHelper::DirectFormatSize(DXGI_FORMAT _Format)
 	case DXGI_FORMAT_BC5_SNORM:
 	case DXGI_FORMAT_UNKNOWN:
 	default:
-		MsgBoxAssert("현재 크기 계산이 되지 않은 자료형입니다");
+		MsgBoxAssert("현재 크기가 계산되지 않은 자료형입니다.");
 		return 0;
 	}
 }

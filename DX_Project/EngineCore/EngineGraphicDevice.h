@@ -1,8 +1,9 @@
 #pragma once
 
 class UEngineCore;
-class ULevel;
+class UEngineWindow;
 class UEngineRenderTarget;
+class ULevel;
 
 class UEngineGraphicDevice
 {
@@ -29,7 +30,6 @@ public:
 	}
 
 	void Initialize(const UEngineWindow& _Window, const float4& _ClearColor);
-
 	void RenderStart();
 	void RenderEnd();
 
@@ -38,19 +38,19 @@ protected:
 private:
 	struct ID3D11Device* Device = nullptr;
 	struct ID3D11DeviceContext* Context = nullptr;
-	struct IDXGIAdapter* Adapter = nullptr;
-	struct IDXGISwapChain* SwapChain = nullptr;
 	const class UEngineWindow* WindowPtr;
+	struct IDXGISwapChain* SwapChain = nullptr;
+	struct IDXGIAdapter* Adapter = nullptr;
 	std::shared_ptr<UEngineRenderTarget> BackBufferRenderTarget = nullptr;
+
+	struct IDXGIAdapter* GetHighPerFormanceAdapter();
 
 	std::shared_ptr<UEngineRenderTarget> GetBackBufferRenderTarget()
 	{
 		return BackBufferRenderTarget;
 	}
 
-	struct IDXGIAdapter* GetHighPerformanceAdapter();
 	void CreateSwapChain(const float4& _ClearColor);
-
 	void EngineResourcesInit();
 	void EngineResourcesRelease();
 };

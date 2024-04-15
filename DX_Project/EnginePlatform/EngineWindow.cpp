@@ -3,14 +3,9 @@
 
 #include "WindowImage.h"
 
-HINSTANCE UEngineWindow::hInstance;
 bool UEngineWindow::WindowLive = true;
+HINSTANCE UEngineWindow::hInstance;
 std::function<bool(HWND, UINT, WPARAM, LPARAM)> UEngineWindow::UserWndProcFunction;
-
-void UEngineWindow::SetUserWindowCallBack(std::function<bool(HWND, UINT, WPARAM, LPARAM)> _UserWndProcFunction)
-{
-	UserWndProcFunction = _UserWndProcFunction;
-}
 
 void UEngineWindow::Init(HINSTANCE _hInst)
 {
@@ -46,6 +41,11 @@ unsigned __int64 UEngineWindow::WindowMessageLoop(std::function<void()> _Update,
 	}
 
 	return msg.wParam;
+}
+
+void UEngineWindow::SetUserWindowCallBack(std::function<bool(HWND, UINT, WPARAM, LPARAM)> _UserWndProcFunction)
+{
+	UserWndProcFunction = _UserWndProcFunction;
 }
 
 LRESULT CALLBACK UEngineWindow::WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
@@ -97,12 +97,10 @@ void UEngineWindow::SetWindowPosition(const FVector& _Pos)
 void UEngineWindow::SetWindowScale(const FVector& _Scale)
 {
 	Scale = _Scale;
-
 	BackBufferImage = std::make_shared<UWindowImage>();
 	BackBufferImage->Create(WindowImage, Scale);
 
 	RECT Rc = { 0, 0, _Scale.iX(), _Scale.iY() };
-
 	AdjustWindowRect(&Rc, WS_OVERLAPPEDWINDOW, FALSE);
 
 	::SetWindowPos(hWnd, nullptr, 0, 0, Rc.right - Rc.left, Rc.bottom - Rc.top, SWP_NOZORDER | SWP_NOMOVE);
@@ -113,32 +111,24 @@ void UEngineWindow::SetWindowSmallIcon()
 
 }
 
-void UEngineWindow::CursorOff()
-{
-	ShowCursor(FALSE);
-}
-
 void UEngineWindow::Open(std::string_view _Title /*= "Title"*/, std::string_view _IconPath /*= ""*/)
 {
 	HICON hIcon = nullptr;
-
-	if ("" != _IconPath)
+	if (_IconPath != "")
 	{
-		hIcon = (HICON)LoadImage( 
-			NULL,            
-			_IconPath.data(),
-			IMAGE_ICON,      
-			0,               
-			0,               
-			LR_LOADFROMFILE |
-			LR_DEFAULTSIZE | 
-			LR_SHARED        
+		hIcon = (HICON)LoadImage(	// returns a HANDLE so we have to cast to HICON
+			NULL,					// hInstance must be NULL when loading from a file
+			_IconPath.data(),		// the icon file name
+			IMAGE_ICON,				// specifies that the file is an icon
+			0,						// width of the image (we'll specify default later on)
+			0,						// height of the image
+			LR_LOADFROMFILE |		// we want to load a file (as opposed to a resource)
+			LR_DEFAULTSIZE |		// default metrics based on the type (IMAGE_ICON, 32x32)
+			LR_SHARED				// let the system release the handle when it's no longer used
 		);
-
 	}
 
 	WNDCLASSEXA wcex;
-
 	wcex.cbSize = sizeof(WNDCLASSEX);
 	wcex.style = CS_HREDRAW | CS_VREDRAW;
 	wcex.lpfnWndProc = WndProc;
@@ -194,7 +184,7 @@ void UEngineWindow::ScreenClear()
 void UEngineWindow::ScreenUpdate()
 {
 	FTransform CopyTrans;
-	CopyTrans.SetPosition({Scale.ihX(), Scale.ihY()});
+	CopyTrans.SetPosition({ Scale.ihX(), Scale.ihY() });
 	CopyTrans.SetScale({ Scale.iX(), Scale.iY() });
 
 	WindowImage->BitCopy(BackBufferImage, CopyTrans);
@@ -206,6 +196,11 @@ void UEngineWindow::CalculateMouseUpdate(float _DeltaTime)
 	ScreenMouseDir = ScreenMousePrevPos - ScreenMousePos;
 	ScreenMouseDirNormal = ScreenMouseDir.Normalize2DReturn();
 	ScreenMousePrevPos = ScreenMousePos;
+}
+
+void UEngineWindow::CursorOff()
+{
+	ShowCursor(FALSE);
 }
 
 FVector UEngineWindow::GetMousePosition()

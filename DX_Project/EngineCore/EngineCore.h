@@ -22,6 +22,8 @@ public:
 	UEngineCore& operator=(const UEngineCore& _Other) = delete;
 	UEngineCore& operator=(UEngineCore&& _Other) noexcept = delete;
 
+	UEngineWindow EngineWindow;
+
 	template<typename UserCoreType>
 	static void Start(HINSTANCE _Inst)
 	{
@@ -29,6 +31,11 @@ public:
 		UserCoreType UserCore;
 		Core.UserCorePtr = &UserCore;
 		Core.EngineStart(_Inst);
+	}
+
+	FEngineOption GetEngineOption()
+	{
+		return EngineOption;
 	}
 
 	UEngineGraphicDevice& GetEngineDevice()
@@ -46,11 +53,6 @@ public:
 		return EngineDevice.GetContext();
 	}
 
-	FEngineOption GetEngineOption()
-	{
-		return EngineOption;
-	}
-
 	void SetWindowScale(FVector _Scale)
 	{
 		EngineWindow.SetWindowScale(_Scale);
@@ -63,12 +65,11 @@ public:
 
 		if (Levels.contains(UpperName) == true)
 		{
-			MsgBoxAssert("이미 존재하는 레벨을 또 만들려고 했습니다.");
+			MsgBoxAssert("이미 존재하는 레벨을 다시 만들려고 했습니다.");
 			return;
 		}
 
 		std::shared_ptr<GameModeType> NewGameMode = std::make_shared<GameModeType>();
-
 		NewGameMode->SetOrder(INT_MIN);
 
 		std::shared_ptr<ULevel> Level = NewLevelCreate(UpperName, NewGameMode);
@@ -83,10 +84,9 @@ public:
 			MsgBoxAssert("존재하지 않는 레벨을 지정하려고 했습니다.");
 			return;
 		}
+
 		NextLevel = Levels[UpperName];
 	}
-
-	UEngineWindow EngineWindow;
 
 protected:
 
@@ -94,15 +94,14 @@ private:
 	FEngineOption EngineOption;
 	UEngineTime MainTimer;
 	UEngineGraphicDevice EngineDevice;
-
 	UserCore* UserCorePtr = nullptr;
 
-	std::map <std::string, std::shared_ptr<ULevel>> Levels;
 	std::shared_ptr<ULevel> NextLevel = nullptr;
 	std::shared_ptr<ULevel> CurLevel = nullptr;
 
-	void EngineOptionInit();
+	std::map <std::string, std::shared_ptr<ULevel>> Levels;
 
+	void EngineOptionInit();
 	void EngineStart(HINSTANCE _Inst);
 	void EngineFrameUpdate();
 	void EngineEnd();

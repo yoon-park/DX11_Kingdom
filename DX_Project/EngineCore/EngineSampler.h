@@ -1,16 +1,18 @@
 #pragma once
+#include <EnginePlatform/EngineResources.h>
 #include "EngineEnums.h"
-
+// Ό³Έν :
 class UEngineSamplerSetter;
-
 class UEngineSampler : public UEngineResources<UEngineSampler>
 {
 	friend UEngineSamplerSetter;
 
 public:
+	// constrcuter destructer
 	UEngineSampler();
 	~UEngineSampler();
 
+	// delete Function
 	UEngineSampler(const UEngineSampler& _Other) = delete;
 	UEngineSampler(UEngineSampler&& _Other) noexcept = delete;
 	UEngineSampler& operator=(const UEngineSampler& _Other) = delete;
@@ -31,3 +33,4 @@ private:
 	void ResCreate(const D3D11_SAMPLER_DESC& _Info);
 	void Setting(EShaderType _Type, UINT _Slot);
 };
+

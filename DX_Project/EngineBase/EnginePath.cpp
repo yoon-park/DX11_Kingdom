@@ -32,6 +32,16 @@ std::string UEnginePath::GetExtension() const
 	return Text.string();
 }
 
+std::string UEnginePath::AppendPath(std::string_view _Path)
+{
+	return Path.string() + "\\" + std::string(_Path);
+}
+
+bool UEnginePath::IsExists()
+{
+	return std::filesystem::exists(Path);
+}
+
 bool UEnginePath::IsFile()
 {
 	return !std::filesystem::is_directory(Path);
@@ -47,9 +57,9 @@ bool UEnginePath::IsRoot()
 	return Path.root_path() == Path;
 }
 
-bool UEnginePath::IsExists()
+void UEnginePath::MoveParent()
 {
-	return std::filesystem::exists(Path);
+	Path = Path.parent_path();
 }
 
 void UEnginePath::Move(std::string_view _Path)
@@ -60,18 +70,8 @@ void UEnginePath::Move(std::string_view _Path)
 	bool Check = std::filesystem::exists(NextPath);
 	if (Check == false)
 	{
-		MsgBoxAssert(NextPath.string() + "라는 경로는 존재하지 않습니다");
+		MsgBoxAssert(NextPath.string() + " : 해당 경로는 존재하지 않습니다.");
 	}
 
 	Path = NextPath;
-}
-
-void UEnginePath::MoveParent()
-{
-	Path = Path.parent_path();
-}
-
-std::string UEnginePath::AppendPath(std::string_view _Path)
-{
-	return Path.string() + "\\" + std::string(_Path);
 }

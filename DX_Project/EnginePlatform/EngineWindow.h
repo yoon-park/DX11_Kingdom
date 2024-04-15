@@ -13,27 +13,26 @@ public:
 	UEngineWindow& operator=(const UEngineWindow& _Other) = delete;
 	UEngineWindow& operator=(UEngineWindow&& _Other) noexcept = delete;
 
-	static void SetUserWindowCallBack(std::function<bool(HWND, UINT, WPARAM, LPARAM)> _UserWndProcFunction);
-	
 	static void Init(HINSTANCE _hInst);
 	static unsigned __int64 WindowMessageLoop(std::function<void()> _Update, std::function<void()> _End);
+	static void SetUserWindowCallBack(std::function<bool(HWND, UINT, WPARAM, LPARAM)> _UserWndProcFunction);
 
-	inline HWND GetHWND() const
+	HWND GetHWND() const
 	{
 		return hWnd;
 	}
 
-	inline std::shared_ptr<UWindowImage> GetWindowImage() const
+	std::shared_ptr<UWindowImage> GetWindowImage() const
 	{
 		return WindowImage;
 	}
 
-	inline std::shared_ptr<UWindowImage> GetBackBufferImage() const
+	std::shared_ptr<UWindowImage> GetBackBufferImage() const
 	{
 		return BackBufferImage;
 	}
 
-	inline FVector GetWindowScale() const
+	FVector GetWindowScale() const
 	{
 		return Scale;
 	}
@@ -61,15 +60,15 @@ public:
 	void SetWindowPosition(const FVector& _Pos);
 	void SetWindowScale(const FVector& _Scale);
 
-	void SetWindowTitle(std::string_view _Text)
-	{
-		SetWindowTextA(hWnd, _Text.data());
-	}
-
 	void SetClearColor(Color8Bit _Color)
 	{
 		_Color.A = 0;
 		ClearColor = _Color;
+	}
+
+	void SetWindowTitle(std::string_view _Text)
+	{
+		SetWindowTextA(hWnd, _Text.data());
 	}
 
 	void SetWindowSmallIcon();
@@ -77,32 +76,30 @@ public:
 	void Open(std::string_view _Title = "Title", std::string_view _IconPath = "");
 	void ScreenClear();
 	void ScreenUpdate();
-	void CalculateMouseUpdate(float _DeltaTime);
 
 	void Off()
 	{
 		WindowLive = false;
 	}
 
+	void CalculateMouseUpdate(float _DeltaTime);
 	void CursorOff();
 
 protected:
 
 private:
-	static HINSTANCE hInstance;
 	static bool WindowLive;
+	static HINSTANCE hInstance;
 	static std::function<bool(HWND, UINT, WPARAM, LPARAM)> UserWndProcFunction;
-	
+
 	static LRESULT CALLBACK WndProc(HWND, UINT, WPARAM, LPARAM);
 
 	HWND hWnd = nullptr;
-	FVector Position;
-	FVector Scale;
-	Color8Bit ClearColor = Color8Bit::WhiteA;
-
 	std::shared_ptr<UWindowImage> WindowImage = nullptr;
 	std::shared_ptr<UWindowImage> BackBufferImage = nullptr;
-
+	FVector Scale;
+	FVector Position;
+	Color8Bit ClearColor = Color8Bit::WhiteA;
 	float4 ScreenMousePrevPos;
 	float4 ScreenMousePos;
 	float4 ScreenMouseDir;

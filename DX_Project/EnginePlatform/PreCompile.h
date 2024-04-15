@@ -16,5 +16,8 @@
 #include <EngineBase/EngineString.h>
 #include <EngineBase/EngineTime.h>
 
+// fmod
+#include "ThirdParty\FMOD\inc\fmod.hpp"
+
 #pragma comment(lib, "Msimg32.lib")
 #pragma comment(lib, "Gdiplus.lib")

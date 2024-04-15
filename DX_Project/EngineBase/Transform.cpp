@@ -15,7 +15,6 @@ public:
 		FTransform::CollisionFunction[static_cast<int>(ECollisionType::Rect)][static_cast<int>(ECollisionType::CirCle)] = FTransform::RectToCircle;
 		FTransform::CollisionFunction[static_cast<int>(ECollisionType::CirCle)][static_cast<int>(ECollisionType::Rect)] = FTransform::CircleToRect;
 	}
-
 	~CollisionFunctionInit()
 	{
 
@@ -24,24 +23,10 @@ public:
 
 CollisionFunctionInit Inst;
 
-FTransform::FTransform()
-	: LocalScale(FVector::One)
-	, LocalRotation(FVector::Zero)
-	, LocalPosition(FVector::Zero)
-{
-
-}
-
-FTransform::~FTransform()
-{
-
-}
-
 bool FTransform::CircleToCircle(const FTransform& _Left, const FTransform& _Right)
 {
 	CollisionData Left = _Left.GetCollisionData2D();
 	CollisionData Right = _Right.GetCollisionData2D();
-
 	return Left.Sphere.Intersects(Right.Sphere);
 }
 
@@ -49,7 +34,6 @@ bool FTransform::CircleToRect(const FTransform& _Left, const FTransform& _Right)
 {
 	CollisionData Left = _Left.GetCollisionData2D();
 	CollisionData Right = _Right.GetCollisionData2D();
-
 	return Left.Sphere.Intersects(Right.AABB);
 }
 
@@ -65,7 +49,6 @@ bool FTransform::CircleToPoint(const FTransform& _Left, const FTransform& _Right
 	CollisionData Left = _Left.GetCollisionData2D();
 	CollisionData Right = _Right.GetCollisionData2D();
 	Right.Sphere.Radius = 0.0f;
-
 	return Left.Sphere.Intersects(Right.Sphere);
 }
 
@@ -78,7 +61,6 @@ bool FTransform::RectToRect(const FTransform& _Left, const FTransform& _Right)
 {
 	CollisionData Left = _Left.GetCollisionData2D();
 	CollisionData Right = _Right.GetCollisionData2D();
-
 	return Left.AABB.Intersects(Right.AABB);
 }
 
@@ -87,7 +69,6 @@ bool FTransform::RectToPoint(const FTransform& _Left, const FTransform& _Right)
 	CollisionData Left = _Left.GetCollisionData2D();
 	CollisionData Right = _Right.GetCollisionData2D();
 	Right.Sphere.Radius = 0.0f;
-
 	return Left.AABB.Intersects(Right.Sphere);
 }
 
@@ -95,7 +76,6 @@ bool FTransform::RotRectToRotRect(const FTransform& _Left, const FTransform& _Ri
 {
 	CollisionData Left = _Left.GetCollisionData2D();
 	CollisionData Right = _Right.GetCollisionData2D();
-
 	return Left.OBB.Intersects(Right.OBB);
 }
 
@@ -109,6 +89,19 @@ bool FTransform::PointToRect(const FTransform& _Left, const FTransform& _Right)
 	return RectToPoint(_Right, _Left);
 }
 
+FTransform::FTransform() 
+	: LocalScale(FVector::One)
+	, LocalRotation(FVector::Zero)
+	, LocalPosition(FVector::Zero)
+{
+
+}
+
+FTransform::~FTransform() 
+{
+
+}
+
 void FTransform::TransformUpdate()
 {
 	ScaleMat.Scale(LocalScale);
@@ -117,8 +110,9 @@ void FTransform::TransformUpdate()
 
 	LocalWorld = ScaleMat * RotationMat * PositionMat;
 	World = LocalWorld * ParentMat;
+
 	World.Decompose(WorldScale, WorldRotation, WorldPosition);
-	
+
 	WorldRotation = WorldRotation.QuaternionToDeg();
 }
 
@@ -133,8 +127,8 @@ bool FTransform::Collision(ECollisionType _ThisType, ECollisionType _OtherType, 
 {
 	if (CollisionFunction[static_cast<int>(_ThisType)][static_cast<int>(_OtherType)] == nullptr)
 	{
-		MsgBoxAssert("아직 충돌함수가 생성되지 않은 충돌입니다.");
+		MsgBoxAssert("아직 충돌 함수가 만들어지지 않은 충돌입니다.");
 	}
 
-	return CollisionFunction[static_cast<int>(_ThisType)][static_cast<int>(_OtherType)](*this,_Other);
+	return CollisionFunction[static_cast<int>(_ThisType)][static_cast<int>(_OtherType)](*this, _Other);
 }

@@ -16,14 +16,12 @@ enum class ECollisionType
 class CollisionData
 {
 public:
-	union
+	union 
 	{
 		// 구
 		DirectX::BoundingSphere Sphere;
-
 		// 회전하지 않은 사각형
 		DirectX::BoundingBox AABB;
-
 		// 회전한 사각형
 		DirectX::BoundingOrientedBox OBB;
 	};
@@ -53,12 +51,10 @@ public:
 	}
 	~FTransform();
 
-	/*
-	FTransform(const FTransform& _Other) = delete;
-	FTransform(FTransform&& _Other) noexcept = delete;
-	FTransform& operator=(const FTransform& _Other) = delete;
-	FTransform& operator=(FTransform&& _Other) noexcept = delete;
-	*/
+	//FTransform(const FTransform& _Other) = delete;
+	//FTransform(FTransform&& _Other) noexcept = delete;
+	//FTransform& operator=(const FTransform& _Other) = delete;
+	//FTransform& operator=(FTransform&& _Other) noexcept = delete;
 
 	static bool CircleToCircle(const FTransform& _Left, const FTransform& _Right);
 	static bool CircleToRect(const FTransform& _Left, const FTransform& _Right);
@@ -90,26 +86,6 @@ public:
 	float4x4 Projection;
 	float4x4 WVP;
 
-	FVector GetScale() const
-	{
-		return LocalScale;
-	}
-
-	FVector GetRotation() const
-	{
-		return LocalRotation;
-	}
-
-	FVector GetPosition() const
-	{
-		return LocalPosition;
-	}
-
-	float GetRadius() const
-	{
-		return LocalScale.hX();
-	}
-
 	FVector GetRight()
 	{
 		return World.ArrVector[0].Normalize3DReturn();
@@ -140,6 +116,26 @@ public:
 		return -GetForward();
 	}
 
+	FVector GetScale() const
+	{
+		return LocalScale;
+	}
+
+	FVector GetRotation() const
+	{
+		return LocalRotation;
+	}
+
+	FVector GetPosition() const
+	{
+		return LocalPosition;
+	}
+
+	float GetRadius() const
+	{
+		return LocalScale.hX();
+	}
+
 	CollisionData GetCollisionData() const
 	{
 		CollisionData Result;
@@ -153,9 +149,8 @@ public:
 		CollisionData Result;
 		Result.OBB.Center = WorldPosition.DirectFloat3;
 		Result.OBB.Center.z = 0.0f;
-		Result.OBB.Extents = (WorldScale * 0.5f).DirectFloat3;
+		Result.OBB.Extents = (WorldScale* 0.5f).DirectFloat3;
 		Result.OBB.Orientation = WorldRotation.DegToQuaternion().DirectFloat4;
-		
 		return Result;
 	}
 
@@ -198,26 +193,6 @@ public:
 		SetPosition(LocalPosition + _Value);
 	}
 
-	FVector LeftTop() const
-	{
-		return { Left(), Top() };
-	}
-
-	FVector LeftBottom() const
-	{
-		return { Left(), Bottom() };
-	}
-
-	FVector RightTop() const
-	{
-		return { Right(), Top() };
-	}
-
-	FVector RightBottom() const
-	{
-		return { Right(), Bottom() };
-	}
-
 	float Left() const
 	{
 		return LocalPosition.X - LocalScale.hX();
@@ -258,10 +233,28 @@ public:
 		return std::lround(Bottom());
 	}
 
+	FVector LeftTop() const
+	{
+		return { Left(), Top() };
+	}
+
+	FVector RightTop() const
+	{
+		return { Right(), Top() };
+	}
+
+	FVector LeftBottom() const
+	{
+		return { Left(), Bottom() };
+	}
+
+	FVector RightBottom() const
+	{
+		return { Right(), Bottom() };
+	}
+
 	void TransformUpdate();
-
 	void CalculateViewAndProjection(FMatrix _View, FMatrix _Projection);
-
 	bool Collision(ECollisionType _ThisType, ECollisionType _OtherType, const FTransform& _Other);
 
 protected:

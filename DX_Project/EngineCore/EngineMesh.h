@@ -2,14 +2,17 @@
 #include "EngineVertexBuffer.h"
 #include "EngineIndexBuffer.h"
 
+// Ό³Έν :
 class UEngineMesh : public UEngineResources<UEngineMesh>
 {
 	friend URenderer;
 
 public:
+	// constrcuter destructer
 	UEngineMesh();
 	~UEngineMesh();
 
+	// delete Function
 	UEngineMesh(const UEngineMesh& _Other) = delete;
 	UEngineMesh(UEngineMesh&& _Other) noexcept = delete;
 	UEngineMesh& operator=(const UEngineMesh& _Other) = delete;
@@ -38,3 +41,4 @@ private:
 	void InputAssembler2Setting();
 	void IndexedDraw();
 };
+
