@@ -31,6 +31,9 @@
     <ClInclude Include="Monster.h">
       <Filter>Level\PlayLevel</Filter>
     </ClInclude>
+    <ClInclude Include="PlayBackBack.h">
+      <Filter>Level\PlayLevel</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="PreCompile.cpp">
@@ -61,6 +64,9 @@
       <Filter>Level\PlayLevel</Filter>
     </ClCompile>
     <ClCompile Include="Monster.cpp">
+      <Filter>Level\PlayLevel</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayBackBack.cpp">
       <Filter>Level\PlayLevel</Filter>
     </ClCompile>
   </ItemGroup>

@@ -6,7 +6,6 @@ APlayer::APlayer()
 	UDefaultSceneComponent* Root = CreateDefaultSubObject<UDefaultSceneComponent>("Renderer");
 	
 	Renderer = CreateDefaultSubObject<USpriteRenderer>("Renderer");
-	Renderer->SetScale(FVector(100.0f, 100.0f, 100.0f));
 	Renderer->SetupAttachment(Root);
 	Renderer->SetPivot(EPivot::BOT);
 
@@ -24,9 +23,9 @@ void APlayer::BeginPlay()
 {
 	Super::BeginPlay();
 
-	//SetActorScale3D(FVector(100.0f, 100.0f, 100.0f));
-
 	Renderer->SetSprite("deer_eat_1.png");
+	Renderer->SetAutoSize(1.0f, true);
+	Renderer->SetOrder(ERenderOrder::Player);
 }
 
 void APlayer::Tick(float _DeltaTime)
@@ -34,6 +33,30 @@ void APlayer::Tick(float _DeltaTime)
 	Super::Tick(_DeltaTime);
 
 	DebugMessageFunction();
+
+	float Speed = 500.0f;
+
+	if (IsPress('A') == true)
+	{
+		AddActorLocation(FVector::Left * _DeltaTime * Speed);
+	}
+
+	if (IsPress('D') == true)
+	{
+		AddActorLocation(FVector::Right * _DeltaTime * Speed);
+	}
+
+	/*
+	if (IsPress('W') == true)
+	{
+		AddActorLocation(FVector::Up * _DeltaTime * Speed);
+	}
+
+	if (IsPress('S') == true)
+	{
+		AddActorLocation(FVector::Down * _DeltaTime * Speed);
+	}
+	*/
 }
 
 void APlayer::DebugMessageFunction()

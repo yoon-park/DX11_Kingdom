@@ -52,7 +52,7 @@ private:
 	float Near = 1.0f;
 	float Far = 10000.0f;
 
-	ECameraType ProjectionType = ECameraType::Orthographic;
+	ECameraType ProjectionType = ECameraType::Perspective;
 	float FOV = 60.0f;
 
 	FMatrix View;
@@ -63,7 +63,7 @@ private:
 
 	float FreeCameraMoveSpeed = 500.0f;
 
-	ECameraType PrevProjectionType = ECameraType::Orthographic;
+	ECameraType PrevProjectionType = ECameraType::Perspective;
 
 	void CameraTransformUpdate();
 };
