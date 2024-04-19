@@ -23,9 +23,11 @@ void APlayer::BeginPlay()
 {
 	Super::BeginPlay();
 
-	Renderer->SetSprite("deer_eat_1.png");
 	Renderer->SetAutoSize(1.0f, true);
 	Renderer->SetOrder(ERenderOrder::Player);
+
+	Renderer->CreateAnimation("Gallop", "player_gallop.png", 0.05f, true, 0, 11);
+	Renderer->ChangeAnimation("Gallop");
 }
 
 void APlayer::Tick(float _DeltaTime)
@@ -34,7 +36,7 @@ void APlayer::Tick(float _DeltaTime)
 
 	DebugMessageFunction();
 
-	float Speed = 500.0f;
+	float Speed = 200.0f;
 
 	if (IsPress('A') == true)
 	{

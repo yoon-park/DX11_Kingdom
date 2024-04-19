@@ -9,6 +9,12 @@ enum class EObjectOrder
 
 enum class ERenderOrder
 {
-	Back,
+	Sky,
+	Back3,
+	Back2,
+	Back1,
+	Back0,
 	Player,
+	Ground,
+	Water
 };

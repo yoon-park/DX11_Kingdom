@@ -1,30 +1,29 @@
 #include "PreCompile.h"
-#include "PlayBack.h"
+#include "Ground.h"
 
-APlayBack::APlayBack()
+AGround::AGround()
 {
 	Renderer = CreateDefaultSubObject<USpriteRenderer>("Renderer");
 
 	SetRoot(Renderer);
-	
 	InputOn();
 }
 
-APlayBack::~APlayBack()
+AGround::~AGround()
 {
 
 }
 
-void APlayBack::BeginPlay()
+void AGround::BeginPlay()
 {
 	Super::BeginPlay();
 
-	Renderer->SetSprite("backdrop_rocks.png");
+	Renderer->SetSprite("Tile.png");
 	Renderer->SetAutoSize(1.0f, true);
-	Renderer->SetOrder(ERenderOrder::Back);
+	Renderer->SetOrder(ERenderOrder::Ground);
 }
 
-void APlayBack::Tick(float _DeltaTime)
+void AGround::Tick(float _DeltaTime)
 {
 	Super::Tick(_DeltaTime);
 }

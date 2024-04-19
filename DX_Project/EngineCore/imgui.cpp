@@ -11092,13 +11092,13 @@ ImVec2 ImGui::ScrollToRectEx(ImGuiWindow* window, const ImRect& item_rect, ImGui
 
     // Check that only one behavior is selected per axis
     IM_ASSERT((flags & ImGuiScrollFlags_MaskX_) == 0 || ImIsPowerOfTwo(flags & ImGuiScrollFlags_MaskX_));
-    IM_ASSERT((flags & ImGuiScrollFlags_MaskY_) == 0 || ImIsPowerOfTwo(flags & ImGuiScrollFlags_MaskY_));
+    IM_ASSERT((flags & ImGuiScrollFlags_MaSky_) == 0 || ImIsPowerOfTwo(flags & ImGuiScrollFlags_MaSky_));
 
     // Defaults
     ImGuiScrollFlags in_flags = flags;
     if ((flags & ImGuiScrollFlags_MaskX_) == 0 && window->ScrollbarX)
         flags |= ImGuiScrollFlags_KeepVisibleEdgeX;
-    if ((flags & ImGuiScrollFlags_MaskY_) == 0)
+    if ((flags & ImGuiScrollFlags_MaSky_) == 0)
         flags |= window->Appearing ? ImGuiScrollFlags_AlwaysCenterY : ImGuiScrollFlags_KeepVisibleEdgeY;
 
     const bool fully_visible_x = item_rect.Min.x >= scroll_rect.Min.x && item_rect.Max.x <= scroll_rect.Max.x;
@@ -11146,7 +11146,7 @@ ImVec2 ImGui::ScrollToRectEx(ImGuiWindow* window, const ImRect& item_rect, ImGui
         if ((in_flags & (ImGuiScrollFlags_AlwaysCenterX | ImGuiScrollFlags_KeepVisibleCenterX)) != 0)
             in_flags = (in_flags & ~ImGuiScrollFlags_MaskX_) | ImGuiScrollFlags_KeepVisibleEdgeX;
         if ((in_flags & (ImGuiScrollFlags_AlwaysCenterY | ImGuiScrollFlags_KeepVisibleCenterY)) != 0)
-            in_flags = (in_flags & ~ImGuiScrollFlags_MaskY_) | ImGuiScrollFlags_KeepVisibleEdgeY;
+            in_flags = (in_flags & ~ImGuiScrollFlags_MaSky_) | ImGuiScrollFlags_KeepVisibleEdgeY;
         delta_scroll += ScrollToRectEx(window->ParentWindow, ImRect(item_rect.Min - delta_scroll, item_rect.Max - delta_scroll), in_flags);
     }
 

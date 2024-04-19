@@ -10,17 +10,11 @@
     <ClInclude Include="PlayGameMode.h">
       <Filter>Level\PlayLevel</Filter>
     </ClInclude>
-    <ClInclude Include="Player.h">
-      <Filter>Level\PlayLevel</Filter>
-    </ClInclude>
     <ClInclude Include="TitleLogo.h">
       <Filter>Level\TitleLevel</Filter>
     </ClInclude>
     <ClInclude Include="TitleGameMode.h">
       <Filter>Level\TitleLevel</Filter>
-    </ClInclude>
-    <ClInclude Include="PlayBack.h">
-      <Filter>Level\PlayLevel</Filter>
     </ClInclude>
     <ClInclude Include="ContentsEnum.h">
       <Filter>Option</Filter>
@@ -28,11 +22,29 @@
     <ClInclude Include="ContentsConstValue.h">
       <Filter>Option</Filter>
     </ClInclude>
-    <ClInclude Include="Monster.h">
-      <Filter>Level\PlayLevel</Filter>
+    <ClInclude Include="Back3.h">
+      <Filter>Level\PlayLevel\Map</Filter>
     </ClInclude>
-    <ClInclude Include="PlayBackBack.h">
-      <Filter>Level\PlayLevel</Filter>
+    <ClInclude Include="Back2.h">
+      <Filter>Level\PlayLevel\Map</Filter>
+    </ClInclude>
+    <ClInclude Include="Sky.h">
+      <Filter>Level\PlayLevel\Map</Filter>
+    </ClInclude>
+    <ClInclude Include="Back1.h">
+      <Filter>Level\PlayLevel\Map</Filter>
+    </ClInclude>
+    <ClInclude Include="Back0.h">
+      <Filter>Level\PlayLevel\Map</Filter>
+    </ClInclude>
+    <ClInclude Include="Ground.h">
+      <Filter>Level\PlayLevel\Map</Filter>
+    </ClInclude>
+    <ClInclude Include="Monster.h">
+      <Filter>Level\PlayLevel\Actor</Filter>
+    </ClInclude>
+    <ClInclude Include="Player.h">
+      <Filter>Level\PlayLevel\Actor</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -45,29 +57,41 @@
     <ClCompile Include="PlayGameMode.cpp">
       <Filter>Level\PlayLevel</Filter>
     </ClCompile>
-    <ClCompile Include="Player.cpp">
-      <Filter>Level\PlayLevel</Filter>
-    </ClCompile>
     <ClCompile Include="TitleLogo.cpp">
       <Filter>Level\TitleLevel</Filter>
     </ClCompile>
     <ClCompile Include="TitleGameMode.cpp">
       <Filter>Level\TitleLevel</Filter>
     </ClCompile>
-    <ClCompile Include="PlayBack.cpp">
-      <Filter>Level\PlayLevel</Filter>
-    </ClCompile>
     <ClCompile Include="ContentsConstValue.cpp">
       <Filter>Option</Filter>
     </ClCompile>
-    <ClCompile Include="Player_State.cpp">
-      <Filter>Level\PlayLevel</Filter>
+    <ClCompile Include="Back3.cpp">
+      <Filter>Level\PlayLevel\Map</Filter>
+    </ClCompile>
+    <ClCompile Include="Back2.cpp">
+      <Filter>Level\PlayLevel\Map</Filter>
+    </ClCompile>
+    <ClCompile Include="Sky.cpp">
+      <Filter>Level\PlayLevel\Map</Filter>
+    </ClCompile>
+    <ClCompile Include="Back1.cpp">
+      <Filter>Level\PlayLevel\Map</Filter>
+    </ClCompile>
+    <ClCompile Include="Back0.cpp">
+      <Filter>Level\PlayLevel\Map</Filter>
+    </ClCompile>
+    <ClCompile Include="Ground.cpp">
+      <Filter>Level\PlayLevel\Map</Filter>
     </ClCompile>
     <ClCompile Include="Monster.cpp">
-      <Filter>Level\PlayLevel</Filter>
+      <Filter>Level\PlayLevel\Actor</Filter>
     </ClCompile>
-    <ClCompile Include="PlayBackBack.cpp">
-      <Filter>Level\PlayLevel</Filter>
+    <ClCompile Include="Player.cpp">
+      <Filter>Level\PlayLevel\Actor</Filter>
+    </ClCompile>
+    <ClCompile Include="Player_State.cpp">
+      <Filter>Level\PlayLevel\Actor</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -88,6 +112,12 @@
     </Filter>
     <Filter Include="Option">
       <UniqueIdentifier>{749a2141-5991-4699-af2e-f0d917d31484}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Level\PlayLevel\Map">
+      <UniqueIdentifier>{59c0e95c-2f31-4705-afa3-e2bfc7d4b39b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Level\PlayLevel\Actor">
+      <UniqueIdentifier>{01cd48cb-de3a-49c7-bf12-4a1a69d4e535}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>
