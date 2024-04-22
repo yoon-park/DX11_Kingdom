@@ -49,6 +49,12 @@
     <ClInclude Include="Back4.h">
       <Filter>Level\PlayLevel\Map</Filter>
     </ClInclude>
+    <ClInclude Include="TownCenter.h">
+      <Filter>Level\PlayLevel\Object</Filter>
+    </ClInclude>
+    <ClInclude Include="Campfire.h">
+      <Filter>Level\PlayLevel\Object</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="PreCompile.cpp">
@@ -99,6 +105,12 @@
     <ClCompile Include="Back4.cpp">
       <Filter>Level\PlayLevel\Map</Filter>
     </ClCompile>
+    <ClCompile Include="TownCenter.cpp">
+      <Filter>Level\PlayLevel\Object</Filter>
+    </ClCompile>
+    <ClCompile Include="Campfire.cpp">
+      <Filter>Level\PlayLevel\Object</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="PreCompile">
@@ -124,6 +136,9 @@
     </Filter>
     <Filter Include="Level\PlayLevel\Actor">
       <UniqueIdentifier>{01cd48cb-de3a-49c7-bf12-4a1a69d4e535}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Level\PlayLevel\Object">
+      <UniqueIdentifier>{63764a59-711c-42e9-8f96-d7db946c5374}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

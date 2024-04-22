@@ -183,6 +183,10 @@
       <SubType>
       </SubType>
     </ClInclude>
+    <ClInclude Include="Campfire.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="ContentsConstValue.h">
       <SubType>
       </SubType>
@@ -235,6 +239,10 @@
       <SubType>
       </SubType>
     </ClInclude>
+    <ClInclude Include="TownCenter.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Back0.cpp">
@@ -246,6 +254,10 @@
       </SubType>
     </ClCompile>
     <ClCompile Include="Back4.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="Campfire.cpp">
       <SubType>
       </SubType>
     </ClCompile>
@@ -299,6 +311,10 @@
       </SubType>
     </ClCompile>
     <ClCompile Include="TitleLogo.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="TownCenter.cpp">
       <SubType>
       </SubType>
     </ClCompile>

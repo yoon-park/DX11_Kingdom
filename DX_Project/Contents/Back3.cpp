@@ -18,7 +18,7 @@ void ABack3::BeginPlay()
 {
 	Super::BeginPlay();
 
-	Renderer->SetSprite("backdrop_hills.png");
+	Renderer->SetSprite("Map_03.png");
 	Renderer->SetAutoSize(3.5f, true);
 	Renderer->SetOrder(ERenderOrder::Back3);
 }

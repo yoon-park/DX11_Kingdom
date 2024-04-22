@@ -4,7 +4,8 @@ enum class EObjectOrder
 {
 	Player,
 	Monster,
-	Back
+	Back,
+	Building
 };
 
 enum class ERenderOrder
@@ -15,7 +16,9 @@ enum class ERenderOrder
 	Back2,
 	Back1,
 	Back0,
+	BackObject,
 	Player,
 	Ground,
+	GroundObject,
 	Water
 };

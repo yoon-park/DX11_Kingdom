@@ -1,16 +1,19 @@
 #include "PreCompile.h"
 #include "PlayGameMode.h"
 
-#include "Sky.h"
+#include "Ground.h"
 #include "Back0.h"
 #include "Back1.h"
 #include "Back2.h"
 #include "Back3.h"
 #include "Back4.h"
-#include "Ground.h"
+#include "Sky.h"
 
 #include "Player.h"
 #include "Monster.h"
+
+#include "Campfire.h"
+#include "TownCenter.h"
 
 APlayGameMode::APlayGameMode()
 {
@@ -44,28 +47,40 @@ void APlayGameMode::BeginPlay()
 		SetMainPlayer(Player);
 	}
 	{
-		std::shared_ptr<AGround> Ground = GetWorld()->SpawnActor<AGround>("Back0", EObjectOrder::Back);
-		Ground->SetActorLocation({ 0.0f, 0.0f, 100.0f });
+		{
+			std::shared_ptr<AGround> Ground = GetWorld()->SpawnActor<AGround>("Back0", EObjectOrder::Back);
+			Ground->SetActorLocation({ 0.0f, 0.0f, 100.0f });
+		}
+		{
+			std::shared_ptr<ABack0> Back0 = GetWorld()->SpawnActor<ABack0>("Back0", EObjectOrder::Back);
+			Back0->SetActorLocation({ 60.0f, 30.0f, 100.0f });
+		}
+		{
+			std::shared_ptr<ABack1> Back1 = GetWorld()->SpawnActor<ABack1>("Back1", EObjectOrder::Back);
+			Back1->SetActorLocation({ 0.0f, 10.0f, 200.0f });
+		}
+		{
+			std::shared_ptr<ABack2> Back2 = GetWorld()->SpawnActor<ABack2>("Back2", EObjectOrder::Back);
+			Back2->SetActorLocation({ 0.0f, 160.0f, 500.0f });
+		}
+		{
+			std::shared_ptr<ABack3> Back3 = GetWorld()->SpawnActor<ABack3>("Back3", EObjectOrder::Back);
+			Back3->SetActorLocation({ 0.0f, 130.0f, 700.0f });
+		}
+		{
+			std::shared_ptr<ABack4> Back4 = GetWorld()->SpawnActor<ABack4>("Back4", EObjectOrder::Back);
+			Back4->SetActorLocation({ 400.0f, 140.0f, 900.0f });
+		}
 	}
 	{
-		std::shared_ptr<ABack0> Back0 = GetWorld()->SpawnActor<ABack0>("Back0", EObjectOrder::Back);
-		Back0->SetActorLocation({ 0.0f, 30.0f, 100.0f });
-	}
-	{
-		std::shared_ptr<ABack1> Back1 = GetWorld()->SpawnActor<ABack1>("Back1", EObjectOrder::Back);
-		Back1->SetActorLocation({ 0.0f, 10.0f, 200.0f });
-	}
-	{
-		std::shared_ptr<ABack2> Back2 = GetWorld()->SpawnActor<ABack2>("Back2", EObjectOrder::Back);
-		Back2->SetActorLocation({ 0.0f, 160.0f, 500.0f });
-	}
-	{
-		std::shared_ptr<ABack3> Back3 = GetWorld()->SpawnActor<ABack3>("Back3", EObjectOrder::Back);
-		Back3->SetActorLocation({ 0.0f, 130.0f, 700.0f });
-	}
-	{
-		std::shared_ptr<ABack3> Back4 = GetWorld()->SpawnActor<ABack3>("Back4", EObjectOrder::Back);
-		Back4->SetActorLocation({ 0.0f, 150.0f, 900.0f });
+		{
+			std::shared_ptr<ACampfire> Campfire = GetWorld()->SpawnActor<ACampfire>("Campfire", EObjectOrder::Building);
+			Campfire->SetActorLocation({ 0.0f, 49.0f, 100.0f });
+		}
+		{
+			std::shared_ptr<ATownCenter> TownCenter = GetWorld()->SpawnActor<ATownCenter>("TownCenter", EObjectOrder::Building);
+			TownCenter->SetActorLocation({ 0.0f, 84.0f, 100.0f });
+		}
 	}
 }
 

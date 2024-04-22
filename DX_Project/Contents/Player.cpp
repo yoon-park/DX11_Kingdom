@@ -36,7 +36,7 @@ void APlayer::Tick(float _DeltaTime)
 
 	DebugMessageFunction();
 
-	float Speed = 200.0f;
+	float Speed = 150.0f;
 
 	if (IsPress('A') == true)
 	{

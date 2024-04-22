@@ -1,7 +1,7 @@
 #include "PreCompile.h"
-#include "Ground.h"
+#include "Campfire.h"
 
-AGround::AGround()
+ACampfire::ACampfire()
 {
 	Renderer = CreateDefaultSubObject<USpriteRenderer>("Renderer");
 
@@ -9,21 +9,21 @@ AGround::AGround()
 	InputOn();
 }
 
-AGround::~AGround()
+ACampfire::~ACampfire()
 {
 
 }
 
-void AGround::BeginPlay()
+void ACampfire::BeginPlay()
 {
 	Super::BeginPlay();
 
-	Renderer->SetSprite("Ground.png");
+	Renderer->SetSprite("Campfire_02.png");
 	Renderer->SetAutoSize(1.0f, true);
-	Renderer->SetOrder(ERenderOrder::Ground);
+	Renderer->SetOrder(ERenderOrder::GroundObject);
 }
 
-void AGround::Tick(float _DeltaTime)
+void ACampfire::Tick(float _DeltaTime)
 {
 	Super::Tick(_DeltaTime);
 }

@@ -21,6 +21,5 @@ protected:
 
 private:
 	USpriteRenderer* Renderer;
-	USpriteRenderer* Renderer1;
 	float4 Color;
 };

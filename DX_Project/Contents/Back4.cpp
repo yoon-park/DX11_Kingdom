@@ -18,7 +18,7 @@ void ABack4::BeginPlay()
 {
 	Super::BeginPlay();
 
-	Renderer->SetSprite("backdrop_rocks.png");
+	Renderer->SetSprite("Map_04.png");
 	Renderer->SetAutoSize(3.5f, true);
 	Renderer->SetOrder(ERenderOrder::Back4);
 }
