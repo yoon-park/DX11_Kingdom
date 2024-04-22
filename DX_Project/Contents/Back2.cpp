@@ -18,8 +18,8 @@ void ABack2::BeginPlay()
 {
 	Super::BeginPlay();
 
-	Renderer->SetSprite("backdrop_hills.png");
-	Renderer->SetAutoSize(3.5f, true);
+	Renderer->SetSprite("trees_curtain_01.png");
+	Renderer->SetAutoSize(3.0f, true);
 	Renderer->SetOrder(ERenderOrder::Back2);
 }
 

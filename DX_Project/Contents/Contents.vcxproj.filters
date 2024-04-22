@@ -46,6 +46,9 @@
     <ClInclude Include="Player.h">
       <Filter>Level\PlayLevel\Actor</Filter>
     </ClInclude>
+    <ClInclude Include="Back4.h">
+      <Filter>Level\PlayLevel\Map</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="PreCompile.cpp">
@@ -92,6 +95,9 @@
     </ClCompile>
     <ClCompile Include="Player_State.cpp">
       <Filter>Level\PlayLevel\Actor</Filter>
+    </ClCompile>
+    <ClCompile Include="Back4.cpp">
+      <Filter>Level\PlayLevel\Map</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

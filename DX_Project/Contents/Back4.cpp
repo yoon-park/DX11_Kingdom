@@ -1,7 +1,7 @@
 #include "PreCompile.h"
-#include "Back3.h"
+#include "Back4.h"
 
-ABack3::ABack3()
+ABack4::ABack4()
 {
 	Renderer = CreateDefaultSubObject<USpriteRenderer>("Renderer");
 
@@ -9,21 +9,21 @@ ABack3::ABack3()
 	InputOn();
 }
 
-ABack3::~ABack3()
+ABack4::~ABack4()
 {
 
 }
 
-void ABack3::BeginPlay()
+void ABack4::BeginPlay()
 {
 	Super::BeginPlay();
 
-	Renderer->SetSprite("backdrop_hills.png");
+	Renderer->SetSprite("backdrop_rocks.png");
 	Renderer->SetAutoSize(3.5f, true);
-	Renderer->SetOrder(ERenderOrder::Back3);
+	Renderer->SetOrder(ERenderOrder::Back4);
 }
 
-void ABack3::Tick(float _DeltaTime)
+void ABack4::Tick(float _DeltaTime)
 {
 	Super::Tick(_DeltaTime);
 }

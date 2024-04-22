@@ -18,8 +18,8 @@ void ABack0::BeginPlay()
 {
 	Super::BeginPlay();
 
-	Renderer->SetSprite("hills_02.png");
-	Renderer->SetAutoSize(1.5f, true);
+	Renderer->SetSprite("shrubs_big_05.png");
+	Renderer->SetAutoSize(1.0f, true);
 	Renderer->SetOrder(ERenderOrder::Back0);
 }
 

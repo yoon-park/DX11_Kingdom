@@ -10,6 +10,7 @@ enum class EObjectOrder
 enum class ERenderOrder
 {
 	Sky,
+	Back4,
 	Back3,
 	Back2,
 	Back1,
