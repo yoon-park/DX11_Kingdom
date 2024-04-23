@@ -1,28 +1,28 @@
 #include "PreCompile.h"
-#include "Campfire.h"
+#include "Wall.h"
 
-ACampfire::ACampfire()
+AWall::AWall()
 {
 	Renderer = CreateDefaultSubObject<USpriteRenderer>("Renderer");
 
 	SetRoot(Renderer);
 }
 
-ACampfire::~ACampfire()
+AWall::~AWall()
 {
 
 }
 
-void ACampfire::BeginPlay()
+void AWall::BeginPlay()
 {
 	Super::BeginPlay();
 
-	Renderer->SetSprite("Campfire_02.png");
+	Renderer->SetSprite("TownCenter_02.png");
 	Renderer->SetAutoSize(1.0f, true);
 	Renderer->SetOrder(ERenderOrder::GroundObject);
 }
 
-void ACampfire::Tick(float _DeltaTime)
+void AWall::Tick(float _DeltaTime)
 {
 	Super::Tick(_DeltaTime);
 }

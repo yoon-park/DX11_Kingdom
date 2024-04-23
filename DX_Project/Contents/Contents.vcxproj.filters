@@ -55,6 +55,9 @@
     <ClInclude Include="Campfire.h">
       <Filter>Level\PlayLevel\Object</Filter>
     </ClInclude>
+    <ClInclude Include="Wall.h">
+      <Filter>Level\PlayLevel\Object</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="PreCompile.cpp">
@@ -109,6 +112,9 @@
       <Filter>Level\PlayLevel\Object</Filter>
     </ClCompile>
     <ClCompile Include="Campfire.cpp">
+      <Filter>Level\PlayLevel\Object</Filter>
+    </ClCompile>
+    <ClCompile Include="Wall.cpp">
       <Filter>Level\PlayLevel\Object</Filter>
     </ClCompile>
   </ItemGroup>

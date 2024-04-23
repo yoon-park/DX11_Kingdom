@@ -6,7 +6,6 @@ ATownCenter::ATownCenter()
 	Renderer = CreateDefaultSubObject<USpriteRenderer>("Renderer");
 
 	SetRoot(Renderer);
-	InputOn();
 }
 
 ATownCenter::~ATownCenter()
