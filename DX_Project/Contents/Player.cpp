@@ -5,9 +5,13 @@ APlayer::APlayer()
 {
 	UDefaultSceneComponent* Root = CreateDefaultSubObject<UDefaultSceneComponent>("Renderer");
 	
-	Renderer = CreateDefaultSubObject<USpriteRenderer>("Renderer");
-	Renderer->SetupAttachment(Root);
-	Renderer->SetPivot(EPivot::BOT);
+	Renderer_Player = CreateDefaultSubObject<USpriteRenderer>("Renderer");
+	Renderer_Player->SetupAttachment(Root);
+	Renderer_Player->SetPivot(EPivot::BOT);
+
+	Renderer_Horse = CreateDefaultSubObject<USpriteRenderer>("Renderer");
+	Renderer_Horse->SetupAttachment(Root);
+	Renderer_Horse->SetPivot(EPivot::BOT);
 
 	SetRoot(Root);
 	
@@ -23,42 +27,36 @@ void APlayer::BeginPlay()
 {
 	Super::BeginPlay();
 
-	Renderer->SetAutoSize(1.0f, true);
-	Renderer->SetOrder(ERenderOrder::Player);
+	{
+		Renderer_Player->SetAutoSize(1.0f, true);
+		Renderer_Player->SetOrder(ERenderOrder::Player);
 
-	Renderer->CreateAnimation("Gallop", "player_gallop.png", 0.05f, true, 0, 11);
-	Renderer->ChangeAnimation("Gallop");
+		Renderer_Horse->SetAutoSize(1.0f, true);
+		Renderer_Horse->SetOrder(ERenderOrder::Player);
+	}
+	{
+		Renderer_Player->CreateAnimation("Idle", "Player_Idle.png", 0.13f, true, 0, 15);
+		Renderer_Player->CreateAnimation("Walk", "Player_Walk.png", 0.10f, true, 0, 7);
+		Renderer_Player->CreateAnimation("Run", "Player_Run.png", 0.05f, true, 0, 11);
+		Renderer_Player->CreateAnimation("Rear", "Player_Rear.png", 0.10f, false, 0, 12);
+		Renderer_Player->CreateAnimation("Eat", "Player_Eat.png", 0.10f, false, 0, 13);
+
+		Renderer_Horse->CreateAnimation("Idle", "Player_Horse_Idle.png", 0.13f, true, 0, 15);
+		Renderer_Horse->CreateAnimation("Walk", "Player_Horse_Walk.png", 0.10f, true, 0, 7);
+		Renderer_Horse->CreateAnimation("Run", "Player_Horse_Run.png", 0.05f, true, 0, 11);
+		Renderer_Horse->CreateAnimation("Rear", "Player_Horse_Rear.png", 0.10f, false, 0, 12);
+		Renderer_Horse->CreateAnimation("Eat", "Player_Horse_Eat.png", 0.10f, false, 0, 13);
+	}
+	
+	StateInit();
 }
 
 void APlayer::Tick(float _DeltaTime)
 {
 	Super::Tick(_DeltaTime);
+	State.Update(_DeltaTime);
 
 	DebugMessageFunction();
-
-	float Speed = 150.0f;
-
-	if (IsPress('A') == true)
-	{
-		AddActorLocation(FVector::Left * _DeltaTime * Speed);
-	}
-
-	if (IsPress('D') == true)
-	{
-		AddActorLocation(FVector::Right * _DeltaTime * Speed);
-	}
-
-	/*
-	if (IsPress('W') == true)
-	{
-		AddActorLocation(FVector::Up * _DeltaTime * Speed);
-	}
-
-	if (IsPress('S') == true)
-	{
-		AddActorLocation(FVector::Down * _DeltaTime * Speed);
-	}
-	*/
 }
 
 void APlayer::DebugMessageFunction()
@@ -67,7 +65,6 @@ void APlayer::DebugMessageFunction()
 		std::string Msg = std::format("PlayerPos : {}\n", GetActorLocation().ToString());
 		UEngineDebugMsgWindow::PushMsg(Msg);
 	}
-
 	{
 		std::string Msg = std::format("MousePos : {}\n", GEngine->EngineWindow.GetScreenMousePos().ToString());
 		UEngineDebugMsgWindow::PushMsg(Msg);

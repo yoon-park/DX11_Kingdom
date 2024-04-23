@@ -35,7 +35,16 @@ void UContentsCore::Initialize()
 		}
 
 		{
-			UEngineSprite::CreateCutting("player_gallop.png", 12, 1);
+			UEngineSprite::CreateCutting("Player_Idle.png", 16, 1);
+			UEngineSprite::CreateCutting("Player_Walk.png", 16, 1);
+			UEngineSprite::CreateCutting("Player_Run.png", 16, 1);
+			UEngineSprite::CreateCutting("Player_Rear.png", 16, 1);
+			UEngineSprite::CreateCutting("Player_Eat.png", 16, 1);
+			UEngineSprite::CreateCutting("Player_Horse_Idle.png", 16, 1);
+			UEngineSprite::CreateCutting("Player_Horse_Walk.png", 16, 1);
+			UEngineSprite::CreateCutting("Player_Horse_Run.png", 16, 1);
+			UEngineSprite::CreateCutting("Player_Horse_Rear.png", 16, 1);
+			UEngineSprite::CreateCutting("Player_Horse_Eat.png", 16, 1);
 			
 			/* Images required to be cut */
 		}
