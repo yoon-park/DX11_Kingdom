@@ -1,19 +1,15 @@
 #pragma once
 #include "EngineDefines.h"
 #include "EngineEditorWindow.h"
-#include <vector>
 
-// Ό³Έν :
 class UEngineDebugMsgWindow : public UEngineEditorWindow
 {
 	GENERATED_BODY(UEngineEditorWindow);
 
 public:
-	// constrcuter destructer
 	UEngineDebugMsgWindow();
 	~UEngineDebugMsgWindow();
 
-	// delete Function
 	UEngineDebugMsgWindow(const UEngineDebugMsgWindow& _Other) = delete;
 	UEngineDebugMsgWindow(UEngineDebugMsgWindow&& _Other) noexcept = delete;
 	UEngineDebugMsgWindow& operator=(const UEngineDebugMsgWindow& _Other) = delete;
@@ -28,4 +24,3 @@ protected:
 private:
 	static std::vector<std::string> Msg;
 };
-

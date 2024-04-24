@@ -3,18 +3,16 @@
 
 UCollision::UCollision() 
 {
+
 }
 
 UCollision::~UCollision() 
 {
+
 }
 
 void UCollision::BeginPlay()
 {
-	// 한번 shared_ptr로 사용한 애들은 계속 shared_ptr로 사용하려고 ㅎ나다.
-	// UCollision* Ptr = this;
-	// std::shared_ptr<UCollision> Sptr = this;
-
 	Super::BeginPlay();
 
 	GetWorld()->PushCollision(shared_from_this());
@@ -25,6 +23,18 @@ void UCollision::SetCollisionGroup(int _Index)
 	SetOrder(_Index);
 }
 
+void UCollision::SetOrder(int _Order)
+{
+	int PrevOrder = GetOrder();
+
+	Super::SetOrder(_Order);
+
+	if (GetWorld() != nullptr)
+	{
+		GetWorld()->ChangeOrderCollision(shared_from_this(), PrevOrder, _Order);
+	}
+}
+
 bool UCollision::CollisionEnter(int _TargetGroup, std::function<void(std::shared_ptr<UCollision>)> _Function /*= nullptr*/)
 {
 	return Collision(_TargetGroup, _Function, nullptr, nullptr);
@@ -33,10 +43,8 @@ bool UCollision::CollisionEnter(int _TargetGroup, std::function<void(std::shared
 bool UCollision::CollisionStay(int _TargetGroup, std::function<void(std::shared_ptr<UCollision>)> _Function /*= nullptr*/)
 {
 	return Collision(_TargetGroup, nullptr, _Function, nullptr);
-
 }
 
-// 충돌이 끝났을때 1번
 bool UCollision::CollisionExit(int _TargetGroup, std::function<void(std::shared_ptr<UCollision>)> _Function /*= nullptr*/)
 {
 	return Collision(_TargetGroup, nullptr, nullptr, _Function);
@@ -47,13 +55,11 @@ bool UCollision::Collision(int _TargetGroup,
 	std::function<void(std::shared_ptr<UCollision>)> _Stay /*= nullptr*/,
 	std::function<void(std::shared_ptr<UCollision>)> _Exit /*= nullptr*/)
 {
-	// Group 상대 그룹
-
 	auto Test = GetWorld()->Collisions;
 
 	std::list<std::shared_ptr<UCollision>>& Group = GetWorld()->Collisions[_TargetGroup];
 
-	if (false == IsActive())
+	if (IsActive() == false)
 	{
 		return false;
 	}
@@ -65,33 +71,34 @@ bool UCollision::Collision(int _TargetGroup,
 
 		UCollision* CollisionPtr = OtherCollision.get();
 
-		if (true == Transform.Collision(ThisType, OtherType, OtherCollision->Transform))
+		if (Transform.Collision(ThisType, OtherType, OtherCollision->Transform) == true)
 		{
 			bool IsFirst = false;
 
-			if (false == OtherCheck.contains(CollisionPtr))
+			if (OtherCheck.contains(CollisionPtr) == false)
 			{
 				IsFirst = true;
 			}
-			else {
+			else 
+			{
 				IsFirst = false;
 			}
 
-			if (nullptr != _Enter || nullptr != _Exit)
+			if (_Enter != nullptr || _Exit != nullptr)
 			{
 				OtherCheck.insert(CollisionPtr);
 			}
 
-			if (true == IsFirst && nullptr != _Enter)
+			if (IsFirst == true && _Enter != nullptr)
 			{
 				_Enter(OtherCollision);
 			}
-			else if (false == IsFirst && nullptr != _Stay)
+			else if (IsFirst == false && _Stay != nullptr)
 			{
 				_Stay(OtherCollision);
 			}
 		}
-		else if(true == OtherCheck.contains(CollisionPtr) && nullptr != _Exit)
+		else if(OtherCheck.contains(CollisionPtr) == true && _Exit != nullptr)
 		{
 			OtherCheck.erase(CollisionPtr);
 			_Exit(OtherCollision);
@@ -99,18 +106,4 @@ bool UCollision::Collision(int _TargetGroup,
 	}
 
 	return false;
-}
-
-void UCollision::SetOrder(int _Order)
-{
-	// UTickObject::SetOrder(_Order);
-
-	int PrevOrder = GetOrder();
-
-	Super::SetOrder(_Order);
-
-	if (nullptr != GetWorld())
-	{
-		GetWorld()->ChangeOrderCollision(shared_from_this(), PrevOrder, _Order);
-	}
 }
