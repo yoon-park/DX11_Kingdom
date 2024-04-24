@@ -50,6 +50,7 @@ void UContentsCore::Initialize()
 		}
 	}
 
+	/*
 	{
 		UEngineDirectory Dir;
 		Dir.MoveToSearchChild("ContentsResources");
@@ -61,6 +62,7 @@ void UContentsCore::Initialize()
 			UEngineSound::Load(File.GetFullPath());
 		}
 	}
+	*/
 
 	GEngine->CreateLevel<ATitleGameMode>("TitleLevel");
 	GEngine->CreateLevel<APlayGameMode>("PlayLevel");
