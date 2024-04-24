@@ -1,6 +1,8 @@
 #include "PreCompile.h"
 #include "Player.h"
 
+#include "Coin.h"
+
 void APlayer::StateInit()
 {
 	{
@@ -74,6 +76,9 @@ void APlayer::PayStart()
 	Renderer_Player->ChangeAnimation("Eat");
 	Renderer_Horse->ChangeAnimation("Eat");
 	*/
+
+	std::shared_ptr<ACoin> Coin = GetWorld()->SpawnActor<ACoin>("InnerWall", EObjectOrder::Object);
+	Coin->SetActorLocation(GetActorLocation());
 }
 
 void APlayer::Idle(float _DeltaTime)
@@ -87,6 +92,12 @@ void APlayer::Idle(float _DeltaTime)
 		}
 
 		State.ChangeState("Walk");
+		return;
+	}
+
+	if (IsPress(VK_DOWN) == true)
+	{
+		State.ChangeState("Pay");
 		return;
 	}
 }

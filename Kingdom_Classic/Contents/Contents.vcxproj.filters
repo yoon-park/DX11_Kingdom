@@ -58,6 +58,9 @@
     <ClInclude Include="Spot.h">
       <Filter>Level\PlayLevel\Object\Spot</Filter>
     </ClInclude>
+    <ClInclude Include="Coin.h">
+      <Filter>Level\PlayLevel\Object\Other</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="PreCompile.cpp">
@@ -117,6 +120,9 @@
     <ClCompile Include="Spot.cpp">
       <Filter>Level\PlayLevel\Object\Spot</Filter>
     </ClCompile>
+    <ClCompile Include="Coin.cpp">
+      <Filter>Level\PlayLevel\Object\Other</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="PreCompile">
@@ -148,6 +154,9 @@
     </Filter>
     <Filter Include="Level\PlayLevel\Object\Spot">
       <UniqueIdentifier>{87a160ff-9743-4520-a4e7-5a36f9752902}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Level\PlayLevel\Object\Other">
+      <UniqueIdentifier>{8cb6e27b-083b-49fc-895c-c82f4e7cf8cf}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

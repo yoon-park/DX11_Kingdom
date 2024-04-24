@@ -1,7 +1,5 @@
 #pragma once
 
-class USpriteRenderer;
-
 class APlayer : public AActor
 {
 	GENERATED_BODY(AActor)
@@ -24,7 +22,7 @@ protected:
 private:
 	USpriteRenderer* Renderer_Player;
 	USpriteRenderer* Renderer_Horse;
-	UCollision* SpotNearbyCheck;
+	UCollision* CheckSpotNearby;
 	float Speed = 0.0f;
 
 	void DebugMessageFunction();

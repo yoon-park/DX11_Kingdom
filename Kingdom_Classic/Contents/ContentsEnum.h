@@ -14,14 +14,16 @@ enum class EObjectOrder
 	Player,
 	Monster,
 	Back,
-	Building
+	Building,
+	Object
 };
 
 enum class ECollisionOrder
 {
 	Spot,
 	Player,
-	Monster
+	Monster,
+	Coin
 };
 
 enum class ERenderOrder

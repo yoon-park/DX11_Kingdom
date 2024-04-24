@@ -6,7 +6,6 @@ AGround::AGround()
 	Renderer = CreateDefaultSubObject<USpriteRenderer>("Renderer");
 
 	SetRoot(Renderer);
-	InputOn();
 }
 
 AGround::~AGround()

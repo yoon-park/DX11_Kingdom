@@ -6,7 +6,6 @@ ABack4::ABack4()
 	Renderer = CreateDefaultSubObject<USpriteRenderer>("Renderer");
 
 	SetRoot(Renderer);
-	InputOn();
 }
 
 ABack4::~ABack4()

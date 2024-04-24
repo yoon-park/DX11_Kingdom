@@ -13,11 +13,11 @@ APlayer::APlayer()
 	Renderer_Horse->SetupAttachment(Root);
 	Renderer_Horse->SetPivot(EPivot::BOT);
 
-	SpotNearbyCheck = CreateDefaultSubObject<UCollision>("SpotNearbyCheck");
-	SpotNearbyCheck->SetupAttachment(Root);
-	SpotNearbyCheck->SetScale(FVector(100.0f, 300.0f, 100.0f));
-	SpotNearbyCheck->SetCollisionGroup(ECollisionOrder::Player);
-	SpotNearbyCheck->SetCollisionType(ECollisionType::Rect);
+	CheckSpotNearby = CreateDefaultSubObject<UCollision>("CheckSpotNearby");
+	CheckSpotNearby->SetupAttachment(Root);
+	CheckSpotNearby->SetScale(FVector(500.0f, 800.0f, 100.0f));
+	CheckSpotNearby->SetCollisionGroup(ECollisionOrder::Player);
+	CheckSpotNearby->SetCollisionType(ECollisionType::Rect);
 
 	SetRoot(Root);
 	
@@ -60,6 +60,7 @@ void APlayer::BeginPlay()
 void APlayer::Tick(float _DeltaTime)
 {
 	Super::Tick(_DeltaTime);
+
 	State.Update(_DeltaTime);
 
 	DebugMessageFunction();

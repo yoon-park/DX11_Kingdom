@@ -16,7 +16,7 @@ public:
 protected:
 	ESpotUpgrade CurTier = ESpotUpgrade::Tier0;
 	UDefaultSceneComponent* Root;
-	UCollision* PlayerNearbyCheck;
+	UCollision* CheckPlayerNearby;
 
 	USpriteRenderer* Renderer_Coin00;
 	USpriteRenderer* Renderer_Coin01;

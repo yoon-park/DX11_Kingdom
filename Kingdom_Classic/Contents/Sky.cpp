@@ -6,7 +6,6 @@ ASky::ASky()
 	Renderer = CreateDefaultSubObject<USpriteRenderer>("Renderer");
 
 	SetRoot(Renderer);
-	InputOn();
 }
 
 ASky::~ASky()
