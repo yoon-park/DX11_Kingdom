@@ -18,7 +18,7 @@ void AWall::BeginPlay()
 {
 	Super::BeginPlay();
 
-	Renderer->SetSprite("TownCenter_02.png");
+	Renderer->SetSprite("wall_1.png");
 	Renderer->SetAutoSize(1.0f, true);
 	Renderer->SetOrder(ERenderOrder::GroundObject);
 }

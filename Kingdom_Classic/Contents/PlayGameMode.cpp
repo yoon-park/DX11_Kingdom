@@ -12,8 +12,8 @@
 #include "Player.h"
 #include "Monster.h"
 
-#include "Campfire.h"
 #include "TownCenter.h"
+#include "Wall.h"
 
 APlayGameMode::APlayGameMode()
 {
@@ -74,12 +74,12 @@ void APlayGameMode::BeginPlay()
 	}
 	{
 		{
-			std::shared_ptr<ACampfire> Campfire = GetWorld()->SpawnActor<ACampfire>("Campfire", EObjectOrder::Building);
-			Campfire->SetActorLocation({ 0.0f, 49.0f, 100.0f });
-		}
-		{
 			std::shared_ptr<ATownCenter> TownCenter = GetWorld()->SpawnActor<ATownCenter>("TownCenter", EObjectOrder::Building);
 			TownCenter->SetActorLocation({ 0.0f, 84.0f, 100.0f });
+		}
+		{
+			std::shared_ptr<AWall> InnerWall = GetWorld()->SpawnActor<AWall>("InnerWall", EObjectOrder::Building);
+			InnerWall->SetActorLocation({ 100.0f, 36.0f, 100.0f });
 		}
 	}
 }

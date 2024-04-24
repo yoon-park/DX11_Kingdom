@@ -15,7 +15,6 @@
 #include <Contents/Ground.h>
 #include <Contents/Sky.h>
 
-#include <Contents/Campfire.h>
 #include <Contents/Spot.h>
 #include <Contents/TownCenter.h>
 #include <Contents/Wall.h>

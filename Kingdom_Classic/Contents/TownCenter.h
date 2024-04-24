@@ -19,7 +19,8 @@ protected:
 	void Tick(float _DeltaTime) override;
 
 private:
-	USpriteRenderer* Renderer;
+	USpriteRenderer* Renderer_Castle;
+	USpriteRenderer* Renderer_Campfire;
 
 	void Upgrade() override;
 };

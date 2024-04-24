@@ -183,10 +183,6 @@
       <SubType>
       </SubType>
     </ClInclude>
-    <ClInclude Include="Campfire.h">
-      <SubType>
-      </SubType>
-    </ClInclude>
     <ClInclude Include="ContentsConstValue.h">
       <SubType>
       </SubType>
@@ -262,10 +258,6 @@
       </SubType>
     </ClCompile>
     <ClCompile Include="Back4.cpp">
-      <SubType>
-      </SubType>
-    </ClCompile>
-    <ClCompile Include="Campfire.cpp">
       <SubType>
       </SubType>
     </ClCompile>

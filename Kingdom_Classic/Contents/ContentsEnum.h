@@ -34,7 +34,8 @@ enum class ERenderOrder
 	Back0,
 	BackObject,
 	Player,
-	Ground,
 	GroundObject,
-	Water
+	Ground,
+	Water,
+	UI
 };
