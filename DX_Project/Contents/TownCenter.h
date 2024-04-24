@@ -1,10 +1,9 @@
 #pragma once
+#include "Spot.h"
 
-class USpriteRenderer;
-
-class ATownCenter : public AActor
+class ATownCenter : public ASpot
 {
-	GENERATED_BODY(AActor)
+	GENERATED_BODY(ASpot)
 
 public:
 	ATownCenter();
@@ -21,4 +20,6 @@ protected:
 
 private:
 	USpriteRenderer* Renderer;
+
+	void Upgrade() override;
 };

@@ -4,8 +4,9 @@
 AWall::AWall()
 {
 	Renderer = CreateDefaultSubObject<USpriteRenderer>("Renderer");
+	Renderer->SetupAttachment(Root);
 
-	SetRoot(Renderer);
+	SetRoot(Root);
 }
 
 AWall::~AWall()
@@ -25,4 +26,28 @@ void AWall::BeginPlay()
 void AWall::Tick(float _DeltaTime)
 {
 	Super::Tick(_DeltaTime);
+}
+
+void AWall::Upgrade()
+{
+	switch (CurTier)
+	{
+	case ESpotUpgrade::Tier0:
+	{
+		CurTier = ESpotUpgrade::Tier1;
+		break;
+	}
+	case ESpotUpgrade::Tier1:
+	{
+		CurTier = ESpotUpgrade::Tier2;
+		break;
+	}
+	case ESpotUpgrade::Tier2:
+	{
+		CurTier = ESpotUpgrade::Tier3;
+		break;
+	}
+	default:
+		break;
+	}
 }

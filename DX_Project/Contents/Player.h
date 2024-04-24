@@ -24,6 +24,7 @@ protected:
 private:
 	USpriteRenderer* Renderer_Player;
 	USpriteRenderer* Renderer_Horse;
+	UCollision* SpotNearbyCheck;
 	float Speed = 0.0f;
 
 	void DebugMessageFunction();

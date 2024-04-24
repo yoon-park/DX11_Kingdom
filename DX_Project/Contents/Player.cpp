@@ -5,13 +5,19 @@ APlayer::APlayer()
 {
 	UDefaultSceneComponent* Root = CreateDefaultSubObject<UDefaultSceneComponent>("Renderer");
 	
-	Renderer_Player = CreateDefaultSubObject<USpriteRenderer>("Renderer");
+	Renderer_Player = CreateDefaultSubObject<USpriteRenderer>("Renderer_Player");
 	Renderer_Player->SetupAttachment(Root);
 	Renderer_Player->SetPivot(EPivot::BOT);
 
-	Renderer_Horse = CreateDefaultSubObject<USpriteRenderer>("Renderer");
+	Renderer_Horse = CreateDefaultSubObject<USpriteRenderer>("Renderer_Horse");
 	Renderer_Horse->SetupAttachment(Root);
 	Renderer_Horse->SetPivot(EPivot::BOT);
+
+	SpotNearbyCheck = CreateDefaultSubObject<UCollision>("SpotNearbyCheck");
+	SpotNearbyCheck->SetupAttachment(Root);
+	SpotNearbyCheck->SetScale(FVector(100.0f, 300.0f, 100.0f));
+	SpotNearbyCheck->SetCollisionGroup(ECollisionOrder::Player);
+	SpotNearbyCheck->SetCollisionType(ECollisionType::Rect);
 
 	SetRoot(Root);
 	
