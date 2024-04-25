@@ -1,11 +1,10 @@
 #include "PreCompile.h"
 #include "EngineFile.h"
-
 #include "EngineDebug.h"
+#include "EngineSerializer.h"
 
 UEngineFile::UEngineFile() 
 {
-
 }
 
 UEngineFile::UEngineFile(std::filesystem::path _Path)
@@ -19,24 +18,23 @@ UEngineFile::~UEngineFile()
 	Close();
 }
 
-__int64 UEngineFile::GetFileSize()
+void UEngineFile::Close()
 {
-	return static_cast<int>(std::filesystem::file_size(Path));
+	if (nullptr != FileHandle)
+	{
+		fclose(FileHandle);
+	}
 }
 
-std::string UEngineFile::GetString()
+void UEngineFile::Read(void* _Data, size_t _Size)
 {
-	Open(EIOOpenMode::Read, EIODataType::Text);
-	UEngineSerializer Ser;
-	Load(Ser);
-	Close();
-
-	return Ser.ToString();
+	fread_s(_Data, _Size, _Size, 1, FileHandle);
 }
 
 void UEngineFile::Open(EIOOpenMode _OpenType, EIODataType _DataType)
 {
 	std::string Path = GetFullPath();
+
 	std::string Mode;
 
 	switch (_OpenType)
@@ -67,28 +65,10 @@ void UEngineFile::Open(EIOOpenMode _OpenType, EIODataType _DataType)
 
 	fopen_s(&FileHandle, Path.c_str(), Mode.c_str());
 
-	if (FileHandle == nullptr)
+	if (nullptr == FileHandle)
 	{
-		MsgBoxAssert("파일 오픈에 실패했습니다. : " + Path);
+		MsgBoxAssert("파일 오픈에 실패했습니다" + Path);
 	}
-}
-
-void UEngineFile::Load(UEngineSerializer& _Data)
-{
-	if (OpenMode != EIOOpenMode::Read)
-	{
-		MsgBoxAssert("읽기모드로 오픈하지 않은 파일을 읽으려고 했습니다.");
-	}
-
-	__int64 Size = GetFileSize();
-
-	if (Size <= 0)
-	{
-		MsgBoxAssert("사이즈가 0인 파일을 읽으려고 했습니다. : " + GetFullPath());
-	}
-
-	_Data.BufferResize(static_cast<int>(Size));
-	fread(&_Data.Data[0], Size, 1, FileHandle);
 }
 
 void UEngineFile::Save(UEngineSerializer& _Data)
@@ -97,22 +77,42 @@ void UEngineFile::Save(UEngineSerializer& _Data)
 
 	if (OpenMode != EIOOpenMode::Write)
 	{
-		MsgBoxAssert("쓰기모드로 오픈하지 않은 파일에 쓰려고 했습니다.");
+		MsgBoxAssert("쓰기 모드로 오픈하지 않은 파일로 쓰려고 했습니다.");
 	}
 
 	char* StartPtr = &SaveData[0];
 	fwrite(StartPtr, SaveData.size(), 1, FileHandle);
 }
 
-void UEngineFile::Close()
+__int64 UEngineFile::GetFileSize()
 {
-	if (FileHandle != nullptr)
-	{
-		fclose(FileHandle);
-	}
+	return static_cast<int>(std::filesystem::file_size(Path));
 }
 
-void UEngineFile::Read(void* _Data, size_t _Size)
+void UEngineFile::Load(UEngineSerializer& _Data)
 {
-	fread_s(_Data, _Size, _Size, 1, FileHandle);
+	if (OpenMode != EIOOpenMode::Read)
+	{
+		MsgBoxAssert("읽기 모드로 오픈하지 않은 파일로 읽으려고 했습니다.");
+	}
+
+	__int64 Size = GetFileSize();
+
+	if (0 >= Size)
+	{
+		MsgBoxAssert("사이즈가 0인 파일을 읽으려고 했습니다" + GetFullPath());
+	}
+
+	_Data.BufferResize(static_cast<int>(Size));
+	fread(&_Data.Data[0], Size, 1, FileHandle);
+}
+
+std::string UEngineFile::GetString()
+{
+	Open(EIOOpenMode::Read, EIODataType::Text);
+	UEngineSerializer Ser;
+	Load(Ser);
+	Close();
+
+	return Ser.ToString();
 }

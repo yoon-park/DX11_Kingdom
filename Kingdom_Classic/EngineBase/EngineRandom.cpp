@@ -5,10 +5,9 @@ UEngineRandom UEngineRandom::MainRandom;
 
 UEngineRandom::UEngineRandom() 
 {
-
 }
 
 UEngineRandom::~UEngineRandom() 
 {
-
 }
+

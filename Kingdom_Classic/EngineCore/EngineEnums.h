@@ -7,6 +7,7 @@ enum class EShaderType
 	Pixel,
 };
 
+
 enum class ECameraType
 {
 	NONE,
@@ -25,6 +26,9 @@ enum class EPivot
 {
 	RIGHT,
 	BOT,
+	LEFTTOP,
+	LEFTBOTTOM,
+	RIGHTBOTTOM,
 	MAX,
 };
 
@@ -33,4 +37,10 @@ enum class EEngineDir
 	Left,
 	Right,
 	MAX,
+};
+
+enum class EDebugRenderType
+{
+	Rect,
+	CirCle
 };

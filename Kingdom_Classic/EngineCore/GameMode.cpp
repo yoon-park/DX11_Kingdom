@@ -3,10 +3,9 @@
 
 AGameMode::AGameMode() 
 {
-
 }
 
 AGameMode::~AGameMode() 
 {
-
 }
+

@@ -1,23 +1,34 @@
 #include "PreCompile.h"
 #include "EnginePath.h"
-
 #include "EngineDebug.h"
+#include <Windows.h>
 
 UEnginePath::UEnginePath() 
 	: Path(std::filesystem::current_path())
 {
+	// 과거의 방식
+	//char Arr[100];
+	//GetCurrentDirectoryA(100, Arr);
+	//StringPath = Arr;
 
+	// 내부에서는 윈도우의 함수를 사용하고 있다
+	// 내부에서 
 }
 
 UEnginePath::UEnginePath(std::filesystem::path _Path)
 	: Path(_Path)
 {
-
 }
 
 UEnginePath::~UEnginePath() 
 {
+}
 
+
+std::string UEnginePath::GetExtension() const
+{
+	std::filesystem::path Text = Path.extension();
+	return Text.string();
 }
 
 std::string UEnginePath::GetFileName() const
@@ -26,15 +37,18 @@ std::string UEnginePath::GetFileName() const
 	return Text.string();
 }
 
-std::string UEnginePath::GetExtension() const
+void UEnginePath::Move(std::string_view _Path)
 {
-	std::filesystem::path Text = Path.extension();
-	return Text.string();
-}
+	std::filesystem::path NextPath = Path;
+	NextPath.append(_Path);
 
-std::string UEnginePath::AppendPath(std::string_view _Path)
-{
-	return Path.string() + "\\" + std::string(_Path);
+	bool Check = std::filesystem::exists(NextPath);
+	if (false == Check)
+	{
+		MsgBoxAssert(NextPath.string() + "라는 경로는 존재하지 않습니다");
+	}
+
+	Path = NextPath;
 }
 
 bool UEnginePath::IsExists()
@@ -42,14 +56,9 @@ bool UEnginePath::IsExists()
 	return std::filesystem::exists(Path);
 }
 
-bool UEnginePath::IsFile()
+void UEnginePath::MoveParent()
 {
-	return !std::filesystem::is_directory(Path);
-}
-
-bool UEnginePath::IsDirectory()
-{
-	return std::filesystem::is_directory(Path);
+	Path = Path.parent_path();
 }
 
 bool UEnginePath::IsRoot()
@@ -57,21 +66,16 @@ bool UEnginePath::IsRoot()
 	return Path.root_path() == Path;
 }
 
-void UEnginePath::MoveParent()
+bool UEnginePath::IsFile()
 {
-	Path = Path.parent_path();
+	return !std::filesystem::is_directory(Path);
+}
+bool UEnginePath::IsDirectory()
+{
+	return std::filesystem::is_directory(Path);
 }
 
-void UEnginePath::Move(std::string_view _Path)
+std::string UEnginePath::AppendPath(std::string_view _Path)
 {
-	std::filesystem::path NextPath = Path;
-	NextPath.append(_Path);
-
-	bool Check = std::filesystem::exists(NextPath);
-	if (Check == false)
-	{
-		MsgBoxAssert(NextPath.string() + " : 해당 경로는 존재하지 않습니다.");
-	}
-
-	Path = NextPath;
+	return Path.string() + "\\" + std::string(_Path);
 }

@@ -179,6 +179,10 @@
       <SubType>
       </SubType>
     </ClInclude>
+    <ClInclude Include="BlurEffect.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="Camera.h">
       <SubType>
       </SubType>
@@ -208,6 +212,10 @@
       </SubType>
     </ClInclude>
     <ClInclude Include="EngineCore.h" />
+    <ClInclude Include="EngineDebug3D.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="EngineDebugMsgWindow.h">
       <SubType>
       </SubType>
@@ -274,6 +282,14 @@
       <SubType>
       </SubType>
     </ClInclude>
+    <ClInclude Include="EngineStruct.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="EngineStructuredBuffer.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="EngineTexture.h">
       <SubType>
       </SubType>
@@ -294,6 +310,10 @@
       <SubType>
       </SubType>
     </ClInclude>
+    <ClInclude Include="Image.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="imconfig.h" />
     <ClInclude Include="imgui.h" />
     <ClInclude Include="imgui_impl_dx11.h" />
@@ -302,6 +322,10 @@
     <ClInclude Include="imstb_rectpack.h" />
     <ClInclude Include="imstb_textedit.h" />
     <ClInclude Include="imstb_truetype.h" />
+    <ClInclude Include="InstancingRender.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="Level.h">
       <SubType>
       </SubType>
@@ -314,7 +338,15 @@
       <SubType>
       </SubType>
     </ClInclude>
+    <ClInclude Include="RenderUnit.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="SceneComponent.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="SpriteInstancingRender.h">
       <SubType>
       </SubType>
     </ClInclude>
@@ -331,6 +363,14 @@
       <SubType>
       </SubType>
     </ClInclude>
+    <ClInclude Include="TileRenderer.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="Widget.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="WorldObject.h">
       <SubType>
       </SubType>
@@ -342,6 +382,10 @@
       </SubType>
     </ClCompile>
     <ClCompile Include="ActorComponent.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="BlurEffect.cpp">
       <SubType>
       </SubType>
     </ClCompile>
@@ -374,6 +418,10 @@
       </SubType>
     </ClCompile>
     <ClCompile Include="EngineCore.cpp" />
+    <ClCompile Include="EngineDebug3D.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
     <ClCompile Include="EngineDebugMsgWindow.cpp">
       <SubType>
       </SubType>
@@ -439,6 +487,14 @@
       <SubType>
       </SubType>
     </ClCompile>
+    <ClCompile Include="EngineStruct.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="EngineStructuredBuffer.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
     <ClCompile Include="EngineTexture.cpp">
       <SubType>
       </SubType>
@@ -456,6 +512,10 @@
       <SubType>
       </SubType>
     </ClCompile>
+    <ClCompile Include="Image.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
     <ClCompile Include="imgui.cpp" />
     <ClCompile Include="imgui_demo.cpp" />
     <ClCompile Include="imgui_draw.cpp" />
@@ -463,6 +523,10 @@
     <ClCompile Include="imgui_impl_win32.cpp" />
     <ClCompile Include="imgui_tables.cpp" />
     <ClCompile Include="imgui_widgets.cpp" />
+    <ClCompile Include="InstancingRender.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
     <ClCompile Include="Level.cpp">
       <SubType>
       </SubType>
@@ -479,7 +543,15 @@
       <SubType>
       </SubType>
     </ClCompile>
+    <ClCompile Include="RenderUnit.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
     <ClCompile Include="SceneComponent.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="SpriteInstancingRender.cpp">
       <SubType>
       </SubType>
     </ClCompile>
@@ -492,6 +564,14 @@
       </SubType>
     </ClCompile>
     <ClCompile Include="TickObject.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="TileRenderer.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="Widget.cpp">
       <SubType>
       </SubType>
     </ClCompile>

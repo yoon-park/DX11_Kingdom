@@ -2,6 +2,7 @@
 #include "SceneComponent.h"
 #include "EngineMesh.h"
 #include "EngineMaterial.h"
+#include "RenderUnit.h"
 
 // 설명 : public std::enable_shared_from_this<URenderer>
 // shared_ptr로 this를 배출할수 있는 기능을 가진 클래스입니다.
@@ -12,8 +13,10 @@
 // 기능이 집약되지 않았고 특화기능을 만들수가 없다.
 // 특화기능?
 
+// 랜더러는 순수하게 랜더링에 관련된 애가 아니다.
+// 액터 오더 등등등
 class UEngineShaderResources;
-class URenderer : public USceneComponent, public std::enable_shared_from_this<URenderer>
+class URenderer : public USceneComponent, public std::enable_shared_from_this<URenderer>, public URenderUnit
 {
 	friend ULevel;
 	GENERATED_BODY(USceneComponent)
@@ -30,23 +33,6 @@ public:
 	URenderer& operator=(const URenderer& _Other) = delete;
 	URenderer& operator=(URenderer&& _Other) noexcept = delete;
 
-
-	std::shared_ptr<UEngineMesh> GetMesh()
-	{
-		return Mesh;
-	}
-
-	std::shared_ptr<UEngineMaterial> GetMaterial()
-	{
-		return Material;
-	}
-
-
-	void SetMesh(std::string_view _Name);
-	void SetMaterial(std::string_view _Name);
-
-	std::shared_ptr<UEngineShaderResources> Resources;
-
 	template<typename EnumType>
 	void SetOrder(EnumType _Order)
 	{
@@ -55,23 +41,13 @@ public:
 
 	void SetOrder(int _Order) override;
 
-	virtual void MaterialSettingEnd() {}
 
 protected:
 	void BeginPlay() override;
 	void Tick(float _DeltaTime) override;
-
-	void ResCopy(UEngineShader* _Shader);
+	void MaterialSettingEnd() override;
 
 private:
-
-
 	void RenderingTransformUpdate(std::shared_ptr<UCamera> _Camera);
-
-	void Render(float _DeltaTime);
-
-	std::shared_ptr<UEngineInputLayOut> LayOut;
-	std::shared_ptr<UEngineMesh> Mesh;
-	std::shared_ptr<UEngineMaterial> Material;
 };
 

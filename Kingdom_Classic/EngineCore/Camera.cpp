@@ -2,6 +2,7 @@
 #include "Camera.h"
 #include "EngineCore.h"
 #include "DefaultSceneComponent.h"
+#include "EngineRenderTarget.h"
 
 UCamera::UCamera() 
 {
@@ -27,10 +28,12 @@ UCamera::~UCamera()
 
 void UCamera::CameraTransformUpdate()
 {
+	float4 Scale = GEngine->EngineWindow.GetWindowScale();
+
+	ViewPortMat.ViewPort(Scale.X, Scale.Y, 0.0f, 0.0f, 0.0f, 1.0f);
+
 	// 뷰행렬 만들어짐
 	View.LookToLH(GetActorLocation(), GetActorForwardVector(), GetActorUpVector());
-
-	FVector Scale = GEngine->EngineWindow.GetWindowScale();
 
 	switch (ProjectionType)
 	{
@@ -48,9 +51,18 @@ void UCamera::CameraTransformUpdate()
 
 }
 
+void UCamera::CamTargetSetting()
+{
+	CameraTarget->Setting();
+}
+
 void UCamera::BeginPlay()
 {
-
+	Super::BeginPlay();
+	CameraTarget = UEngineRenderTarget::Create();
+	// 내가 바라보는 애들을 모아서 그릴수 있는 랜더타겟을 만들고 싶어.
+	float4 Scale = GEngine->EngineWindow.GetWindowScale();
+	CameraTarget->CreateTexture(DXGI_FORMAT::DXGI_FORMAT_R32G32B32A32_FLOAT, Scale, float4::Zero);
 }
 
 // 프리카메라가 되면
@@ -156,4 +168,19 @@ void UCamera::Tick(float _DeltaTime)
 void UCamera::ViewPortSetting()
 {
 	GEngine->GetDirectXContext()->RSSetViewports(1, &ViewPort);
+}
+
+float4 UCamera::ScreenPosToWorldPos(float4 _ScreenPos)
+{
+	// A * B = C
+	// C * B의 역행렬 = A
+
+	float4x4 ViewPortIn = ViewPortMat.InverseReturn();
+	float4x4 ProjectionIn = Projection.InverseReturn();
+	float4x4 ViewIn = View.InverseReturn();
+
+	_ScreenPos *= ViewPortIn;
+	_ScreenPos *= ProjectionIn;
+	_ScreenPos *= ViewIn;
+	return _ScreenPos;
 }

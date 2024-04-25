@@ -29,7 +29,7 @@
       <Filter>Object</Filter>
     </ClInclude>
     <ClInclude Include="Renderer.h">
-      <Filter>Object\Render</Filter>
+      <Filter>Object\Renderer</Filter>
     </ClInclude>
     <ClInclude Include="Actor.h">
       <Filter>Object\Actor</Filter>
@@ -41,12 +41,6 @@
       <Filter>Object\Component</Filter>
     </ClInclude>
     <ClInclude Include="SceneComponent.h">
-      <Filter>Object\Component</Filter>
-    </ClInclude>
-    <ClInclude Include="Camera.h">
-      <Filter>Object\Render</Filter>
-    </ClInclude>
-    <ClInclude Include="DefaultSceneComponent.h">
       <Filter>Object\Component</Filter>
     </ClInclude>
     <ClInclude Include="EngineVertex.h">
@@ -86,22 +80,16 @@
       <Filter>Resources\Mesh</Filter>
     </ClInclude>
     <ClInclude Include="EngineShaderResources.h">
-      <Filter>Resources\Material\Shader\ShaderResources</Filter>
+      <Filter>Resources\Material\ShaderResources</Filter>
     </ClInclude>
     <ClInclude Include="EngineConstantBuffer.h">
-      <Filter>Resources\Material\Shader\ShaderResources</Filter>
+      <Filter>Resources\Material\ShaderResources</Filter>
     </ClInclude>
     <ClInclude Include="EngineEnums.h">
       <Filter>Core</Filter>
     </ClInclude>
-    <ClInclude Include="EngineSampler.h">
-      <Filter>Resources\Material\Shader\ShaderResources</Filter>
-    </ClInclude>
     <ClInclude Include="ThirdParty\DirectXTex\inc\DirectXTex.h">
       <Filter>ThirdParty\DirectXTex\inc</Filter>
-    </ClInclude>
-    <ClInclude Include="SpriteRenderer.h">
-      <Filter>Object\Render</Filter>
     </ClInclude>
     <ClInclude Include="EngineSprite.h">
       <Filter>Resources\Texture</Filter>
@@ -151,6 +139,48 @@
     <ClInclude Include="Collision.h">
       <Filter>Object\Collision</Filter>
     </ClInclude>
+    <ClInclude Include="EngineStruct.h">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="EngineDebug3D.h">
+      <Filter>Debug</Filter>
+    </ClInclude>
+    <ClInclude Include="DefaultSceneComponent.h">
+      <Filter>Object\Component\Contents</Filter>
+    </ClInclude>
+    <ClInclude Include="Camera.h">
+      <Filter>Object\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="SpriteRenderer.h">
+      <Filter>Object\Renderer\Contents</Filter>
+    </ClInclude>
+    <ClInclude Include="SpriteInstancingRender.h">
+      <Filter>Object\Renderer\Contents</Filter>
+    </ClInclude>
+    <ClInclude Include="TileRenderer.h">
+      <Filter>Object\Renderer\Contents</Filter>
+    </ClInclude>
+    <ClInclude Include="InstancingRender.h">
+      <Filter>Object\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="RenderUnit.h">
+      <Filter>Object\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="BlurEffect.h">
+      <Filter>Object\Renderer\Contents</Filter>
+    </ClInclude>
+    <ClInclude Include="Widget.h">
+      <Filter>Object\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="Image.h">
+      <Filter>Object\UI\Contents</Filter>
+    </ClInclude>
+    <ClInclude Include="EngineSampler.h">
+      <Filter>Resources\Texture</Filter>
+    </ClInclude>
+    <ClInclude Include="EngineStructuredBuffer.h">
+      <Filter>Resources\Material\ShaderResources</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="PreCompile.cpp">
@@ -181,7 +211,7 @@
       <Filter>Object</Filter>
     </ClCompile>
     <ClCompile Include="Renderer.cpp">
-      <Filter>Object\Render</Filter>
+      <Filter>Object\Renderer</Filter>
     </ClCompile>
     <ClCompile Include="Actor.cpp">
       <Filter>Object\Actor</Filter>
@@ -193,12 +223,6 @@
       <Filter>Object\Component</Filter>
     </ClCompile>
     <ClCompile Include="SceneComponent.cpp">
-      <Filter>Object\Component</Filter>
-    </ClCompile>
-    <ClCompile Include="Camera.cpp">
-      <Filter>Object\Render</Filter>
-    </ClCompile>
-    <ClCompile Include="DefaultSceneComponent.cpp">
       <Filter>Object\Component</Filter>
     </ClCompile>
     <ClCompile Include="EngineBuffer.cpp">
@@ -241,16 +265,10 @@
       <Filter>Resources\Mesh</Filter>
     </ClCompile>
     <ClCompile Include="EngineShaderResources.cpp">
-      <Filter>Resources\Material\Shader\ShaderResources</Filter>
+      <Filter>Resources\Material\ShaderResources</Filter>
     </ClCompile>
     <ClCompile Include="EngineConstantBuffer.cpp">
-      <Filter>Resources\Material\Shader\ShaderResources</Filter>
-    </ClCompile>
-    <ClCompile Include="EngineSampler.cpp">
-      <Filter>Resources\Material\Shader\ShaderResources</Filter>
-    </ClCompile>
-    <ClCompile Include="SpriteRenderer.cpp">
-      <Filter>Object\Render</Filter>
+      <Filter>Resources\Material\ShaderResources</Filter>
     </ClCompile>
     <ClCompile Include="EngineSprite.cpp">
       <Filter>Resources\Texture</Filter>
@@ -294,6 +312,48 @@
     <ClCompile Include="Collision.cpp">
       <Filter>Object\Collision</Filter>
     </ClCompile>
+    <ClCompile Include="EngineStruct.cpp">
+      <Filter>Core</Filter>
+    </ClCompile>
+    <ClCompile Include="EngineDebug3D.cpp">
+      <Filter>Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="DefaultSceneComponent.cpp">
+      <Filter>Object\Component\Contents</Filter>
+    </ClCompile>
+    <ClCompile Include="Camera.cpp">
+      <Filter>Object\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="SpriteRenderer.cpp">
+      <Filter>Object\Renderer\Contents</Filter>
+    </ClCompile>
+    <ClCompile Include="SpriteInstancingRender.cpp">
+      <Filter>Object\Renderer\Contents</Filter>
+    </ClCompile>
+    <ClCompile Include="TileRenderer.cpp">
+      <Filter>Object\Renderer\Contents</Filter>
+    </ClCompile>
+    <ClCompile Include="InstancingRender.cpp">
+      <Filter>Object\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="RenderUnit.cpp">
+      <Filter>Object\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="BlurEffect.cpp">
+      <Filter>Object\Renderer\Contents</Filter>
+    </ClCompile>
+    <ClCompile Include="Widget.cpp">
+      <Filter>Object\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="Image.cpp">
+      <Filter>Object\UI\Contents</Filter>
+    </ClCompile>
+    <ClCompile Include="EngineSampler.cpp">
+      <Filter>Resources\Texture</Filter>
+    </ClCompile>
+    <ClCompile Include="EngineStructuredBuffer.cpp">
+      <Filter>Resources\Material\ShaderResources</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="PreCompile">
@@ -314,9 +374,6 @@
     <Filter Include="Object">
       <UniqueIdentifier>{042bbc2d-8fdf-4372-9164-3e50a7260f4a}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Object\Render">
-      <UniqueIdentifier>{ecfb3551-055f-49c2-a95d-affcff5c20d5}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Object\Actor">
       <UniqueIdentifier>{6ede7f6b-4a87-4cea-bc31-82133cea6ed7}</UniqueIdentifier>
     </Filter>
@@ -334,9 +391,6 @@
     </Filter>
     <Filter Include="Resources\Material\Shader">
       <UniqueIdentifier>{526aff29-e81c-4931-a0ac-bfb3e67d1738}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Resources\Material\Shader\ShaderResources">
-      <UniqueIdentifier>{e714d2e2-00d7-47a5-95b6-4dd120168f8e}</UniqueIdentifier>
     </Filter>
     <Filter Include="ThirdParty">
       <UniqueIdentifier>{d17958de-6d21-4203-b3f4-f3b957294c70}</UniqueIdentifier>
@@ -364,6 +418,27 @@
     </Filter>
     <Filter Include="Object\Collision">
       <UniqueIdentifier>{ce90726b-3e97-4b8f-bc83-a2546d6ae51a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Debug">
+      <UniqueIdentifier>{2038202e-b053-4d8c-9981-060a4b0ec250}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Object\Component\Contents">
+      <UniqueIdentifier>{c1865913-c10f-49e9-a60b-e3eb155151c2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Object\Renderer">
+      <UniqueIdentifier>{ecfb3551-055f-49c2-a95d-affcff5c20d5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Object\Renderer\Contents">
+      <UniqueIdentifier>{5ffb0616-4262-4f6e-a844-1f385ad2aff3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Object\UI">
+      <UniqueIdentifier>{f29704e0-72a4-43d7-9f6b-90f25fa62052}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Object\UI\Contents">
+      <UniqueIdentifier>{30239f5d-fa8f-4fb1-9b51-6290518aab9e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resources\Material\ShaderResources">
+      <UniqueIdentifier>{e714d2e2-00d7-47a5-95b6-4dd120168f8e}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

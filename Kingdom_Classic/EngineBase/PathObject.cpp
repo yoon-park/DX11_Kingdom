@@ -3,10 +3,9 @@
 
 UPathObject::UPathObject() 
 {
-
 }
 
 UPathObject::~UPathObject() 
 {
-
 }
+

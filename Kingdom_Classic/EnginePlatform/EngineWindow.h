@@ -1,26 +1,28 @@
 #pragma once
+#include <Windows.h>
+#include <string>
+#include <EngineBase\EngineMath.h>
+#include <memory>
+#include <functional>
 
 class UWindowImage;
-
+// Ό³Έν :
 class UEngineWindow
 {
 public:
+	// constrcuter destructer
 	UEngineWindow();
 	~UEngineWindow();
 
+	// delete Function
 	UEngineWindow(const UEngineWindow& _Other) = delete;
 	UEngineWindow(UEngineWindow&& _Other) noexcept = delete;
 	UEngineWindow& operator=(const UEngineWindow& _Other) = delete;
 	UEngineWindow& operator=(UEngineWindow&& _Other) noexcept = delete;
 
+
 	static void Init(HINSTANCE _hInst);
 	static unsigned __int64 WindowMessageLoop(std::function<void()> _Update, std::function<void()> _End);
-	static void SetUserWindowCallBack(std::function<bool(HWND, UINT, WPARAM, LPARAM)> _UserWndProcFunction);
-
-	HWND GetHWND() const
-	{
-		return hWnd;
-	}
 
 	std::shared_ptr<UWindowImage> GetWindowImage() const
 	{
@@ -32,33 +34,11 @@ public:
 		return BackBufferImage;
 	}
 
+
 	FVector GetWindowScale() const
 	{
 		return Scale;
 	}
-
-	inline float4 GetScreenMousePrevPos()
-	{
-		return ScreenMousePrevPos;
-	}
-
-	inline float4 GetScreenMousePos()
-	{
-		return ScreenMousePos;
-	}
-
-	inline float4 GetScreenMouseDir()
-	{
-		return ScreenMouseDir;
-	}
-
-	inline float4 GetScreenMouseDirNormal()
-	{
-		return ScreenMouseDirNormal;
-	}
-
-	void SetWindowPosition(const FVector& _Pos);
-	void SetWindowScale(const FVector& _Scale);
 
 	void SetClearColor(Color8Bit _Color)
 	{
@@ -71,35 +51,72 @@ public:
 		SetWindowTextA(hWnd, _Text.data());
 	}
 
-	void SetWindowSmallIcon();
-
-	void Open(std::string_view _Title = "Title", std::string_view _IconPath = "");
-	void ScreenClear();
-	void ScreenUpdate();
-
 	void Off()
 	{
 		WindowLive = false;
 	}
 
-	void CalculateMouseUpdate(float _DeltaTime);
+	HWND GetHWND() const
+	{
+		return hWnd;
+	}
+
+	void Open(std::string_view _Title = "Title", std::string_view _IconPath = "");
+
+	void SetWindowPosition(const FVector& _Pos);
+	void SetWindowScale(const FVector& _Scale);
+
+	void ScreenClear();
+	void ScreenUpdate();
+
+	void SetWindowSmallIcon();
+	
+	
+	bool IsCursor()
+	{
+		return IsCursorValue;
+	}
 	void CursorOff();
+	void CursorOn();
+
+	inline float4 GetScreenMousePrevPos()
+	{ 
+		return ScreenMousePrevPos; 
+	}
+	inline float4 GetScreenMousePos()
+	{ 
+		return ScreenMousePos; 
+	}
+	inline float4 GetScreenMouseDir()
+	{ 
+		return ScreenMouseDir; 
+	}
+	inline float4 GetScreenMouseDirNormal() 
+	{ 
+		return ScreenMouseDirNormal; 
+	}
+
+	void CalculateMouseUpdate(float _DeltaTime);
+	static void SetUserWindowCallBack(std::function<bool(HWND, UINT, WPARAM, LPARAM)> _UserWndProcFunction);
 
 protected:
 
 private:
 	static bool WindowLive;
 	static HINSTANCE hInstance;
+	static LRESULT CALLBACK WndProc(HWND, UINT, WPARAM, LPARAM);
 	static std::function<bool(HWND, UINT, WPARAM, LPARAM)> UserWndProcFunction;
 
-	static LRESULT CALLBACK WndProc(HWND, UINT, WPARAM, LPARAM);
+	Color8Bit ClearColor = Color8Bit::WhiteA;
 
 	HWND hWnd = nullptr;
-	std::shared_ptr<UWindowImage> WindowImage = nullptr;
-	std::shared_ptr<UWindowImage> BackBufferImage = nullptr;
 	FVector Scale;
 	FVector Position;
-	Color8Bit ClearColor = Color8Bit::WhiteA;
+	bool IsCursorValue = true;
+
+	std::shared_ptr<UWindowImage> WindowImage = nullptr;
+	std::shared_ptr<UWindowImage> BackBufferImage = nullptr;
+
 	float4 ScreenMousePrevPos;
 	float4 ScreenMousePos;
 	float4 ScreenMouseDir;

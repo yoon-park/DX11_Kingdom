@@ -3,12 +3,10 @@
 
 UTransformObject::UTransformObject() 
 {
-
 }
 
 UTransformObject::~UTransformObject() 
 {
-
 }
 
 void UTransformObject::ChildUpdate()

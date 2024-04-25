@@ -3,16 +3,7 @@
 
 #include <vector>
 #include "EngineTexture.h"
-
-class UEngineTexture;
-struct FSpriteInfo
-{
-	// UV값 0.0에서부터
-	FVector CuttingPosition = FVector::Zero;
-	// 1,1 까지를 
-	FVector CuttingSize = FVector::One;
-	std::shared_ptr<UEngineTexture> Texture = nullptr;
-};
+#include "EngineStruct.h"
 
 // 설명 :
 class UEngineSprite : public UEngineResources<UEngineSprite>
@@ -51,6 +42,34 @@ public:
 		NewRes->ResLoadFolder();
 		return NewRes;
 	}
+
+
+
+	static std::shared_ptr<UEngineSprite> ThreadSafeLoad(std::string_view _Path)
+	{
+		UEnginePath NewPath = UEnginePath(std::filesystem::path(_Path));
+		std::string FileName = NewPath.GetFileName();
+		return Load(_Path, FileName);
+	}
+
+	static std::shared_ptr<UEngineSprite> ThreadSafeLoad(std::string_view _Path, std::string_view _Name)
+	{
+		std::shared_ptr<UEngineSprite> NewRes = ThreadSafeCreateResName(_Path, _Name);
+		NewRes->ResLoad();
+		return NewRes;
+	}
+
+	static std::shared_ptr<UEngineSprite> ThreadSafeLoadFolder(std::string_view _Path)
+	{
+		UEnginePath NewPath = UEnginePath(std::filesystem::path(_Path));
+		std::string FileName = NewPath.GetFileName();
+
+		std::shared_ptr<UEngineSprite> NewRes = ThreadSafeCreateResName(_Path, FileName);
+		NewRes->ResLoadFolder();
+		return NewRes;
+	}
+
+
 
 	static std::shared_ptr<UEngineSprite> CreateCutting(std::string_view _Name, UINT _X, UINT _Y)
 	{
@@ -96,7 +115,9 @@ private:
 	std::vector<FSpriteInfo> Infos;
 
 	void ResLoad();
-
 	void ResLoadFolder();
+
+	void ThreadSafeResLoad();
+	void ThreadSafeResLoadFolder();
 };
 

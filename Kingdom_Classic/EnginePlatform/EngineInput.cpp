@@ -1,62 +1,72 @@
 #include "PreCompile.h"
 #include "EngineInput.h"
 
+std::map<int, UEngineInput::EngineKey> UEngineInput::AllKeys;
+
 bool UEngineInput::AnykeyDown = false;
 bool UEngineInput::AnykeyPress = false;
 bool UEngineInput::AnykeyUp = false;
 bool UEngineInput::AnykeyFree = true;
 
-std::map<int, UEngineInput::EngineKey> UEngineInput::AllKeys;
-
-void UEngineInput::KeyCheckTick(float _DeltaTime)
+void UEngineInput::EngineKey::KeyCheck(float _DeltaTime)
 {
-	bool KeyCheck = false;
 
-	for (std::pair<const int, EngineKey>& Key : AllKeys)
+	// 이 키가 눌렸다는 거죠?
+	// if (0 != GetAsyncKeyState('A'))
+	// A키가 눌렸다면
+	if (0 != GetAsyncKeyState(Key))
 	{
-		EngineKey& CurKey = Key.second;
-		CurKey.KeyCheck(_DeltaTime);
-
-		if (CurKey.Press == true)
+		PressTime += _DeltaTime;
+		if (true == Free)
 		{
-			KeyCheck = true;
+			UpTime;
+			// 이전까지 이 키는 눌리고 있지 않았다
+			Down = true;
+			Press = true;
+			Up = false;
+			Free = false;
 		}
-	}
-
-	if (KeyCheck == true)
-	{
-		if (AnykeyFree == true)
+		else if(true == Down)
 		{
-			AnykeyDown = true;
-			AnykeyPress = true;
-			AnykeyUp = false;
-			AnykeyFree = false;
-		}
-		else if (AnykeyDown == true)
-		{
-			AnykeyDown = false;
-			AnykeyPress = true;
-			AnykeyUp = false;
-			AnykeyFree = false;
+			UpTime = 0.0f;
+			// 이전까지 이 키는 눌리고 있었다.
+			Down = false;
+			Press = true;
+			Up = false;
+			Free = false;
 		}
 	}
 	else
 	{
-		if (AnykeyPress == true)
+		UpTime += _DeltaTime;
+		if (true == Press)
 		{
-			AnykeyDown = false;
-			AnykeyPress = false;
-			AnykeyUp = true;
-			AnykeyFree = false;
+			PressTime = 0.0f;
+			// 이전까지 이 키는 눌리고 있었다.
+			Down = false;
+			Press = false;
+			Up = true;
+			Free = false;
 		}
-		else if (AnykeyUp == true)
+		else if(true == Up)
 		{
-			AnykeyDown = false;
-			AnykeyPress = false;
-			AnykeyUp = false;
-			AnykeyFree = true;
+			PressTime = 0.0f;
+			// 이전까지 이 키는 안눌리고 있었고 앞으로도 안눌릴거다.
+			Down = false;
+			Press = false;
+			Up = false;
+			Free = true;
 		}
+
 	}
+}
+
+UEngineInput::UEngineInput()
+{
+}
+
+UEngineInput::~UEngineInput()
+{
 }
 
 void UEngineInput::InputInit()
@@ -75,7 +85,7 @@ void UEngineInput::InputInit()
 	AllKeys[VK_MENU] = EngineKey(VK_MENU);
 	AllKeys[VK_PAUSE] = EngineKey(VK_PAUSE);
 	AllKeys[VK_CAPITAL] = EngineKey(VK_CAPITAL);
-	//AllKeys[VK_KANA] = EngineKey(VK_KANA);
+	// AllKeys[VK_KANA] = EngineKey(VK_KANA);
 	//AllKeys[VK_HANGEUL] = EngineKey(VK_HANGEUL);
 	//AllKeys[VK_HANGUL] = EngineKey(VK_HANGUL);
 	AllKeys[VK_IME_ON] = EngineKey(VK_IME_ON);
@@ -163,60 +173,64 @@ void UEngineInput::InputInit()
 	{
 		AllKeys[i] = EngineKey(i);
 	}
+
 }
 
-void UEngineInput::EngineKey::KeyCheck(float _DeltaTime)
+void UEngineInput::KeyCheckTick(float _DeltaTime)
 {
-	if (GetAsyncKeyState(Key) != 0)
+	bool KeyCheck = false;
+
+	for (std::pair<const int, EngineKey>& Key : AllKeys)
 	{
-		PressTime += _DeltaTime;
-		if (Free == true)
+		EngineKey& CurKey = Key.second;
+		CurKey.KeyCheck(_DeltaTime);
+
+		if (true == CurKey.Press)
 		{
-			UpTime;
-			Down = true;
-			Press = true;
-			Up = false;
-			Free = false;
+			KeyCheck = true;
 		}
-		else if(Down == true)
+	}
+
+	// 어떤키든 눌렸다는 이야기
+	if (true == KeyCheck)
+	{
+		if (true == AnykeyFree)
 		{
-			UpTime = 0.0f;
-			Down = false;
-			Press = true;
-			Up = false;
-			Free = false;
+			// 이전까지 이 키는 눌리고 있지 않았다
+			AnykeyDown = true;
+			AnykeyPress = true;
+			AnykeyUp = false;
+			AnykeyFree = false;
+		}
+		else if (true == AnykeyDown)
+		{
+			// 이전까지 이 키는 눌리고 있었다.
+			AnykeyDown = false;
+			AnykeyPress = true;
+			AnykeyUp = false;
+			AnykeyFree = false;
 		}
 	}
 	else
 	{
-		UpTime += _DeltaTime;
-		if (Press == true)
+		if (true == AnykeyPress)
 		{
-			PressTime = 0.0f;
-			Down = false;
-			Press = false;
-			Up = true;
-			Free = false;
+			// 이전까지 이 키는 눌리고 있었다.
+			AnykeyDown = false;
+			AnykeyPress = false;
+			AnykeyUp = true;
+			AnykeyFree = false;
 		}
-		else if(Up == true)
+		else if (true == AnykeyUp)
 		{
-			PressTime = 0.0f;
-			Down = false;
-			Press = false;
-			Up = false;
-			Free = true;
+			// 이전까지 이 키는 안눌리고 있었고 앞으로도 안눌릴거다.
+			AnykeyDown = false;
+			AnykeyPress = false;
+			AnykeyUp = false;
+			AnykeyFree = true;
 		}
+
 	}
-}
-
-UEngineInput::UEngineInput()
-{
-
-}
-
-UEngineInput::~UEngineInput()
-{
-
 }
 
 class UInputInitCreator

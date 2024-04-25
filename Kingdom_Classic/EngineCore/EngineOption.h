@@ -1,10 +1,21 @@
 #pragma once
+#include <EngineBase/EngineSerializer.h>
+#include <EngineBase/EngineMath.h>
+#include <EngineBase/EngineString.h>
+#include <EngineBase/EngineDebug.h>
+#include <sstream>
+#include <iostream>
+#include <format>
 
+// 설명 : 엔진의 옵션 데이터를 저장하는 용도의 구조체
+// 내부에 값형 이외의 것을 넣으면 너죽고 나죽자.
+// 가상함수 포인터 std::string 등등이 들어가면 안되는데.
+// std::string이 안들어가는건 너무 불편하죠?
 struct FEngineOption : public UEngineSerializeObject
 {
 public:
 	std::string WindowTitle = "Title";
-	FVector WindowScale = { 1280.0f, 720.0f };
+	FVector WindowScale = {1280.0f, 720.0f};
 	bool IsDebug = false;
 	FVector ClearColor = { 0.0f, 0.0f, 1.0f };
 	char FreeCameraKey = '0';
@@ -12,7 +23,10 @@ public:
 	void Serialize(UEngineSerializer& _Ser) override
 	{
 		{
+			// c++ 20에서 문자열 최신 버전이 나왔어요.
+
 			std::string DebugOptionText;
+
 			DebugOptionText += std::format("WindowTitle : [{}]\n", WindowTitle);
 			DebugOptionText += std::format("WindowScale : [{}], [{}]\n", WindowScale.iX(), WindowScale.iY());
 			DebugOptionText += std::format("IsDebug : [{}]\n", IsDebug);
@@ -26,6 +40,7 @@ public:
 	void DeSerialize(UEngineSerializer& _Ser) override
 	{
 		std::string OptionText = _Ser.ToString();
+
 		std::vector<std::string> Values = UEngineString::StringCutting(OptionText, "[", "]");
 
 		int Index = 0;
@@ -57,4 +72,6 @@ public:
 
 		FreeCameraKey = Values[OPTIONINDEX][0];
 	}
+	
 };
+

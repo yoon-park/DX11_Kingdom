@@ -17,6 +17,21 @@ void USpriteRenderer::SetFrameCallback(std::string_view _AnimationName, int _Ind
 
 }
 
+void USpriteRenderer::SetLastFrameCallback(std::string_view _AnimationName, std::function<void()> _Function)
+{
+	std::string UpperName = UEngineString::ToUpper(_AnimationName);
+
+	if (false == Animations.contains(UpperName))
+	{
+		MsgBoxAssert("존재하지 않는 애니메이션에 콜백을 지정할수 없습니다." + std::string(_AnimationName));
+		return;
+	}
+
+	std::shared_ptr<USpriteAnimation> Animation = Animations[UpperName];
+	int LastIndex = static_cast<int>(Animation->Frame.size()) - 1;
+	Animations[UpperName]->FrameCallback[LastIndex] = _Function;
+}
+
 void USpriteAnimation::FrameCallBackCheck()
 {
 	if (false == FrameCallback.contains(CurFrame))
@@ -145,6 +160,33 @@ void USpriteRenderer::SetSpriteInfo(const FSpriteInfo& _Info)
 		CuttingDataValue.PivotMat.Position(Scale);
 		break;
 	}
+	case EPivot::LEFTTOP:
+	{
+		float4 Scale = Transform.WorldScale;
+		Scale.X = abs(Scale.Y) * 0.5f;
+		Scale.Y = -abs(Scale.X) * 0.5f;
+		Scale.Z = 0.0f;
+		CuttingDataValue.PivotMat.Position(Scale);
+		break;
+	}
+	case EPivot::LEFTBOTTOM:
+	{
+		float4 Scale = Transform.WorldScale;
+		Scale.X = abs(Scale.X) * 0.5f;
+		Scale.Y = abs(Scale.Y) * 0.5f;
+		Scale.Z = 0.0f;
+		CuttingDataValue.PivotMat.Position(Scale);
+		break;
+	}
+	case EPivot::RIGHTBOTTOM:
+	{
+		float4 Scale = Transform.WorldScale;
+		Scale.X = -abs(Scale.X) * 0.5f;
+		Scale.Y = abs(Scale.Y) * 0.5f;
+		Scale.Z = 0.0f;
+		CuttingDataValue.PivotMat.Position(Scale);
+		break;
+	}
 	case EPivot::MAX:
 	default:
 	{
@@ -268,7 +310,14 @@ void USpriteRenderer::CreateAnimation(
 
 	if (End < Start)
 	{
-		MsgBoxAssert("아직 역방향 기능은 지원하지 않습니다.");
+		//MsgBoxAssert("아직 역방향 기능은 지원하지 않습니다.");
+		for (int i = Start; End <= i; i--)
+		{
+			Inter.push_back(_Inter);
+			Frame.push_back(i);
+		}
+
+		CreateAnimation(_AnimationName, _SpriteName, Inter, Frame, _Loop);
 		return;
 	}
 
@@ -283,8 +332,13 @@ void USpriteRenderer::CreateAnimation(
 	CreateAnimation(_AnimationName, _SpriteName, Inter, Frame, _Loop);
 }
 
-void USpriteRenderer::ChangeAnimation(std::string_view _AnimationName)
+void USpriteRenderer::ChangeAnimation(std::string_view _AnimationName, int StartFrame)
 {
+	if (nullptr != CurAnimation && _AnimationName == CurAnimation->GetName())
+	{
+		return;
+	}
+
 	std::string UpperName = UEngineString::ToUpper(_AnimationName);
 
 	if (false == Animations.contains(UpperName))
@@ -295,6 +349,8 @@ void USpriteRenderer::ChangeAnimation(std::string_view _AnimationName)
 
 	CurAnimation = Animations[UpperName];
 	CurAnimation->Reset();
+	CurAnimation->CurFrame = StartFrame;
+
 	CurAnimation->FrameCallBackCheck();
 }
 
@@ -322,6 +378,7 @@ void USpriteRenderer::CreateAnimation(std::string_view _AnimationName, std::stri
 	NewAnimation->Inter = _Inter;
 	NewAnimation->Frame = _Frame;
 	NewAnimation->Loop = _Loop;
+	NewAnimation->SetName(_AnimationName);
 	NewAnimation->Reset();
 
 	Animations[UpperName] = NewAnimation;

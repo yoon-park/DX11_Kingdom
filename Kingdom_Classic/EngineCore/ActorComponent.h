@@ -20,16 +20,6 @@ public:
 	UActorComponent& operator=(const UActorComponent& _Other) = delete;
 	UActorComponent& operator=(UActorComponent&& _Other) noexcept = delete;
 
-	bool IsActive()
-	{
-		return ActiveValue;
-	}
-
-	void SetActive(bool _Value)
-	{
-		ActiveValue = _Value;
-	}
-
 	AActor* GetActor()
 	{
 		return Actor;
@@ -40,10 +30,14 @@ public:
 		return Actor->GetWorld();
 	}
 
+	bool IsActive() override
+	{
+		return UTickObject::IsActive() && Actor->IsActive();
+	}
+
 protected:
 
 private:
-	bool ActiveValue = true;
 
 	AActor* Actor = nullptr;
 

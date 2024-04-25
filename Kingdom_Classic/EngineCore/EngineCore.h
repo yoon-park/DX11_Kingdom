@@ -1,6 +1,17 @@
 #pragma once
-#include "EngineOption.h"
+
+#include <map>
+#include <string>
+#include <string_view>
+
+#include <EnginePlatform/EngineWindow.h>
+#include <EngineBase/EngineTime.h>
+
 #include "EngineGraphicDevice.h"
+#include "EngineOption.h"
+
+#pragma comment (lib, "EngineBase.lib")
+#pragma comment (lib, "EnginePlatform.lib")
 
 class UserCore
 {
@@ -8,21 +19,25 @@ public:
 	virtual void Initialize() = 0;
 };
 
+// 설명 :
 class AActor;
 class ULevel;
-
 class UEngineCore
 {
 public:
+	friend ULevel;
+
+	bool IsDebug;
+
+	// constrcuter destructer
 	UEngineCore();
 	~UEngineCore();
 
+	// delete Function
 	UEngineCore(const UEngineCore& _Other) = delete;
 	UEngineCore(UEngineCore&& _Other) noexcept = delete;
 	UEngineCore& operator=(const UEngineCore& _Other) = delete;
 	UEngineCore& operator=(UEngineCore&& _Other) noexcept = delete;
-
-	UEngineWindow EngineWindow;
 
 	template<typename UserCoreType>
 	static void Start(HINSTANCE _Inst)
@@ -33,9 +48,9 @@ public:
 		Core.EngineStart(_Inst);
 	}
 
-	FEngineOption GetEngineOption()
+	void SetWindowScale(FVector _Scale)
 	{
-		return EngineOption;
+		EngineWindow.SetWindowScale(_Scale);
 	}
 
 	UEngineGraphicDevice& GetEngineDevice()
@@ -52,10 +67,17 @@ public:
 	{
 		return EngineDevice.GetContext();
 	}
-
-	void SetWindowScale(FVector _Scale)
+	
+	void ChangeLevel(std::string_view _Name)
 	{
-		EngineWindow.SetWindowScale(_Scale);
+		std::string UpperName = UEngineString::ToUpper(_Name);
+
+		if (true != Levels.contains(UpperName))
+		{
+			MsgBoxAssert("존재하지 않는 레벨을 지정하려고 했습니다.");
+			return;
+		}
+		NextLevel = Levels[UpperName];
 	}
 
 	template<typename GameModeType>
@@ -63,50 +85,69 @@ public:
 	{
 		std::string UpperName = UEngineString::ToUpper(_Name);
 
-		if (Levels.contains(UpperName) == true)
+		if (true == Levels.contains(UpperName))
 		{
-			MsgBoxAssert("이미 존재하는 레벨을 다시 만들려고 했습니다.");
+			MsgBoxAssert("이미 존재하는 레벨을 또 만들려고 했습니다.");
 			return;
 		}
 
 		std::shared_ptr<GameModeType> NewGameMode = std::make_shared<GameModeType>();
+
 		NewGameMode->SetOrder(INT_MIN);
 
-		std::shared_ptr<ULevel> Level = NewLevelCreate(UpperName, NewGameMode);
+		std::shared_ptr<ULevel> Level = NewLevelCreate(_Name, NewGameMode);
 	}
 
-	void ChangeLevel(std::string_view _Name)
+	FEngineOption GetEngineOption()
 	{
-		std::string UpperName = UEngineString::ToUpper(_Name);
+		return EngineOption;
+	}
 
-		if (Levels.contains(UpperName) != true)
-		{
-			MsgBoxAssert("존재하지 않는 레벨을 지정하려고 했습니다.");
-			return;
-		}
+	UEngineWindow EngineWindow;
 
-		NextLevel = Levels[UpperName];
+	void SetGlobalTimeScale(float _Value)
+	{
+		GlobalTimeScale = _Value;
+	}
+
+	template<typename EnumType>
+	void SetOrderTimeScale(EnumType _Order, float _Value)
+	{
+		SetOrderTimeScale(static_cast<int>(_Order), _Value);
+	}
+
+	void SetOrderTimeScale(int _Order, float _Value = 1.0f)
+	{
+		TimeScales[_Order] = _Value;
 	}
 
 protected:
 
 private:
 	FEngineOption EngineOption;
+
 	UEngineTime MainTimer;
+
+
 	UEngineGraphicDevice EngineDevice;
+
 	UserCore* UserCorePtr = nullptr;
 
+	std::map <std::string, std::shared_ptr<ULevel>> Levels;
 	std::shared_ptr<ULevel> NextLevel = nullptr;
 	std::shared_ptr<ULevel> CurLevel = nullptr;
 
-	std::map <std::string, std::shared_ptr<ULevel>> Levels;
-
 	void EngineOptionInit();
+
 	void EngineStart(HINSTANCE _Inst);
+
 	void EngineFrameUpdate();
 	void EngineEnd();
 
-	std::shared_ptr<ULevel> NewLevelCreate(std::string& _Name, std::shared_ptr<AActor> _GameMode);
+	std::shared_ptr<ULevel> NewLevelCreate(std::string_view _Name, std::shared_ptr<AActor> _GameMode);
+
+	float GlobalTimeScale = 1.0f;
+	std::map<int, float> TimeScales;
 };
 
 extern UEngineCore* GEngine;

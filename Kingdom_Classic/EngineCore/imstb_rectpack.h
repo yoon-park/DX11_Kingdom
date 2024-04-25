@@ -227,13 +227,13 @@ struct stbrp_context
 
 enum
 {
-   STBRP__INIT_Skyline = 1
+   STBRP__INIT_skyline = 1
 };
 
 STBRP_DEF void stbrp_setup_heuristic(stbrp_context *context, int heuristic)
 {
    switch (context->init_mode) {
-      case STBRP__INIT_Skyline:
+      case STBRP__INIT_skyline:
          STBRP_ASSERT(heuristic == STBRP_HEURISTIC_Skyline_BL_sortHeight || heuristic == STBRP_HEURISTIC_Skyline_BF_sortHeight);
          context->heuristic = heuristic;
          break;
@@ -269,7 +269,7 @@ STBRP_DEF void stbrp_init_target(stbrp_context *context, int width, int height, 
    for (i=0; i < num_nodes-1; ++i)
       nodes[i].next = &nodes[i+1];
    nodes[i].next = NULL;
-   context->init_mode = STBRP__INIT_Skyline;
+   context->init_mode = STBRP__INIT_skyline;
    context->heuristic = STBRP_HEURISTIC_Skyline_default;
    context->free_head = &nodes[0];
    context->active_head = &context->extra[0];
@@ -288,7 +288,7 @@ STBRP_DEF void stbrp_init_target(stbrp_context *context, int width, int height, 
 }
 
 // find minimum y position if it starts at x1
-static int stbrp__Skyline_find_min_y(stbrp_context *c, stbrp_node *first, int x0, int width, int *pwaste)
+static int stbrp__skyline_find_min_y(stbrp_context *c, stbrp_node *first, int x0, int width, int *pwaste)
 {
    stbrp_node *node = first;
    int x1 = x0 + width;
@@ -344,7 +344,7 @@ typedef struct
    stbrp_node **prev_link;
 } stbrp__findresult;
 
-static stbrp__findresult stbrp__Skyline_find_best_pos(stbrp_context *c, int width, int height)
+static stbrp__findresult stbrp__skyline_find_best_pos(stbrp_context *c, int width, int height)
 {
    int best_waste = (1<<30), best_x, best_y = (1 << 30);
    stbrp__findresult fr;
@@ -366,7 +366,7 @@ static stbrp__findresult stbrp__Skyline_find_best_pos(stbrp_context *c, int widt
    prev = &c->active_head;
    while (node->x + width <= c->width) {
       int y,waste;
-      y = stbrp__Skyline_find_min_y(c, node, node->x, width, &waste);
+      y = stbrp__skyline_find_min_y(c, node, node->x, width, &waste);
       if (c->heuristic == STBRP_HEURISTIC_Skyline_BL_sortHeight) { // actually just want to test BL
          // bottom left
          if (y < best_y) {
@@ -424,7 +424,7 @@ static stbrp__findresult stbrp__Skyline_find_best_pos(stbrp_context *c, int widt
             node = node->next;
          }
          STBRP_ASSERT(node->next->x > xpos && node->x <= xpos);
-         y = stbrp__Skyline_find_min_y(c, node, xpos, width, &waste);
+         y = stbrp__skyline_find_min_y(c, node, xpos, width, &waste);
          if (y + height <= c->height) {
             if (y <= best_y) {
                if (y < best_y || waste < best_waste || (waste==best_waste && xpos < best_x)) {
@@ -446,10 +446,10 @@ static stbrp__findresult stbrp__Skyline_find_best_pos(stbrp_context *c, int widt
    return fr;
 }
 
-static stbrp__findresult stbrp__Skyline_pack_rectangle(stbrp_context *context, int width, int height)
+static stbrp__findresult stbrp__skyline_pack_rectangle(stbrp_context *context, int width, int height)
 {
    // find best position according to heuristic
-   stbrp__findresult res = stbrp__Skyline_find_best_pos(context, width, height);
+   stbrp__findresult res = stbrp__skyline_find_best_pos(context, width, height);
    stbrp_node *node, *cur;
 
    // bail if:
@@ -559,7 +559,7 @@ STBRP_DEF int stbrp_pack_rects(stbrp_context *context, stbrp_rect *rects, int nu
       if (rects[i].w == 0 || rects[i].h == 0) {
          rects[i].x = rects[i].y = 0;  // empty rect needs no space
       } else {
-         stbrp__findresult fr = stbrp__Skyline_pack_rectangle(context, rects[i].w, rects[i].h);
+         stbrp__findresult fr = stbrp__skyline_pack_rectangle(context, rects[i].w, rects[i].h);
          if (fr.prev_link) {
             rects[i].x = (stbrp_coord) fr.x;
             rects[i].y = (stbrp_coord) fr.y;

@@ -3,10 +3,9 @@
 
 UNameObject::UNameObject() 
 {
-
 }
 
 UNameObject::~UNameObject() 
 {
-
 }
+

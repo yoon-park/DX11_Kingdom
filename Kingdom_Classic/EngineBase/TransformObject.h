@@ -1,78 +1,22 @@
 #pragma once
 #include "Transform.h"
+#include <vector>
 
+// 설명 :
 class UTransformObject
 {
 public:
+	// constrcuter destructer
 	UTransformObject();
-	~UTransformObject();
+	virtual ~UTransformObject();
 
+	// delete Function
 	UTransformObject(const UTransformObject& _Other) = delete;
 	UTransformObject(UTransformObject&& _Other) noexcept = delete;
 	UTransformObject& operator=(const UTransformObject& _Other) = delete;
 	UTransformObject& operator=(UTransformObject&& _Other) noexcept = delete;
 
 	FTransform Transform;
-
-	FVector GetWorldRight()
-	{
-		return Transform.World.ArrVector[0].Normalize3DReturn();
-	}
-
-	FVector GetWorldLeft()
-	{
-		return -GetWorldRight();
-	}
-
-	FVector GetWorldUp()
-	{
-		return Transform.World.ArrVector[1].Normalize3DReturn();
-	}
-
-	FVector GetWorldDown()
-	{
-		return -GetWorldUp();
-	}
-
-	FVector GetWorldForward()
-	{
-		return Transform.World.ArrVector[2].Normalize3DReturn();
-	}
-
-	FVector GetWorldBack()
-	{
-		return -GetWorldForward();
-	}
-
-	FVector GetLocalScale() const
-	{
-		return Transform.LocalScale;
-	}
-
-	FVector GetLocalRotation() const
-	{
-		return Transform.LocalRotation;
-	}
-
-	FVector GetLocalPosition() const
-	{
-		return Transform.LocalPosition;
-	}
-
-	FVector GetWorldScale() const
-	{
-		return Transform.WorldScale;
-	}
-
-	FVector GetWorldRotation() const
-	{
-		return Transform.WorldRotation;
-	}
-
-	FVector GetWorldPosition() const
-	{
-		return Transform.WorldPosition;
-	}
 
 	void SetParent(UTransformObject* _Parent)
 	{
@@ -82,9 +26,13 @@ public:
 		ChildUpdate();
 	}
 
+	void ChildUpdate();
+
 	void SetScale(FVector _Value)
 	{
+		// 나는 트랜스폼 업데이트를 끝내고
 		Transform.SetScale(_Value);
+		// 자식들에게 내 행렬을 적용시키는 것입니다.
 		ChildUpdate();
 	}
 
@@ -92,6 +40,23 @@ public:
 	{
 		Transform.SetRotationDeg(_Value);
 		ChildUpdate();
+	}
+
+
+	void AddPosition(FVector _Value)
+	{
+		Transform.AddPosition(_Value);
+		ChildUpdate();
+	}
+
+	FVector GetLocalPosition() const
+	{
+		return Transform.LocalPosition;
+	}
+
+	FVector GetWorldPosition() const
+	{
+		return Transform.WorldPosition;
 	}
 
 	void SetPosition(FVector _Value)
@@ -106,23 +71,70 @@ public:
 		ChildUpdate();
 	}
 
+	FVector GetLocalScale() const
+	{
+		return Transform.LocalScale;
+	}
+
+	FVector GetWorldScale() const
+	{
+		return Transform.WorldScale;
+	}
+
 	void AddRotationDeg(FVector _Value)
 	{
 		Transform.AddRotationDeg(_Value);
 		ChildUpdate();
 	}
 
-	void AddPosition(FVector _Value)
+	FVector GetLocalRotation() const
 	{
-		Transform.AddPosition(_Value);
-		ChildUpdate();
+		return Transform.LocalRotation;
 	}
 
-	void ChildUpdate();
+	FVector GetWorldRotation() const
+	{
+		return Transform.WorldRotation;
+	}
+
+	FVector GetWorldForward()
+	{
+		return Transform.World.ArrVector[2].Normalize3DReturn();
+	}
+
+	FVector GetWorldUp()
+	{
+		return Transform.World.ArrVector[1].Normalize3DReturn();
+	}
+
+	FVector GetWorldRight()
+	{
+		return Transform.World.ArrVector[0].Normalize3DReturn();
+	}
+
+	FVector GetWorldBack()
+	{
+		return -GetWorldForward();
+	}
+
+	FVector GetWorldDown()
+	{
+		return -GetWorldUp();
+	}
+
+	FVector GetWorldLeft()
+	{
+		return -GetWorldRight();
+	}
+
+
+
 
 protected:
+	UTransformObject* Parent = nullptr;
 
 private:
-	UTransformObject* Parent = nullptr;
 	std::vector<UTransformObject*> Childs;
+
 };
+

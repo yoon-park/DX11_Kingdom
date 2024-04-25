@@ -1,30 +1,32 @@
 #pragma once
+#include <string>
 #include "EngineString.h"
 
+// Ό³Έν :
 class UNameObject
 {
 public:
+	// constrcuter destructer
 	UNameObject();
 	virtual ~UNameObject();
 
-	//UNameObject(const UNameObject& _Other) = delete;
-	//UNameObject(UNameObject&& _Other) noexcept = delete;
-	//UNameObject& operator=(const UNameObject& _Other) = delete;
-	//UNameObject& operator=(UNameObject&& _Other) noexcept = delete;
+	// delete Function
+
+	void SetName(std::string_view _View)
+	{
+		// Name = UEngineString::ToUpper(_View);
+		Name = _View;
+	}
 
 	std::string GetName()
 	{
 		return Name;
 	}
 
-	void SetName(std::string_view _View)
-	{
-		Name = UEngineString::ToUpper(_View);
-	}
-
 protected:
 
 private:
 	std::string Name;
+
 };
 

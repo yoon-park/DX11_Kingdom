@@ -9,6 +9,9 @@
 #include <EngineCore/EngineDefines.h>
 #include <EngineCore/EngineEnums.h>
 #include <EngineCore/EngineOption.h>
+#include <EngineCore/EngineStruct.h>
+
+#include <EngineCore/EngineDebug3D.h>
 
 #include <EngineCore/DirectXHelper.h>
 #include <EngineCore/EngineGraphicDevice.h>
@@ -26,20 +29,28 @@
 
 #include <EngineCore/Collision.h>
 
-#include <EngineCore/Camera.h>
-#include <EngineCore/Renderer.h>
+#include <EngineCore/BlurEffect.h>
+#include <EngineCore/SpriteInstancingRender.h>
 #include <EngineCore/SpriteRenderer.h>
+#include <EngineCore/TileRenderer.h>
+#include <EngineCore/Camera.h>
+#include <EngineCore/InstancingRender.h>
+#include <EngineCore/Renderer.h>
+#include <EngineCore/RenderUnit.h>
+
+#include <EngineCore/Image.h>
+#include <EngineCore/Widget.h>
 
 #include <EngineCore/Level.h>
 #include <EngineCore/TickObject.h>
 #include <EngineCore/WorldObject.h>
 
-#include <EngineCore/EngineConstantBuffer.h>
-#include <EngineCore/EngineSampler.h>
-#include <EngineCore/EngineShaderResources.h>
 #include <EngineCore/EnginePixelShader.h>
 #include <EngineCore/EngineShader.h>
 #include <EngineCore/EngineVertexShader.h>
+#include <EngineCore/EngineConstantBuffer.h>
+#include <EngineCore/EngineShaderResources.h>
+#include <EngineCore/EngineStructuredBuffer.h>
 #include <EngineCore/EngineBlend.h>
 #include <EngineCore/EngineMaterial.h>
 #include <EngineCore/EngineRasterizer.h>
@@ -52,6 +63,7 @@
 #include <EngineCore/EngineVertex.h>
 
 #include <EngineCore/EngineRenderTarget.h>
+#include <EngineCore/EngineSampler.h>
 #include <EngineCore/EngineSprite.h>
 #include <EngineCore/EngineTexture.h>
 
