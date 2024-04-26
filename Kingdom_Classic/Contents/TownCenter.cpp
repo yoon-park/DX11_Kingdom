@@ -8,8 +8,6 @@ ATownCenter::ATownCenter()
 
 	Renderer_Campfire = CreateDefaultSubObject<USpriteRenderer>("Renderer");
 	Renderer_Campfire->SetupAttachment(Root);
-
-	//SetRoot(Root);
 }
 
 ATownCenter::~ATownCenter()

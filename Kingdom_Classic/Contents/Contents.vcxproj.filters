@@ -8,13 +8,13 @@
       <Filter>Core</Filter>
     </ClInclude>
     <ClInclude Include="PlayGameMode.h">
-      <Filter>Level\PlayLevel</Filter>
+      <Filter>PlayLevel</Filter>
     </ClInclude>
     <ClInclude Include="TitleLogo.h">
-      <Filter>Level\TitleLevel</Filter>
+      <Filter>TitleLevel</Filter>
     </ClInclude>
     <ClInclude Include="TitleGameMode.h">
-      <Filter>Level\TitleLevel</Filter>
+      <Filter>TitleLevel</Filter>
     </ClInclude>
     <ClInclude Include="ContentsEnum.h">
       <Filter>Option</Filter>
@@ -23,43 +23,49 @@
       <Filter>Option</Filter>
     </ClInclude>
     <ClInclude Include="Back3.h">
-      <Filter>Level\PlayLevel\Map</Filter>
+      <Filter>PlayLevel\Map</Filter>
     </ClInclude>
     <ClInclude Include="Back2.h">
-      <Filter>Level\PlayLevel\Map</Filter>
+      <Filter>PlayLevel\Map</Filter>
     </ClInclude>
     <ClInclude Include="Sky.h">
-      <Filter>Level\PlayLevel\Map</Filter>
+      <Filter>PlayLevel\Map</Filter>
     </ClInclude>
     <ClInclude Include="Back1.h">
-      <Filter>Level\PlayLevel\Map</Filter>
+      <Filter>PlayLevel\Map</Filter>
     </ClInclude>
     <ClInclude Include="Back0.h">
-      <Filter>Level\PlayLevel\Map</Filter>
+      <Filter>PlayLevel\Map</Filter>
     </ClInclude>
     <ClInclude Include="Ground.h">
-      <Filter>Level\PlayLevel\Map</Filter>
+      <Filter>PlayLevel\Map</Filter>
     </ClInclude>
     <ClInclude Include="Monster.h">
-      <Filter>Level\PlayLevel\Actor</Filter>
+      <Filter>PlayLevel\Actor</Filter>
     </ClInclude>
     <ClInclude Include="Player.h">
-      <Filter>Level\PlayLevel\Actor</Filter>
+      <Filter>PlayLevel\Actor</Filter>
     </ClInclude>
     <ClInclude Include="Back4.h">
-      <Filter>Level\PlayLevel\Map</Filter>
+      <Filter>PlayLevel\Map</Filter>
     </ClInclude>
     <ClInclude Include="TownCenter.h">
-      <Filter>Level\PlayLevel\Object\Spot</Filter>
+      <Filter>PlayLevel\Object\Spot</Filter>
     </ClInclude>
     <ClInclude Include="Wall.h">
-      <Filter>Level\PlayLevel\Object\Spot</Filter>
+      <Filter>PlayLevel\Object\Spot</Filter>
     </ClInclude>
     <ClInclude Include="Spot.h">
-      <Filter>Level\PlayLevel\Object\Spot</Filter>
+      <Filter>PlayLevel\Object\Spot</Filter>
     </ClInclude>
     <ClInclude Include="Coin.h">
-      <Filter>Level\PlayLevel\Object\Other</Filter>
+      <Filter>PlayLevel\Object\Other</Filter>
+    </ClInclude>
+    <ClInclude Include="KingdomActor.h">
+      <Filter>Actor</Filter>
+    </ClInclude>
+    <ClInclude Include="Ground_Back.h">
+      <Filter>PlayLevel\Map</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -70,58 +76,64 @@
       <Filter>Core</Filter>
     </ClCompile>
     <ClCompile Include="PlayGameMode.cpp">
-      <Filter>Level\PlayLevel</Filter>
+      <Filter>PlayLevel</Filter>
     </ClCompile>
     <ClCompile Include="TitleLogo.cpp">
-      <Filter>Level\TitleLevel</Filter>
+      <Filter>TitleLevel</Filter>
     </ClCompile>
     <ClCompile Include="TitleGameMode.cpp">
-      <Filter>Level\TitleLevel</Filter>
+      <Filter>TitleLevel</Filter>
     </ClCompile>
     <ClCompile Include="ContentsConstValue.cpp">
       <Filter>Option</Filter>
     </ClCompile>
     <ClCompile Include="Back3.cpp">
-      <Filter>Level\PlayLevel\Map</Filter>
+      <Filter>PlayLevel\Map</Filter>
     </ClCompile>
     <ClCompile Include="Back2.cpp">
-      <Filter>Level\PlayLevel\Map</Filter>
+      <Filter>PlayLevel\Map</Filter>
     </ClCompile>
     <ClCompile Include="Sky.cpp">
-      <Filter>Level\PlayLevel\Map</Filter>
+      <Filter>PlayLevel\Map</Filter>
     </ClCompile>
     <ClCompile Include="Back1.cpp">
-      <Filter>Level\PlayLevel\Map</Filter>
+      <Filter>PlayLevel\Map</Filter>
     </ClCompile>
     <ClCompile Include="Back0.cpp">
-      <Filter>Level\PlayLevel\Map</Filter>
+      <Filter>PlayLevel\Map</Filter>
     </ClCompile>
     <ClCompile Include="Ground.cpp">
-      <Filter>Level\PlayLevel\Map</Filter>
+      <Filter>PlayLevel\Map</Filter>
     </ClCompile>
     <ClCompile Include="Monster.cpp">
-      <Filter>Level\PlayLevel\Actor</Filter>
+      <Filter>PlayLevel\Actor</Filter>
     </ClCompile>
     <ClCompile Include="Player.cpp">
-      <Filter>Level\PlayLevel\Actor</Filter>
+      <Filter>PlayLevel\Actor</Filter>
     </ClCompile>
     <ClCompile Include="Player_State.cpp">
-      <Filter>Level\PlayLevel\Actor</Filter>
+      <Filter>PlayLevel\Actor</Filter>
     </ClCompile>
     <ClCompile Include="Back4.cpp">
-      <Filter>Level\PlayLevel\Map</Filter>
+      <Filter>PlayLevel\Map</Filter>
     </ClCompile>
     <ClCompile Include="TownCenter.cpp">
-      <Filter>Level\PlayLevel\Object\Spot</Filter>
+      <Filter>PlayLevel\Object\Spot</Filter>
     </ClCompile>
     <ClCompile Include="Wall.cpp">
-      <Filter>Level\PlayLevel\Object\Spot</Filter>
+      <Filter>PlayLevel\Object\Spot</Filter>
     </ClCompile>
     <ClCompile Include="Spot.cpp">
-      <Filter>Level\PlayLevel\Object\Spot</Filter>
+      <Filter>PlayLevel\Object\Spot</Filter>
     </ClCompile>
     <ClCompile Include="Coin.cpp">
-      <Filter>Level\PlayLevel\Object\Other</Filter>
+      <Filter>PlayLevel\Object\Other</Filter>
+    </ClCompile>
+    <ClCompile Include="KingdomActor.cpp">
+      <Filter>Actor</Filter>
+    </ClCompile>
+    <ClCompile Include="Ground_Back.cpp">
+      <Filter>PlayLevel\Map</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -131,32 +143,32 @@
     <Filter Include="Core">
       <UniqueIdentifier>{cebef509-928e-4040-8cac-62d686d7e361}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Level">
-      <UniqueIdentifier>{1c922ad2-cb8a-40f7-af1a-f7ddd38ce671}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Level\PlayLevel">
-      <UniqueIdentifier>{e3c5afe5-3e1d-4e41-a320-511c8e59947e}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Level\TitleLevel">
-      <UniqueIdentifier>{71a32318-c34b-4791-abdf-873500f747a7}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Option">
       <UniqueIdentifier>{749a2141-5991-4699-af2e-f0d917d31484}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Level\PlayLevel\Map">
+    <Filter Include="Actor">
+      <UniqueIdentifier>{3a5cbf78-0570-4206-8e5f-fcf173aff0c3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="PlayLevel">
+      <UniqueIdentifier>{e3c5afe5-3e1d-4e41-a320-511c8e59947e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="PlayLevel\Map">
       <UniqueIdentifier>{59c0e95c-2f31-4705-afa3-e2bfc7d4b39b}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Level\PlayLevel\Actor">
+    <Filter Include="PlayLevel\Actor">
       <UniqueIdentifier>{01cd48cb-de3a-49c7-bf12-4a1a69d4e535}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Level\PlayLevel\Object">
+    <Filter Include="PlayLevel\Object">
       <UniqueIdentifier>{63764a59-711c-42e9-8f96-d7db946c5374}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Level\PlayLevel\Object\Spot">
+    <Filter Include="PlayLevel\Object\Spot">
       <UniqueIdentifier>{87a160ff-9743-4520-a4e7-5a36f9752902}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Level\PlayLevel\Object\Other">
+    <Filter Include="PlayLevel\Object\Other">
       <UniqueIdentifier>{8cb6e27b-083b-49fc-895c-c82f4e7cf8cf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="TitleLevel">
+      <UniqueIdentifier>{71a32318-c34b-4791-abdf-873500f747a7}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

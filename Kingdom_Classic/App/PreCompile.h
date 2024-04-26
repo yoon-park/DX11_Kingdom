@@ -4,6 +4,8 @@
 
 #include <Contents/ContentsCore.h>
 
+#include <Contents/KingdomActor.h>
+
 #include <Contents/Monster.h>
 #include <Contents/Player.h>
 
@@ -13,6 +15,7 @@
 #include <Contents/Back3.h>
 #include <Contents/Back4.h>
 #include <Contents/Ground.h>
+#include <Contents/Ground_Back.h>
 #include <Contents/Sky.h>
 
 #include <Contents/Coin.h>

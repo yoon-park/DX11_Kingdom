@@ -69,14 +69,62 @@ void APlayer::Tick(float _DeltaTime)
 {
 	Super::Tick(_DeltaTime);
 
+	IsGround();
 	CheckSpot();
+
 	State.Update(_DeltaTime);
 
-	DebugMessageFunction();
+	DebugMessageFunction(_DeltaTime);
+}
+
+bool APlayer::IsGround()
+{
+	Super::IsGround();
+
+	std::shared_ptr<UEngineTexture> Tex = UContentsConstValue::MapTex;
+
+//#ifdef _DEBUG
+//	if (Tex == nullptr)
+//	{
+//		MsgBoxAssert("충돌체크할 맵 이미지가 존재하지 않습니다.");
+//	}
+//#endif
+	
+	float4 Pos = GetActorLocation();
+	Pos += {0.0f, 50.0f, 0.0f};
+
+	Color8Bit Color = Tex->GetColor(Pos, Color8Bit::Black);
+	if (Color == Color8Bit::Black)
+	{
+		return true;
+	}
+	else
+	{
+		return false;
+	}
+}
+
+void APlayer::CheckSpot()
+{
+	Collision_Horse_Front->CollisionEnter(ECollisionOrder::Spot, [=](std::shared_ptr<UCollision> _Collision)
+		{
+			CurSpot = dynamic_cast<ASpot*>(_Collision->GetActor());
+			return;
+		}
+	);
+
+	Collision_Horse_Front->CollisionExit(ECollisionOrder::Spot, [=](std::shared_ptr<UCollision> _Collision)
+		{
+			CurSpot = nullptr;
+			return;
+		}
+	);
 }
 
 void APlayer::ChangeDir(EEngineDir _Dir)
 {
+	Super::ChangeDir(_Dir);
+
 	if (_Dir == CurDir)
 	{
 		return;
@@ -106,24 +154,7 @@ void APlayer::ChangeDir(EEngineDir _Dir)
 	}
 }
 
-void APlayer::CheckSpot()
-{
-	Collision_Horse_Front->CollisionEnter(ECollisionOrder::Spot, [=](std::shared_ptr<UCollision> _Collision)
-		{
-			CurSpot = dynamic_cast<ASpot*>(_Collision->GetActor());
-			return;
-		}
-	);
-
-	Collision_Horse_Front->CollisionExit(ECollisionOrder::Spot, [=](std::shared_ptr<UCollision> _Collision)
-		{
-			CurSpot = nullptr;
-			return;
-		}
-	);
-}
-
-void APlayer::DebugMessageFunction()
+void APlayer::DebugMessageFunction(float _Delta)
 {
 	{
 		std::string Msg = std::format("PlayerPos : {}\n", GetActorLocation().ToString());
@@ -131,6 +162,10 @@ void APlayer::DebugMessageFunction()
 	}
 	{
 		std::string Msg = std::format("MousePos : {}\n", GEngine->EngineWindow.GetScreenMousePos().ToString());
+		UEngineDebugMsgWindow::PushMsg(Msg);
+	}
+	{
+		std::string Msg = std::format("Frame : {}\n", 1.0f / _Delta);
 		UEngineDebugMsgWindow::PushMsg(Msg);
 	}
 }

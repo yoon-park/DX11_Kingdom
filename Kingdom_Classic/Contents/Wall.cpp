@@ -5,8 +5,6 @@ AWall::AWall()
 {
 	Renderer = CreateDefaultSubObject<USpriteRenderer>("Renderer");
 	Renderer->SetupAttachment(Root);
-
-	//SetRoot(Root);
 }
 
 AWall::~AWall()

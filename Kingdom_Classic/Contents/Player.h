@@ -1,9 +1,10 @@
 #pragma once
+#include "KingdomActor.h"
 #include "Spot.h"
 
-class APlayer : public AActor
+class APlayer : public AKingdomActor
 {
-	GENERATED_BODY(AActor)
+	GENERATED_BODY(AKingdomActor)
 
 public:
 	APlayer();
@@ -46,11 +47,12 @@ private:
 	float Speed = 0.0f;
 	bool IsPaying = false;
 	ASpot* CurSpot = nullptr;
-
-	void ChangeDir(EEngineDir _Dir);
+	
+	bool IsGround() override;
 	void CheckSpot();
+	void ChangeDir(EEngineDir _Dir) override;
 
-	void DebugMessageFunction();
+	void DebugMessageFunction(float _Delta);
 
 	// State
 	void StateInit();

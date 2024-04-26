@@ -1,10 +1,11 @@
 #pragma once
+#include "KingdomActor.h"
 
 class USpriteRenderer;
 
-class ABack1 : public AActor
+class ABack1 : public AKingdomActor
 {
-	GENERATED_BODY(AActor)
+	GENERATED_BODY(AKingdomActor)
 
 public:
 	ABack1();

@@ -1,4 +1,5 @@
 #pragma once
+#include "KingdomActor.h"
 
 class ASpot : public AActor
 {

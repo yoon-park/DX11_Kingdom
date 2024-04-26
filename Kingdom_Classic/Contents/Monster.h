@@ -1,7 +1,10 @@
 #pragma once
+#include "KingdomActor.h"
 
-class AMonster : public AActor
+class AMonster : public AKingdomActor
 {
+	GENERATED_BODY(AKingdomActor)
+
 public:
 	AMonster();
 	~AMonster();

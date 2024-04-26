@@ -203,6 +203,14 @@
       <SubType>
       </SubType>
     </ClInclude>
+    <ClInclude Include="Ground_Back.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="KingdomActor.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="Monster.h">
       <SubType>
       </SubType>
@@ -278,6 +286,14 @@
       </SubType>
     </ClCompile>
     <ClCompile Include="Ground.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="Ground_Back.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="KingdomActor.cpp">
       <SubType>
       </SubType>
     </ClCompile>
