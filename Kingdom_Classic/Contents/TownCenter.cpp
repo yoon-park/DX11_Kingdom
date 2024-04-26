@@ -9,10 +9,7 @@ ATownCenter::ATownCenter()
 	Renderer_Campfire = CreateDefaultSubObject<USpriteRenderer>("Renderer");
 	Renderer_Campfire->SetupAttachment(Root);
 
-	Renderer_Coin00 = CreateDefaultSubObject<USpriteRenderer>("Renderer");
-	Renderer_Coin00->SetupAttachment(Root);
-
-	SetRoot(Root);
+	//SetRoot(Root);
 }
 
 ATownCenter::~ATownCenter()
@@ -24,19 +21,21 @@ void ATownCenter::BeginPlay()
 {
 	Super::BeginPlay();
 
-	Renderer_Castle->SetSprite("TownCenter_00.png");
-	Renderer_Castle->SetAutoSize(1.0f, true);
-	Renderer_Castle->SetOrder(ERenderOrder::BackObject);
+	{
+		Renderer_Castle->SetSprite("TownCenter_00.png");
+		Renderer_Castle->SetAutoSize(1.0f, true);
+		Renderer_Castle->SetOrder(ERenderOrder::BackObject);
 
-	Renderer_Campfire->SetSprite("Campfire_00.png");
-	Renderer_Campfire->SetAutoSize(1.0f, true);
-	Renderer_Campfire->AddPosition({ 0.0f, -35.0f, 0.0f, 0.0f });
-	Renderer_Campfire->SetOrder(ERenderOrder::GroundObject);
+		Renderer_Campfire->SetSprite("Campfire_00.png");
+		Renderer_Campfire->SetAutoSize(1.0f, true);
+		Renderer_Campfire->AddPosition({ 0.0f, -35.0f, 0.0f, 0.0f });
+		Renderer_Campfire->SetOrder(ERenderOrder::GroundObject);
+	}
+	{
+		Renderer_Coin00->AddPosition({ 0.0f, 0.0f, 0.0f, 0.0f });
 
-	Renderer_Coin00->SetSprite("coin_indicator.png");
-	Renderer_Coin00->SetAutoSize(1.0f, true);
-	Renderer_Coin00->AddPosition({ 0.0f, 0.0f, 0.0f, 0.0f });
-	Renderer_Coin00->SetOrder(ERenderOrder::UI);
+		/* Coins */
+	}
 }
 
 void ATownCenter::Tick(float _DeltaTime)

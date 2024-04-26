@@ -15,6 +15,8 @@
 #include "TownCenter.h"
 #include "Wall.h"
 
+std::shared_ptr<APlayer> APlayGameMode::MainPlayer = nullptr;
+
 APlayGameMode::APlayGameMode()
 {
 

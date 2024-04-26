@@ -69,6 +69,7 @@ void APlayer::Tick(float _DeltaTime)
 {
 	Super::Tick(_DeltaTime);
 
+	CheckSpot();
 	State.Update(_DeltaTime);
 
 	DebugMessageFunction();
@@ -103,6 +104,23 @@ void APlayer::ChangeDir(EEngineDir _Dir)
 			break;
 		}
 	}
+}
+
+void APlayer::CheckSpot()
+{
+	Collision_Horse_Front->CollisionEnter(ECollisionOrder::Spot, [=](std::shared_ptr<UCollision> _Collision)
+		{
+			CurSpot = dynamic_cast<ASpot*>(_Collision->GetActor());
+			return;
+		}
+	);
+
+	Collision_Horse_Front->CollisionExit(ECollisionOrder::Spot, [=](std::shared_ptr<UCollision> _Collision)
+		{
+			CurSpot = nullptr;
+			return;
+		}
+	);
 }
 
 void APlayer::DebugMessageFunction()

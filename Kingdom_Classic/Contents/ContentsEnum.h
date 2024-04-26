@@ -15,7 +15,7 @@ enum class EObjectOrder
 	Monster,
 	Back,
 	Building,
-	Object
+	Coin
 };
 
 enum class ECollisionOrder

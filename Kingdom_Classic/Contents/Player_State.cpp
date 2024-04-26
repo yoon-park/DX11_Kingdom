@@ -29,6 +29,7 @@ void APlayer::StateInit()
 		State.CreateState("Pay");
 		State.SetStartFunction("Pay", std::bind(&APlayer::PayStart, this));
 		State.SetUpdateFunction("Pay", std::bind(&APlayer::Pay, this, std::placeholders::_1));
+		State.SetEndFunction("Pay", std::bind(&APlayer::PayEnd, this));
 	}
 
 	State.ChangeState("Idle");
@@ -77,8 +78,10 @@ void APlayer::PayStart()
 	Renderer_Horse->ChangeAnimation("Eat");
 	*/
 
-	std::shared_ptr<ACoin> Coin = GetWorld()->SpawnActor<ACoin>("InnerWall", EObjectOrder::Object);
-	Coin->SetActorLocation(GetActorLocation());
+	IsPaying = true;
+
+	std::shared_ptr<ACoin> Coin = GetWorld()->SpawnActor<ACoin>("Coin", EObjectOrder::Coin);
+	Coin->SetActorLocation(GetActorLocation() + float4(0.0f, 30.0f, 0.0f));
 }
 
 void APlayer::Idle(float _DeltaTime)
@@ -168,5 +171,20 @@ void APlayer::Eat(float _DeltaTime)
 
 void APlayer::Pay(float _DeltaTime)
 {
+	if (IsFree(VK_DOWN) == true)
+	{
+		State.ChangeState("Idle");
+		return;
+	}
 
+	if (IsFree(VK_DOWN) == true)
+	{
+		State.ChangeState("Idle");
+		return;
+	}
+}
+
+void APlayer::PayEnd()
+{
+	IsPaying = false;
 }

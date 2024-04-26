@@ -15,6 +15,8 @@ public:
 	APlayGameMode& operator=(const APlayGameMode& _Other) = delete;
 	APlayGameMode& operator=(APlayGameMode&& _Other) noexcept = delete;
 
+	static std::shared_ptr<APlayer> MainPlayer;
+
 protected:
 	void SetMainPlayer(std::shared_ptr<APlayer> _Player);
 
@@ -22,5 +24,5 @@ protected:
 	void Tick(float _DeltaTime) override;
 
 private:
-	std::shared_ptr<APlayer> MainPlayer;
+
 };

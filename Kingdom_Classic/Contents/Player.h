@@ -1,4 +1,5 @@
 #pragma once
+#include "Spot.h"
 
 class APlayer : public AActor
 {
@@ -15,6 +16,21 @@ public:
 
 	UStateManager State;
 
+	bool GetIsPaying()
+	{
+		return IsPaying;
+	}
+
+	ASpot* GetCurSpot()
+	{
+		return CurSpot;
+	}
+
+	void SetIsPaying(bool _IsPaying)
+	{
+		IsPaying = _IsPaying;
+	}
+
 protected:
 	void BeginPlay() override;
 	void Tick(float _DeltaTime) override;
@@ -25,11 +41,14 @@ private:
 	UCollision* Collision_Player;
 	UCollision* Collision_Horse_Front;
 
-	float Speed = 0.0f;
 	EEngineDir PrevDir = EEngineDir::Right;
 	EEngineDir CurDir = EEngineDir::Right;
+	float Speed = 0.0f;
+	bool IsPaying = false;
+	ASpot* CurSpot = nullptr;
 
 	void ChangeDir(EEngineDir _Dir);
+	void CheckSpot();
 
 	void DebugMessageFunction();
 
@@ -49,4 +68,6 @@ private:
 	void Rear(float _DeltaTime);
 	void Eat(float _DeltaTime);
 	void Pay(float _DeltaTime);
+
+	void PayEnd();
 };

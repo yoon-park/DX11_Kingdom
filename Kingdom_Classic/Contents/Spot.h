@@ -13,10 +13,17 @@ public:
 	ASpot& operator=(const ASpot& _Other) = delete;
 	ASpot& operator=(ASpot&& _Other) noexcept = delete;
 
+	FVector GetCoin00Location()
+	{
+		FVector Location = GetActorLocation() + Renderer_Coin00->GetLocalPosition();
+
+		return Location;
+	}
+
 protected:
 	ESpotUpgrade CurTier = ESpotUpgrade::Tier0;
 	UDefaultSceneComponent* Root;
-	UCollision* CheckPlayerNearby;
+	UCollision* Collision_Update;
 
 	USpriteRenderer* Renderer_Coin00;
 	USpriteRenderer* Renderer_Coin01;
@@ -34,7 +41,8 @@ protected:
 	void BeginPlay() override;
 	void Tick(float _DeltaTime) override;
 
-	virtual void Upgrade();
+	void CheckPlayer();
+	virtual void Upgrade() = 0 {};
 
 private:
 

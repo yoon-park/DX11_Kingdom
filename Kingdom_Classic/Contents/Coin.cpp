@@ -1,17 +1,19 @@
 #include "PreCompile.h"
 #include "Coin.h"
 
+#include "PlayGameMode.h"
+#include "Player.h"
+
 ACoin::ACoin()
 {
 	UDefaultSceneComponent* Root = CreateDefaultSubObject<UDefaultSceneComponent>("Renderer");
 
 	Renderer = CreateDefaultSubObject<USpriteRenderer>("Renderer");
 	Renderer->SetupAttachment(Root);
-	Renderer->SetPivot(EPivot::BOT);
 
 	Collision = CreateDefaultSubObject<UCollision>("Collision");
 	Collision->SetupAttachment(Root);
-	Collision->SetScale(FVector(500.0f, 800.0f, 100.0f));
+	Collision->SetScale(FVector(10.0f, 10.0f, 100.0f));
 	Collision->SetCollisionGroup(ECollisionOrder::Coin);
 	Collision->SetCollisionType(ECollisionType::Rect);
 
@@ -59,7 +61,14 @@ void ACoin::StateInit()
 		State.SetUpdateFunction("Pay", std::bind(&ACoin::Pay, this, std::placeholders::_1));
 	}
 
-	State.ChangeState("Idle");
+	if (APlayGameMode::MainPlayer->GetCurSpot() != nullptr)
+	{
+		State.ChangeState("Pay");
+	}
+	else
+	{
+		State.ChangeState("Fall");
+	}
 }
 
 void ACoin::IdleStart()
@@ -83,15 +92,26 @@ void ACoin::PayStart()
 
 void ACoin::Idle(float _DeltaTime)
 {
-
+	/* Player, Npc, Monster¿Í Ãæµ¹ ½Ã Èí¼ö */
 }
 
 void ACoin::Fall (float _DeltaTime)
 {
-
+	/* ¹Ù´Ú¿¡ ¶³¾îÁ® ground¿Í ÇÈ¼¿Ãæµ¹ °Ë»ç */
 }
 
 void ACoin::Pay(float _DeltaTime)
 {
+	if (APlayGameMode::MainPlayer->GetIsPaying() == false)
+	{
+		State.ChangeState("Fall");
+	}
 
+	FVector Indicator_Location = APlayGameMode::MainPlayer->GetCurSpot()->GetCoin00Location();
+	FVector Coin_Location = GetActorLocation();
+
+	FVector Diff = Indicator_Location - Coin_Location;
+	FVector Dir = Diff.Normalize3DReturn();
+
+	AddActorLocation(Dir * _DeltaTime * 100);
 }
