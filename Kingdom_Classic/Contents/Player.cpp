@@ -13,11 +13,19 @@ APlayer::APlayer()
 	Renderer_Horse->SetupAttachment(Root);
 	Renderer_Horse->SetPivot(EPivot::BOT);
 
-	CheckSpotNearby = CreateDefaultSubObject<UCollision>("CheckSpotNearby");
-	CheckSpotNearby->SetupAttachment(Root);
-	CheckSpotNearby->SetScale(FVector(500.0f, 800.0f, 100.0f));
-	CheckSpotNearby->SetCollisionGroup(ECollisionOrder::Player);
-	CheckSpotNearby->SetCollisionType(ECollisionType::Rect);
+	Collision_Player = CreateDefaultSubObject<UCollision>("Collision_Player");
+	Collision_Player->SetupAttachment(Root);
+	Collision_Player->SetScale(FVector(12.0f, 27.0f, 100.0f));
+	Collision_Player->AddPosition(FVector(0.0f, 27.0f, 0.0f));
+	Collision_Player->SetCollisionGroup(ECollisionOrder::Player);
+	Collision_Player->SetCollisionType(ECollisionType::Rect);
+
+	Collision_Horse_Front = CreateDefaultSubObject<UCollision>("Collision_Horse_Front");
+	Collision_Horse_Front->SetupAttachment(Root);
+	Collision_Horse_Front->SetScale(FVector(15.0f, 30.0f, 100.0f));
+	Collision_Horse_Front->AddPosition(FVector(13.0f, 15.0f, 0.0f));
+	Collision_Horse_Front->SetCollisionGroup(ECollisionOrder::Horse);
+	Collision_Horse_Front->SetCollisionType(ECollisionType::Rect);
 
 	SetRoot(Root);
 	
@@ -64,6 +72,37 @@ void APlayer::Tick(float _DeltaTime)
 	State.Update(_DeltaTime);
 
 	DebugMessageFunction();
+}
+
+void APlayer::ChangeDir(EEngineDir _Dir)
+{
+	if (_Dir == CurDir)
+	{
+		return;
+	}
+	else
+	{
+		PrevDir = CurDir;
+		CurDir = _Dir;
+
+		switch (CurDir)
+		{
+		case EEngineDir::Left:
+			Renderer_Player->SetDir(EEngineDir::Left);
+			Renderer_Horse->SetDir(EEngineDir::Left);
+			Collision_Horse_Front->AddPosition(FVector(-26.0f, 0.0f, 0.0f));
+			break;
+		case EEngineDir::Right:
+			Renderer_Player->SetDir(EEngineDir::Right);
+			Renderer_Horse->SetDir(EEngineDir::Right);
+			Collision_Horse_Front->AddPosition(FVector(26.0f, 0.0f, 0.0f));
+			break;
+		case EEngineDir::MAX:
+			break;
+		default:
+			break;
+		}
+	}
 }
 
 void APlayer::DebugMessageFunction()

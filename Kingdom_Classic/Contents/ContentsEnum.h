@@ -21,6 +21,7 @@ enum class EObjectOrder
 enum class ECollisionOrder
 {
 	Spot,
+	Horse,
 	Player,
 	Monster,
 	Coin

@@ -22,8 +22,14 @@ protected:
 private:
 	USpriteRenderer* Renderer_Player;
 	USpriteRenderer* Renderer_Horse;
-	UCollision* CheckSpotNearby;
+	UCollision* Collision_Player;
+	UCollision* Collision_Horse_Front;
+
 	float Speed = 0.0f;
+	EEngineDir PrevDir = EEngineDir::Right;
+	EEngineDir CurDir = EEngineDir::Right;
+
+	void ChangeDir(EEngineDir _Dir);
 
 	void DebugMessageFunction();
 

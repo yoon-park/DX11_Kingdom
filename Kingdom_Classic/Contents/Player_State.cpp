@@ -118,17 +118,13 @@ void APlayer::Walk(float _DeltaTime)
 
 	if (IsPress('A') == true)
 	{
-		Renderer_Player->SetDir(EEngineDir::Left);
-		Renderer_Horse->SetDir(EEngineDir::Left);
-
+		ChangeDir(EEngineDir::Left);
 		AddActorLocation(FVector::Left * _DeltaTime * Speed);
 	}
 
 	if (IsPress('D') == true)
 	{
-		Renderer_Player->SetDir(EEngineDir::Right);
-		Renderer_Horse->SetDir(EEngineDir::Right);
-
+		ChangeDir(EEngineDir::Right);
 		AddActorLocation(FVector::Right * _DeltaTime * Speed);
 	}
 }
@@ -149,17 +145,13 @@ void APlayer::Run(float _DeltaTime)
 
 	if (IsPress('A') == true)
 	{
-		Renderer_Player->SetDir(EEngineDir::Left);
-		Renderer_Horse->SetDir(EEngineDir::Left);
-
+		ChangeDir(EEngineDir::Left);
 		AddActorLocation(FVector::Left * _DeltaTime * Speed);
 	}
 
 	if (IsPress('D') == true)
 	{
-		Renderer_Player->SetDir(EEngineDir::Right);
-		Renderer_Horse->SetDir(EEngineDir::Right);
-
+		ChangeDir(EEngineDir::Right);
 		AddActorLocation(FVector::Right * _DeltaTime * Speed);
 	}
 }

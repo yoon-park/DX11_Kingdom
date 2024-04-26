@@ -40,6 +40,7 @@ void APlayGameMode::BeginPlay()
 	{
 		std::shared_ptr<UCamera> Camera = GetWorld()->GetMainCamera();
 		Camera->SetActorLocation({ 0.0f, 60.0f, -100.0f });
+		Camera->SetProjectionType(ECameraType::Perspective);
 	}
 	{
 		std::shared_ptr<APlayer> Player = GetWorld()->SpawnActor<APlayer>("Player", EObjectOrder::Player);
