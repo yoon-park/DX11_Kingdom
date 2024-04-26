@@ -2,11 +2,11 @@
 #include "BlurEffect.h"
 #include "EngineCore.h"
 
-UBlurEffect::UBlurEffect()
+UBlurEffect::UBlurEffect() 
 {
 }
 
-UBlurEffect::~UBlurEffect()
+UBlurEffect::~UBlurEffect() 
 {
 }
 

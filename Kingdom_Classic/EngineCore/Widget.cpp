@@ -5,11 +5,11 @@
 #include "EngineCore.h"
 #include "EngineDebugMsgWindow.h"
 
-UWidget::UWidget()
+UWidget::UWidget() 
 {
 }
 
-UWidget::~UWidget()
+UWidget::~UWidget() 
 {
 }
 
@@ -19,7 +19,7 @@ void UWidget::AddToViewPort(int _Order)
 	GetWorld()->PushWidget(shared_from_this());
 }
 
-void UWidget::MaterialSettingEnd()
+void UWidget::MaterialSettingEnd() 
 {
 	Super::MaterialSettingEnd();
 	if (true == Resources->IsConstantBuffer("FTransform"))
@@ -59,7 +59,7 @@ void UWidget::Tick(float _DeltaTime)
 			Down();
 		}
 	}
-	else
+	else 
 	{
 		if (true == IsHover)
 		{

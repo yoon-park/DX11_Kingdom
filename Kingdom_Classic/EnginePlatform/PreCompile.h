@@ -20,6 +20,7 @@
 #include <EngineBase/EngineString.h>
 
 #include <EngineBase/EngineThread.h>
+#include <EngineBase/ThreadPool.h>
 
 #include <EngineBase/EngineTime.h>
 

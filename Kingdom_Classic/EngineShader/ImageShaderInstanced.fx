@@ -16,7 +16,7 @@ struct ImageVSOutPut
     int Index : SV_InstanceID;
 };
 
-struct FCuttingData
+struct FCuttingData 
 {
     float4 CuttingPosition;
     float4 CuttingSize;
@@ -61,7 +61,7 @@ ImageVSOutPut ImageShaderInstanced_VS(FEngineVertexInstancing _Input)
 
 TextureSet(Image, 0)
 
-struct ResultColorValue
+struct ResultColorValue 
 {
     float4 PlusColor;
     float4 MulColor;

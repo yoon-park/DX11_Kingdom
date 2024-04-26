@@ -3,13 +3,13 @@
 #include "SpriteRenderer.h"
 #include "EngineStructuredBuffer.h"
 
-USpriteInstancingRender::USpriteInstancingRender()
+USpriteInstancingRender::USpriteInstancingRender() 
 {
 	SetMesh("Rect");
 	SetMaterial("2DImageInstancing");
 }
 
-USpriteInstancingRender::~USpriteInstancingRender()
+USpriteInstancingRender::~USpriteInstancingRender() 
 {
 }
 

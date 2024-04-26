@@ -5,11 +5,11 @@
 
 std::map<EShaderType, std::map<std::string, std::map<int, std::shared_ptr<UEngineStructuredBuffer>>>> UEngineStructuredBuffer::StructuredBuffers;
 
-UEngineStructuredBuffer::UEngineStructuredBuffer()
+UEngineStructuredBuffer::UEngineStructuredBuffer() 
 {
 }
 
-UEngineStructuredBuffer::~UEngineStructuredBuffer()
+UEngineStructuredBuffer::~UEngineStructuredBuffer() 
 {
 	Release();
 }

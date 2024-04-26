@@ -42,6 +42,6 @@ protected:
 	FResultColorValue ColorData;
 	FCuttingData CuttingDataValue;
 	std::shared_ptr<UEngineSprite> TileSprite;
-	float4 TileSize = { 64, 64 };
+	float4 TileSize = {64, 64};
 };
 

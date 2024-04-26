@@ -2,11 +2,11 @@
 #include "EngineThread.h"
 #include "EngineString.h"
 
-UEngineThread::UEngineThread()
+UEngineThread::UEngineThread() 
 {
 }
 
-UEngineThread::~UEngineThread()
+UEngineThread::~UEngineThread() 
 {
 	// 지금 쓰레드 실행중이야?
 	if (true == Thread.joinable())
@@ -36,6 +36,8 @@ void UEngineThread::ThreadStartFunction(UEngineThread* _Thread)
 
 	// 여러분들의 함수가 실행됩니다.
 	_Thread->CallBack();
+
+	_Thread->End = true;
 }
 
 void UEngineThread::Start(std::function<void()> _Function /*= nullptr*/)
@@ -59,5 +61,5 @@ void UEngineThread::Start(std::function<void()> _Function /*= nullptr*/)
 
 	Thread = std::thread(std::bind(ThreadStartFunction, this));
 
-
+	
 }
