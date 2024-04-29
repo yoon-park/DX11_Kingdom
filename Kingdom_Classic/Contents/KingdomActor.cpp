@@ -20,8 +20,3 @@ void AKingdomActor::Tick(float _DeltaTime)
 {
 	Super::Tick(_DeltaTime);
 }
-
-bool AKingdomActor::IsGround()
-{
-	return false;
-}

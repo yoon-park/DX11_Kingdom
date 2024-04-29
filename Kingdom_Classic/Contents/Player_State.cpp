@@ -79,9 +79,7 @@ void APlayer::PayStart()
 	*/
 
 	IsPaying = true;
-
-	std::shared_ptr<ACoin> Coin = GetWorld()->SpawnActor<ACoin>("Coin", EObjectOrder::Coin);
-	Coin->SetActorLocation(GetActorLocation() + float4(0.0f, 30.0f, 0.0f));
+	CreateCoin();
 }
 
 void APlayer::Idle(float _DeltaTime)
@@ -177,9 +175,9 @@ void APlayer::Pay(float _DeltaTime)
 		return;
 	}
 
-	if (IsFree(VK_DOWN) == true)
+	if (CurCoin->State.GetCurStateName() == "Pay_Wait")
 	{
-		State.ChangeState("Idle");
+		CreateCoin();
 		return;
 	}
 }
@@ -187,4 +185,5 @@ void APlayer::Pay(float _DeltaTime)
 void APlayer::PayEnd()
 {
 	IsPaying = false;
+	CurCoin = nullptr;
 }

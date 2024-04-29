@@ -1,9 +1,9 @@
 #pragma once
 #include "KingdomActor.h"
 
-class ACoin : public AActor
+class ACoin : public AKingdomActor
 {
-	GENERATED_BODY(AActor)
+	GENERATED_BODY(AKingdomActor)
 
 public:
 	ACoin();
@@ -24,15 +24,22 @@ private:
 	USpriteRenderer* Renderer;
 	UCollision* Collision;
 	float Speed = 0.0f;
+	bool IsGround = false;
+	EGroundType CurGroundType = EGroundType::Plain;
+
+	void CheckGround() override;
 
 	// State
 	void StateInit();
 
 	void IdleStart();
+	void PaySpotStart();
+	void PayGroundStart();
 	void FallStart();
-	void PayStart();
 
 	void Idle(float _DeltaTime);
+	void PaySpot(float _DeltaTime);
+	void PayGround(float _DeltaTime);
+	void Wait(float _DeltaTime);
 	void Fall(float _DeltaTime);
-	void Pay(float _DeltaTime);
 };

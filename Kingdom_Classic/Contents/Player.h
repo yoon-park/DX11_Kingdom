@@ -1,6 +1,7 @@
 #pragma once
 #include "KingdomActor.h"
 #include "Spot.h"
+#include "Coin.h"
 
 class APlayer : public AKingdomActor
 {
@@ -27,6 +28,11 @@ public:
 		return CurSpot;
 	}
 
+	ACoin* GetCurCoin()
+	{
+		return CurCoin;
+	}
+
 	void SetIsPaying(bool _IsPaying)
 	{
 		IsPaying = _IsPaying;
@@ -46,11 +52,15 @@ private:
 	EEngineDir CurDir = EEngineDir::Right;
 	float Speed = 0.0f;
 	bool IsPaying = false;
+	bool IsGround = false;
+	EGroundType CurGroundType = EGroundType::Plain;
 	ASpot* CurSpot = nullptr;
-	
-	bool IsGround() override;
-	void CheckSpot();
+	ACoin* CurCoin = nullptr;
+
 	void ChangeDir(EEngineDir _Dir) override;
+	void CheckGround() override;
+	void CheckSpot();
+	void CreateCoin();
 
 	void DebugMessageFunction(float _Delta);
 

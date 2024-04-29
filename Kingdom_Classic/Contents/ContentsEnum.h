@@ -1,5 +1,13 @@
 #pragma once
 
+enum class EGroundType
+{
+	Plain,
+	Plain_Grass,
+	Forest,
+	None
+};
+
 enum class ESpotUpgrade
 {
 	Tier0,

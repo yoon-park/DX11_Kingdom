@@ -43,7 +43,7 @@ protected:
 	void Tick(float _DeltaTime) override;
 
 	void CheckPlayer();
-	virtual void Upgrade() = 0 {};
+	virtual void Upgrade() {};
 
 private:
 

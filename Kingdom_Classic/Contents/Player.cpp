@@ -68,57 +68,13 @@ void APlayer::BeginPlay()
 void APlayer::Tick(float _DeltaTime)
 {
 	Super::Tick(_DeltaTime);
-
-	IsGround();
+	
+	CheckGround();
 	CheckSpot();
 
 	State.Update(_DeltaTime);
 
 	DebugMessageFunction(_DeltaTime);
-}
-
-bool APlayer::IsGround()
-{
-	Super::IsGround();
-
-	std::shared_ptr<UEngineTexture> Tex = UContentsConstValue::MapTex;
-
-//#ifdef _DEBUG
-//	if (Tex == nullptr)
-//	{
-//		MsgBoxAssert("충돌체크할 맵 이미지가 존재하지 않습니다.");
-//	}
-//#endif
-	
-	float4 Pos = GetActorLocation();
-	Pos += {0.0f, 50.0f, 0.0f};
-
-	Color8Bit Color = Tex->GetColor(Pos, Color8Bit::Black);
-	if (Color == Color8Bit::Black)
-	{
-		return true;
-	}
-	else
-	{
-		return false;
-	}
-}
-
-void APlayer::CheckSpot()
-{
-	Collision_Horse_Front->CollisionEnter(ECollisionOrder::Spot, [=](std::shared_ptr<UCollision> _Collision)
-		{
-			CurSpot = dynamic_cast<ASpot*>(_Collision->GetActor());
-			return;
-		}
-	);
-
-	Collision_Horse_Front->CollisionExit(ECollisionOrder::Spot, [=](std::shared_ptr<UCollision> _Collision)
-		{
-			CurSpot = nullptr;
-			return;
-		}
-	);
 }
 
 void APlayer::ChangeDir(EEngineDir _Dir)
@@ -152,6 +108,61 @@ void APlayer::ChangeDir(EEngineDir _Dir)
 			break;
 		}
 	}
+}
+
+void APlayer::CheckGround()
+{
+	Super::CheckGround();
+
+	std::shared_ptr<UEngineTexture> Tex = UContentsConstValue::MapTex;
+
+#ifdef _DEBUG
+	if (Tex == nullptr)
+	{
+		MsgBoxAssert("픽셀충돌을 체크할 맵 이미지가 존재하지 않습니다.");
+	}
+#endif
+
+	float4 Pos = GetActorLocation();
+	Pos += {0.0f, 25.0f, 0.0f};
+
+	Color8Bit Color = Tex->GetColor(Pos, Color8Bit::Blue);
+	if (Color == Color8Bit::Black)
+	{
+		IsGround = true;
+		CurGroundType = EGroundType::Plain;
+		return;
+	}
+	else
+	{
+		IsGround = false;
+		CurGroundType = EGroundType::None;
+		return;
+	}
+}
+
+void APlayer::CheckSpot()
+{
+	Collision_Horse_Front->CollisionEnter(ECollisionOrder::Spot, [=](std::shared_ptr<UCollision> _Collision)
+		{
+			CurSpot = dynamic_cast<ASpot*>(_Collision->GetActor());
+			return;
+		}
+	);
+
+	Collision_Horse_Front->CollisionExit(ECollisionOrder::Spot, [=](std::shared_ptr<UCollision> _Collision)
+		{
+			CurSpot = nullptr;
+			return;
+		}
+	);
+}
+
+void APlayer::CreateCoin()
+{
+	std::shared_ptr<ACoin> Coin = GetWorld()->SpawnActor<ACoin>("Coin", EObjectOrder::Coin);
+	Coin->SetActorLocation(GetActorLocation() + float4(0.0f, 30.0f, 0.0f));
+	CurCoin = Coin.get();
 }
 
 void APlayer::DebugMessageFunction(float _Delta)

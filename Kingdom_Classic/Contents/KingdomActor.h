@@ -17,7 +17,7 @@ protected:
 	void BeginPlay() override;
 	void Tick(float _DeltaTime) override;
 
-	virtual bool IsGround();
+	virtual void CheckGround() {};
 	virtual void ChangeDir(EEngineDir _Dir) {};
 
 private:
