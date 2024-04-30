@@ -16,11 +16,9 @@ void AWall::BeginPlay()
 {
 	Super::BeginPlay();
 
-	Renderer->SetSprite("wall_1.png");
+	Renderer->SetSprite("wall_0.png");
 	Renderer->SetAutoSize(1.0f, true);
 	Renderer->SetOrder(ERenderOrder::GroundObject);
-
-	RequiredCoin = 1;
 }
 
 void AWall::Tick(float _DeltaTime)
@@ -35,23 +33,26 @@ void AWall::Upgrade()
 	case ESpotUpgrade::Tier0:
 	{
 		CurTier = ESpotUpgrade::Tier1;
-		RequiredCoin = 1;
+		Renderer->SetSprite("wall_1.png");
+		RequiredCoin = 3;
 		break;
 	}
 	case ESpotUpgrade::Tier1:
 	{
 		CurTier = ESpotUpgrade::Tier2;
-		RequiredCoin = 3;
+		Renderer->SetSprite("wall_2.png");
+		RequiredCoin = 6;
 		break;
 	}
 	case ESpotUpgrade::Tier2:
 	{
 		CurTier = ESpotUpgrade::Tier3;
-		RequiredCoin = 6;
+		Renderer->SetSprite("wall_3.png");
+		RequiredCoin = 0;
+		IsUpgradable = false;
 		break;
 	}
 	default:
-		IsUpgradable = false;
 		break;
 	}
 

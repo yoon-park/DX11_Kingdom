@@ -29,8 +29,6 @@ void ATownCenter::BeginPlay()
 		Renderer_Campfire->AddPosition({ 0.0f, -35.0f, 0.0f, 0.0f });
 		Renderer_Campfire->SetOrder(ERenderOrder::GroundObject);
 	}
-
-	RequiredCoin = 1;
 }
 
 void ATownCenter::Tick(float _DeltaTime)
@@ -46,7 +44,7 @@ void ATownCenter::Upgrade()
 	{
 		CurTier = ESpotUpgrade::Tier1;
 		Renderer_Campfire->SetSprite("Campfire_01.png");
-		RequiredCoin = 1;
+		RequiredCoin = 3;
 		break;
 	}
 	case ESpotUpgrade::Tier1:
@@ -54,7 +52,7 @@ void ATownCenter::Upgrade()
 		CurTier = ESpotUpgrade::Tier2;
 		Renderer_Castle->SetSprite("TownCenter_02.png");
 		Renderer_Campfire->SetSprite("Campfire_02.png");
-		RequiredCoin = 3;
+		RequiredCoin = 6;
 		break;
 	}
 	case ESpotUpgrade::Tier2:
@@ -62,18 +60,18 @@ void ATownCenter::Upgrade()
 		CurTier = ESpotUpgrade::Tier3;
 		Renderer_Castle->SetSprite("TownCenter_03.png");
 		Renderer_Campfire->SetSprite("Campfire_03.png");
-		RequiredCoin = 6;
+		RequiredCoin = 9;
 		break;
 	}
 	case ESpotUpgrade::Tier3:
 	{
 		CurTier = ESpotUpgrade::Tier4;
 		Renderer_Castle->SetSprite("TownCenter_04.png");
-		RequiredCoin = 9;
+		RequiredCoin = 0;
+		IsUpgradable = false;
 		break;
 	}
 	default:
-		IsUpgradable = false;
 		break;
 	}
 

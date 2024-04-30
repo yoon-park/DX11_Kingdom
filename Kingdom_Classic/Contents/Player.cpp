@@ -143,10 +143,9 @@ void APlayer::CheckGround()
 
 void APlayer::CheckSpot()
 {
-	Collision_Horse_Front->CollisionEnter(ECollisionOrder::Spot, [=](std::shared_ptr<UCollision> _Collision)
+	Collision_Horse_Front->CollisionStay(ECollisionOrder::Spot, [=](std::shared_ptr<UCollision> _Collision)
 		{
 			CurSpot = dynamic_cast<ASpot*>(_Collision->GetActor());
-			CurSpot->
 			return;
 		}
 	);

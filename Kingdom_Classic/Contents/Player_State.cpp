@@ -97,7 +97,7 @@ void APlayer::Idle(float _DeltaTime)
 		return;
 	}
 
-	if (IsPress(VK_DOWN) == true)
+	if (IsDown(VK_DOWN) == true)
 	{
 		State.ChangeState("Pay");
 		return;
@@ -176,21 +176,20 @@ void APlayer::Pay(float _DeltaTime)
 		return;
 	}
 
-	if (CurCoin->State.GetCurStateName() == "Wait")
+	if (IsPress(VK_DOWN) == true)
 	{
-		IsPayDone = true;
-
-		if (GetCurSpot()->GetIsUpdateDone() == true)
+		if (CurCoin->State.GetCurStateName() == "Wait")
 		{
-			State.ChangeState("Idle");
-			GetCurSpot()->SetIsUpdateDone(false);
-			return;
-		}
-		else
-		{
-			IsPayDone = false;
-			CreateCoin();
-			return;
+			if (CurCoinCnt + 1 == CurSpot->GetRequiredCoin())
+			{
+				State.ChangeState("Idle");
+				return;
+			}
+			else
+			{
+				CreateCoin();
+				return;
+			}
 		}
 	}
 }

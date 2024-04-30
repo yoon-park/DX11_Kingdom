@@ -89,7 +89,7 @@ void APlayGameMode::BeginPlay()
 		}
 		{
 			std::shared_ptr<AWall> InnerWall = GetWorld()->SpawnActor<AWall>("InnerWall", EObjectOrder::Building);
-			InnerWall->SetActorLocation(InitLocation + float4{ 100.0f, 36.0f, 100.0f });
+			InnerWall->SetActorLocation(InitLocation + float4{ 200.0f, 36.0f, 100.0f });
 		}
 	}
 }

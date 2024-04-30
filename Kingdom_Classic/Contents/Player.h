@@ -23,11 +23,6 @@ public:
 		return IsPaying;
 	}
 
-	bool GetIsPayDone()
-	{
-		return IsPayDone;
-	}
-
 	ASpot* GetCurSpot()
 	{
 		return CurSpot;
@@ -46,11 +41,6 @@ public:
 	void SetIsPaying(bool _IsPaying)
 	{
 		IsPaying = _IsPaying;
-	}
-
-	void SetIsPayDone(bool _IsPayDone)
-	{
-		IsPayDone = _IsPayDone;
 	}
 
 	void ResetCurCoin()
@@ -73,7 +63,6 @@ private:
 	EEngineDir CurDir = EEngineDir::Right;
 	float Speed = 0.0f;
 	bool IsPaying = false;
-	bool IsPayDone = false;
 	bool IsGround = false;
 	EGroundType CurGroundType = EGroundType::Plain;
 	ASpot* CurSpot = nullptr;

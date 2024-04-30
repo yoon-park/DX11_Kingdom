@@ -1,9 +1,9 @@
 #pragma once
 #include "KingdomActor.h"
 
-class ASpot : public AActor
+class ASpot : public AKingdomActor
 {
-	GENERATED_BODY(AActor)
+	GENERATED_BODY(AKingdomActor)
 
 public:
 	ASpot();
@@ -16,13 +16,17 @@ public:
 
 	FVector GetCoinLocation(int _Index)
 	{
-		FVector Location = GetActorLocation() + Renderer_Coins[_Index]->GetLocalPosition();
-		return Location;
+		return Renderer_Coins[_Index]->GetWorldPosition();
 	}
 
-	bool GetIsUpdateDone()
+	bool GetIsUpgradable()
 	{
-		return IsUpdateDone;
+		return IsUpgradable;
+	}
+
+	int GetRequiredCoin()
+	{
+		return RequiredCoin;
 	}
 
 	int GetLeftCoin()
@@ -30,16 +34,11 @@ public:
 		return LeftCoin;
 	}
 
-	void SetIsUpdateDone(bool _IsUpdateDone)
-	{
-		IsUpdateDone = _IsUpdateDone;
-	}
-
 protected:
 	UDefaultSceneComponent* Root;
 	ESpotUpgrade CurTier = ESpotUpgrade::Tier0;
+	bool IsPlayerContact = false;
 	bool IsUpgradable = true;
-	bool IsUpdateDone = false;
 	int RequiredCoin = 1;
 	int LeftCoin = RequiredCoin;
 	UCollision* Collision_Update;
@@ -54,5 +53,4 @@ protected:
 	virtual void Upgrade();
 
 private:
-
 };

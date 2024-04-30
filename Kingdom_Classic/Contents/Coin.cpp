@@ -100,7 +100,7 @@ void ACoin::StateInit()
 		State.SetUpdateFunction("Fall", std::bind(&ACoin::Fall, this, std::placeholders::_1));
 	}
 
-	if (APlayGameMode::MainPlayer->GetCurSpot() != nullptr)
+	if (APlayGameMode::MainPlayer->GetCurSpot()->GetIsUpgradable() == true)
 	{
 		State.ChangeState("PaySpot");
 	}
@@ -172,6 +172,12 @@ void ACoin::PayGround(float _DeltaTime)
 
 void ACoin::Wait(float _DeltaTime)
 {
+	if (APlayGameMode::MainPlayer->GetCurSpot()->GetLeftCoin() == 0)
+	{
+		Destroy();
+		return;
+	}
+
 	if (APlayGameMode::MainPlayer->GetIsPaying() == false)
 	{
 		State.ChangeState("Fall");

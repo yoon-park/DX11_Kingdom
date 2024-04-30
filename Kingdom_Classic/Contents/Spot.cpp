@@ -42,7 +42,8 @@ void ASpot::BeginPlay()
 		Renderer_Coins[i]->SetOrder(ERenderOrder::UI);
 	}
 
-	Upgrade();
+	float4 InitLocation = GetActorLocation();
+	Renderer_Coins[0]->SetPosition(InitLocation + float4({ 0.0f, 0.0f, 0.0f, 0.0f }));
 }
 
 void ASpot::Tick(float _DeltaTime)
@@ -55,6 +56,16 @@ void ASpot::Tick(float _DeltaTime)
 
 void ASpot::CheckPlayer()
 {
+	if (IsUpgradable == false)
+	{
+		for (int i = 0; i < 12; i++)
+		{
+			Renderer_Coins[i]->SetActive(false);
+		}
+
+		return;
+	}
+
 	Collision_Update->CollisionStay(ECollisionOrder::Horse, [=](std::shared_ptr<UCollision> _Collision)
 		{
 			for (int i = 0; i < RequiredCoin; i++)
@@ -62,6 +73,7 @@ void ASpot::CheckPlayer()
 				Renderer_Coins[i]->SetActive(true);
 			}
 
+			IsPlayerContact = true;
 			return;
 		}
 	);
@@ -73,6 +85,7 @@ void ASpot::CheckPlayer()
 				Renderer_Coins[i]->SetActive(false);
 			}
 
+			IsPlayerContact = false;
 			return;
 		}
 	);
@@ -83,16 +96,14 @@ void ASpot::CheckLeftCoin()
 	if (IsUpgradable == true && LeftCoin == 0)
 	{
 		Upgrade();
-		IsUpdateDone = true;
 		return;
 	}
 
-	if (APlayGameMode::MainPlayer->GetIsPaying() == true)
+	if (APlayGameMode::MainPlayer->GetIsPaying() == true && IsPlayerContact == true)
 	{
-		if (APlayGameMode::MainPlayer->GetIsPayDone() == true)
+		if (APlayGameMode::MainPlayer->GetCurCoin()->State.GetCurStateName() == "Wait")
 		{
 			LeftCoin -= 1;
-			APlayGameMode::MainPlayer->SetIsPayDone(false);
 		}
 	}
 	else
@@ -111,37 +122,37 @@ void ASpot::Upgrade()
 	{
 	case 1:
 	{
-		Renderer_Coins[0]->SetPosition(InitLocation + float4({ 0.0f, 0.0f, 0.0f, 0.0f }));
+		Renderer_Coins[0]->SetPosition({ 0.0f, 0.0f, 0.0f, 0.0f });
 		break;
 	}
 	case 3:
 	{
-		Renderer_Coins[0]->SetPosition(InitLocation + float4({ -15.0f, 0.0f, 0.0f, 0.0f }));
-		Renderer_Coins[1]->SetPosition(InitLocation + float4({ 0.0f, 0.0f, 0.0f, 0.0f }));
-		Renderer_Coins[2]->SetPosition(InitLocation + float4({ 15.0f, 0.0f, 0.0f, 0.0f }));
+		Renderer_Coins[0]->SetPosition({ -15.0f, 0.0f, 0.0f, 0.0f });
+		Renderer_Coins[1]->SetPosition({ 0.0f, 0.0f, 0.0f, 0.0f });
+		Renderer_Coins[2]->SetPosition({ 15.0f, 0.0f, 0.0f, 0.0f });
 		break;
 	}
 	case 6:
 	{
-		Renderer_Coins[0]->AddPosition({ -15.0f, 0.0f, 0.0f, 0.0f });
-		Renderer_Coins[1]->AddPosition({ 0.0f, 0.0f, 0.0f, 0.0f });
-		Renderer_Coins[2]->AddPosition({ 15.0f, 0.0f, 0.0f, 0.0f });
-		Renderer_Coins[3]->AddPosition({ -15.0f, 15.0f, 0.0f, 0.0f });
-		Renderer_Coins[4]->AddPosition({ 0.0f, 15.0f, 0.0f, 0.0f });
-		Renderer_Coins[5]->AddPosition({ 15.0f, 15.0f, 0.0f, 0.0f });
+		Renderer_Coins[0]->SetPosition({ -15.0f, 0.0f, 0.0f, 0.0f });
+		Renderer_Coins[1]->SetPosition({ 0.0f, 0.0f, 0.0f, 0.0f });
+		Renderer_Coins[2]->SetPosition({ 15.0f, 0.0f, 0.0f, 0.0f });
+		Renderer_Coins[3]->SetPosition({ -15.0f, 15.0f, 0.0f, 0.0f });
+		Renderer_Coins[4]->SetPosition({ 0.0f, 15.0f, 0.0f, 0.0f });
+		Renderer_Coins[5]->SetPosition({ 15.0f, 15.0f, 0.0f, 0.0f });
 		break;
 	}
 	case 9:
 	{
-		Renderer_Coins[0]->AddPosition({ -20.0f, 0.0f, 0.0f, 0.0f });
-		Renderer_Coins[1]->AddPosition({ -5.0f, 0.0f, 0.0f, 0.0f });
-		Renderer_Coins[2]->AddPosition({ 5.0f, 0.0f, 0.0f, 0.0f });
-		Renderer_Coins[3]->AddPosition({ 20.0f, 0.0f, 0.0f, 0.0f });
-		Renderer_Coins[4]->AddPosition({ -30.0f, 15.0f, 0.0f, 0.0f });
-		Renderer_Coins[5]->AddPosition({ -15.0f, 15.0f, 0.0f, 0.0f });
-		Renderer_Coins[6]->AddPosition({ 0.0f, 15.0f, 0.0f, 0.0f });
-		Renderer_Coins[7]->AddPosition({ 15.0f, 15.0f, 0.0f, 0.0f });
-		Renderer_Coins[8]->AddPosition({ 30.0f, 15.0f, 0.0f, 0.0f });
+		Renderer_Coins[0]->SetPosition({ -23.0f, 0.0f, 0.0f, 0.0f });
+		Renderer_Coins[1]->SetPosition({ -8.0f, 0.0f, 0.0f, 0.0f });
+		Renderer_Coins[2]->SetPosition({ 8.0f, 0.0f, 0.0f, 0.0f });
+		Renderer_Coins[3]->SetPosition({ 23.0f, 0.0f, 0.0f, 0.0f });
+		Renderer_Coins[4]->SetPosition({ -30.0f, 15.0f, 0.0f, 0.0f });
+		Renderer_Coins[5]->SetPosition({ -15.0f, 15.0f, 0.0f, 0.0f });
+		Renderer_Coins[6]->SetPosition({ 0.0f, 15.0f, 0.0f, 0.0f });
+		Renderer_Coins[7]->SetPosition({ 15.0f, 15.0f, 0.0f, 0.0f });
+		Renderer_Coins[8]->SetPosition({ 30.0f, 15.0f, 0.0f, 0.0f });
 		break;
 	}
 	default:
