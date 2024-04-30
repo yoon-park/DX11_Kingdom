@@ -39,11 +39,14 @@
 #include <EngineCore/RenderUnit.h>
 
 #include <EngineCore/Image.h>
+#include <EngineCore/TextWidget.h>
 #include <EngineCore/Widget.h>
 
 #include <EngineCore/Level.h>
 #include <EngineCore/TickObject.h>
 #include <EngineCore/WorldObject.h>
+
+#include <EngineCore/EngineFont.h>
 
 #include <EngineCore/EnginePixelShader.h>
 #include <EngineCore/EngineShader.h>
