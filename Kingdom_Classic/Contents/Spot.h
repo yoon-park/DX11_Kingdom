@@ -14,36 +14,44 @@ public:
 	ASpot& operator=(const ASpot& _Other) = delete;
 	ASpot& operator=(ASpot&& _Other) noexcept = delete;
 
-	FVector GetCoin00Location()
+	FVector GetCoinLocation(int _Index)
 	{
-		FVector Location = GetActorLocation() + Renderer_Coin00->GetLocalPosition();
-
+		FVector Location = GetActorLocation() + Renderer_Coins[_Index]->GetLocalPosition();
 		return Location;
 	}
 
+	bool GetIsUpdateDone()
+	{
+		return IsUpdateDone;
+	}
+
+	int GetLeftCoin()
+	{
+		return LeftCoin;
+	}
+
+	void SetIsUpdateDone(bool _IsUpdateDone)
+	{
+		IsUpdateDone = _IsUpdateDone;
+	}
+
 protected:
-	ESpotUpgrade CurTier = ESpotUpgrade::Tier0;
 	UDefaultSceneComponent* Root;
+	ESpotUpgrade CurTier = ESpotUpgrade::Tier0;
+	bool IsUpgradable = true;
+	bool IsUpdateDone = false;
+	int RequiredCoin = 1;
+	int LeftCoin = RequiredCoin;
 	UCollision* Collision_Update;
 
-	USpriteRenderer* Renderer_Coin00;
-	USpriteRenderer* Renderer_Coin01;
-	USpriteRenderer* Renderer_Coin02;
-	USpriteRenderer* Renderer_Coin03;
-	USpriteRenderer* Renderer_Coin04;
-	USpriteRenderer* Renderer_Coin05;
-	USpriteRenderer* Renderer_Coin06;
-	USpriteRenderer* Renderer_Coin07;
-	USpriteRenderer* Renderer_Coin08;
-	USpriteRenderer* Renderer_Coin09;
-	USpriteRenderer* Renderer_Coin10;
-	USpriteRenderer* Renderer_Coin11;
+	std::vector<USpriteRenderer*> Renderer_Coins;
 
 	void BeginPlay() override;
 	void Tick(float _DeltaTime) override;
 
 	void CheckPlayer();
-	virtual void Upgrade() {};
+	void CheckLeftCoin();
+	virtual void Upgrade();
 
 private:
 

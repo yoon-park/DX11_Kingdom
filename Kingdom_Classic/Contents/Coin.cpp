@@ -149,7 +149,7 @@ void ACoin::PaySpot(float _DeltaTime)
 		return;
 	}
 
-	FVector Indicator_Location = APlayGameMode::MainPlayer->GetCurSpot()->GetCoin00Location();
+	FVector Indicator_Location = APlayGameMode::MainPlayer->GetCurSpot()->GetCoinLocation(APlayGameMode::MainPlayer->GetCurCoinCnt());
 	FVector Coin_Location = GetActorLocation();
 
 	FVector Diff = Indicator_Location - Coin_Location;

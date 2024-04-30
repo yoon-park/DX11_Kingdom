@@ -19,10 +19,10 @@ enum class ESpotUpgrade
 
 enum class EObjectOrder
 {
-	Player,
-	Monster,
 	Back,
 	Building,
+	Player,
+	Monster,
 	Coin
 };
 

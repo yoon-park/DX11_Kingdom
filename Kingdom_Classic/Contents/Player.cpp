@@ -146,6 +146,7 @@ void APlayer::CheckSpot()
 	Collision_Horse_Front->CollisionEnter(ECollisionOrder::Spot, [=](std::shared_ptr<UCollision> _Collision)
 		{
 			CurSpot = dynamic_cast<ASpot*>(_Collision->GetActor());
+			CurSpot->
 			return;
 		}
 	);
@@ -163,6 +164,7 @@ void APlayer::CreateCoin()
 	std::shared_ptr<ACoin> Coin = GetWorld()->SpawnActor<ACoin>("Coin", EObjectOrder::Coin);
 	Coin->SetActorLocation(GetActorLocation() + float4(0.0f, 30.0f, 0.0f));
 	CurCoin = Coin.get();
+	CurCoinCnt += 1;
 }
 
 void APlayer::DebugMessageFunction(float _Delta)
