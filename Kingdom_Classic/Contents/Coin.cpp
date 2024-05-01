@@ -30,7 +30,7 @@ void ACoin::BeginPlay()
 	Super::BeginPlay();
 
 	Renderer->SetAutoSize(1.0f, true);
-	Renderer->SetOrder(ERenderOrder::BackObject);
+	Renderer->SetOrder(ERenderOrder::GroundObject);
 
 	Renderer->CreateAnimation("Stop", "Coin_Pay", 0.10f);
 	Renderer->CreateAnimation("Spin", "Coin_Spin", 0.10f);

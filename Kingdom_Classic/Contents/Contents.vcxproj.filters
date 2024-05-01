@@ -55,7 +55,7 @@
     <ClInclude Include="Coin.h">
       <Filter>PlayLevel\Object\Other</Filter>
     </ClInclude>
-    <ClInclude Include="KingdomActor.h">
+    <ClInclude Include="MovingActor.h">
       <Filter>Actor</Filter>
     </ClInclude>
     <ClInclude Include="Ground_Back.h">
@@ -78,6 +78,9 @@
     </ClInclude>
     <ClInclude Include="NPC.h">
       <Filter>PlayLevel\Actor\NPC</Filter>
+    </ClInclude>
+    <ClInclude Include="Tower.h">
+      <Filter>PlayLevel\Object\Spot</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -132,7 +135,7 @@
     <ClCompile Include="Coin.cpp">
       <Filter>PlayLevel\Object\Other</Filter>
     </ClCompile>
-    <ClCompile Include="KingdomActor.cpp">
+    <ClCompile Include="MovingActor.cpp">
       <Filter>Actor</Filter>
     </ClCompile>
     <ClCompile Include="Ground_Back.cpp">
@@ -158,6 +161,9 @@
     </ClCompile>
     <ClCompile Include="NPC.cpp">
       <Filter>PlayLevel\Actor\NPC</Filter>
+    </ClCompile>
+    <ClCompile Include="Tower.cpp">
+      <Filter>PlayLevel\Object\Spot</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

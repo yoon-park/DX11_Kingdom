@@ -1,32 +1,32 @@
 #include "PreCompile.h"
-#include "Wall.h"
+#include "Tower.h"
 
-AWall::AWall()
+ATower::ATower()
 {
 	Renderer = CreateDefaultSubObject<USpriteRenderer>("Renderer");
 	Renderer->SetupAttachment(Root);
 }
 
-AWall::~AWall()
+ATower::~ATower()
 {
 
 }
 
-void AWall::BeginPlay()
+void ATower::BeginPlay()
 {
 	Super::BeginPlay();
 
-	Renderer->SetSprite("Wall_0.png");
+	Renderer->SetSprite("Tower_0.png");
 	Renderer->SetAutoSize(1.0f, true);
 	Renderer->SetOrder(ERenderOrder::GroundObject);
 }
 
-void AWall::Tick(float _DeltaTime)
+void ATower::Tick(float _DeltaTime)
 {
 	Super::Tick(_DeltaTime);
 }
 
-void AWall::SetCoinIndicator()
+void ATower::SetCoinIndicator()
 {
 	switch (RequiredCoin)
 	{
@@ -70,28 +70,28 @@ void AWall::SetCoinIndicator()
 	}
 }
 
-void AWall::Upgrade()
+void ATower::Upgrade()
 {
 	switch (CurTier)
 	{
 	case ESpotUpgrade::Tier0:
 	{
 		CurTier = ESpotUpgrade::Tier1;
-		Renderer->SetSprite("Wall_1.png");
+		Renderer->SetSprite("Tower_1.png");
 		RequiredCoin = 3;
 		break;
 	}
 	case ESpotUpgrade::Tier1:
 	{
 		CurTier = ESpotUpgrade::Tier2;
-		Renderer->SetSprite("Wall_2.png");
+		Renderer->SetSprite("Tower_2.png");
 		RequiredCoin = 6;
 		break;
 	}
 	case ESpotUpgrade::Tier2:
 	{
 		CurTier = ESpotUpgrade::Tier3;
-		Renderer->SetSprite("Wall_3.png");
+		Renderer->SetSprite("Tower_3.png");
 		RequiredCoin = 0;
 		IsUpgradable = false;
 		break;

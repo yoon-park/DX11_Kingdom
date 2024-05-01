@@ -1,9 +1,8 @@
 #pragma once
-#include "KingdomActor.h"
 
-class ASpot : public AKingdomActor
+class ASpot : public AActor
 {
-	GENERATED_BODY(AKingdomActor)
+	GENERATED_BODY(AActor)
 
 public:
 	ASpot();
@@ -34,8 +33,6 @@ public:
 		return LeftCoin;
 	}
 
-	void SetCoinIndicator();
-
 protected:
 	UDefaultSceneComponent* Root;
 	ESpotUpgrade CurTier = ESpotUpgrade::Tier0;
@@ -52,6 +49,8 @@ protected:
 
 	void CheckPlayer();
 	void CheckLeftCoin();
+
+	virtual void SetCoinIndicator();
 	virtual void Upgrade();
 
 private:

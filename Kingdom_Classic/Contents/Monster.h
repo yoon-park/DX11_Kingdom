@@ -1,9 +1,9 @@
 #pragma once
-#include "KingdomActor.h"
+#include "MovingActor.h"
 
-class AMonster : public AKingdomActor
+class AMonster : public AMovingActor
 {
-	GENERATED_BODY(AKingdomActor)
+	GENERATED_BODY(AMovingActor)
 
 public:
 	AMonster();
@@ -21,7 +21,7 @@ protected:
 	void BeginPlay() override;
 	void Tick(float _DeltaTime) override;
 
-	void ChangeDir(EEngineDir _Dir);
+	void ChangeDir(EEngineDir _Dir) override;
 
 private:
 

@@ -1,9 +1,9 @@
 #pragma once
-#include "KingdomActor.h"
+#include "MovingActor.h"
 
-class ANPC : public AKingdomActor
+class ANPC : public AMovingActor
 {
-	GENERATED_BODY(AKingdomActor)
+	GENERATED_BODY(AMovingActor)
 
 public:
 	ANPC();

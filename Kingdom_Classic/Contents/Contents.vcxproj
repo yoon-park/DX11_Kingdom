@@ -219,7 +219,7 @@
       <SubType>
       </SubType>
     </ClInclude>
-    <ClInclude Include="KingdomActor.h">
+    <ClInclude Include="MovingActor.h">
       <SubType>
       </SubType>
     </ClInclude>
@@ -264,6 +264,10 @@
       </SubType>
     </ClInclude>
     <ClInclude Include="TitleLogo.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="Tower.h">
       <SubType>
       </SubType>
     </ClInclude>
@@ -321,7 +325,7 @@
       <SubType>
       </SubType>
     </ClCompile>
-    <ClCompile Include="KingdomActor.cpp">
+    <ClCompile Include="MovingActor.cpp">
       <SubType>
       </SubType>
     </ClCompile>
@@ -371,6 +375,10 @@
       </SubType>
     </ClCompile>
     <ClCompile Include="TitleLogo.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="Tower.cpp">
       <SubType>
       </SubType>
     </ClCompile>

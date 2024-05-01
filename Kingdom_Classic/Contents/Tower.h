@@ -1,18 +1,18 @@
 #pragma once
 #include "Spot.h"
 
-class AWall : public ASpot
+class ATower : public ASpot
 {
 	GENERATED_BODY(ASpot)
 
 public:
-	AWall();
-	~AWall();
+	ATower();
+	~ATower();
 
-	AWall(const AWall& _Other) = delete;
-	AWall(AWall&& _Other) noexcept = delete;
-	AWall& operator=(const AWall& _Other) = delete;
-	AWall& operator=(AWall&& _Other) noexcept = delete;
+	ATower(const ATower& _Other) = delete;
+	ATower(ATower&& _Other) noexcept = delete;
+	ATower& operator=(const ATower& _Other) = delete;
+	ATower& operator=(ATower&& _Other) noexcept = delete;
 
 protected:
 	void BeginPlay() override;

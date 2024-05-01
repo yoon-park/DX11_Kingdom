@@ -1,9 +1,9 @@
 #pragma once
-#include "KingdomActor.h"
+#include "MovingActor.h"
 
-class ACoin : public AKingdomActor
+class ACoin : public AMovingActor
 {
-	GENERATED_BODY(AKingdomActor)
+	GENERATED_BODY(AMovingActor)
 
 public:
 	ACoin();
@@ -23,9 +23,6 @@ protected:
 private:
 	USpriteRenderer* Renderer;
 	UCollision* Collision;
-	float Speed = 0.0f;
-	bool IsGround = false;
-	EGroundType CurGroundType = EGroundType::Plain;
 
 	void CheckGround() override;
 

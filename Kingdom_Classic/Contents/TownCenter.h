@@ -22,5 +22,6 @@ private:
 	USpriteRenderer* Renderer_Castle;
 	USpriteRenderer* Renderer_Campfire;
 
+	void SetCoinIndicator() override;
 	void Upgrade() override;
 };

@@ -1,11 +1,11 @@
 #pragma once
-#include "KingdomActor.h"
+#include "MovingActor.h"
 #include "Spot.h"
 #include "Coin.h"
 
-class APlayer : public AKingdomActor
+class APlayer : public AMovingActor
 {
-	GENERATED_BODY(AKingdomActor)
+	GENERATED_BODY(AMovingActor)
 
 public:
 	APlayer();
@@ -59,10 +59,7 @@ private:
 	UCollision* Collision_Player;
 	UCollision* Collision_Horse_Front;
 
-	float Speed = 0.0f;
 	bool IsPaying = false;
-	bool IsGround = false;
-	EGroundType CurGroundType = EGroundType::Plain;
 	ASpot* CurSpot = nullptr;
 	ACoin* CurCoin = nullptr;
 	int CurCoinCnt = -1;

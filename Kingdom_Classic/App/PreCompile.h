@@ -4,7 +4,7 @@
 
 #include <Contents/ContentsCore.h>
 
-#include <Contents/KingdomActor.h>
+#include <Contents/MovingActor.h>
 
 #include <Contents/Monster.h>
 #include <Contents/Player.h>

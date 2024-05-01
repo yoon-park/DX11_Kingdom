@@ -1,6 +1,7 @@
 #pragma once
 
 class APlayer;
+class ATownCenter;
 
 class APlayGameMode : public AGameMode
 {
@@ -16,6 +17,7 @@ public:
 	APlayGameMode& operator=(APlayGameMode&& _Other) noexcept = delete;
 
 	static std::shared_ptr<APlayer> MainPlayer;
+	static std::shared_ptr<ATownCenter> MyKingdom;
 
 protected:
 	void SetMainPlayer(std::shared_ptr<APlayer> _Player);

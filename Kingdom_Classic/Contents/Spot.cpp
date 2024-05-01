@@ -83,7 +83,7 @@ void ASpot::BeginPlay()
 	{
 		Renderer_Coins[i]->SetSprite("Coin_Indicator.png");
 		Renderer_Coins[i]->SetAutoSize(1.0f, true);
-		Renderer_Coins[i]->SetOrder(ERenderOrder::BackObject);
+		Renderer_Coins[i]->SetOrder(ERenderOrder::UI);
 	}
 
 	SetCoinIndicator();
