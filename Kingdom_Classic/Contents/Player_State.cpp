@@ -79,7 +79,12 @@ void APlayer::PayStart()
 	*/
 
 	IsPaying = true;
-	CurLeftCoin = GetCurSpot()->GetLeftCoin();
+	
+	if (CurSpot != nullptr)
+	{
+		CurLeftCoin = GetCurSpot()->GetLeftCoin();
+	}
+
 	CreateCoin();
 }
 

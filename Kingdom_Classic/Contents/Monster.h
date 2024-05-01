@@ -15,6 +15,13 @@ public:
 	AMonster& operator=(AMonster&& _Other) noexcept = delete;
 
 protected:
+	USpriteRenderer* Renderer;
+	UCollision* Collision;
+
+	void BeginPlay() override;
+	void Tick(float _DeltaTime) override;
+
+	void ChangeDir(EEngineDir _Dir);
 
 private:
 

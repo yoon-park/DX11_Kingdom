@@ -1,7 +1,7 @@
 #include "PreCompile.h"
-#include "Monster.h"
+#include "NPC.h"
 
-AMonster::AMonster()
+ANPC::ANPC()
 {
 	UDefaultSceneComponent* Root = CreateDefaultSubObject<UDefaultSceneComponent>("Renderer");
 
@@ -13,22 +13,22 @@ AMonster::AMonster()
 	Collision->SetupAttachment(Root);
 }
 
-AMonster::~AMonster()
+ANPC::~ANPC()
 {
 
 }
 
-void AMonster::BeginPlay()
+void ANPC::BeginPlay()
 {
 	Super::BeginPlay();
 }
 
-void AMonster::Tick(float _DeltaTime)
+void ANPC::Tick(float _DeltaTime)
 {
 	Super::Tick(_DeltaTime);
 }
 
-void AMonster::ChangeDir(EEngineDir _Dir)
+void ANPC::ChangeDir(EEngineDir _Dir)
 {
 	Super::ChangeDir(_Dir);
 

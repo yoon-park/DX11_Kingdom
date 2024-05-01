@@ -44,6 +44,7 @@ enum class ERenderOrder
 	Back1,
 	Back0,
 	BackObject,
+	Coin,
 	Player,
 	GroundObject,
 	Ground,

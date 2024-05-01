@@ -30,7 +30,7 @@ void ACoin::BeginPlay()
 	Super::BeginPlay();
 
 	Renderer->SetAutoSize(1.0f, true);
-	Renderer->SetOrder(ERenderOrder::UI);
+	Renderer->SetOrder(ERenderOrder::BackObject);
 
 	Renderer->CreateAnimation("Stop", "Coin_Pay", 0.10f);
 	Renderer->CreateAnimation("Spin", "Coin_Spin", 0.10f);
@@ -100,14 +100,24 @@ void ACoin::StateInit()
 		State.SetUpdateFunction("Fall", std::bind(&ACoin::Fall, this, std::placeholders::_1));
 	}
 
-	if (APlayGameMode::MainPlayer->GetCurSpot()->GetIsUpgradable() == true)
-	{
-		State.ChangeState("PaySpot");
-	}
-	else
+	ASpot* CurSpot = APlayGameMode::MainPlayer->GetCurSpot();
+
+	if (CurSpot == nullptr)
 	{
 		State.ChangeState("PayGround");
 	}
+	else
+	{
+		if (CurSpot->GetIsUpgradable() == true)
+		{
+			State.ChangeState("PaySpot");
+		}
+		else
+		{
+			State.ChangeState("PayGround");
+		}
+	}
+		
 }
 
 void ACoin::IdleStart()
@@ -167,7 +177,13 @@ void ACoin::PaySpot(float _DeltaTime)
 
 void ACoin::PayGround(float _DeltaTime)
 {
+	if (IsGround == true)
+	{
+		State.ChangeState("Idle");
+		return;
+	}
 
+	AddActorLocation(FVector::Down * _DeltaTime * Speed);
 }
 
 void ACoin::Wait(float _DeltaTime)
@@ -194,6 +210,4 @@ void ACoin::Fall (float _DeltaTime)
 	}
 
 	AddActorLocation(FVector::Down * _DeltaTime * Speed);
-
-	/* ¹Ù´Ú¿¡ ¶³¾îÁ® ground¿Í ÇÈ¼¿Ãæµ¹ °Ë»ç */
 }

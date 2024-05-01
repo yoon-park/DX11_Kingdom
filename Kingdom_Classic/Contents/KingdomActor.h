@@ -14,6 +14,9 @@ public:
 	AKingdomActor& operator=(AKingdomActor&& _Other) noexcept = delete;
 
 protected:
+	EEngineDir PrevDir = EEngineDir::Right;
+	EEngineDir CurDir = EEngineDir::Right;
+
 	void BeginPlay() override;
 	void Tick(float _DeltaTime) override;
 

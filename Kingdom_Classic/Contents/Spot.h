@@ -34,6 +34,8 @@ public:
 		return LeftCoin;
 	}
 
+	void SetCoinIndicator();
+
 protected:
 	UDefaultSceneComponent* Root;
 	ESpotUpgrade CurTier = ESpotUpgrade::Tier0;

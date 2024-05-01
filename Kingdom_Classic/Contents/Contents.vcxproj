@@ -183,6 +183,10 @@
       <SubType>
       </SubType>
     </ClInclude>
+    <ClInclude Include="Breeder.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="Coin.h">
       <SubType>
       </SubType>
@@ -196,6 +200,14 @@
       </SubType>
     </ClInclude>
     <ClInclude Include="ContentsEnum.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="Floater.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="Greedling.h">
       <SubType>
       </SubType>
     </ClInclude>
@@ -220,6 +232,10 @@
       </SubType>
     </ClInclude>
     <ClInclude Include="Back2.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="NPC.h">
       <SubType>
       </SubType>
     </ClInclude>
@@ -273,6 +289,10 @@
       <SubType>
       </SubType>
     </ClCompile>
+    <ClCompile Include="Breeder.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
     <ClCompile Include="Coin.cpp">
       <SubType>
       </SubType>
@@ -282,6 +302,14 @@
       </SubType>
     </ClCompile>
     <ClCompile Include="ContentsCore.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="Floater.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="Greedling.cpp">
       <SubType>
       </SubType>
     </ClCompile>
@@ -306,6 +334,10 @@
       </SubType>
     </ClCompile>
     <ClCompile Include="Back2.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="NPC.cpp">
       <SubType>
       </SubType>
     </ClCompile>
