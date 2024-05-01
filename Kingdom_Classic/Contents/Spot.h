@@ -13,9 +13,11 @@ public:
 	ASpot& operator=(const ASpot& _Other) = delete;
 	ASpot& operator=(ASpot&& _Other) noexcept = delete;
 
-	FVector GetCoinLocation(int _Index)
+	UStateManager State;
+
+	ESpotUpgrade GetCurTier()
 	{
-		return Renderer_Coins[_Index]->GetWorldPosition();
+		return CurTier;
 	}
 
 	bool GetIsUpgradable()
@@ -33,14 +35,21 @@ public:
 		return LeftCoin;
 	}
 
+	FVector GetCoinLocation(int _Index)
+	{
+		return Renderer_Coins[_Index]->GetWorldPosition();
+	}
+
 protected:
 	UDefaultSceneComponent* Root;
+	UCollision* Collision_Update;
+
 	ESpotUpgrade CurTier = ESpotUpgrade::Tier0;
 	bool IsPlayerContact = false;
 	bool IsUpgradable = true;
+	bool SkipUpgradeProgress = false;
 	int RequiredCoin = 1;
 	int LeftCoin = RequiredCoin;
-	UCollision* Collision_Update;
 
 	std::vector<USpriteRenderer*> Renderer_Coins;
 
@@ -50,8 +59,22 @@ protected:
 	void CheckPlayer();
 	void CheckLeftCoin();
 
-	virtual void SetCoinIndicator();
-	virtual void Upgrade();
+	void SetCoinIndicatorActive(bool _Active, int _CoinNum = 12);
+	virtual void SetCoinIndicatorLocation() {};
+	virtual void SettingUpgrade() {};
+
+	// State
+	virtual void StateInit();
+
+	virtual void InactiveIdleStart();
+	virtual void ActiveIdleStart();
+	virtual void UpgradeStart();
+	virtual void UpgradeDoneStart();
+
+	virtual void InactiveIdle(float _DeltaTime);
+	virtual void ActiveIdle(float _DeltaTime);
+	virtual void Upgrade(float _DeltaTime);
+	virtual void UpgradeDone(float _DeltaTime);
 
 private:
 };

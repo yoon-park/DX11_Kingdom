@@ -23,6 +23,7 @@ protected:
 private:
 	USpriteRenderer* Renderer;
 	UCollision* Collision;
+	float Alpha = 1.0f;
 
 	void CheckGround() override;
 
@@ -39,4 +40,5 @@ private:
 	void PayGround(float _DeltaTime);
 	void Wait(float _DeltaTime);
 	void Fall(float _DeltaTime);
+	void Disappear(float _DeltaTime);
 };

@@ -31,47 +31,21 @@ ASpot::~ASpot()
 
 }
 
-void ASpot::SetCoinIndicator()
+void ASpot::SetCoinIndicatorActive(bool _Active, int CoinNum)
 {
-	switch (RequiredCoin)
+	if (_Active == true)
 	{
-	case 1:
-	{
-		Renderer_Coins[0]->SetPosition({ 0.0f, 0.0f, 0.0f, 0.0f });
-		break;
+		for (int i = 0; i < CoinNum; i++)
+		{
+			Renderer_Coins[i]->SetActive(true);
+		}
 	}
-	case 3:
+	else
 	{
-		Renderer_Coins[0]->SetPosition({ -15.0f, 0.0f, 0.0f, 0.0f });
-		Renderer_Coins[1]->SetPosition({ 0.0f, 0.0f, 0.0f, 0.0f });
-		Renderer_Coins[2]->SetPosition({ 15.0f, 0.0f, 0.0f, 0.0f });
-		break;
-	}
-	case 6:
-	{
-		Renderer_Coins[0]->SetPosition({ -15.0f, 0.0f, 0.0f, 0.0f });
-		Renderer_Coins[1]->SetPosition({ 0.0f, 0.0f, 0.0f, 0.0f });
-		Renderer_Coins[2]->SetPosition({ 15.0f, 0.0f, 0.0f, 0.0f });
-		Renderer_Coins[3]->SetPosition({ -15.0f, 15.0f, 0.0f, 0.0f });
-		Renderer_Coins[4]->SetPosition({ 0.0f, 15.0f, 0.0f, 0.0f });
-		Renderer_Coins[5]->SetPosition({ 15.0f, 15.0f, 0.0f, 0.0f });
-		break;
-	}
-	case 9:
-	{
-		Renderer_Coins[0]->SetPosition({ -23.0f, 0.0f, 0.0f, 0.0f });
-		Renderer_Coins[1]->SetPosition({ -8.0f, 0.0f, 0.0f, 0.0f });
-		Renderer_Coins[2]->SetPosition({ 8.0f, 0.0f, 0.0f, 0.0f });
-		Renderer_Coins[3]->SetPosition({ 23.0f, 0.0f, 0.0f, 0.0f });
-		Renderer_Coins[4]->SetPosition({ -30.0f, 15.0f, 0.0f, 0.0f });
-		Renderer_Coins[5]->SetPosition({ -15.0f, 15.0f, 0.0f, 0.0f });
-		Renderer_Coins[6]->SetPosition({ 0.0f, 15.0f, 0.0f, 0.0f });
-		Renderer_Coins[7]->SetPosition({ 15.0f, 15.0f, 0.0f, 0.0f });
-		Renderer_Coins[8]->SetPosition({ 30.0f, 15.0f, 0.0f, 0.0f });
-		break;
-	}
-	default:
-		break;
+		for (int i = 0; i < CoinNum; i++)
+		{
+			Renderer_Coins[i]->SetActive(false);
+		}
 	}
 }
 
@@ -86,49 +60,31 @@ void ASpot::BeginPlay()
 		Renderer_Coins[i]->SetOrder(ERenderOrder::UI);
 	}
 
-	SetCoinIndicator();
+	StateInit();
+	SetCoinIndicatorLocation();
 }
 
 void ASpot::Tick(float _DeltaTime)
 {
 	Super::Tick(_DeltaTime);
 
-	CheckPlayer();
-	CheckLeftCoin();
+	State.Update(_DeltaTime);
 }
 
 void ASpot::CheckPlayer()
 {
-	if (IsUpgradable == false)
-	{
-		for (int i = 0; i < 12; i++)
-		{
-			Renderer_Coins[i]->SetActive(false);
-		}
-
-		return;
-	}
-
 	Collision_Update->CollisionStay(ECollisionOrder::Horse, [=](std::shared_ptr<UCollision> _Collision)
 		{
-			for (int i = 0; i < RequiredCoin; i++)
-			{
-				Renderer_Coins[i]->SetActive(true);
-			}
-
 			IsPlayerContact = true;
+			SetCoinIndicatorActive(true, RequiredCoin);
 			return;
 		}
 	);
 
 	Collision_Update->CollisionExit(ECollisionOrder::Horse, [=](std::shared_ptr<UCollision> _Collision)
 		{
-			for (int i = 0; i < 12; i++)
-			{
-				Renderer_Coins[i]->SetActive(false);
-			}
-
 			IsPlayerContact = false;
+			SetCoinIndicatorActive(false);
 			return;
 		}
 	);
@@ -136,18 +92,13 @@ void ASpot::CheckPlayer()
 
 void ASpot::CheckLeftCoin()
 {
-	if (IsUpgradable == true && LeftCoin == 0)
+	if (
+		IsPlayerContact == true &&
+		APlayGameMode::MainPlayer->GetIsPaying() == true &&
+		APlayGameMode::MainPlayer->GetCurCoin()->State.GetCurStateName() == "Wait"
+		)
 	{
-		Upgrade();
-		return;
-	}
-
-	if (APlayGameMode::MainPlayer->GetIsPaying() == true && IsPlayerContact == true)
-	{
-		if (APlayGameMode::MainPlayer->GetCurCoin()->State.GetCurStateName() == "Wait")
-		{
-			LeftCoin -= 1;
-		}
+		LeftCoin -= 1;
 	}
 	else
 	{
@@ -155,9 +106,89 @@ void ASpot::CheckLeftCoin()
 	}
 }
 
-void ASpot::Upgrade()
+void ASpot::StateInit()
 {
-	LeftCoin = RequiredCoin;
+	{
+		State.CreateState("InactiveIdle");
+		State.SetStartFunction("InactiveIdle", std::bind(&ASpot::InactiveIdleStart, this));
+		State.SetUpdateFunction("InactiveIdle", std::bind(&ASpot::InactiveIdle, this, std::placeholders::_1));
 
-	SetCoinIndicator();
+		State.CreateState("ActiveIdle");
+		State.SetStartFunction("ActiveIdle", std::bind(&ASpot::ActiveIdleStart, this));
+		State.SetUpdateFunction("ActiveIdle", std::bind(&ASpot::ActiveIdle, this, std::placeholders::_1));
+
+		State.CreateState("Upgrade");
+		State.SetStartFunction("Upgrade", std::bind(&ASpot::UpgradeStart, this));
+		State.SetUpdateFunction("Upgrade", std::bind(&ASpot::Upgrade, this, std::placeholders::_1));
+
+		State.CreateState("UpgradeDone");
+		State.SetStartFunction("UpgradeDone", std::bind(&ASpot::UpgradeDoneStart, this));
+		State.SetUpdateFunction("UpgradeDone", std::bind(&ASpot::UpgradeDone, this, std::placeholders::_1));
+	}
+
+	State.ChangeState("InactiveIdle");
+}
+
+void ASpot::InactiveIdleStart()
+{
+	SetCoinIndicatorActive(false);
+}
+
+void ASpot::ActiveIdleStart()
+{
+	SetCoinIndicatorActive(true, RequiredCoin);
+}
+
+void ASpot::UpgradeStart()
+{
+
+}
+
+void ASpot::UpgradeDoneStart()
+{
+	SettingUpgrade();
+	SetCoinIndicatorLocation();
+
+	LeftCoin = RequiredCoin;
+}
+
+void ASpot::InactiveIdle(float _DeltaTime)
+{
+	if (IsPlayerContact == true && IsUpgradable == true)
+	{
+		State.ChangeState("ActiveIdle");
+		return;
+	}
+
+	CheckPlayer();
+}
+
+void ASpot::ActiveIdle(float _DeltaTime)
+{
+	if (LeftCoin == 0 && IsUpgradable == true)
+	{
+		if (SkipUpgradeProgress == true)
+		{
+			State.ChangeState("UpgradeDone");
+			return;
+		}
+
+		State.ChangeState("Upgrade");
+		return;
+	}
+
+	CheckPlayer();
+	CheckLeftCoin();
+}
+
+void ASpot::Upgrade(float _DeltaTime)
+{
+	State.ChangeState("UpgradeDone");
+	return;
+}
+
+void ASpot::UpgradeDone(float _DeltaTime)
+{
+	State.ChangeState("InactiveIdle");
+	return;
 }

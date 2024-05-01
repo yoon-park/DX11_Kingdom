@@ -98,6 +98,9 @@ void ACoin::StateInit()
 		State.CreateState("Fall");
 		State.SetStartFunction("Fall", std::bind(&ACoin::FallStart, this));
 		State.SetUpdateFunction("Fall", std::bind(&ACoin::Fall, this, std::placeholders::_1));
+
+		State.CreateState("Disappear");
+		State.SetUpdateFunction("Disappear", std::bind(&ACoin::Disappear, this, std::placeholders::_1));
 	}
 
 	ASpot* CurSpot = APlayGameMode::MainPlayer->GetCurSpot();
@@ -129,7 +132,7 @@ void ACoin::PaySpotStart()
 {
 	Renderer->ChangeAnimation("Stop");
 
-	Speed = 100.0f;
+	Speed = 150.0f;
 }
 
 void ACoin::PayGroundStart()
@@ -190,7 +193,7 @@ void ACoin::Wait(float _DeltaTime)
 {
 	if (APlayGameMode::MainPlayer->GetCurSpot()->GetLeftCoin() == 0)
 	{
-		Destroy();
+		State.ChangeState("Disappear");
 		return;
 	}
 
@@ -201,7 +204,7 @@ void ACoin::Wait(float _DeltaTime)
 	}
 }
 
-void ACoin::Fall (float _DeltaTime)
+void ACoin::Fall(float _DeltaTime)
 {
 	if (IsGround == true)
 	{
@@ -210,4 +213,16 @@ void ACoin::Fall (float _DeltaTime)
 	}
 
 	AddActorLocation(FVector::Down * _DeltaTime * Speed);
+}
+
+void ACoin::Disappear(float _DeltaTime)
+{
+	if (Alpha < 0.0f)
+	{
+		Destroy();
+		return;
+	}
+
+	Alpha -= _DeltaTime * 5;
+	Renderer->SetMulColor(float4(1.0f, 1.0f, 1.0f, Alpha));
 }

@@ -26,7 +26,7 @@ void AWall::Tick(float _DeltaTime)
 	Super::Tick(_DeltaTime);
 }
 
-void AWall::SetCoinIndicator()
+void AWall::SetCoinIndicatorLocation()
 {
 	switch (RequiredCoin)
 	{
@@ -70,7 +70,7 @@ void AWall::SetCoinIndicator()
 	}
 }
 
-void AWall::Upgrade()
+void AWall::SettingUpgrade()
 {
 	switch (CurTier)
 	{
@@ -99,6 +99,4 @@ void AWall::Upgrade()
 	default:
 		break;
 	}
-
-	Super::Upgrade();
 }

@@ -21,6 +21,6 @@ protected:
 private:
 	USpriteRenderer* Renderer;
 
-	void SetCoinIndicator() override;
-	void Upgrade() override;
+	void SetCoinIndicatorLocation() override;
+	void SettingUpgrade() override;
 };

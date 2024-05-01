@@ -17,7 +17,7 @@
 #include "Wall.h"
 
 std::shared_ptr<APlayer> APlayGameMode::MainPlayer = nullptr;
-std::shared_ptr<ATownCenter> MyKingdom = nullptr;
+//std::shared_ptr<ATownCenter> MyKingdom = nullptr;
 
 APlayGameMode::APlayGameMode()
 {
@@ -33,6 +33,11 @@ void APlayGameMode::SetMainPlayer(std::shared_ptr<APlayer> _Player)
 {
 	MainPlayer = _Player;
 }
+
+//void APlayGameMode::SetMyKingdom(std::shared_ptr<ATownCenter> _MyKingdom)
+//{
+//	MyKingdom = _MyKingdom;
+//}
 
 void APlayGameMode::BeginPlay()
 {
@@ -87,6 +92,7 @@ void APlayGameMode::BeginPlay()
 		{
 			std::shared_ptr<ATownCenter> TownCenter = GetWorld()->SpawnActor<ATownCenter>("TownCenter", EObjectOrder::Building);
 			TownCenter->SetActorLocation(InitLocation + float4{ 0.0f, 84.0f, 100.0f });
+			//SetMyKingdom(TownCenter);
 		}
 		{
 			std::shared_ptr<AWall> InnerWall = GetWorld()->SpawnActor<AWall>("InnerWall", EObjectOrder::Building);

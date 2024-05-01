@@ -8,6 +8,8 @@ ATownCenter::ATownCenter()
 
 	Renderer_Campfire = CreateDefaultSubObject<USpriteRenderer>("Renderer");
 	Renderer_Campfire->SetupAttachment(Root);
+
+	SkipUpgradeProgress = true;
 }
 
 ATownCenter::~ATownCenter()
@@ -36,7 +38,7 @@ void ATownCenter::Tick(float _DeltaTime)
 	Super::Tick(_DeltaTime);
 }
 
-void ATownCenter::SetCoinIndicator()
+void ATownCenter::SetCoinIndicatorLocation()
 {
 	switch (RequiredCoin)
 	{
@@ -80,7 +82,7 @@ void ATownCenter::SetCoinIndicator()
 	}
 }
 
-void ATownCenter::Upgrade()
+void ATownCenter::SettingUpgrade()
 {
 	switch (CurTier)
 	{
@@ -97,6 +99,7 @@ void ATownCenter::Upgrade()
 		Renderer_Castle->SetSprite("TownCenter_02.png");
 		Renderer_Campfire->SetSprite("Campfire_02.png");
 		RequiredCoin = 6;
+		SkipUpgradeProgress = false;
 		break;
 	}
 	case ESpotUpgrade::Tier2:
@@ -118,6 +121,4 @@ void ATownCenter::Upgrade()
 	default:
 		break;
 	}
-
-	Super::Upgrade();
 }

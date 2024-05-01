@@ -26,7 +26,7 @@ void ATower::Tick(float _DeltaTime)
 	Super::Tick(_DeltaTime);
 }
 
-void ATower::SetCoinIndicator()
+void ATower::SetCoinIndicatorLocation()
 {
 	switch (RequiredCoin)
 	{
@@ -70,7 +70,7 @@ void ATower::SetCoinIndicator()
 	}
 }
 
-void ATower::Upgrade()
+void ATower::SettingUpgrade()
 {
 	switch (CurTier)
 	{
@@ -99,6 +99,4 @@ void ATower::Upgrade()
 	default:
 		break;
 	}
-
-	Super::Upgrade();
 }
