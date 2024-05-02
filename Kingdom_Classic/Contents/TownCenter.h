@@ -19,8 +19,10 @@ protected:
 	void Tick(float _DeltaTime) override;
 
 private:
-	USpriteRenderer* Renderer_Castle;
 	USpriteRenderer* Renderer_Campfire;
+	USpriteRenderer* Renderer_Banner;
+	USpriteRenderer* Renderer_Castle;
+	std::vector<USpriteRenderer*> Renderer_Walls;
 
 	void SetCoinIndicatorLocation() override;
 	void SettingUpgrade() override;

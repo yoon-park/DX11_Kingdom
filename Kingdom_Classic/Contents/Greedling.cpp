@@ -4,8 +4,6 @@
 AGreedling::AGreedling()
 {
 	Collision->SetScale(FVector(12.0f, 27.0f, 100.0f));
-	Collision->SetCollisionGroup(ECollisionOrder::Monster);
-	Collision->SetCollisionType(ECollisionType::Rect);
 }
 
 AGreedling::~AGreedling()

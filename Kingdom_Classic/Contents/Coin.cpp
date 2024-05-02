@@ -77,6 +77,30 @@ void ACoin::CheckGround()
 	}
 }
 
+void ACoin::CheckAbsorb()
+{
+	Collision->CollisionEnter(ECollisionOrder::NPC, [=](std::shared_ptr<UCollision> _Collision)
+		{
+			AbsorbOwner = dynamic_cast<AMovingActor*>(_Collision->GetActor());
+			return;
+		}
+	);
+
+	Collision->CollisionEnter(ECollisionOrder::Horse, [=](std::shared_ptr<UCollision> _Collision)
+		{
+			AbsorbOwner = dynamic_cast<AMovingActor*>(_Collision->GetActor());
+			return;
+		}
+	);
+
+	Collision->CollisionEnter(ECollisionOrder::Monster, [=](std::shared_ptr<UCollision> _Collision)
+		{
+			AbsorbOwner = dynamic_cast<AMovingActor*>(_Collision->GetActor());
+			return;
+		}
+	);
+}
+
 void ACoin::StateInit()
 {
 	{
@@ -101,6 +125,9 @@ void ACoin::StateInit()
 
 		State.CreateState("Disappear");
 		State.SetUpdateFunction("Disappear", std::bind(&ACoin::Disappear, this, std::placeholders::_1));
+
+		State.CreateState("Absorb");
+		State.SetUpdateFunction("Absorb", std::bind(&ACoin::Absorb, this, std::placeholders::_1));
 	}
 
 	ASpot* CurSpot = APlayGameMode::MainPlayer->GetCurSpot();
@@ -120,7 +147,6 @@ void ACoin::StateInit()
 			State.ChangeState("PayGround");
 		}
 	}
-		
 }
 
 void ACoin::IdleStart()
@@ -131,27 +157,29 @@ void ACoin::IdleStart()
 void ACoin::PaySpotStart()
 {
 	Renderer->ChangeAnimation("Stop");
-
 	Speed = 150.0f;
 }
 
 void ACoin::PayGroundStart()
 {
 	Renderer->ChangeAnimation("Spin");
-
-	Speed = 100.0f;
+	Speed = 150.0f;
 }
 
 void ACoin::FallStart()
 {
 	Renderer->ChangeAnimation("Stop");
-
-	Speed = 150.0f;
 }
 
 void ACoin::Idle(float _DeltaTime)
 {
-	/* Player, Npc, Monster와 충돌 시 흡수 */
+	if (AbsorbOwner != nullptr)
+	{
+		State.ChangeState("Absorb");
+		return;
+	}
+
+	CheckAbsorb();
 }
 
 void ACoin::PaySpot(float _DeltaTime)
@@ -162,7 +190,7 @@ void ACoin::PaySpot(float _DeltaTime)
 		return;
 	}
 
-	FVector Indicator_Location = APlayGameMode::MainPlayer->GetCurSpot()->GetCoinLocation(APlayGameMode::MainPlayer->GetCurCoinCnt());
+	FVector Indicator_Location = APlayGameMode::MainPlayer->GetCurSpot()->GetCoinLocation(APlayGameMode::MainPlayer->GetCurCoinIndex());
 	FVector Coin_Location = GetActorLocation();
 
 	FVector Diff = Indicator_Location - Coin_Location;
@@ -225,4 +253,23 @@ void ACoin::Disappear(float _DeltaTime)
 
 	Alpha -= _DeltaTime * 5;
 	Renderer->SetMulColor(float4(1.0f, 1.0f, 1.0f, Alpha));
+}
+
+void ACoin::Absorb(float _DeltaTime)
+{
+	FVector Coin_Location = GetActorLocation();
+	FVector Owner_Location = AbsorbOwner->GetActorLocation();
+	Owner_Location.Y += 20.0f;
+
+	FVector Diff = Owner_Location - Coin_Location;
+
+	if (Diff.Size3D() <= 0.1f)
+	{
+		Destroy();
+		return;
+	}
+
+	FVector Dir = Diff.Normalize3DReturn();
+
+	AddActorLocation(Dir * _DeltaTime * Speed);
 }

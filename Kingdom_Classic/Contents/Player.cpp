@@ -163,7 +163,7 @@ void APlayer::CreateCoin()
 	std::shared_ptr<ACoin> Coin = GetWorld()->SpawnActor<ACoin>("Coin", EObjectOrder::Coin);
 	Coin->SetActorLocation(GetActorLocation() + float4(0.0f, 30.0f, 0.0f));
 	CurCoin = Coin.get();
-	CurCoinCnt += 1;
+	CurCoinIndex += 1;
 }
 
 void APlayer::DebugMessageFunction(float _Delta)

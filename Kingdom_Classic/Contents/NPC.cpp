@@ -11,6 +11,8 @@ ANPC::ANPC()
 
 	Collision = CreateDefaultSubObject<UCollision>("Collision");
 	Collision->SetupAttachment(Root);
+	Collision->SetCollisionGroup(ECollisionOrder::NPC);
+	Collision->SetCollisionType(ECollisionType::Rect);
 }
 
 ANPC::~ANPC()

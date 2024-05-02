@@ -28,11 +28,12 @@ enum class EObjectOrder
 
 enum class ECollisionOrder
 {
+	Coin,
 	Spot,
 	Horse,
 	Player,
 	Monster,
-	Coin
+	NPC
 };
 
 enum class ERenderOrder

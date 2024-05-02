@@ -18,6 +18,11 @@ public:
 
 	UStateManager State;
 
+	int GetCoinNum()
+	{
+		return CoinNum;
+	}
+
 	bool GetIsPaying()
 	{
 		return IsPaying;
@@ -33,9 +38,9 @@ public:
 		return CurCoin;
 	}
 
-	int GetCurCoinCnt()
+	int GetCurCoinIndex()
 	{
-		return CurCoinCnt;
+		return CurCoinIndex;
 	}
 
 	void SetIsPaying(bool _IsPaying)
@@ -43,10 +48,20 @@ public:
 		IsPaying = _IsPaying;
 	}
 
+	void AddCoin()
+	{
+		CoinNum += 1;
+	}
+
+	void SubCoin()
+	{
+		CoinNum -= 1;
+	}
+
 	void ResetCurCoin()
 	{
 		CurCoin = nullptr;
-		CurCoinCnt = -1;
+		CurCoinIndex = -1;
 	}
 
 protected:
@@ -59,11 +74,11 @@ private:
 	UCollision* Collision_Player;
 	UCollision* Collision_Horse_Front;
 
+	int CoinNum = 10;
 	bool IsPaying = false;
 	ASpot* CurSpot = nullptr;
 	ACoin* CurCoin = nullptr;
-	int CurCoinCnt = -1;
-	int CurLeftCoin = 0;
+	int CurCoinIndex = -1;
 
 	void ChangeDir(EEngineDir _Dir) override;
 	void CheckGround() override;

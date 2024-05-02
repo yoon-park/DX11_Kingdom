@@ -23,9 +23,11 @@ protected:
 private:
 	USpriteRenderer* Renderer;
 	UCollision* Collision;
+	AMovingActor* AbsorbOwner = nullptr;
 	float Alpha = 1.0f;
 
 	void CheckGround() override;
+	void CheckAbsorb();
 
 	// State
 	void StateInit();
@@ -41,4 +43,5 @@ private:
 	void Wait(float _DeltaTime);
 	void Fall(float _DeltaTime);
 	void Disappear(float _DeltaTime);
+	void Absorb(float _DeltaTime);
 };

@@ -21,7 +21,7 @@ public:
 
 protected:
 	void SetMainPlayer(std::shared_ptr<APlayer> _Player);
-	//void SetMyKingdom(std::shared_ptr<ATownCenter> _MyKingdom);
+	void SetMyKingdom(std::shared_ptr<ATownCenter> _MyKingdom);
 
 	void BeginPlay() override;
 	void Tick(float _DeltaTime) override;

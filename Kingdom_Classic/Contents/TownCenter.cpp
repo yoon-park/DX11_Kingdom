@@ -3,11 +3,24 @@
 
 ATownCenter::ATownCenter()
 {
-	Renderer_Castle = CreateDefaultSubObject<USpriteRenderer>("Renderer");
-	Renderer_Castle->SetupAttachment(Root);
+	{
+		Renderer_Campfire = CreateDefaultSubObject<USpriteRenderer>("Renderer_Campfire");
+		Renderer_Campfire->SetupAttachment(Root);
 
-	Renderer_Campfire = CreateDefaultSubObject<USpriteRenderer>("Renderer");
-	Renderer_Campfire->SetupAttachment(Root);
+		Renderer_Banner = CreateDefaultSubObject<USpriteRenderer>("Renderer_Banner");
+		Renderer_Banner->SetupAttachment(Root);
+
+		Renderer_Castle = CreateDefaultSubObject<USpriteRenderer>("Renderer_Castle");
+		Renderer_Castle->SetupAttachment(Root);
+
+		for (int i = 0; i < 4; i++)
+		{
+			USpriteRenderer* Renderer_Wall = CreateDefaultSubObject<USpriteRenderer>("Renderer_Wall");
+			Renderer_Wall->SetupAttachment(Root);
+			//Renderer_Wall->SetActive(false);
+			Renderer_Walls.push_back(Renderer_Wall);
+		}
+	}
 
 	SkipUpgradeProgress = true;
 }
@@ -22,14 +35,41 @@ void ATownCenter::BeginPlay()
 	Super::BeginPlay();
 
 	{
+		Renderer_Campfire->SetSprite("Campfire_00.png");
+		Renderer_Campfire->SetAutoSize(1.0f, true);
+		Renderer_Campfire->SetPosition({ 0.0f, -35.0f, 0.0f, 0.0f });
+		Renderer_Campfire->SetOrder(ERenderOrder::GroundObject);
+
+		Renderer_Banner->SetSprite("Banner_02.png");
+		Renderer_Banner->SetAutoSize(1.0f, true);
+		Renderer_Banner->SetPosition({ -80.0f, -35.0f, 0.0f, 0.0f });
+		Renderer_Banner->SetOrder(ERenderOrder::GroundObject);
+
 		Renderer_Castle->SetSprite("TownCenter_00.png");
 		Renderer_Castle->SetAutoSize(1.0f, true);
 		Renderer_Castle->SetOrder(ERenderOrder::BackObject);
 
-		Renderer_Campfire->SetSprite("Campfire_00.png");
-		Renderer_Campfire->SetAutoSize(1.0f, true);
-		Renderer_Campfire->AddPosition({ 0.0f, -35.0f, 0.0f, 0.0f });
-		Renderer_Campfire->SetOrder(ERenderOrder::GroundObject);
+		Renderer_Walls[0]->SetSprite("StoneWall.png");
+		Renderer_Walls[0]->SetAutoSize(1.0f, true);
+		Renderer_Walls[0]->SetPosition({ -216.0f, -48.0f, 0.0f, 0.0f });
+		Renderer_Walls[0]->SetOrder(ERenderOrder::BackObject);
+		Renderer_Walls[0]->SetDir(EEngineDir::Left);
+
+		Renderer_Walls[1]->SetSprite("StoneWall.png");
+		Renderer_Walls[1]->SetAutoSize(1.0f, true);
+		Renderer_Walls[1]->SetPosition({ -73.0f, -48.0f, 0.0f, 0.0f });
+		Renderer_Walls[1]->SetOrder(ERenderOrder::BackObject);
+
+		Renderer_Walls[2]->SetSprite("StoneWall.png");
+		Renderer_Walls[2]->SetAutoSize(1.0f, true);
+		Renderer_Walls[2]->SetPosition({ 73.0f, -48.0f, 0.0f, 0.0f });
+		Renderer_Walls[2]->SetOrder(ERenderOrder::BackObject);
+		Renderer_Walls[2]->SetDir(EEngineDir::Left);
+
+		Renderer_Walls[3]->SetSprite("StoneWall.png");
+		Renderer_Walls[3]->SetAutoSize(1.0f, true);
+		Renderer_Walls[3]->SetPosition({ 216.0f, -48.0f, 0.0f, 0.0f });
+		Renderer_Walls[3]->SetOrder(ERenderOrder::BackObject);
 	}
 }
 

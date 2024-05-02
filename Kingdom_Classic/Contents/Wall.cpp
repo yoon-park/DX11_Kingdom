@@ -26,6 +26,11 @@ void AWall::Tick(float _DeltaTime)
 	Super::Tick(_DeltaTime);
 }
 
+void AWall::SetDir(EEngineDir _Dir)
+{
+	Renderer->SetDir(_Dir);
+}
+
 void AWall::SetCoinIndicatorLocation()
 {
 	switch (RequiredCoin)

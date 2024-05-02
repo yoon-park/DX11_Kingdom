@@ -79,12 +79,6 @@ void APlayer::PayStart()
 	*/
 
 	IsPaying = true;
-	
-	if (CurSpot != nullptr)
-	{
-		CurLeftCoin = GetCurSpot()->GetLeftCoin();
-	}
-
 	CreateCoin();
 }
 
@@ -185,7 +179,7 @@ void APlayer::Pay(float _DeltaTime)
 	{
 		if (CurCoin->State.GetCurStateName() == "Wait")
 		{
-			if (CurCoinCnt + 1 == CurSpot->GetRequiredCoin())
+			if (CurCoinIndex + 1 == CurSpot->GetRequiredCoin())
 			{
 				State.ChangeState("Idle");
 				return;

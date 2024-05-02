@@ -93,16 +93,19 @@ void ASpot::CheckPlayer()
 void ASpot::CheckLeftCoin()
 {
 	if (
+		IsPlayerContact == false ||
+		APlayGameMode::MainPlayer->GetIsPaying() == false
+		)
+	{
+		LeftCoin = RequiredCoin;
+	}
+	else if (
 		IsPlayerContact == true &&
 		APlayGameMode::MainPlayer->GetIsPaying() == true &&
 		APlayGameMode::MainPlayer->GetCurCoin()->State.GetCurStateName() == "Wait"
 		)
 	{
 		LeftCoin -= 1;
-	}
-	else
-	{
-		LeftCoin = RequiredCoin;
 	}
 }
 

@@ -14,9 +14,28 @@ public:
 	AMonster& operator=(const AMonster& _Other) = delete;
 	AMonster& operator=(AMonster&& _Other) noexcept = delete;
 
+	UStateManager State;
+
+	int GetCoinNum()
+	{
+		return CoinNum;
+	}
+
+	void AddCoin()
+	{
+		CoinNum += 1;
+	}
+
+	void SubCoin()
+	{
+		CoinNum -= 1;
+	}
+
 protected:
 	USpriteRenderer* Renderer;
 	UCollision* Collision;
+
+	int CoinNum = 0;
 
 	void BeginPlay() override;
 	void Tick(float _DeltaTime) override;
