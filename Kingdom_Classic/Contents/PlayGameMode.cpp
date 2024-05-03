@@ -21,7 +21,7 @@ std::shared_ptr<ATownCenter> APlayGameMode::MyKingdom = nullptr;
 
 APlayGameMode::APlayGameMode()
 {
-
+	InputOn();
 }
 
 APlayGameMode::~APlayGameMode()
@@ -73,11 +73,11 @@ void APlayGameMode::BeginPlay()
 		}
 		{
 			std::shared_ptr<ABack1> Back1 = GetWorld()->SpawnActor<ABack1>("Back1", EObjectOrder::Back);
-			Back1->SetActorLocation(InitLocation + float4{ 0.0f, 10.0f, 200.0f });
+			Back1->SetActorLocation(InitLocation + float4{ 0.0f, 110.0f, 200.0f });
 		}
 		{
 			std::shared_ptr<ABack2> Back2 = GetWorld()->SpawnActor<ABack2>("Back2", EObjectOrder::Back);
-			Back2->SetActorLocation(InitLocation + float4{ 0.0f, 160.0f, 500.0f });
+			Back2->SetActorLocation(InitLocation + float4{ 0.0f, 170.0f, 500.0f });
 		}
 		{
 			std::shared_ptr<ABack3> Back3 = GetWorld()->SpawnActor<ABack3>("Back3", EObjectOrder::Back);
@@ -96,11 +96,11 @@ void APlayGameMode::BeginPlay()
 		}
 		{
 			std::shared_ptr<AWall> InnerWall_L = GetWorld()->SpawnActor<AWall>("InnerWall_L", EObjectOrder::Building);
-			InnerWall_L->SetActorLocation(InitLocation + float4{ -280.0f, 36.0f, 100.0f });
+			InnerWall_L->SetActorLocation(InitLocation + float4{ -283.0f, 36.0f, 100.0f });
 			InnerWall_L->SetDir(EEngineDir::Left);
 
 			std::shared_ptr<AWall> InnerWall_R = GetWorld()->SpawnActor<AWall>("InnerWall_R", EObjectOrder::Building);
-			InnerWall_R->SetActorLocation(InitLocation + float4{ 280.0f, 36.0f, 100.0f });
+			InnerWall_R->SetActorLocation(InitLocation + float4{ 283.0f, 36.0f, 100.0f });
 		}
 	}
 }
@@ -110,6 +110,18 @@ void APlayGameMode::Tick(float _DeltaTime)
 	Super::Tick(_DeltaTime);
 
 	CameraUpdate();
+
+	if (IsDown('E') == true)
+	{
+		MainPlayer->AddActorLocation(float4{ 1000.0f, 0.0f, 0.0f });
+		return;
+	}
+
+	if (IsDown('Q') == true)
+	{
+		MainPlayer->AddActorLocation(float4{ -1000.0f, 0.0f, 0.0f });
+		return;
+	}
 }
 
 void APlayGameMode::CameraUpdate()

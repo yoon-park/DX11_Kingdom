@@ -16,14 +16,14 @@ APlayer::APlayer()
 	Collision_Player = CreateDefaultSubObject<UCollision>("Collision_Player");
 	Collision_Player->SetupAttachment(Root);
 	Collision_Player->SetScale(FVector(12.0f, 27.0f, 100.0f));
-	Collision_Player->AddPosition(FVector(0.0f, 27.0f, 0.0f));
+	Collision_Player->SetPosition(FVector(0.0f, 27.0f, 0.0f));
 	Collision_Player->SetCollisionGroup(ECollisionOrder::Player);
 	Collision_Player->SetCollisionType(ECollisionType::Rect);
 
 	Collision_Horse_Front = CreateDefaultSubObject<UCollision>("Collision_Horse_Front");
 	Collision_Horse_Front->SetupAttachment(Root);
 	Collision_Horse_Front->SetScale(FVector(15.0f, 30.0f, 100.0f));
-	Collision_Horse_Front->AddPosition(FVector(13.0f, 15.0f, 0.0f));
+	Collision_Horse_Front->SetPosition(FVector(13.0f, 15.0f, 0.0f));
 	Collision_Horse_Front->SetCollisionGroup(ECollisionOrder::Horse);
 	Collision_Horse_Front->SetCollisionType(ECollisionType::Rect);
 
@@ -95,12 +95,12 @@ void APlayer::ChangeDir(EEngineDir _Dir)
 		case EEngineDir::Left:
 			Renderer_Player->SetDir(EEngineDir::Left);
 			Renderer_Horse->SetDir(EEngineDir::Left);
-			Collision_Horse_Front->AddPosition(FVector(-26.0f, 0.0f, 0.0f));
+			Collision_Horse_Front->SetPosition(FVector(-13.0f, 15.0f, 0.0f));
 			break;
 		case EEngineDir::Right:
 			Renderer_Player->SetDir(EEngineDir::Right);
 			Renderer_Horse->SetDir(EEngineDir::Right);
-			Collision_Horse_Front->AddPosition(FVector(26.0f, 0.0f, 0.0f));
+			Collision_Horse_Front->SetPosition(FVector(13.0f, 15.0f, 0.0f));
 			break;
 		case EEngineDir::MAX:
 			break;

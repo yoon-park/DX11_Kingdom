@@ -17,7 +17,7 @@ void ABack2::BeginPlay()
 {
 	Super::BeginPlay();
 
-	Renderer->SetSprite("trees_curtain_01.png");
+	Renderer->SetSprite("Map_02.png");
 	Renderer->SetAutoSize(3.0f, true);
 	Renderer->SetOrder(ERenderOrder::Back2);
 }

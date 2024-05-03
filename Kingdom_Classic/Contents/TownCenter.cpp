@@ -9,6 +9,7 @@ ATownCenter::ATownCenter()
 
 		Renderer_Banner = CreateDefaultSubObject<USpriteRenderer>("Renderer_Banner");
 		Renderer_Banner->SetupAttachment(Root);
+		Renderer_Banner->SetActive(false);
 
 		Renderer_Castle = CreateDefaultSubObject<USpriteRenderer>("Renderer_Castle");
 		Renderer_Castle->SetupAttachment(Root);
@@ -17,7 +18,7 @@ ATownCenter::ATownCenter()
 		{
 			USpriteRenderer* Renderer_Wall = CreateDefaultSubObject<USpriteRenderer>("Renderer_Wall");
 			Renderer_Wall->SetupAttachment(Root);
-			//Renderer_Wall->SetActive(false);
+			Renderer_Wall->SetActive(false);
 			Renderer_Walls.push_back(Renderer_Wall);
 		}
 	}
@@ -42,31 +43,31 @@ void ATownCenter::BeginPlay()
 
 		Renderer_Banner->SetSprite("Banner_02.png");
 		Renderer_Banner->SetAutoSize(1.0f, true);
-		Renderer_Banner->SetPosition({ -80.0f, -35.0f, 0.0f, 0.0f });
-		Renderer_Banner->SetOrder(ERenderOrder::GroundObject);
+		Renderer_Banner->SetPosition({ -42.0f, -35.0f, 0.0f, 0.0f });
+		Renderer_Banner->SetOrder(ERenderOrder::BackObject);
 
 		Renderer_Castle->SetSprite("TownCenter_00.png");
 		Renderer_Castle->SetAutoSize(1.0f, true);
 		Renderer_Castle->SetOrder(ERenderOrder::BackObject);
 
-		Renderer_Walls[0]->SetSprite("StoneWall.png");
+		Renderer_Walls[0]->SetSprite("WoodenWall.png");
 		Renderer_Walls[0]->SetAutoSize(1.0f, true);
 		Renderer_Walls[0]->SetPosition({ -216.0f, -48.0f, 0.0f, 0.0f });
 		Renderer_Walls[0]->SetOrder(ERenderOrder::BackObject);
 		Renderer_Walls[0]->SetDir(EEngineDir::Left);
 
-		Renderer_Walls[1]->SetSprite("StoneWall.png");
+		Renderer_Walls[1]->SetSprite("WoodenWall.png");
 		Renderer_Walls[1]->SetAutoSize(1.0f, true);
 		Renderer_Walls[1]->SetPosition({ -73.0f, -48.0f, 0.0f, 0.0f });
 		Renderer_Walls[1]->SetOrder(ERenderOrder::BackObject);
 
-		Renderer_Walls[2]->SetSprite("StoneWall.png");
+		Renderer_Walls[2]->SetSprite("WoodenWall.png");
 		Renderer_Walls[2]->SetAutoSize(1.0f, true);
 		Renderer_Walls[2]->SetPosition({ 73.0f, -48.0f, 0.0f, 0.0f });
 		Renderer_Walls[2]->SetOrder(ERenderOrder::BackObject);
 		Renderer_Walls[2]->SetDir(EEngineDir::Left);
 
-		Renderer_Walls[3]->SetSprite("StoneWall.png");
+		Renderer_Walls[3]->SetSprite("WoodenWall.png");
 		Renderer_Walls[3]->SetAutoSize(1.0f, true);
 		Renderer_Walls[3]->SetPosition({ 216.0f, -48.0f, 0.0f, 0.0f });
 		Renderer_Walls[3]->SetOrder(ERenderOrder::BackObject);
@@ -136,8 +137,9 @@ void ATownCenter::SettingUpgrade()
 	case ESpotUpgrade::Tier1:
 	{
 		CurTier = ESpotUpgrade::Tier2;
-		Renderer_Castle->SetSprite("TownCenter_02.png");
 		Renderer_Campfire->SetSprite("Campfire_02.png");
+		Renderer_Banner->SetActive(true);
+		Renderer_Castle->SetSprite("TownCenter_02.png");
 		RequiredCoin = 6;
 		SkipUpgradeProgress = false;
 		break;
@@ -145,15 +147,26 @@ void ATownCenter::SettingUpgrade()
 	case ESpotUpgrade::Tier2:
 	{
 		CurTier = ESpotUpgrade::Tier3;
-		Renderer_Castle->SetSprite("TownCenter_03.png");
 		Renderer_Campfire->SetSprite("Campfire_03.png");
+		Renderer_Banner->SetSprite("Banner_03.png");
+		Renderer_Banner->SetPosition({ 0.0f, 14.0f, 0.0f, 0.0f });
+		Renderer_Castle->SetSprite("TownCenter_03.png");
+		for (int i = 0; i < 4; i++)
+		{
+			Renderer_Walls[i]->SetActive(true);
+		}
 		RequiredCoin = 9;
 		break;
 	}
 	case ESpotUpgrade::Tier3:
 	{
 		CurTier = ESpotUpgrade::Tier4;
+		Renderer_Banner->SetPosition({ 0.0f, 12.0f, 0.0f, 0.0f });
 		Renderer_Castle->SetSprite("TownCenter_04.png");
+		for (int i = 0; i < 4; i++)
+		{
+			Renderer_Walls[i]->SetSprite("StoneWall.png");
+		}
 		RequiredCoin = 0;
 		IsUpgradable = false;
 		break;
