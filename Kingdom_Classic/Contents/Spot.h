@@ -40,6 +40,11 @@ public:
 		return Renderer_Coins[_Index]->GetWorldPosition();
 	}
 
+	void SetIsUpgradable(bool _IsUpgradable)
+	{
+		IsUpgradable = _IsUpgradable;
+	}
+
 protected:
 	UDefaultSceneComponent* Root;
 	UCollision* Collision_Update;
@@ -58,6 +63,7 @@ protected:
 
 	void CheckPlayer();
 	void CheckLeftCoin();
+	virtual void CheckIsUpdatable() {};
 
 	void SetCoinIndicatorActive(bool _Active, int _CoinNum = 12);
 	virtual void SetCoinIndicatorLocation() {};

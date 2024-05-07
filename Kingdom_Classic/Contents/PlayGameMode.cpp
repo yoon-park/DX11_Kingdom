@@ -51,13 +51,6 @@ void APlayGameMode::BeginPlay()
 	}
 	{
 		{
-			std::shared_ptr<APlayer> Player = GetWorld()->SpawnActor<APlayer>("Player", EObjectOrder::Player);
-			Player->SetActorLocation(InitLocation + float4{ 0.0f, 20.0f, 100.0f });
-			MainPlayer = Player;
-		}
-	}
-	{
-		{
 			//std::shared_ptr<AGround_Back> GroundBack = GetWorld()->SpawnActor<AGround_Back>("GroundBack", EObjectOrder::Back);
 			//GroundBack->SetActorLocation(InitLocation + float4{ 0.0f, 0.0f, 100.0f });
 
@@ -83,16 +76,13 @@ void APlayGameMode::BeginPlay()
 			Sky->SetActorLocation(InitLocation + float4{ 0.0f, 0.0f, 1000.0f });
 		}
 		{
+			std::shared_ptr<APlayer> Player = GetWorld()->SpawnActor<APlayer>("Player", EObjectOrder::Player);
+			Player->SetActorLocation(InitLocation + float4{ 0.0f, 20.0f, 100.0f });
+			MainPlayer = Player;
+
 			std::shared_ptr<ATownCenter> TownCenter = GetWorld()->SpawnActor<ATownCenter>("TownCenter", EObjectOrder::Building);
 			TownCenter->SetActorLocation(InitLocation + float4{ 0.0f, 84.0f, 100.0f });
 			MyKingdom = TownCenter;
-
-			std::shared_ptr<AWall> InnerWall_L = GetWorld()->SpawnActor<AWall>("InnerWall_L", EObjectOrder::Building);
-			InnerWall_L->SetActorLocation(InitLocation + float4{ -283.0f, 36.0f, 100.0f });
-			InnerWall_L->SetDir(EEngineDir::Left);
-
-			std::shared_ptr<AWall> InnerWall_R = GetWorld()->SpawnActor<AWall>("InnerWall_R", EObjectOrder::Building);
-			InnerWall_R->SetActorLocation(InitLocation + float4{ 283.0f, 36.0f, 100.0f });
 		}
 	}
 }

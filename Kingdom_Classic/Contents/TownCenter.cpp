@@ -72,6 +72,17 @@ void ATownCenter::BeginPlay()
 		Renderer_Walls[3]->SetPosition({ 216.0f, -48.0f, 0.0f, 0.0f });
 		Renderer_Walls[3]->SetOrder(ERenderOrder::BackObject);
 	}
+	{
+		float4 ImageScale = UContentsConstValue::MapTexScale;
+		float4 InitLocation = { ImageScale.hX(), -ImageScale.hY(), 0.0f };
+
+		InnerWall_L = GetWorld()->SpawnActor<AWall>("InnerWall_L", EObjectOrder::Building);
+		InnerWall_L->SetActorLocation(InitLocation + float4{-283.0f, 36.0f, 100.0f});
+		InnerWall_L->SetDir(EEngineDir::Left);
+
+		InnerWall_R = GetWorld()->SpawnActor<AWall>("InnerWall_R", EObjectOrder::Building);
+		InnerWall_R->SetActorLocation(InitLocation + float4{283.0f, 36.0f, 100.0f});
+	}
 }
 
 void ATownCenter::Tick(float _DeltaTime)
