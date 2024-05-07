@@ -203,6 +203,10 @@
       <SubType>
       </SubType>
     </ClInclude>
+    <ClInclude Include="ContentsTime.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="Floater.h">
       <SubType>
       </SubType>
@@ -306,6 +310,10 @@
       </SubType>
     </ClCompile>
     <ClCompile Include="ContentsCore.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="ContentsTime.cpp">
       <SubType>
       </SubType>
     </ClCompile>

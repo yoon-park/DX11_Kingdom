@@ -22,5 +22,4 @@ protected:
 private:
 	USpriteRenderer* Renderer;
 	USpriteRenderer* Renderer_Lightbeam;
-	float4 Color;
 };

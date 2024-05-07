@@ -2,6 +2,7 @@
 
 class APlayer;
 class ATownCenter;
+class UContentsTime;
 
 class APlayGameMode : public AGameMode
 {
@@ -18,11 +19,9 @@ public:
 
 	static std::shared_ptr<APlayer> MainPlayer;
 	static std::shared_ptr<ATownCenter> MyKingdom;
+	static std::shared_ptr<UContentsTime> ContentsTimer;
 
 protected:
-	void SetMainPlayer(std::shared_ptr<APlayer> _Player);
-	void SetMyKingdom(std::shared_ptr<ATownCenter> _MyKingdom);
-
 	void BeginPlay() override;
 	void Tick(float _DeltaTime) override;
 

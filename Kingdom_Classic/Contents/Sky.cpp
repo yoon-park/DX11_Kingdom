@@ -16,6 +16,11 @@ ASky::~ASky()
 void ASky::BeginPlay()
 {
 	Super::BeginPlay();
+
+	Renderer->SetSprite("KingdomTitle.png");
+	Renderer->SetAutoSize(3.0f, true);
+	Renderer->SetOrder(ERenderOrder::Sky);
+	Renderer->SetPlusColor({0.0f, 0.0f, 1.0f, 0.5f});
 }
 
 void ASky::Tick(float _DeltaTime)

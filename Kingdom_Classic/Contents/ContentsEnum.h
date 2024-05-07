@@ -19,6 +19,7 @@ enum class ESpotUpgrade
 
 enum class EObjectOrder
 {
+	Engine,
 	Back,
 	Building,
 	Player,

@@ -1,6 +1,8 @@
 #include "PreCompile.h"
 #include "PlayGameMode.h"
 
+#include "ContentsTime.h"
+
 #include "Ground.h"
 #include "Ground_Back.h"
 #include "Back0.h"
@@ -18,6 +20,7 @@
 
 std::shared_ptr<APlayer> APlayGameMode::MainPlayer = nullptr;
 std::shared_ptr<ATownCenter> APlayGameMode::MyKingdom = nullptr;
+std::shared_ptr<UContentsTime> APlayGameMode::ContentsTimer = nullptr;
 
 APlayGameMode::APlayGameMode()
 {
@@ -27,16 +30,6 @@ APlayGameMode::APlayGameMode()
 APlayGameMode::~APlayGameMode()
 {
 
-}
-
-void APlayGameMode::SetMainPlayer(std::shared_ptr<APlayer> _Player)
-{
-	MainPlayer = _Player;
-}
-
-void APlayGameMode::SetMyKingdom(std::shared_ptr<ATownCenter> _MyKingdom)
-{
-	MyKingdom = _MyKingdom;
 }
 
 void APlayGameMode::BeginPlay()
@@ -52,49 +45,48 @@ void APlayGameMode::BeginPlay()
 		std::shared_ptr<UCamera> Camera = GetWorld()->GetMainCamera();
 		Camera->SetActorLocation(InitLocation + float4{ 0.0f, 60.0f, -100.0f });
 		Camera->SetProjectionType(ECameraType::Perspective);
+
+		std::shared_ptr<UContentsTime> Timer = GetWorld()->SpawnActor<UContentsTime>("Timer", EObjectOrder::Engine);
+		ContentsTimer = Timer;
 	}
 	{
-		std::shared_ptr<APlayer> Player = GetWorld()->SpawnActor<APlayer>("Player", EObjectOrder::Player);
-		Player->SetActorLocation(InitLocation + float4{ 0.0f, 20.0f, 100.0f });
-		SetMainPlayer(Player);
+		{
+			std::shared_ptr<APlayer> Player = GetWorld()->SpawnActor<APlayer>("Player", EObjectOrder::Player);
+			Player->SetActorLocation(InitLocation + float4{ 0.0f, 20.0f, 100.0f });
+			MainPlayer = Player;
+		}
 	}
 	{
 		{
 			//std::shared_ptr<AGround_Back> GroundBack = GetWorld()->SpawnActor<AGround_Back>("GroundBack", EObjectOrder::Back);
 			//GroundBack->SetActorLocation(InitLocation + float4{ 0.0f, 0.0f, 100.0f });
-		}
-		{
+
 			std::shared_ptr<AGround> Ground = GetWorld()->SpawnActor<AGround>("Ground", EObjectOrder::Back);
 			Ground->SetActorLocation(InitLocation + float4{ 0.0f, 0.0f, 100.0f });
-		}
-		{
+
 			std::shared_ptr<ABack0> Back0 = GetWorld()->SpawnActor<ABack0>("Back0", EObjectOrder::Back);
 			Back0->SetActorLocation(InitLocation + float4{ 60.0f, 30.0f, 100.0f });
-		}
-		{
+
 			std::shared_ptr<ABack1> Back1 = GetWorld()->SpawnActor<ABack1>("Back1", EObjectOrder::Back);
 			Back1->SetActorLocation(InitLocation + float4{ 0.0f, 110.0f, 200.0f });
-		}
-		{
+
 			std::shared_ptr<ABack2> Back2 = GetWorld()->SpawnActor<ABack2>("Back2", EObjectOrder::Back);
 			Back2->SetActorLocation(InitLocation + float4{ 0.0f, 170.0f, 500.0f });
-		}
-		{
+
 			std::shared_ptr<ABack3> Back3 = GetWorld()->SpawnActor<ABack3>("Back3", EObjectOrder::Back);
 			Back3->SetActorLocation(InitLocation + float4{ 0.0f, 130.0f, 700.0f });
-		}
-		{
+
 			std::shared_ptr<ABack4> Back4 = GetWorld()->SpawnActor<ABack4>("Back4", EObjectOrder::Back);
 			Back4->SetActorLocation(InitLocation + float4{ 400.0f, 140.0f, 900.0f });
+
+			std::shared_ptr<ASky> Sky = GetWorld()->SpawnActor<ASky>("Sky", EObjectOrder::Back);
+			Sky->SetActorLocation(InitLocation + float4{ 0.0f, 0.0f, 1000.0f });
 		}
-	}
-	{
 		{
 			std::shared_ptr<ATownCenter> TownCenter = GetWorld()->SpawnActor<ATownCenter>("TownCenter", EObjectOrder::Building);
 			TownCenter->SetActorLocation(InitLocation + float4{ 0.0f, 84.0f, 100.0f });
-			SetMyKingdom(TownCenter);
-		}
-		{
+			MyKingdom = TownCenter;
+
 			std::shared_ptr<AWall> InnerWall_L = GetWorld()->SpawnActor<AWall>("InnerWall_L", EObjectOrder::Building);
 			InnerWall_L->SetActorLocation(InitLocation + float4{ -283.0f, 36.0f, 100.0f });
 			InnerWall_L->SetDir(EEngineDir::Left);

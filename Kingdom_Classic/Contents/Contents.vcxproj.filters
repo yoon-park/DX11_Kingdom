@@ -55,9 +55,6 @@
     <ClInclude Include="Coin.h">
       <Filter>PlayLevel\Object\Other</Filter>
     </ClInclude>
-    <ClInclude Include="MovingActor.h">
-      <Filter>Actor</Filter>
-    </ClInclude>
     <ClInclude Include="Ground_Back.h">
       <Filter>PlayLevel\Map</Filter>
     </ClInclude>
@@ -81,6 +78,12 @@
     </ClInclude>
     <ClInclude Include="Tower.h">
       <Filter>PlayLevel\Object\Spot</Filter>
+    </ClInclude>
+    <ClInclude Include="MovingActor.h">
+      <Filter>PlayLevel\Actor</Filter>
+    </ClInclude>
+    <ClInclude Include="ContentsTime.h">
+      <Filter>Core</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -135,9 +138,6 @@
     <ClCompile Include="Coin.cpp">
       <Filter>PlayLevel\Object\Other</Filter>
     </ClCompile>
-    <ClCompile Include="MovingActor.cpp">
-      <Filter>Actor</Filter>
-    </ClCompile>
     <ClCompile Include="Ground_Back.cpp">
       <Filter>PlayLevel\Map</Filter>
     </ClCompile>
@@ -165,6 +165,12 @@
     <ClCompile Include="Tower.cpp">
       <Filter>PlayLevel\Object\Spot</Filter>
     </ClCompile>
+    <ClCompile Include="MovingActor.cpp">
+      <Filter>PlayLevel\Actor</Filter>
+    </ClCompile>
+    <ClCompile Include="ContentsTime.cpp">
+      <Filter>Core</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="PreCompile">
@@ -175,9 +181,6 @@
     </Filter>
     <Filter Include="Option">
       <UniqueIdentifier>{749a2141-5991-4699-af2e-f0d917d31484}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Actor">
-      <UniqueIdentifier>{3a5cbf78-0570-4206-8e5f-fcf173aff0c3}</UniqueIdentifier>
     </Filter>
     <Filter Include="PlayLevel">
       <UniqueIdentifier>{e3c5afe5-3e1d-4e41-a320-511c8e59947e}</UniqueIdentifier>

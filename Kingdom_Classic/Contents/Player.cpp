@@ -1,6 +1,9 @@
 #include "PreCompile.h"
 #include "Player.h"
 
+#include "PlayGameMode.h"
+#include "ContentsTime.h"
+
 APlayer::APlayer()
 {
 	UDefaultSceneComponent* Root = CreateDefaultSubObject<UDefaultSceneComponent>("Renderer");
@@ -178,6 +181,18 @@ void APlayer::DebugMessageFunction(float _Delta)
 	}
 	{
 		std::string Msg = std::format("Frame : {}\n", 1.0f / _Delta);
+		UEngineDebugMsgWindow::PushMsg(Msg);
+	}
+	{
+		std::string Msg = std::format("CurTime : {}\n", APlayGameMode::ContentsTimer->GetCount());
+		UEngineDebugMsgWindow::PushMsg(Msg);
+	}
+	{
+		std::string Msg = std::format("Date : {}\n", APlayGameMode::ContentsTimer->GetDate());
+		UEngineDebugMsgWindow::PushMsg(Msg);
+	}
+	{
+		std::string Msg = std::format("IsDay : {}\n", APlayGameMode::ContentsTimer->GetIsDay());
 		UEngineDebugMsgWindow::PushMsg(Msg);
 	}
 }
