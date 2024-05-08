@@ -31,18 +31,18 @@ ASpot::~ASpot()
 
 }
 
-void ASpot::SetCoinIndicatorActive(bool _Active, int CoinNum)
+void ASpot::SetCoinIndicatorActive(bool _Active, int _CoinNum)
 {
 	if (_Active == true)
 	{
-		for (int i = 0; i < CoinNum; i++)
+		for (int i = 0; i < _CoinNum; i++)
 		{
 			Renderer_Coins[i]->SetActive(true);
 		}
 	}
 	else
 	{
-		for (int i = 0; i < CoinNum; i++)
+		for (int i = 0; i < _CoinNum; i++)
 		{
  			Renderer_Coins[i]->SetActive(false);
 		}
