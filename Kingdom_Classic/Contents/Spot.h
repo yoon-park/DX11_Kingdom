@@ -63,7 +63,6 @@ protected:
 
 	void CheckPlayer();
 	void CheckLeftCoin();
-	virtual void CheckIsUpdatable() {};
 
 	void SetCoinIndicatorActive(bool _Active, int _CoinNum = 12);
 	virtual void SetCoinIndicatorLocation() {};

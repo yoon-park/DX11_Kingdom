@@ -51,8 +51,8 @@ void APlayGameMode::BeginPlay()
 	}
 	{
 		{
-			//std::shared_ptr<AGround_Back> GroundBack = GetWorld()->SpawnActor<AGround_Back>("GroundBack", EObjectOrder::Back);
-			//GroundBack->SetActorLocation(InitLocation + float4{ 0.0f, 0.0f, 100.0f });
+			std::shared_ptr<AGround_Back> GroundBack = GetWorld()->SpawnActor<AGround_Back>("GroundBack", EObjectOrder::Back);
+			GroundBack->SetActorLocation(InitLocation + float4{ 0.0f, 0.0f, 100.0f });
 
 			std::shared_ptr<AGround> Ground = GetWorld()->SpawnActor<AGround>("Ground", EObjectOrder::Back);
 			Ground->SetActorLocation(InitLocation + float4{ 0.0f, 0.0f, 100.0f });

@@ -25,5 +25,4 @@ private:
 
 	void SetCoinIndicatorLocation() override;
 	void SettingUpgrade() override;
-	//void CheckIsUpdatable() override;
 };

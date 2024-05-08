@@ -1,9 +1,6 @@
 #include "PreCompile.h"
 #include "Wall.h"
 
-#include "PlayGameMode.h"
-#include "TownCenter.h"
-
 AWall::AWall()
 {
 	Renderer = CreateDefaultSubObject<USpriteRenderer>("Renderer");
@@ -13,6 +10,11 @@ AWall::AWall()
 AWall::~AWall()
 {
 
+}
+
+void AWall::SetDir(EEngineDir _Dir)
+{
+	Renderer->SetDir(_Dir);
 }
 
 void AWall::BeginPlay()
@@ -27,13 +29,6 @@ void AWall::BeginPlay()
 void AWall::Tick(float _DeltaTime)
 {
 	Super::Tick(_DeltaTime);
-
-	CheckIsUpdatable();
-}
-
-void AWall::SetDir(EEngineDir _Dir)
-{
-	Renderer->SetDir(_Dir);
 }
 
 void AWall::SetCoinIndicatorLocation()
@@ -110,17 +105,3 @@ void AWall::SettingUpgrade()
 		break;
 	}
 }
-
-//void AWall::CheckIsUpdatable()
-//{
-//	ESpotUpgrade CurKingdomTier = APlayGameMode::MyKingdom->GetCurTier();
-//
-//	if (CurKingdomTier == ESpotUpgrade::Tier0)
-//	{
-//		IsUpgradable = false;
-//	}
-//	else if (CurKingdomTier == ESpotUpgrade::Tier1)
-//	{
-//
-//	}
-//}

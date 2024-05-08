@@ -12,6 +12,11 @@ ATower::~ATower()
 
 }
 
+void ATower::SetDir(EEngineDir _Dir)
+{
+	Renderer->SetDir(_Dir);
+}
+
 void ATower::BeginPlay()
 {
 	Super::BeginPlay();

@@ -2,6 +2,7 @@
 #include "Spot.h"
 
 #include "Wall.h"
+#include "Tower.h"
 
 class ATownCenter : public ASpot
 {
@@ -28,7 +29,12 @@ private:
 
 	std::shared_ptr<AWall> InnerWall_L;
 	std::shared_ptr<AWall> InnerWall_R;
+	std::shared_ptr<AWall> OuterWall_L;
+	std::shared_ptr<AWall> OuterWall_R;
+	std::shared_ptr<ATower> Tower_L;
+	std::shared_ptr<ATower> Tower_R;
 
 	void SetCoinIndicatorLocation() override;
 	void SettingUpgrade() override;
+	void CheckIsUpdatable();
 };

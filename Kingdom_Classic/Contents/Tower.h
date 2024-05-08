@@ -14,6 +14,8 @@ public:
 	ATower& operator=(const ATower& _Other) = delete;
 	ATower& operator=(ATower&& _Other) noexcept = delete;
 
+	void SetDir(EEngineDir _Dir);
+
 protected:
 	void BeginPlay() override;
 	void Tick(float _DeltaTime) override;

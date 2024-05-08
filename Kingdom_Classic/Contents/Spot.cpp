@@ -19,7 +19,7 @@ ASpot::ASpot()
 	Collision_Update = CreateDefaultSubObject<UCollision>("Collision_Update");
 	Collision_Update->SetupAttachment(Root);
 	Collision_Update->SetScale(FVector(80.0f, 80.0f, 100.0f));
-	Collision_Update->AddPosition(FVector(0.0f, -24.0f, 0.0f));
+	Collision_Update->SetPosition(FVector(0.0f, -24.0f, 0.0f));
 	Collision_Update->SetCollisionGroup(ECollisionOrder::Spot);
 	Collision_Update->SetCollisionType(ECollisionType::Rect);
 
@@ -44,7 +44,7 @@ void ASpot::SetCoinIndicatorActive(bool _Active, int CoinNum)
 	{
 		for (int i = 0; i < CoinNum; i++)
 		{
-			Renderer_Coins[i]->SetActive(false);
+ 			Renderer_Coins[i]->SetActive(false);
 		}
 	}
 }
@@ -73,10 +73,16 @@ void ASpot::Tick(float _DeltaTime)
 
 void ASpot::CheckPlayer()
 {
+	Collision_Update->CollisionEnter(ECollisionOrder::Horse, [=](std::shared_ptr<UCollision> _Collision)
+		{
+			IsPlayerContact = true;
+			return;
+		}
+	);
+
 	Collision_Update->CollisionStay(ECollisionOrder::Horse, [=](std::shared_ptr<UCollision> _Collision)
 		{
 			IsPlayerContact = true;
-			SetCoinIndicatorActive(true, RequiredCoin);
 			return;
 		}
 	);
@@ -84,7 +90,6 @@ void ASpot::CheckPlayer()
 	Collision_Update->CollisionExit(ECollisionOrder::Horse, [=](std::shared_ptr<UCollision> _Collision)
 		{
 			IsPlayerContact = false;
-			SetCoinIndicatorActive(false);
 			return;
 		}
 	);
@@ -168,6 +173,12 @@ void ASpot::InactiveIdle(float _DeltaTime)
 
 void ASpot::ActiveIdle(float _DeltaTime)
 {
+	if (IsPlayerContact == false)
+	{
+		State.ChangeState("InactiveIdle");
+		return;
+	}
+
 	if (LeftCoin == 0 && IsUpgradable == true)
 	{
 		if (SkipUpgradeProgress == true)
