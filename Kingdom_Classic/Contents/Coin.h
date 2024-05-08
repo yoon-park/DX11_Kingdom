@@ -29,13 +29,19 @@ private:
 	void CheckGround() override;
 	void CheckAbsorb();
 
+	void CalMoveVector(float _DeltaTime) override;
+	void CalJumpVector(float _DeltaTime) override;
+	void CalGravityVector(float _DeltaTime) override;
+
 	// State
 	void StateInit();
 
 	void IdleStart();
 	void PaySpotStart();
 	void PayGroundStart();
+	void WaitStart();
 	void FallStart();
+	void AbsorbStart();
 
 	void Idle(float _DeltaTime);
 	void PaySpot(float _DeltaTime);

@@ -2,6 +2,8 @@
 
 class UContentsTime : public AActor
 {
+	GENERATED_BODY(AActor)
+
 public:
 	UContentsTime();
 	~UContentsTime();

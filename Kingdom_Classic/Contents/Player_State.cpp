@@ -31,6 +31,15 @@ void APlayer::StateInit()
 		State.SetUpdateFunction("Pay", std::bind(&APlayer::Pay, this, std::placeholders::_1));
 		State.SetEndFunction("Pay", std::bind(&APlayer::PayEnd, this));
 	}
+	{
+		Speed = 0.0f;
+		MoveVector = FVector::Zero;
+		MoveAcc = 0.0f;
+		JumpVector = FVector::Zero;
+		GravityVector = FVector::Zero;
+		GravityAcc = 0.0f;
+		LastMoveVector = FVector::Zero;
+	}
 
 	State.ChangeState("Idle");
 }
@@ -39,6 +48,8 @@ void APlayer::IdleStart()
 {
 	Renderer_Player->ChangeAnimation("Idle");
 	Renderer_Horse->ChangeAnimation("Idle");
+
+	SetMoveVector(FVector::Zero);
 }
 
 void APlayer::WalkStart()
@@ -61,22 +72,24 @@ void APlayer::RearStart()
 {
 	Renderer_Player->ChangeAnimation("Rear");
 	Renderer_Horse->ChangeAnimation("Rear");
+
+	SetMoveVector(FVector::Zero);
 }
 
 void APlayer::EatStart()
 {
 	Renderer_Player->ChangeAnimation("Eat");
 	Renderer_Horse->ChangeAnimation("Eat");
+
+	SetMoveVector(FVector::Zero);
 }
 
 void APlayer::PayStart()
 {
 	Renderer_Player->ChangeAnimation("Idle");
 	Renderer_Horse->ChangeAnimation("Idle");
-	/*
-	Renderer_Player->ChangeAnimation("Eat");
-	Renderer_Horse->ChangeAnimation("Eat");
-	*/
+
+	SetMoveVector(FVector::Zero);
 
 	IsPaying = true;
 	CreateCoin();
@@ -120,13 +133,13 @@ void APlayer::Walk(float _DeltaTime)
 	if (IsPress('A') == true)
 	{
 		ChangeDir(EEngineDir::Left);
-		AddActorLocation(FVector::Left * _DeltaTime * Speed);
+		SetMoveVector(FVector::Left * Speed);
 	}
 
 	if (IsPress('D') == true)
 	{
 		ChangeDir(EEngineDir::Right);
-		AddActorLocation(FVector::Right * _DeltaTime * Speed);
+		SetMoveVector(FVector::Right * Speed);
 	}
 }
 
@@ -147,13 +160,13 @@ void APlayer::Run(float _DeltaTime)
 	if (IsPress('A') == true)
 	{
 		ChangeDir(EEngineDir::Left);
-		AddActorLocation(FVector::Left * _DeltaTime * Speed);
+		SetMoveVector(FVector::Left * Speed);
 	}
 
 	if (IsPress('D') == true)
 	{
 		ChangeDir(EEngineDir::Right);
-		AddActorLocation(FVector::Right * _DeltaTime * Speed);
+		SetMoveVector(FVector::Right * Speed);
 	}
 }
 

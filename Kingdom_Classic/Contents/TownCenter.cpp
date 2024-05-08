@@ -237,10 +237,34 @@ void ATownCenter::CheckIsUpdatable()
 		{
 			InnerWall_R->SetIsUpgradable(false);
 		}
+		if (Tower_L->GetCurTier() == ESpotUpgrade::Tier0)
+		{
+			Tower_L->SetIsUpgradable(false);
+		}
+		if (Tower_R->GetCurTier() == ESpotUpgrade::Tier0)
+		{
+			Tower_R->SetIsUpgradable(false);
+		}
+		if (OuterWall_L->GetCurTier() == ESpotUpgrade::Tier0)
+		{
+			OuterWall_L->SetIsUpgradable(false);
+		}
+		if (OuterWall_R->GetCurTier() == ESpotUpgrade::Tier0)
+		{
+			OuterWall_R->SetIsUpgradable(false);
+		}
 		break;
 	}
 	case ESpotUpgrade::Tier2:
 	{
+		if (InnerWall_L->GetCurTier() == ESpotUpgrade::Tier1)
+		{
+			InnerWall_L->SetIsUpgradable(false);
+		}
+		if (InnerWall_R->GetCurTier() == ESpotUpgrade::Tier1)
+		{
+			InnerWall_R->SetIsUpgradable(false);
+		}
 		if (Tower_L->GetCurTier() == ESpotUpgrade::Tier1)
 		{
 			Tower_L->SetIsUpgradable(false);
@@ -249,17 +273,25 @@ void ATownCenter::CheckIsUpdatable()
 		{
 			Tower_R->SetIsUpgradable(false);
 		}
+		if (OuterWall_L->GetCurTier() == ESpotUpgrade::Tier0)
+		{
+			OuterWall_L->SetIsUpgradable(false);
+		}
+		if (OuterWall_R->GetCurTier() == ESpotUpgrade::Tier0)
+		{
+			OuterWall_R->SetIsUpgradable(false);
+		}
 		break;
 	}
 	case ESpotUpgrade::Tier3:
 	{
-		if (OuterWall_L->GetCurTier() == ESpotUpgrade::Tier2)
+		if (InnerWall_L->GetCurTier() == ESpotUpgrade::Tier1)
 		{
-			OuterWall_L->SetIsUpgradable(false);
+			InnerWall_L->SetIsUpgradable(false);
 		}
-		if (OuterWall_R->GetCurTier() == ESpotUpgrade::Tier2)
+		if (InnerWall_R->GetCurTier() == ESpotUpgrade::Tier1)
 		{
-			OuterWall_R->SetIsUpgradable(false);
+			InnerWall_R->SetIsUpgradable(false);
 		}
 		if (Tower_L->GetCurTier() == ESpotUpgrade::Tier2)
 		{
@@ -268,6 +300,14 @@ void ATownCenter::CheckIsUpdatable()
 		if (Tower_R->GetCurTier() == ESpotUpgrade::Tier2)
 		{
 			Tower_R->SetIsUpgradable(false);
+		}
+		if (OuterWall_L->GetCurTier() == ESpotUpgrade::Tier2)
+		{
+			OuterWall_L->SetIsUpgradable(false);
+		}
+		if (OuterWall_R->GetCurTier() == ESpotUpgrade::Tier2)
+		{
+			OuterWall_R->SetIsUpgradable(false);
 		}
 		break;
 	}
@@ -281,14 +321,6 @@ void ATownCenter::CheckIsUpdatable()
 		{
 			InnerWall_R->SetIsUpgradable(false);
 		}
-		if (OuterWall_L->GetCurTier() == ESpotUpgrade::Tier3)
-		{
-			OuterWall_L->SetIsUpgradable(false);
-		}
-		if (OuterWall_R->GetCurTier() == ESpotUpgrade::Tier3)
-		{
-			OuterWall_R->SetIsUpgradable(false);
-		}
 		if (Tower_L->GetCurTier() == ESpotUpgrade::Tier3)
 		{
 			Tower_L->SetIsUpgradable(false);
@@ -296,6 +328,14 @@ void ATownCenter::CheckIsUpdatable()
 		if (Tower_R->GetCurTier() == ESpotUpgrade::Tier3)
 		{
 			Tower_R->SetIsUpgradable(false);
+		}
+		if (OuterWall_L->GetCurTier() == ESpotUpgrade::Tier3)
+		{
+			OuterWall_L->SetIsUpgradable(false);
+		}
+		if (OuterWall_R->GetCurTier() == ESpotUpgrade::Tier3)
+		{
+			OuterWall_R->SetIsUpgradable(false);
 		}
 		break;
 	}

@@ -43,7 +43,9 @@ void ACoin::Tick(float _DeltaTime)
 	Super::Tick(_DeltaTime);
 
 	CheckGround();
+
 	State.Update(_DeltaTime);
+	MoveUpdate(_DeltaTime);
 }
 
 void ACoin::CheckGround()
@@ -63,10 +65,19 @@ void ACoin::CheckGround()
 	Pos.Y = -Pos.Y + 5.0f;
 
 	Color8Bit Color = Tex->GetColor(Pos, Color8Bit::Blue);
-	if (Color == Color8Bit::Black)
+	if (
+		Color == Color8Bit(0, 255, 255, 255) ||
+		Color == Color8Bit(255, 0, 255, 255)
+		)
 	{
 		IsGround = true;
 		CurGroundType = EGroundType::Plain;
+		return;
+	}
+	else if (Color == Color8Bit::Black)
+	{
+		IsGround = true;
+		CurGroundType = EGroundType::Forest;
 		return;
 	}
 	else
@@ -101,6 +112,33 @@ void ACoin::CheckAbsorb()
 	);
 }
 
+void ACoin::CalMoveVector(float _DeltaTime)
+{
+
+}
+
+void ACoin::CalJumpVector(float _DeltaTime)
+{
+
+}
+
+void ACoin::CalGravityVector(float _DeltaTime)
+{
+	if (
+		IsGround == true ||
+		State.GetCurStateName() == "PaySpot" ||
+		State.GetCurStateName() == "Wait" ||
+		State.GetCurStateName() == "Disappear" ||
+		State.GetCurStateName() == "Absorb"
+		)
+	{
+		SetGravityVector(FVector::Zero);
+		return;
+	}
+
+	GravityVector += FVector::Down * GravityAcc * _DeltaTime;
+}
+
 void ACoin::StateInit()
 {
 	{
@@ -117,6 +155,7 @@ void ACoin::StateInit()
 		State.SetUpdateFunction("PayGround", std::bind(&ACoin::PayGround, this, std::placeholders::_1));
 
 		State.CreateState("Wait");
+		State.SetStartFunction("Wait", std::bind(&ACoin::WaitStart, this));
 		State.SetUpdateFunction("Wait", std::bind(&ACoin::Wait, this, std::placeholders::_1));
 
 		State.CreateState("Fall");
@@ -127,7 +166,17 @@ void ACoin::StateInit()
 		State.SetUpdateFunction("Disappear", std::bind(&ACoin::Disappear, this, std::placeholders::_1));
 
 		State.CreateState("Absorb");
+		State.SetStartFunction("Absorb", std::bind(&ACoin::AbsorbStart, this));
 		State.SetUpdateFunction("Absorb", std::bind(&ACoin::Absorb, this, std::placeholders::_1));
+	}
+	{
+		Speed = 0.0f;
+		MoveVector = FVector::Zero;
+		MoveAcc = 1000.0f;
+		JumpVector = FVector::Zero;
+		GravityVector = FVector::Zero;
+		GravityAcc = 500.0f;
+		LastMoveVector = FVector::Zero;
 	}
 
 	ASpot* CurSpot = APlayGameMode::MainPlayer->GetCurSpot();
@@ -152,34 +201,56 @@ void ACoin::StateInit()
 void ACoin::IdleStart()
 {
 	Renderer->ChangeAnimation("Spin");
+
+	SetMoveVector(FVector::Zero);
 }
 
 void ACoin::PaySpotStart()
 {
 	Renderer->ChangeAnimation("Stop");
+
 	Speed = 150.0f;
+	SetMoveVector(FVector::Zero);
 }
 
 void ACoin::PayGroundStart()
 {
 	Renderer->ChangeAnimation("Spin");
-	Speed = 150.0f;
+
+	SetMoveVector(FVector::Zero);
+}
+
+void ACoin::WaitStart()
+{
+	Renderer->ChangeAnimation("Stop");
+
+	SetMoveVector(FVector::Zero);
 }
 
 void ACoin::FallStart()
 {
 	Renderer->ChangeAnimation("Stop");
+
+	SetMoveVector(FVector::Zero);
+}
+
+void ACoin::AbsorbStart()
+{
+	Renderer->ChangeAnimation("Stop");
+
+	Speed = 150.0f;
+	SetMoveVector(FVector::Zero);
 }
 
 void ACoin::Idle(float _DeltaTime)
 {
+	CheckAbsorb();
+
 	if (AbsorbOwner != nullptr)
 	{
 		State.ChangeState("Absorb");
 		return;
 	}
-
-	CheckAbsorb();
 }
 
 void ACoin::PaySpot(float _DeltaTime)
@@ -203,7 +274,7 @@ void ACoin::PaySpot(float _DeltaTime)
 
 	FVector Dir = Diff.Normalize3DReturn();
 
-	AddActorLocation(Dir * _DeltaTime * Speed);
+	SetMoveVector(Dir * Speed);
 }
 
 void ACoin::PayGround(float _DeltaTime)
@@ -213,8 +284,6 @@ void ACoin::PayGround(float _DeltaTime)
 		State.ChangeState("Idle");
 		return;
 	}
-
-	AddActorLocation(FVector::Down * _DeltaTime * Speed);
 }
 
 void ACoin::Wait(float _DeltaTime)
@@ -239,8 +308,6 @@ void ACoin::Fall(float _DeltaTime)
 		State.ChangeState("Idle");
 		return;
 	}
-
-	AddActorLocation(FVector::Down * _DeltaTime * Speed);
 }
 
 void ACoin::Disappear(float _DeltaTime)
@@ -263,7 +330,7 @@ void ACoin::Absorb(float _DeltaTime)
 
 	FVector Diff = Owner_Location - Coin_Location;
 
-	if (Diff.Size3D() <= 0.1f)
+	if (Diff.Size3D() <= 4.0f)
 	{
 		Destroy();
 		return;
@@ -271,5 +338,5 @@ void ACoin::Absorb(float _DeltaTime)
 
 	FVector Dir = Diff.Normalize3DReturn();
 
-	AddActorLocation(Dir * _DeltaTime * Speed);
+	SetMoveVector(Dir * Speed);
 }

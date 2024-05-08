@@ -85,6 +85,9 @@
     <ClInclude Include="ContentsTime.h">
       <Filter>Core</Filter>
     </ClInclude>
+    <ClInclude Include="Vendor.h">
+      <Filter>PlayLevel\Object\Vendor</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="PreCompile.cpp">
@@ -171,6 +174,9 @@
     <ClCompile Include="ContentsTime.cpp">
       <Filter>Core</Filter>
     </ClCompile>
+    <ClCompile Include="Vendor.cpp">
+      <Filter>PlayLevel\Object\Vendor</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="PreCompile">
@@ -211,6 +217,9 @@
     </Filter>
     <Filter Include="PlayLevel\Actor\NPC">
       <UniqueIdentifier>{205a124b-b717-4944-84cd-0cb6ed0f8a11}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="PlayLevel\Object\Vendor">
+      <UniqueIdentifier>{d1d64300-b397-41fb-82ef-9bb09f67882a}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

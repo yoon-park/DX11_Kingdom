@@ -3,7 +3,6 @@
 enum class EGroundType
 {
 	Plain,
-	Plain_Grass,
 	Forest,
 	None
 };

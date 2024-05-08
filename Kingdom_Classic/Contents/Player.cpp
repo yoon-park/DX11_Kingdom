@@ -76,8 +76,12 @@ void APlayer::Tick(float _DeltaTime)
 	CheckSpot();
 
 	State.Update(_DeltaTime);
+	MoveUpdate(_DeltaTime);
 
 	DebugMessageFunction(_DeltaTime);
+
+	std::list<std::shared_ptr<AActor>> g = GetWorld()->GetTickGroup(5);
+	int a = 0;
 }
 
 void APlayer::ChangeDir(EEngineDir _Dir)
