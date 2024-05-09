@@ -28,9 +28,9 @@ public:
 		return IsPaying;
 	}
 
-	ASpot* GetCurSpot()
+	ABuildingObject* GetCurBuilding()
 	{
-		return CurSpot;
+		return CurBuilding;
 	}
 
 	ACoin* GetCurCoin()
@@ -76,13 +76,13 @@ private:
 
 	int CoinNum = 10;
 	bool IsPaying = false;
-	ASpot* CurSpot = nullptr;
+	ABuildingObject* CurBuilding = nullptr;
 	ACoin* CurCoin = nullptr;
 	int CurCoinIndex = -1;
 
 	void ChangeDir(EEngineDir _Dir) override;
 	void CheckGround() override;
-	void CheckSpot();
+	void CheckBuilding();
 	void CreateCoin();
 
 	void DebugMessageFunction(float _Delta);

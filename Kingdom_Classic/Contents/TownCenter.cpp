@@ -44,33 +44,33 @@ void ATownCenter::BeginPlay()
 		Renderer_Banner->SetSprite("Banner_02.png");
 		Renderer_Banner->SetAutoSize(1.0f, true);
 		Renderer_Banner->SetPosition({ -42.0f, -35.0f, 0.0f, 0.0f });
-		Renderer_Banner->SetOrder(ERenderOrder::BackObject);
+		Renderer_Banner->SetOrder(ERenderOrder::Building);
 
 		Renderer_Castle->SetSprite("TownCenter_00.png");
 		Renderer_Castle->SetAutoSize(1.0f, true);
-		Renderer_Castle->SetOrder(ERenderOrder::BackObject);
+		Renderer_Castle->SetOrder(ERenderOrder::Building);
 
 		Renderer_Walls[0]->SetSprite("WoodenWall.png");
 		Renderer_Walls[0]->SetAutoSize(1.0f, true);
 		Renderer_Walls[0]->SetPosition({ -216.0f, -48.0f, 0.0f, 0.0f });
-		Renderer_Walls[0]->SetOrder(ERenderOrder::BackObject);
+		Renderer_Walls[0]->SetOrder(ERenderOrder::Back0);
 		Renderer_Walls[0]->SetDir(EEngineDir::Left);
 
 		Renderer_Walls[1]->SetSprite("WoodenWall.png");
 		Renderer_Walls[1]->SetAutoSize(1.0f, true);
 		Renderer_Walls[1]->SetPosition({ -73.0f, -48.0f, 0.0f, 0.0f });
-		Renderer_Walls[1]->SetOrder(ERenderOrder::BackObject);
+		Renderer_Walls[1]->SetOrder(ERenderOrder::Back0);
 
 		Renderer_Walls[2]->SetSprite("WoodenWall.png");
 		Renderer_Walls[2]->SetAutoSize(1.0f, true);
 		Renderer_Walls[2]->SetPosition({ 73.0f, -48.0f, 0.0f, 0.0f });
-		Renderer_Walls[2]->SetOrder(ERenderOrder::BackObject);
+		Renderer_Walls[2]->SetOrder(ERenderOrder::Back0);
 		Renderer_Walls[2]->SetDir(EEngineDir::Left);
 
 		Renderer_Walls[3]->SetSprite("WoodenWall.png");
 		Renderer_Walls[3]->SetAutoSize(1.0f, true);
 		Renderer_Walls[3]->SetPosition({ 216.0f, -48.0f, 0.0f, 0.0f });
-		Renderer_Walls[3]->SetOrder(ERenderOrder::BackObject);
+		Renderer_Walls[3]->SetOrder(ERenderOrder::Back0);
 	}
 	{
 		float4 ImageScale = UContentsConstValue::MapTexScale;
@@ -85,6 +85,15 @@ void ATownCenter::BeginPlay()
 		InnerWall_R->SetActorLocation(InitLocation + float4{283.0f, 36.0f, 100.0f});
 		InnerWall_R->SetIsUpgradable(false);
 
+		Tower_L = GetWorld()->SpawnActor<ATower>("Tower_L", EObjectOrder::Building);
+		Tower_L->SetActorLocation(InitLocation + float4{ -900.0f, 54.0f, 100.0f });
+		Tower_L->SetDir(EEngineDir::Left);
+		Tower_L->SetIsUpgradable(false);
+
+		Tower_R = GetWorld()->SpawnActor<ATower>("Tower_R", EObjectOrder::Building);
+		Tower_R->SetActorLocation(InitLocation + float4{ 900.0f, 54.0f, 100.0f });
+		Tower_R->SetIsUpgradable(false);
+
 		OuterWall_L = GetWorld()->SpawnActor<AWall>("OuterWall_L", EObjectOrder::Building);
 		OuterWall_L->SetActorLocation(InitLocation + float4{ -1000.0f, 36.0f, 100.0f });
 		OuterWall_L->SetDir(EEngineDir::Left);
@@ -94,14 +103,13 @@ void ATownCenter::BeginPlay()
 		OuterWall_R->SetActorLocation(InitLocation + float4{ 1000.0f, 36.0f, 100.0f });
 		OuterWall_R->SetIsUpgradable(false);
 
-		Tower_L = GetWorld()->SpawnActor<ATower>("Tower_L", EObjectOrder::Building);
-		Tower_L->SetActorLocation(InitLocation + float4{ -900.0f, 54.0f, 100.0f });
-		Tower_L->SetDir(EEngineDir::Left);
-		Tower_L->SetIsUpgradable(false);
+		BowVendor = GetWorld()->SpawnActor<ABowVendor>("BowVendor", EObjectOrder::Building);
+		BowVendor->SetActorLocation(InitLocation + float4{ 150.0f, 52.0f, 100.0f });
+		//BowVendor->SetActive(false);
 
-		Tower_R = GetWorld()->SpawnActor<ATower>("Tower_R", EObjectOrder::Building);
-		Tower_R->SetActorLocation(InitLocation + float4{ 900.0f, 54.0f, 100.0f });
-		Tower_R->SetIsUpgradable(false);
+		HammerVendor = GetWorld()->SpawnActor<AHammerVendor>("HammerVendor", EObjectOrder::Building);
+		HammerVendor->SetActorLocation(InitLocation + float4{ -150.0f, 52.0f, 100.0f });
+		//BowVendor->SetActive(false);
 	}
 }
 

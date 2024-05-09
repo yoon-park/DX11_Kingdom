@@ -55,6 +55,7 @@ void UContentsCore::Initialize()
 			UEngineSprite::CreateCutting("Player_Horse_Run.png", 16, 1);
 			UEngineSprite::CreateCutting("Player_Horse_Rear.png", 16, 1);
 			UEngineSprite::CreateCutting("Player_Horse_Eat.png", 16, 1);
+			UEngineSprite::CreateCutting("Merchant_Walk.png", 6, 1);
 			
 			/* Images required to be cut */
 		}

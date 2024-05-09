@@ -73,7 +73,7 @@ void APlayer::Tick(float _DeltaTime)
 	Super::Tick(_DeltaTime);
 	
 	CheckGround();
-	CheckSpot();
+	CheckBuilding();
 
 	State.Update(_DeltaTime);
 	MoveUpdate(_DeltaTime);
@@ -145,18 +145,18 @@ void APlayer::CheckGround()
 	}
 }
 
-void APlayer::CheckSpot()
+void APlayer::CheckBuilding()
 {
-	Collision_Horse_Front->CollisionStay(ECollisionOrder::Spot, [=](std::shared_ptr<UCollision> _Collision)
+	Collision_Horse_Front->CollisionStay(ECollisionOrder::BuildingObject, [=](std::shared_ptr<UCollision> _Collision)
 		{
-			CurSpot = dynamic_cast<ASpot*>(_Collision->GetActor());
+			CurBuilding = dynamic_cast<ABuildingObject*>(_Collision->GetActor());
 			return;
 		}
 	);
 
-	Collision_Horse_Front->CollisionExit(ECollisionOrder::Spot, [=](std::shared_ptr<UCollision> _Collision)
+	Collision_Horse_Front->CollisionExit(ECollisionOrder::BuildingObject, [=](std::shared_ptr<UCollision> _Collision)
 		{
-			CurSpot = nullptr;
+			CurBuilding = nullptr;
 			return;
 		}
 	);

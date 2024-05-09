@@ -16,6 +16,13 @@ enum class ESpotUpgrade
 	Tier4
 };
 
+enum class EBuildingObjectType
+{
+	Spot,
+	Vendor,
+	None
+};
+
 enum class EObjectOrder
 {
 	Engine,
@@ -28,12 +35,12 @@ enum class EObjectOrder
 
 enum class ECollisionOrder
 {
-	Coin,
-	Spot,
 	Horse,
 	Player,
 	Monster,
-	NPC
+	NPC,
+	Coin,
+	BuildingObject
 };
 
 enum class ERenderOrder
@@ -45,6 +52,7 @@ enum class ERenderOrder
 	Back1,
 	Back0,
 	BackObject,
+	Building,
 	Player,
 	GroundObject,
 	Ground,

@@ -23,7 +23,7 @@ void ATower::BeginPlay()
 
 	Renderer->SetSprite("Tower_0.png");
 	Renderer->SetAutoSize(1.0f, true);
-	Renderer->SetOrder(ERenderOrder::GroundObject);
+	Renderer->SetOrder(ERenderOrder::Building);
 }
 
 void ATower::Tick(float _DeltaTime)

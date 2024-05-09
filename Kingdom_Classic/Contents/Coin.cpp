@@ -179,15 +179,15 @@ void ACoin::StateInit()
 		LastMoveVector = FVector::Zero;
 	}
 
-	ASpot* CurSpot = APlayGameMode::MainPlayer->GetCurSpot();
+	ABuildingObject* CurBuilding = APlayGameMode::MainPlayer->GetCurBuilding();
 
-	if (CurSpot == nullptr)
+	if (CurBuilding == nullptr)
 	{
 		State.ChangeState("PayGround");
 	}
 	else
 	{
-		if (CurSpot->GetIsUpgradable() == true)
+		if (CurBuilding->State.GetCurStateName() == "Active")
 		{
 			State.ChangeState("PaySpot");
 		}
@@ -261,7 +261,7 @@ void ACoin::PaySpot(float _DeltaTime)
 		return;
 	}
 
-	FVector Indicator_Location = APlayGameMode::MainPlayer->GetCurSpot()->GetCoinLocation(APlayGameMode::MainPlayer->GetCurCoinIndex());
+	FVector Indicator_Location = APlayGameMode::MainPlayer->GetCurBuilding()->GetCoinLocation(APlayGameMode::MainPlayer->GetCurCoinIndex());
 	FVector Coin_Location = GetActorLocation();
 
 	FVector Diff = Indicator_Location - Coin_Location;
@@ -288,7 +288,7 @@ void ACoin::PayGround(float _DeltaTime)
 
 void ACoin::Wait(float _DeltaTime)
 {
-	if (APlayGameMode::MainPlayer->GetCurSpot()->GetLeftCoin() == 0)
+	if (APlayGameMode::MainPlayer->GetCurBuilding()->GetLeftCoin() == 0)
 	{
 		State.ChangeState("Disappear");
 		return;

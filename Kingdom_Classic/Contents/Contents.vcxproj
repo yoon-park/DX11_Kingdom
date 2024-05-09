@@ -183,7 +183,15 @@
       <SubType>
       </SubType>
     </ClInclude>
+    <ClInclude Include="BowVendor.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="Breeder.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="BuildingObject.h">
       <SubType>
       </SubType>
     </ClInclude>
@@ -220,6 +228,10 @@
       </SubType>
     </ClInclude>
     <ClInclude Include="Ground_Back.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="HammerVendor.h">
       <SubType>
       </SubType>
     </ClInclude>
@@ -301,7 +313,15 @@
       <SubType>
       </SubType>
     </ClCompile>
+    <ClCompile Include="BowVendor.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
     <ClCompile Include="Breeder.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="BuildingObject.cpp">
       <SubType>
       </SubType>
     </ClCompile>
@@ -334,6 +354,10 @@
       </SubType>
     </ClCompile>
     <ClCompile Include="Ground_Back.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="HammerVendor.cpp">
       <SubType>
       </SubType>
     </ClCompile>

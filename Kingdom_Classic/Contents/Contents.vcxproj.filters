@@ -44,13 +44,13 @@
       <Filter>PlayLevel\Map</Filter>
     </ClInclude>
     <ClInclude Include="TownCenter.h">
-      <Filter>PlayLevel\Object\Spot</Filter>
+      <Filter>PlayLevel\Object\BuildingObject\Spot</Filter>
     </ClInclude>
     <ClInclude Include="Wall.h">
-      <Filter>PlayLevel\Object\Spot</Filter>
+      <Filter>PlayLevel\Object\BuildingObject\Spot</Filter>
     </ClInclude>
     <ClInclude Include="Spot.h">
-      <Filter>PlayLevel\Object\Spot</Filter>
+      <Filter>PlayLevel\Object\BuildingObject\Spot</Filter>
     </ClInclude>
     <ClInclude Include="Coin.h">
       <Filter>PlayLevel\Object\Other</Filter>
@@ -77,7 +77,7 @@
       <Filter>PlayLevel\Actor\NPC</Filter>
     </ClInclude>
     <ClInclude Include="Tower.h">
-      <Filter>PlayLevel\Object\Spot</Filter>
+      <Filter>PlayLevel\Object\BuildingObject\Spot</Filter>
     </ClInclude>
     <ClInclude Include="MovingActor.h">
       <Filter>PlayLevel\Actor</Filter>
@@ -86,7 +86,16 @@
       <Filter>Core</Filter>
     </ClInclude>
     <ClInclude Include="Vendor.h">
-      <Filter>PlayLevel\Object\Vendor</Filter>
+      <Filter>PlayLevel\Object\BuildingObject\Vendor</Filter>
+    </ClInclude>
+    <ClInclude Include="BowVendor.h">
+      <Filter>PlayLevel\Object\BuildingObject\Vendor</Filter>
+    </ClInclude>
+    <ClInclude Include="HammerVendor.h">
+      <Filter>PlayLevel\Object\BuildingObject\Vendor</Filter>
+    </ClInclude>
+    <ClInclude Include="BuildingObject.h">
+      <Filter>PlayLevel\Object\BuildingObject</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -130,13 +139,13 @@
       <Filter>PlayLevel\Map</Filter>
     </ClCompile>
     <ClCompile Include="TownCenter.cpp">
-      <Filter>PlayLevel\Object\Spot</Filter>
+      <Filter>PlayLevel\Object\BuildingObject\Spot</Filter>
     </ClCompile>
     <ClCompile Include="Wall.cpp">
-      <Filter>PlayLevel\Object\Spot</Filter>
+      <Filter>PlayLevel\Object\BuildingObject\Spot</Filter>
     </ClCompile>
     <ClCompile Include="Spot.cpp">
-      <Filter>PlayLevel\Object\Spot</Filter>
+      <Filter>PlayLevel\Object\BuildingObject\Spot</Filter>
     </ClCompile>
     <ClCompile Include="Coin.cpp">
       <Filter>PlayLevel\Object\Other</Filter>
@@ -166,7 +175,7 @@
       <Filter>PlayLevel\Actor\NPC</Filter>
     </ClCompile>
     <ClCompile Include="Tower.cpp">
-      <Filter>PlayLevel\Object\Spot</Filter>
+      <Filter>PlayLevel\Object\BuildingObject\Spot</Filter>
     </ClCompile>
     <ClCompile Include="MovingActor.cpp">
       <Filter>PlayLevel\Actor</Filter>
@@ -175,7 +184,16 @@
       <Filter>Core</Filter>
     </ClCompile>
     <ClCompile Include="Vendor.cpp">
-      <Filter>PlayLevel\Object\Vendor</Filter>
+      <Filter>PlayLevel\Object\BuildingObject\Vendor</Filter>
+    </ClCompile>
+    <ClCompile Include="BowVendor.cpp">
+      <Filter>PlayLevel\Object\BuildingObject\Vendor</Filter>
+    </ClCompile>
+    <ClCompile Include="HammerVendor.cpp">
+      <Filter>PlayLevel\Object\BuildingObject\Vendor</Filter>
+    </ClCompile>
+    <ClCompile Include="BuildingObject.cpp">
+      <Filter>PlayLevel\Object\BuildingObject</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -200,9 +218,6 @@
     <Filter Include="PlayLevel\Object">
       <UniqueIdentifier>{63764a59-711c-42e9-8f96-d7db946c5374}</UniqueIdentifier>
     </Filter>
-    <Filter Include="PlayLevel\Object\Spot">
-      <UniqueIdentifier>{87a160ff-9743-4520-a4e7-5a36f9752902}</UniqueIdentifier>
-    </Filter>
     <Filter Include="PlayLevel\Object\Other">
       <UniqueIdentifier>{8cb6e27b-083b-49fc-895c-c82f4e7cf8cf}</UniqueIdentifier>
     </Filter>
@@ -218,7 +233,13 @@
     <Filter Include="PlayLevel\Actor\NPC">
       <UniqueIdentifier>{205a124b-b717-4944-84cd-0cb6ed0f8a11}</UniqueIdentifier>
     </Filter>
-    <Filter Include="PlayLevel\Object\Vendor">
+    <Filter Include="PlayLevel\Object\BuildingObject">
+      <UniqueIdentifier>{a91369e7-70cc-4564-8122-a617db724827}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="PlayLevel\Object\BuildingObject\Spot">
+      <UniqueIdentifier>{87a160ff-9743-4520-a4e7-5a36f9752902}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="PlayLevel\Object\BuildingObject\Vendor">
       <UniqueIdentifier>{d1d64300-b397-41fb-82ef-9bb09f67882a}</UniqueIdentifier>
     </Filter>
   </ItemGroup>

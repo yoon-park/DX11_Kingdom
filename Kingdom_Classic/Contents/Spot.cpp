@@ -6,47 +6,30 @@
 
 ASpot::ASpot()
 {
-	Root = CreateDefaultSubObject<UDefaultSceneComponent>("Renderer");
-
-	for (int i = 0; i < 12; i++)
 	{
-		USpriteRenderer* Coin = CreateDefaultSubObject<USpriteRenderer>("Renderer");
-		Coin->SetupAttachment(Root);
-		Coin->SetActive(false);
-		Renderer_Coins.push_back(Coin);
+		for (int i = 0; i < 12; i++)
+		{
+			USpriteRenderer* Coin = CreateDefaultSubObject<USpriteRenderer>("Renderer");
+			Coin->SetupAttachment(Root);
+			Coin->SetActive(false);
+			Renderer_Coins.push_back(Coin);
+		}
+	}
+	{
+		Collision_Check = CreateDefaultSubObject<UCollision>("Collision_Update");
+		Collision_Check->SetupAttachment(Root);
+		Collision_Check->SetScale(FVector(80.0f, 80.0f, 100.0f));
+		Collision_Check->SetPosition(FVector(0.0f, -24.0f, 0.0f));
+		Collision_Check->SetCollisionGroup(ECollisionOrder::BuildingObject);
+		Collision_Check->SetCollisionType(ECollisionType::Rect);
 	}
 
-	Collision_Update = CreateDefaultSubObject<UCollision>("Collision_Update");
-	Collision_Update->SetupAttachment(Root);
-	Collision_Update->SetScale(FVector(80.0f, 80.0f, 100.0f));
-	Collision_Update->SetPosition(FVector(0.0f, -24.0f, 0.0f));
-	Collision_Update->SetCollisionGroup(ECollisionOrder::Spot);
-	Collision_Update->SetCollisionType(ECollisionType::Rect);
-
-	SetRoot(Root);
+	Type = EBuildingObjectType::Spot;
 }
 
 ASpot::~ASpot()
 {
 
-}
-
-void ASpot::SetCoinIndicatorActive(bool _Active, int _CoinNum)
-{
-	if (_Active == true)
-	{
-		for (int i = 0; i < _CoinNum; i++)
-		{
-			Renderer_Coins[i]->SetActive(true);
-		}
-	}
-	else
-	{
-		for (int i = 0; i < _CoinNum; i++)
-		{
- 			Renderer_Coins[i]->SetActive(false);
-		}
-	}
 }
 
 void ASpot::BeginPlay()
@@ -60,8 +43,8 @@ void ASpot::BeginPlay()
 		Renderer_Coins[i]->SetOrder(ERenderOrder::UI);
 	}
 
-	StateInit();
 	SetCoinIndicatorLocation();
+	StateInit();
 }
 
 void ASpot::Tick(float _DeltaTime)
@@ -71,59 +54,16 @@ void ASpot::Tick(float _DeltaTime)
 	State.Update(_DeltaTime);
 }
 
-void ASpot::CheckPlayer()
-{
-	Collision_Update->CollisionEnter(ECollisionOrder::Horse, [=](std::shared_ptr<UCollision> _Collision)
-		{
-			IsPlayerContact = true;
-			return;
-		}
-	);
-
-	Collision_Update->CollisionStay(ECollisionOrder::Horse, [=](std::shared_ptr<UCollision> _Collision)
-		{
-			IsPlayerContact = true;
-			return;
-		}
-	);
-
-	Collision_Update->CollisionExit(ECollisionOrder::Horse, [=](std::shared_ptr<UCollision> _Collision)
-		{
-			IsPlayerContact = false;
-			return;
-		}
-	);
-}
-
-void ASpot::CheckLeftCoin()
-{
-	if (
-		IsPlayerContact == false ||
-		APlayGameMode::MainPlayer->GetIsPaying() == false
-		)
-	{
-		LeftCoin = RequiredCoin;
-	}
-	else if (
-		IsPlayerContact == true &&
-		APlayGameMode::MainPlayer->GetIsPaying() == true &&
-		APlayGameMode::MainPlayer->GetCurCoin()->State.GetCurStateName() == "Wait"
-		)
-	{
-		LeftCoin -= 1;
-	}
-}
-
 void ASpot::StateInit()
 {
 	{
-		State.CreateState("InactiveIdle");
-		State.SetStartFunction("InactiveIdle", std::bind(&ASpot::InactiveIdleStart, this));
-		State.SetUpdateFunction("InactiveIdle", std::bind(&ASpot::InactiveIdle, this, std::placeholders::_1));
+		State.CreateState("Inactive");
+		State.SetStartFunction("Inactive", std::bind(&ASpot::InactiveStart, this));
+		State.SetUpdateFunction("Inactive", std::bind(&ASpot::Inactive, this, std::placeholders::_1));
 
-		State.CreateState("ActiveIdle");
-		State.SetStartFunction("ActiveIdle", std::bind(&ASpot::ActiveIdleStart, this));
-		State.SetUpdateFunction("ActiveIdle", std::bind(&ASpot::ActiveIdle, this, std::placeholders::_1));
+		State.CreateState("Active");
+		State.SetStartFunction("Active", std::bind(&ASpot::ActiveStart, this));
+		State.SetUpdateFunction("Active", std::bind(&ASpot::Active, this, std::placeholders::_1));
 
 		State.CreateState("Upgrade");
 		State.SetStartFunction("Upgrade", std::bind(&ASpot::UpgradeStart, this));
@@ -134,15 +74,15 @@ void ASpot::StateInit()
 		State.SetUpdateFunction("UpgradeDone", std::bind(&ASpot::UpgradeDone, this, std::placeholders::_1));
 	}
 
-	State.ChangeState("InactiveIdle");
+	State.ChangeState("Inactive");
 }
 
-void ASpot::InactiveIdleStart()
+void ASpot::InactiveStart()
 {
-	SetCoinIndicatorActive(false);
+	SetCoinIndicatorActive(false, RequiredCoin);
 }
 
-void ASpot::ActiveIdleStart()
+void ASpot::ActiveStart()
 {
 	SetCoinIndicatorActive(true, RequiredCoin);
 }
@@ -160,22 +100,22 @@ void ASpot::UpgradeDoneStart()
 	LeftCoin = RequiredCoin;
 }
 
-void ASpot::InactiveIdle(float _DeltaTime)
+void ASpot::Inactive(float _DeltaTime)
 {
 	if (IsPlayerContact == true && IsUpgradable == true)
 	{
-		State.ChangeState("ActiveIdle");
+		State.ChangeState("Active");
 		return;
 	}
 
 	CheckPlayer();
 }
 
-void ASpot::ActiveIdle(float _DeltaTime)
+void ASpot::Active(float _DeltaTime)
 {
 	if (IsPlayerContact == false)
 	{
-		State.ChangeState("InactiveIdle");
+		State.ChangeState("Inactive");
 		return;
 	}
 
@@ -203,6 +143,6 @@ void ASpot::Upgrade(float _DeltaTime)
 
 void ASpot::UpgradeDone(float _DeltaTime)
 {
-	State.ChangeState("InactiveIdle");
+	State.ChangeState("Inactive");
 	return;
 }

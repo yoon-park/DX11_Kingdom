@@ -1,8 +1,9 @@
 #pragma once
+#include "BuildingObject.h"
 
-class AVendor : public AActor
+class AVendor : public ABuildingObject
 {
-	GENERATED_BODY(AActor)
+	GENERATED_BODY(ABuildingObject)
 
 public:
 	AVendor();
@@ -13,37 +14,27 @@ public:
 	AVendor& operator=(const AVendor& _Other) = delete;
 	AVendor& operator=(AVendor&& _Other) noexcept = delete;
 
-	UStateManager State;
-
 protected:
-	UDefaultSceneComponent* Root;
-	UCollision* Collision_Active;
-
-	bool IsPlayerContact = false;
-	int RequiredCoin = 1;
-	int LeftCoin = RequiredCoin;
-
-	std::vector<USpriteRenderer*> Renderer_Coins;
+	USpriteRenderer* Renderer_NPC;
+	USpriteRenderer* Renderer_Vendor;
 
 	void BeginPlay() override;
 	void Tick(float _DeltaTime) override;
 
-	void CheckPlayer();
-	void CheckLeftCoin();
-
-	void SetCoinIndicatorActive(bool _Active, int _CoinNum = 12);
-	virtual void SetCoinIndicatorLocation() {};
+	void SetDir();
 
 	// State
 	virtual void StateInit();
 
-	virtual void InactiveIdleStart();
-	virtual void ActiveIdleStart();
+	virtual void InactiveStart();
+	virtual void ActiveStart();
 	virtual void BuyStart();
 
-	virtual void InactiveIdle(float _DeltaTime);
-	virtual void ActiveIdle(float _DeltaTime);
+	virtual void Inactive(float _DeltaTime);
+	virtual void Active(float _DeltaTime);
 	virtual void Buy(float _DeltaTime);
+
+	virtual void BuyEnd();
 
 private:
 
