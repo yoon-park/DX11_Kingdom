@@ -40,17 +40,17 @@ protected:
 	virtual void SettingUpgrade() {};
 
 	// State
-	virtual void StateInit();
+	void StateInit();
 
-	virtual void InactiveStart();
-	virtual void ActiveStart();
-	virtual void UpgradeStart();
-	virtual void UpgradeDoneStart();
+	void InactiveStart();
+	void ActiveStart();
+	void UpgradeStart();
+	void UpgradeDoneStart();
 
-	virtual void Inactive(float _DeltaTime);
-	virtual void Active(float _DeltaTime);
-	virtual void Upgrade(float _DeltaTime);
-	virtual void UpgradeDone(float _DeltaTime);
+	void Inactive(float _DeltaTime);
+	void Active(float _DeltaTime);
+	void Upgrade(float _DeltaTime);
+	void UpgradeDone(float _DeltaTime);
 
 private:
 

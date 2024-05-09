@@ -3,6 +3,7 @@
 
 AHammerVendor::AHammerVendor()
 {
+	Type = EBuildingObjectType::HammerVendor;
 	RequiredCoin = 3;
 }
 

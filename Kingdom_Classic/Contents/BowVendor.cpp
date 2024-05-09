@@ -3,6 +3,7 @@
 
 ABowVendor::ABowVendor()
 {
+	Type = EBuildingObjectType::BowVendor;
 	RequiredCoin = 2;
 }
 

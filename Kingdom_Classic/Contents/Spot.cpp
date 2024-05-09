@@ -79,7 +79,7 @@ void ASpot::StateInit()
 
 void ASpot::InactiveStart()
 {
-	SetCoinIndicatorActive(false, RequiredCoin);
+	SetCoinIndicatorActive(false, 12);
 }
 
 void ASpot::ActiveStart()

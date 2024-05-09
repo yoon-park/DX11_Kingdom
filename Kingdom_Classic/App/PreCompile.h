@@ -7,4 +7,3 @@
 #include <Contents/PlayGameMode.h>
 
 #include <Contents/TitleGameMode.h>
-#include <Contents/TitleLogo.h>

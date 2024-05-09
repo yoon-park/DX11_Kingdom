@@ -1,6 +1,8 @@
 #pragma once
 #include "BuildingObject.h"
 
+#include "Tool.h"
+
 class AVendor : public ABuildingObject
 {
 	GENERATED_BODY(ABuildingObject)
@@ -17,24 +19,29 @@ public:
 protected:
 	USpriteRenderer* Renderer_NPC;
 	USpriteRenderer* Renderer_Vendor;
+	bool IsBuyable = true;
+	int LeftSlot = 3;
+
+	std::vector<ATool*> Tools;
 
 	void BeginPlay() override;
 	void Tick(float _DeltaTime) override;
 
 	void SetDir();
+	void CheckIsBuyable();
 
 	// State
-	virtual void StateInit();
+	void StateInit();
 
-	virtual void InactiveStart();
-	virtual void ActiveStart();
-	virtual void BuyStart();
+	void InactiveStart();
+	void ActiveStart();
+	void BuyStart();
 
-	virtual void Inactive(float _DeltaTime);
-	virtual void Active(float _DeltaTime);
-	virtual void Buy(float _DeltaTime);
+	void Inactive(float _DeltaTime);
+	void Active(float _DeltaTime);
+	void Buy(float _DeltaTime);
 
-	virtual void BuyEnd();
+	void BuyEnd();
 
 private:
 

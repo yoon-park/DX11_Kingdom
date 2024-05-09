@@ -105,11 +105,11 @@ void ATownCenter::BeginPlay()
 
 		BowVendor = GetWorld()->SpawnActor<ABowVendor>("BowVendor", EObjectOrder::Building);
 		BowVendor->SetActorLocation(InitLocation + float4{ 150.0f, 52.0f, 100.0f });
-		//BowVendor->SetActive(false);
+		BowVendor->SetActive(false);
 
 		HammerVendor = GetWorld()->SpawnActor<AHammerVendor>("HammerVendor", EObjectOrder::Building);
 		HammerVendor->SetActorLocation(InitLocation + float4{ -150.0f, 52.0f, 100.0f });
-		//BowVendor->SetActive(false);
+		HammerVendor->SetActive(false);
 	}
 }
 
@@ -170,10 +170,14 @@ void ATownCenter::SettingUpgrade()
 	{
 	case ESpotUpgrade::Tier0:
 	{
-		CurTier = ESpotUpgrade::Tier1;
-		Renderer_Campfire->SetSprite("Campfire_01.png");
-		RequiredCoin = 3;
 		{
+			CurTier = ESpotUpgrade::Tier1;
+			Renderer_Campfire->SetSprite("Campfire_01.png");
+			RequiredCoin = 3;
+		}
+		{
+			BowVendor->SetActive(true);
+			HammerVendor->SetActive(true);
 			InnerWall_L->SetIsUpgradable(true);
 			InnerWall_R->SetIsUpgradable(true);
 		}
@@ -181,12 +185,14 @@ void ATownCenter::SettingUpgrade()
 	}
 	case ESpotUpgrade::Tier1:
 	{
-		CurTier = ESpotUpgrade::Tier2;
-		Renderer_Campfire->SetSprite("Campfire_02.png");
-		Renderer_Banner->SetActive(true);
-		Renderer_Castle->SetSprite("TownCenter_02.png");
-		RequiredCoin = 6;
-		SkipUpgradeProgress = false;
+		{
+			CurTier = ESpotUpgrade::Tier2;
+			Renderer_Campfire->SetSprite("Campfire_02.png");
+			Renderer_Banner->SetActive(true);
+			Renderer_Castle->SetSprite("TownCenter_02.png");
+			RequiredCoin = 6;
+			SkipUpgradeProgress = false;
+		}
 		{
 			Tower_L->SetIsUpgradable(true);
 			Tower_R->SetIsUpgradable(true);
@@ -195,35 +201,49 @@ void ATownCenter::SettingUpgrade()
 	}
 	case ESpotUpgrade::Tier2:
 	{
-		CurTier = ESpotUpgrade::Tier3;
-		Renderer_Campfire->SetSprite("Campfire_03.png");
-		Renderer_Banner->SetSprite("Banner_03.png");
-		Renderer_Banner->SetPosition({ 0.0f, 14.0f, 0.0f, 0.0f });
-		Renderer_Castle->SetSprite("TownCenter_03.png");
-		for (int i = 0; i < 4; i++)
 		{
-			Renderer_Walls[i]->SetActive(true);
+			CurTier = ESpotUpgrade::Tier3;
+			Renderer_Campfire->SetSprite("Campfire_03.png");
+			Renderer_Banner->SetSprite("Banner_03.png");
+			Renderer_Banner->SetPosition({ 0.0f, 14.0f, 0.0f, 0.0f });
+			Renderer_Castle->SetSprite("TownCenter_03.png");
+			for (int i = 0; i < 4; i++)
+			{
+				Renderer_Walls[i]->SetActive(true);
+			}
+			RequiredCoin = 9;
 		}
-		RequiredCoin = 9;
 		{
 			OuterWall_L->SetIsUpgradable(true);
 			OuterWall_R->SetIsUpgradable(true);
 			Tower_L->SetIsUpgradable(true);
 			Tower_R->SetIsUpgradable(true);
+			InnerWall_L->SetIsUpgradable(true);
+			InnerWall_R->SetIsUpgradable(true);
 		}
 		break;
 	}
 	case ESpotUpgrade::Tier3:
 	{
-		CurTier = ESpotUpgrade::Tier4;
-		Renderer_Banner->SetPosition({ 0.0f, 12.0f, 0.0f, 0.0f });
-		Renderer_Castle->SetSprite("TownCenter_04.png");
-		for (int i = 0; i < 4; i++)
 		{
-			Renderer_Walls[i]->SetSprite("StoneWall.png");
+			CurTier = ESpotUpgrade::Tier4;
+			Renderer_Banner->SetPosition({ 0.0f, 12.0f, 0.0f, 0.0f });
+			Renderer_Castle->SetSprite("TownCenter_04.png");
+			for (int i = 0; i < 4; i++)
+			{
+				Renderer_Walls[i]->SetSprite("StoneWall.png");
+			}
+			RequiredCoin = 0;
+			IsUpgradable = false;
 		}
-		RequiredCoin = 0;
-		IsUpgradable = false;
+		{
+			OuterWall_L->SetIsUpgradable(true);
+			OuterWall_R->SetIsUpgradable(true);
+			Tower_L->SetIsUpgradable(true);
+			Tower_R->SetIsUpgradable(true);
+			InnerWall_L->SetIsUpgradable(true);
+			InnerWall_R->SetIsUpgradable(true);
+		}
 		break;
 	}
 	default:
@@ -245,34 +265,10 @@ void ATownCenter::CheckIsUpdatable()
 		{
 			InnerWall_R->SetIsUpgradable(false);
 		}
-		if (Tower_L->GetCurTier() == ESpotUpgrade::Tier0)
-		{
-			Tower_L->SetIsUpgradable(false);
-		}
-		if (Tower_R->GetCurTier() == ESpotUpgrade::Tier0)
-		{
-			Tower_R->SetIsUpgradable(false);
-		}
-		if (OuterWall_L->GetCurTier() == ESpotUpgrade::Tier0)
-		{
-			OuterWall_L->SetIsUpgradable(false);
-		}
-		if (OuterWall_R->GetCurTier() == ESpotUpgrade::Tier0)
-		{
-			OuterWall_R->SetIsUpgradable(false);
-		}
 		break;
 	}
 	case ESpotUpgrade::Tier2:
 	{
-		if (InnerWall_L->GetCurTier() == ESpotUpgrade::Tier1)
-		{
-			InnerWall_L->SetIsUpgradable(false);
-		}
-		if (InnerWall_R->GetCurTier() == ESpotUpgrade::Tier1)
-		{
-			InnerWall_R->SetIsUpgradable(false);
-		}
 		if (Tower_L->GetCurTier() == ESpotUpgrade::Tier1)
 		{
 			Tower_L->SetIsUpgradable(false);
@@ -281,25 +277,17 @@ void ATownCenter::CheckIsUpdatable()
 		{
 			Tower_R->SetIsUpgradable(false);
 		}
-		if (OuterWall_L->GetCurTier() == ESpotUpgrade::Tier0)
-		{
-			OuterWall_L->SetIsUpgradable(false);
-		}
-		if (OuterWall_R->GetCurTier() == ESpotUpgrade::Tier0)
-		{
-			OuterWall_R->SetIsUpgradable(false);
-		}
 		break;
 	}
 	case ESpotUpgrade::Tier3:
 	{
-		if (InnerWall_L->GetCurTier() == ESpotUpgrade::Tier1)
+		if (OuterWall_L->GetCurTier() == ESpotUpgrade::Tier1)
 		{
-			InnerWall_L->SetIsUpgradable(false);
+			OuterWall_L->SetIsUpgradable(false);
 		}
-		if (InnerWall_R->GetCurTier() == ESpotUpgrade::Tier1)
+		if (OuterWall_R->GetCurTier() == ESpotUpgrade::Tier1)
 		{
-			InnerWall_R->SetIsUpgradable(false);
+			OuterWall_R->SetIsUpgradable(false);
 		}
 		if (Tower_L->GetCurTier() == ESpotUpgrade::Tier2)
 		{
@@ -309,18 +297,6 @@ void ATownCenter::CheckIsUpdatable()
 		{
 			Tower_R->SetIsUpgradable(false);
 		}
-		if (OuterWall_L->GetCurTier() == ESpotUpgrade::Tier2)
-		{
-			OuterWall_L->SetIsUpgradable(false);
-		}
-		if (OuterWall_R->GetCurTier() == ESpotUpgrade::Tier2)
-		{
-			OuterWall_R->SetIsUpgradable(false);
-		}
-		break;
-	}
-	case ESpotUpgrade::Tier4:
-	{
 		if (InnerWall_L->GetCurTier() == ESpotUpgrade::Tier2)
 		{
 			InnerWall_L->SetIsUpgradable(false);
@@ -328,6 +304,18 @@ void ATownCenter::CheckIsUpdatable()
 		if (InnerWall_R->GetCurTier() == ESpotUpgrade::Tier2)
 		{
 			InnerWall_R->SetIsUpgradable(false);
+		}
+		break;
+	}
+	case ESpotUpgrade::Tier4:
+	{
+		if (OuterWall_L->GetCurTier() == ESpotUpgrade::Tier3)
+		{
+			OuterWall_L->SetIsUpgradable(false);
+		}
+		if (OuterWall_R->GetCurTier() == ESpotUpgrade::Tier3)
+		{
+			OuterWall_R->SetIsUpgradable(false);
 		}
 		if (Tower_L->GetCurTier() == ESpotUpgrade::Tier3)
 		{
@@ -337,13 +325,13 @@ void ATownCenter::CheckIsUpdatable()
 		{
 			Tower_R->SetIsUpgradable(false);
 		}
-		if (OuterWall_L->GetCurTier() == ESpotUpgrade::Tier3)
+		if (InnerWall_L->GetCurTier() == ESpotUpgrade::Tier3)
 		{
-			OuterWall_L->SetIsUpgradable(false);
+			InnerWall_L->SetIsUpgradable(false);
 		}
-		if (OuterWall_R->GetCurTier() == ESpotUpgrade::Tier3)
+		if (InnerWall_R->GetCurTier() == ESpotUpgrade::Tier3)
 		{
-			OuterWall_R->SetIsUpgradable(false);
+			InnerWall_R->SetIsUpgradable(false);
 		}
 		break;
 	}

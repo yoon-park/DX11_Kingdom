@@ -97,6 +97,9 @@
     <ClInclude Include="BuildingObject.h">
       <Filter>PlayLevel\Object\BuildingObject</Filter>
     </ClInclude>
+    <ClInclude Include="Tool.h">
+      <Filter>PlayLevel\Object\Other</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="PreCompile.cpp">
@@ -194,6 +197,9 @@
     </ClCompile>
     <ClCompile Include="BuildingObject.cpp">
       <Filter>PlayLevel\Object\BuildingObject</Filter>
+    </ClCompile>
+    <ClCompile Include="Tool.cpp">
+      <Filter>PlayLevel\Object\Other</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

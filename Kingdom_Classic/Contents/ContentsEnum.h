@@ -19,7 +19,8 @@ enum class ESpotUpgrade
 enum class EBuildingObjectType
 {
 	Spot,
-	Vendor,
+	BowVendor,
+	HammerVendor,
 	None
 };
 
@@ -30,7 +31,7 @@ enum class EObjectOrder
 	Building,
 	Player,
 	Monster,
-	Coin
+	Other
 };
 
 enum class ECollisionOrder

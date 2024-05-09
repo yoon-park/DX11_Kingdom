@@ -29,8 +29,6 @@ AVendor::AVendor()
 		Collision_Check->SetCollisionGroup(ECollisionOrder::BuildingObject);
 		Collision_Check->SetCollisionType(ECollisionType::Rect);
 	}
-
-	Type = EBuildingObjectType::Vendor;
 }
 
 AVendor::~AVendor()
@@ -48,6 +46,10 @@ void AVendor::BeginPlay()
 		Renderer_Coins[i]->SetAutoSize(1.0f, true);
 		Renderer_Coins[i]->SetOrder(ERenderOrder::UI);
 	}
+	for (int i = 0; i < 3; i++)
+	{
+
+	}
 
 	SetCoinIndicatorLocation();
 	StateInit();
@@ -57,9 +59,10 @@ void AVendor::Tick(float _DeltaTime)
 {
 	Super::Tick(_DeltaTime);
 
-	SetDir();
-
 	State.Update(_DeltaTime);
+
+	SetDir();
+	CheckIsBuyable();
 }
 
 void AVendor::SetDir()
@@ -73,6 +76,22 @@ void AVendor::SetDir()
 	else
 	{
 		Renderer_NPC->SetDir(EEngineDir::Right);
+	}
+}
+
+void AVendor::CheckIsBuyable()
+{
+	if (State.GetCurStateName() == "Buy")
+	{
+		IsBuyable = false;
+	}
+	else if (LeftSlot == 0)
+	{
+		IsBuyable = false;
+	}
+	else
+	{
+		IsBuyable = true;
 	}
 }
 
@@ -98,7 +117,7 @@ void AVendor::StateInit()
 
 void AVendor::InactiveStart()
 {
-	SetCoinIndicatorActive(false, RequiredCoin);
+	SetCoinIndicatorActive(false, 3);
 }
 
 void AVendor::ActiveStart()
@@ -113,7 +132,7 @@ void AVendor::BuyStart()
 
 void AVendor::Inactive(float _DeltaTime)
 {
-	if (IsPlayerContact == true)
+	if (IsPlayerContact == true && IsBuyable == true)
 	{
 		State.ChangeState("Active");
 		return;
@@ -142,7 +161,10 @@ void AVendor::Active(float _DeltaTime)
 
 void AVendor::Buy(float _DeltaTime)
 {
+	
 
+	State.ChangeState("Inactive");
+	return;
 }
 
 void AVendor::BuyEnd()

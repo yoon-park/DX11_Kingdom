@@ -164,7 +164,7 @@ void APlayer::CheckBuilding()
 
 void APlayer::CreateCoin()
 {
-	std::shared_ptr<ACoin> Coin = GetWorld()->SpawnActor<ACoin>("Coin", EObjectOrder::Coin);
+	std::shared_ptr<ACoin> Coin = GetWorld()->SpawnActor<ACoin>("Coin", EObjectOrder::Other);
 	Coin->SetActorLocation(GetActorLocation() + float4(0.0f, 30.0f, 0.0f));
 	CurCoin = Coin.get();
 	CurCoinIndex += 1;

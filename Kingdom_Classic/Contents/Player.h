@@ -1,5 +1,6 @@
 #pragma once
 #include "MovingActor.h"
+
 #include "Spot.h"
 #include "Coin.h"
 
