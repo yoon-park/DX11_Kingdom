@@ -44,7 +44,7 @@ void AHammerVendor::Tick(float _DeltaTime)
 
 void AHammerVendor::SetCoinIndicatorLocation()
 {
-	Renderer_Coins[0]->SetPosition({ -50.0f, 25.0f, 0.0f, 0.0f });
-	Renderer_Coins[1]->SetPosition({ -35.0f, 25.0f, 0.0f, 0.0f });
-	Renderer_Coins[2]->SetPosition({ -20.0f, 25.0f, 0.0f, 0.0f });
+	Renderer_Coins[0]->SetPosition({ -48.0f, 20.0f, 0.0f, 0.0f });
+	Renderer_Coins[1]->SetPosition({ -33.0f, 20.0f, 0.0f, 0.0f });
+	Renderer_Coins[2]->SetPosition({ -18.0f, 20.0f, 0.0f, 0.0f });
 }

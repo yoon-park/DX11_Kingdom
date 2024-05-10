@@ -30,7 +30,7 @@ void ACoin::BeginPlay()
 	Super::BeginPlay();
 
 	Renderer->SetAutoSize(1.0f, true);
-	Renderer->SetOrder(ERenderOrder::GroundObject);
+	Renderer->SetOrder(ERenderOrder::BuildingFront);
 
 	Renderer->CreateAnimation("Stop", "Coin_Pay", 0.10f);
 	Renderer->CreateAnimation("Spin", "Coin_Spin", 0.10f);
@@ -266,7 +266,7 @@ void ACoin::PaySpot(float _DeltaTime)
 
 	FVector Diff = Indicator_Location - Coin_Location;
 
-	if (Diff.Size3D() <= 0.05)
+	if (Diff.Size3D() <= 0.08)
 	{
 		State.ChangeState("Wait");
 		return;

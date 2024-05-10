@@ -37,37 +37,24 @@ void ATower::SetCoinIndicatorLocation()
 	{
 	case 1:
 	{
-		Renderer_Coins[0]->SetPosition({ 0.0f, 40.0f, 0.0f, 0.0f });
+		Renderer_Coins[0]->SetPosition({ 0.0f, 20.0f, 0.0f, 0.0f });
 		break;
 	}
 	case 3:
 	{
-		Renderer_Coins[0]->SetPosition({ -15.0f, 40.0f, 0.0f, 0.0f });
-		Renderer_Coins[1]->SetPosition({ 0.0f, 40.0f, 0.0f, 0.0f });
-		Renderer_Coins[2]->SetPosition({ 15.0f, 40.0f, 0.0f, 0.0f });
+		Renderer_Coins[0]->SetPosition({ -15.0f, 20.0f, 0.0f, 0.0f });
+		Renderer_Coins[1]->SetPosition({ 0.0f, 20.0f, 0.0f, 0.0f });
+		Renderer_Coins[2]->SetPosition({ 15.0f, 20.0f, 0.0f, 0.0f });
 		break;
 	}
 	case 6:
 	{
-		Renderer_Coins[0]->SetPosition({ -15.0f, 40.0f, 0.0f, 0.0f });
-		Renderer_Coins[1]->SetPosition({ 0.0f, 40.0f, 0.0f, 0.0f });
-		Renderer_Coins[2]->SetPosition({ 15.0f, 40.0f, 0.0f, 0.0f });
-		Renderer_Coins[3]->SetPosition({ -15.0f, 55.0f, 0.0f, 0.0f });
-		Renderer_Coins[4]->SetPosition({ 0.0f, 55.0f, 0.0f, 0.0f });
-		Renderer_Coins[5]->SetPosition({ 15.0f, 55.0f, 0.0f, 0.0f });
-		break;
-	}
-	case 9:
-	{
-		Renderer_Coins[0]->SetPosition({ -23.0f, 40.0f, 0.0f, 0.0f });
-		Renderer_Coins[1]->SetPosition({ -8.0f, 40.0f, 0.0f, 0.0f });
-		Renderer_Coins[2]->SetPosition({ 8.0f, 40.0f, 0.0f, 0.0f });
-		Renderer_Coins[3]->SetPosition({ 23.0f, 40.0f, 0.0f, 0.0f });
-		Renderer_Coins[4]->SetPosition({ -30.0f, 55.0f, 0.0f, 0.0f });
-		Renderer_Coins[5]->SetPosition({ -15.0f, 55.0f, 0.0f, 0.0f });
-		Renderer_Coins[6]->SetPosition({ 0.0f, 55.0f, 0.0f, 0.0f });
-		Renderer_Coins[7]->SetPosition({ 15.0f, 55.0f, 0.0f, 0.0f });
-		Renderer_Coins[8]->SetPosition({ 30.0f, 55.0f, 0.0f, 0.0f });
+		Renderer_Coins[0]->SetPosition({ -15.0f, 30.0f, 0.0f, 0.0f });
+		Renderer_Coins[1]->SetPosition({ 0.0f, 30.0f, 0.0f, 0.0f });
+		Renderer_Coins[2]->SetPosition({ 15.0f, 30.0f, 0.0f, 0.0f });
+		Renderer_Coins[3]->SetPosition({ -15.0f, 45.0f, 0.0f, 0.0f });
+		Renderer_Coins[4]->SetPosition({ 0.0f, 45.0f, 0.0f, 0.0f });
+		Renderer_Coins[5]->SetPosition({ 15.0f, 45.0f, 0.0f, 0.0f });
 		break;
 	}
 	default:

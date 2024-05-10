@@ -44,6 +44,6 @@ void ABowVendor::Tick(float _DeltaTime)
 
 void ABowVendor::SetCoinIndicatorLocation()
 {
-	Renderer_Coins[0]->SetPosition({ 10.0f, 25.0f, 0.0f, 0.0f });
-	Renderer_Coins[1]->SetPosition({ 25.0f, 25.0f, 0.0f, 0.0f });
+	Renderer_Coins[0]->SetPosition({ 10.0f, 20.0f, 0.0f, 0.0f });
+	Renderer_Coins[1]->SetPosition({ 25.0f, 20.0f, 0.0f, 0.0f });
 }

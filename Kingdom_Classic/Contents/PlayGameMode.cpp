@@ -38,8 +38,8 @@ void APlayGameMode::BeginPlay()
 
 	UContentsConstValue::MapTex = UEngineTexture::FindRes("Back.png");
 	UContentsConstValue::MapTexScale = UContentsConstValue::MapTex->GetScale();
-	// float4 ImageScale = UContentsConstValue::MapTexScale;
-	// float4 InitLocation = { ImageScale.hX(), -ImageScale.hY(), 0.0f };
+	//float4 ImageScale = UContentsConstValue::MapTexScale;
+	//float4 InitLocation = { ImageScale.hX(), -ImageScale.hY(), 0.0f };
 
 	{
 		std::shared_ptr<UCamera> Camera = GetWorld()->GetMainCamera();
@@ -51,8 +51,8 @@ void APlayGameMode::BeginPlay()
 	}
 	{
 		{
-			std::shared_ptr<AGround_Back> GroundBack = GetWorld()->SpawnActor<AGround_Back>("GroundBack", EObjectOrder::Back);
-			GroundBack->SetActorLocation(UContentsConstValue::InitLocation + float4{ 0.0f, 0.0f, 100.0f });
+			//std::shared_ptr<AGround_Back> GroundBack = GetWorld()->SpawnActor<AGround_Back>("GroundBack", EObjectOrder::Back);
+			//GroundBack->SetActorLocation(UContentsConstValue::InitLocation + float4{ 0.0f, 0.0f, 100.0f });
 
 			std::shared_ptr<AGround> Ground = GetWorld()->SpawnActor<AGround>("Ground", EObjectOrder::Back);
 			Ground->SetActorLocation(UContentsConstValue::InitLocation + float4{ 0.0f, 0.0f, 100.0f });

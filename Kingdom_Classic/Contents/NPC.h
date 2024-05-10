@@ -21,16 +21,6 @@ public:
 		return CoinNum;
 	}
 
-	void AddCoin()
-	{
-		CoinNum += 1;
-	}
-
-	void SubCoin()
-	{
-		CoinNum -= 1;
-	}
-
 protected:
 	USpriteRenderer* Renderer;
 	UCollision* Collision;
