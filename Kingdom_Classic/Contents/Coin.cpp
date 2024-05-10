@@ -14,7 +14,7 @@ ACoin::ACoin()
 	Collision = CreateDefaultSubObject<UCollision>("Collision");
 	Collision->SetupAttachment(Root);
 	Collision->SetScale(FVector(10.0f, 10.0f, 100.0f));
-	Collision->SetCollisionGroup(ECollisionOrder::Coin);
+	Collision->SetCollisionGroup(ECollisionOrder::OtherObject);
 	Collision->SetCollisionType(ECollisionType::Rect);
 
 	SetRoot(Root);

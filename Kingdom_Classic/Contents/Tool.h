@@ -13,12 +13,32 @@ public:
 	ATool& operator=(const ATool& _Other) = delete;
 	ATool& operator=(ATool&& _Other) noexcept = delete;
 
+	UStateManager State;
+
+	USpriteRenderer* GetRenderer()
+	{
+		return Renderer;
+	}
+
 protected:
 	void BeginPlay() override;
 	void Tick(float _DeltaTime) override;
 
 private:
 	USpriteRenderer* Renderer;
-	UCollision* Collision;
+	float Inter_Blink = 0.1f;
+	int Cnt_Blink = 8;
 
+	// State
+	void StateInit();
+
+	void InactiveStart();
+	void CreateStart();
+	void ActiveStart();
+
+	void Inactive(float _DeltaTime);
+	void Create(float _DeltaTime);
+	void Active(float _DeltaTime);
+
+	void CreateEnd();
 };

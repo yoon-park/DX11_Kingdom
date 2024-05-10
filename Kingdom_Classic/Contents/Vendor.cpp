@@ -46,9 +46,38 @@ void AVendor::BeginPlay()
 		Renderer_Coins[i]->SetAutoSize(1.0f, true);
 		Renderer_Coins[i]->SetOrder(ERenderOrder::UI);
 	}
+
 	for (int i = 0; i < 3; i++)
 	{
+		std::shared_ptr<ATool> Tool = GetWorld()->SpawnActor<ATool>("Tool", EObjectOrder::Other);
+		USpriteRenderer* Renderer_Tool = Tool->GetRenderer();
+		FVector VendorLocation;
 
+		switch (Type)
+		{
+		case EBuildingObjectType::BowVendor:
+		{
+			VendorLocation = UContentsConstValue::InitLocation + float4{ 150.0f, 52.0f, 100.0f };
+			Tool->SetActorLocation(VendorLocation + float4{ 16.0f + 6.0f * i, -21.0f, 0.0f, 0.0f });
+			Renderer_Tool->SetSprite("Bow.png");
+			Renderer_Tool->SetAutoSize(1.0f, true);
+			Renderer_Tool->SetOrder(ERenderOrder::Building);
+			break;
+		}
+		case EBuildingObjectType::HammerVendor:
+		{
+			VendorLocation = UContentsConstValue::InitLocation + float4{ -150.0f, 52.0f, 100.0f };
+			Tool->SetActorLocation(VendorLocation + float4{ -38.0f + 7.0f * i, -24.0f, 0.0f, 0.0f });
+			Renderer_Tool->SetSprite("Hammer.png");
+			Renderer_Tool->SetAutoSize(1.0f, true);
+			Renderer_Tool->SetOrder(ERenderOrder::Building);
+			break;
+		}
+		default:
+			break;
+		}
+
+		Tools.push_back(Tool.get());
 	}
 
 	SetCoinIndicatorLocation();
@@ -61,21 +90,30 @@ void AVendor::Tick(float _DeltaTime)
 
 	State.Update(_DeltaTime);
 
-	SetDir();
+	SetDir(_DeltaTime);
 	CheckIsBuyable();
 }
 
-void AVendor::SetDir()
+void AVendor::SetDir(float _DeltaTime)
 {
-	FVector Diff = APlayGameMode::MainPlayer->GetActorLocation() - GetActorLocation();
-
-	if (Diff.X < 0.0f)
+	if (Timer_Dir <= 0.0f)
 	{
-		Renderer_NPC->SetDir(EEngineDir::Left);
+		FVector Diff = APlayGameMode::MainPlayer->GetActorLocation() - GetActorLocation();
+
+		if (Diff.X < 0.0f)
+		{
+			Renderer_NPC->SetDir(EEngineDir::Left);
+		}
+		else
+		{
+			Renderer_NPC->SetDir(EEngineDir::Right);
+		}
+
+		Timer_Dir = 1.5f;
 	}
 	else
 	{
-		Renderer_NPC->SetDir(EEngineDir::Right);
+		Timer_Dir -= _DeltaTime;
 	}
 }
 
@@ -127,7 +165,7 @@ void AVendor::ActiveStart()
 
 void AVendor::BuyStart()
 {
-
+	Tools[3 - LeftSlot]->State.ChangeState("Create");
 }
 
 void AVendor::Inactive(float _DeltaTime)
@@ -149,7 +187,7 @@ void AVendor::Active(float _DeltaTime)
 		return;
 	}
 
-	if (LeftCoin == 0)
+	if (LeftCoin == 0 && LeftSlot != 0)
 	{
 		State.ChangeState("Buy");
 		return;
@@ -161,13 +199,12 @@ void AVendor::Active(float _DeltaTime)
 
 void AVendor::Buy(float _DeltaTime)
 {
-	
-
-	State.ChangeState("Inactive");
+	State.ChangeState("InActive");
 	return;
 }
 
 void AVendor::BuyEnd()
 {
+	LeftSlot -= 1;
 	LeftCoin = RequiredCoin;
 }

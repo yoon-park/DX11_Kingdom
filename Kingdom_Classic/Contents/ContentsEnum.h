@@ -40,7 +40,7 @@ enum class ECollisionOrder
 	Player,
 	Monster,
 	NPC,
-	Coin,
+	OtherObject,
 	BuildingObject
 };
 

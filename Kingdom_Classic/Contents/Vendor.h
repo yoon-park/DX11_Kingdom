@@ -21,13 +21,14 @@ protected:
 	USpriteRenderer* Renderer_Vendor;
 	bool IsBuyable = true;
 	int LeftSlot = 3;
+	float Timer_Dir = 1.5f;
 
 	std::vector<ATool*> Tools;
 
 	void BeginPlay() override;
 	void Tick(float _DeltaTime) override;
 
-	void SetDir();
+	void SetDir(float _DeltaTime);
 	void CheckIsBuyable();
 
 	// State
