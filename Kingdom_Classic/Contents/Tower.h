@@ -25,4 +25,8 @@ private:
 
 	void SetCoinIndicatorLocation() override;
 	void SettingUpgrade() override;
+
+	// State
+	void ActiveStart() override;
+	void ActiveEnd() override;
 };

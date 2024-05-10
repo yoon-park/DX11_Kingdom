@@ -43,7 +43,7 @@ protected:
 	void StateInit();
 
 	void InactiveStart();
-	void ActiveStart();
+	virtual void ActiveStart();
 	void UpgradeStart();
 	void UpgradeDoneStart();
 
@@ -51,6 +51,8 @@ protected:
 	void Active(float _DeltaTime);
 	void Upgrade(float _DeltaTime);
 	void UpgradeDone(float _DeltaTime);
+
+	virtual void ActiveEnd();
 
 private:
 

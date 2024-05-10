@@ -337,3 +337,35 @@ void ATownCenter::CheckIsUpdatable()
 		break;
 	}
 }
+
+void ATownCenter::ActiveStart()
+{
+	Super::ActiveStart();
+
+	/*
+	Renderer_Campfire->SetPlusColor({ 0.1f, 0.1f, 0.0f, 1.0f });
+	Renderer_Banner->SetPlusColor({ 0.1f, 0.1f, 0.0f, 1.0f });
+	Renderer_Castle->SetPlusColor({ 0.1f, 0.1f, 0.0f, 1.0f });
+
+	for (int i = 0; i < 4; i++)
+	{
+		Renderer_Walls[i]->SetPlusColor({ 0.1f, 0.1f, 0.0f, 1.0f });
+	}
+	*/
+}
+
+void ATownCenter::ActiveEnd()
+{
+	Super::ActiveEnd();
+
+	/*
+	Renderer_Campfire->SetPlusColor({ 0.0f, 0.0f, 0.0f, 0.0f });
+	Renderer_Banner->SetPlusColor({ 0.0f, 0.0f, 0.0f, 0.0f });
+	Renderer_Castle->SetPlusColor({ 0.0f, 0.0f, 0.0f, 0.0f });
+
+	for (int i = 0; i < 4; i++)
+	{
+		Renderer_Walls[i]->SetPlusColor({ 0.0f, 0.0f, 0.0f, 0.0f });
+	}
+	*/
+}

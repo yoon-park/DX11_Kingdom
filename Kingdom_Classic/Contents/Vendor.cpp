@@ -13,6 +13,9 @@ AVendor::AVendor()
 		Renderer_Vendor = CreateDefaultSubObject<USpriteRenderer>("Renderer_Vendor");
 		Renderer_Vendor->SetupAttachment(Root);
 
+		Renderer_Sign = CreateDefaultSubObject<USpriteRenderer>("Renderer_Vendor");
+		Renderer_Sign->SetupAttachment(Root);
+
 		for (int i = 0; i < 3; i++)
 		{
 			USpriteRenderer* Coin = CreateDefaultSubObject<USpriteRenderer>("Renderer_Coin");
@@ -61,7 +64,7 @@ void AVendor::BeginPlay()
 			Tool->SetActorLocation(VendorLocation + float4{ 16.0f + 6.0f * i, -21.0f, 0.0f, 0.0f });
 			Renderer_Tool->SetSprite("Bow.png");
 			Renderer_Tool->SetAutoSize(1.0f, true);
-			Renderer_Tool->SetOrder(ERenderOrder::Building);
+			Renderer_Tool->SetOrder(ERenderOrder::BuildingFront);
 			break;
 		}
 		case EBuildingObjectType::HammerVendor:
@@ -70,7 +73,7 @@ void AVendor::BeginPlay()
 			Tool->SetActorLocation(VendorLocation + float4{ -38.0f + 7.0f * i, -24.0f, 0.0f, 0.0f });
 			Renderer_Tool->SetSprite("Hammer.png");
 			Renderer_Tool->SetAutoSize(1.0f, true);
-			Renderer_Tool->SetOrder(ERenderOrder::Building);
+			Renderer_Tool->SetOrder(ERenderOrder::BuildingFront);
 			break;
 		}
 		default:
@@ -109,7 +112,7 @@ void AVendor::SetDir(float _DeltaTime)
 			Renderer_NPC->SetDir(EEngineDir::Right);
 		}
 
-		Timer_Dir = 1.5f;
+		Timer_Dir = 2.0f;
 	}
 	else
 	{
@@ -143,6 +146,7 @@ void AVendor::StateInit()
 		State.CreateState("Active");
 		State.SetStartFunction("Active", std::bind(&AVendor::ActiveStart, this));
 		State.SetUpdateFunction("Active", std::bind(&AVendor::Active, this, std::placeholders::_1));
+		State.SetEndFunction("Active", std::bind(&AVendor::ActiveEnd, this));
 
 		State.CreateState("Buy");
 		State.SetStartFunction("Buy", std::bind(&AVendor::BuyStart, this));
@@ -161,6 +165,7 @@ void AVendor::InactiveStart()
 void AVendor::ActiveStart()
 {
 	SetCoinIndicatorActive(true, RequiredCoin);
+	Renderer_Sign->SetActive(true);
 }
 
 void AVendor::BuyStart()
@@ -201,6 +206,11 @@ void AVendor::Buy(float _DeltaTime)
 {
 	State.ChangeState("InActive");
 	return;
+}
+
+void AVendor::ActiveEnd()
+{
+	Renderer_Sign->SetActive(false);
 }
 
 void AVendor::BuyEnd()

@@ -19,9 +19,10 @@ public:
 protected:
 	USpriteRenderer* Renderer_NPC;
 	USpriteRenderer* Renderer_Vendor;
+	USpriteRenderer* Renderer_Sign;
 	bool IsBuyable = true;
 	int LeftSlot = 3;
-	float Timer_Dir = 1.5f;
+	float Timer_Dir = 2.0f;
 
 	std::vector<ATool*> Tools;
 
@@ -42,6 +43,7 @@ protected:
 	void Active(float _DeltaTime);
 	void Buy(float _DeltaTime);
 
+	void ActiveEnd();
 	void BuyEnd();
 
 private:

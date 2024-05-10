@@ -105,3 +105,17 @@ void AWall::SettingUpgrade()
 		break;
 	}
 }
+
+void AWall::ActiveStart()
+{
+	Super::ActiveStart();
+
+	Renderer->SetPlusColor({ 0.1f, 0.1f, 0.0f, 1.0f });
+}
+
+void AWall::ActiveEnd()
+{
+	Super::ActiveEnd();
+
+	Renderer->SetPlusColor({ 0.0f, 0.0f, 0.0f, 0.0f });
+}

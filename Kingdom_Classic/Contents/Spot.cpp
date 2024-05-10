@@ -64,6 +64,7 @@ void ASpot::StateInit()
 		State.CreateState("Active");
 		State.SetStartFunction("Active", std::bind(&ASpot::ActiveStart, this));
 		State.SetUpdateFunction("Active", std::bind(&ASpot::Active, this, std::placeholders::_1));
+		State.SetEndFunction("Active", std::bind(&ASpot::ActiveEnd, this));
 
 		State.CreateState("Upgrade");
 		State.SetStartFunction("Upgrade", std::bind(&ASpot::UpgradeStart, this));
@@ -145,4 +146,9 @@ void ASpot::UpgradeDone(float _DeltaTime)
 {
 	State.ChangeState("Inactive");
 	return;
+}
+
+void ASpot::ActiveEnd()
+{
+
 }
