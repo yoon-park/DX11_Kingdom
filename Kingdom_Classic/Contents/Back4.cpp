@@ -18,7 +18,7 @@ void ABack4::BeginPlay()
 	Super::BeginPlay();
 
 	Renderer->SetSprite("Map_04.png");
-	Renderer->SetAutoSize(3.5f, true);
+	Renderer->SetAutoSize(5.0f, true);
 	Renderer->SetOrder(ERenderOrder::Back4);
 }
 

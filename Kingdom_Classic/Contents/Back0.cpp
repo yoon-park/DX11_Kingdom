@@ -17,7 +17,7 @@ void ABack0::BeginPlay()
 {
 	Super::BeginPlay();
 
-	Renderer->SetSprite("shrubs_big_05.png");
+	Renderer->SetSprite("Map_00.png");
 	Renderer->SetAutoSize(1.0f, true);
 	Renderer->SetOrder(ERenderOrder::Back0);
 }

@@ -57,7 +57,7 @@ void APlayGameMode::BeginPlay()
 			Ground->SetActorLocation(UContentsConstValue::InitLocation + float4{ 0.0f, 0.0f, 100.0f });
 
 			std::shared_ptr<ABack0> Back0 = GetWorld()->SpawnActor<ABack0>("Back0", EObjectOrder::Back);
-			Back0->SetActorLocation(UContentsConstValue::InitLocation + float4{ 60.0f, 30.0f, 100.0f });
+			Back0->SetActorLocation(UContentsConstValue::InitLocation + float4{ 0.0f, 110.0f, 100.0f });
 
 			std::shared_ptr<ABack1> Back1 = GetWorld()->SpawnActor<ABack1>("Back1", EObjectOrder::Back);
 			Back1->SetActorLocation(UContentsConstValue::InitLocation + float4{ 0.0f, 110.0f, 200.0f });
@@ -66,10 +66,10 @@ void APlayGameMode::BeginPlay()
 			Back2->SetActorLocation(UContentsConstValue::InitLocation + float4{ 0.0f, 170.0f, 500.0f });
 
 			std::shared_ptr<ABack3> Back3 = GetWorld()->SpawnActor<ABack3>("Back3", EObjectOrder::Back);
-			Back3->SetActorLocation(UContentsConstValue::InitLocation + float4{ 0.0f, 130.0f, 700.0f });
+			Back3->SetActorLocation(UContentsConstValue::InitLocation + float4{ 0.0f, -50.0f, 700.0f });
 
 			std::shared_ptr<ABack4> Back4 = GetWorld()->SpawnActor<ABack4>("Back4", EObjectOrder::Back);
-			Back4->SetActorLocation(UContentsConstValue::InitLocation + float4{ 400.0f, 140.0f, 900.0f });
+			Back4->SetActorLocation(UContentsConstValue::InitLocation + float4{ 0.0f, 70.0f, 900.0f });
 
 			std::shared_ptr<ASky> Sky = GetWorld()->SpawnActor<ASky>("Sky", EObjectOrder::Back);
 			Sky->SetActorLocation(UContentsConstValue::InitLocation + float4{ 0.0f, 0.0f, 1000.0f });
