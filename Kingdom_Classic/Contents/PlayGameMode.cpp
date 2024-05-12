@@ -13,10 +13,9 @@
 #include "Sky.h"
 
 #include "Player.h"
-#include "Monster.h"
-
 #include "TownCenter.h"
-#include "Wall.h"
+#include "Monster.h"
+#include "NPC.h"
 
 std::shared_ptr<APlayer> APlayGameMode::MainPlayer = nullptr;
 std::shared_ptr<ATownCenter> APlayGameMode::MyKingdom = nullptr;
@@ -83,6 +82,9 @@ void APlayGameMode::BeginPlay()
 			std::shared_ptr<ATownCenter> TownCenter = GetWorld()->SpawnActor<ATownCenter>("TownCenter", EObjectOrder::Building);
 			TownCenter->SetActorLocation(UContentsConstValue::InitLocation + float4{ 0.0f, 84.0f, 100.0f });
 			MyKingdom = TownCenter;
+
+			std::shared_ptr<ANPC> NPC = GetWorld()->SpawnActor<ANPC>("NPC", EObjectOrder::NPC);
+			NPC->SetActorLocation(UContentsConstValue::InitLocation + float4{ 0.0f, 20.0f, 100.0f });
 		}
 	}
 }

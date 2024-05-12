@@ -20,6 +20,7 @@ public:
 	static std::shared_ptr<APlayer> MainPlayer;
 	static std::shared_ptr<ATownCenter> MyKingdom;
 	static std::shared_ptr<UContentsTime> ContentsTimer;
+	static std::map<int, std::list<std::shared_ptr<AActor>>> NPCs;
 
 protected:
 	void BeginPlay() override;

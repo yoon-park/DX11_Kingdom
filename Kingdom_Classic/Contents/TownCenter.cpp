@@ -115,7 +115,6 @@ void ATownCenter::Tick(float _DeltaTime)
 	Super::Tick(_DeltaTime);
 
 	CheckIsUpdatable();
-	
 }
 
 void ATownCenter::SetCoinIndicatorLocation()

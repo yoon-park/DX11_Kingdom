@@ -15,5 +15,5 @@ protected:
 	void Initialize() override;
 
 private:
-
+	
 };

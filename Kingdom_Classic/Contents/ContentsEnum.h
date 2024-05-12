@@ -1,5 +1,13 @@
 #pragma once
 
+enum class ENPCType
+{
+	Vagrant,
+	Villager,
+	Archer,
+	Builder
+};
+
 enum class EGroundType
 {
 	Plain,
@@ -31,6 +39,7 @@ enum class EObjectOrder
 	Building,
 	Player,
 	Monster,
+	NPC,
 	Other
 };
 
@@ -56,7 +65,7 @@ enum class ERenderOrder
 	BuildingBack,
 	Building,
 	BuildingFront,
-	Player,
+	MovingActor,
 	GroundObject,
 	Ground,
 	Water,

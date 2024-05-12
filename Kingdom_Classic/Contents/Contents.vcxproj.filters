@@ -201,6 +201,9 @@
     <ClCompile Include="Tool.cpp">
       <Filter>PlayLevel\Object\Other</Filter>
     </ClCompile>
+    <ClCompile Include="NPC_State.cpp">
+      <Filter>PlayLevel\Actor\NPC</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="PreCompile">

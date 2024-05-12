@@ -385,6 +385,7 @@
       <SubType>
       </SubType>
     </ClCompile>
+    <ClCompile Include="NPC_State.cpp" />
     <ClCompile Include="Player.cpp">
       <SubType>
       </SubType>

@@ -46,10 +46,10 @@ void APlayer::BeginPlay()
 
 	{
 		Renderer_Player->SetAutoSize(1.0f, true);
-		Renderer_Player->SetOrder(ERenderOrder::Player);
+		Renderer_Player->SetOrder(ERenderOrder::MovingActor);
 
 		Renderer_Horse->SetAutoSize(1.0f, true);
-		Renderer_Horse->SetOrder(ERenderOrder::Player);
+		Renderer_Horse->SetOrder(ERenderOrder::MovingActor);
 	}
 	{
 		Renderer_Player->CreateAnimation("Idle", "Player_Idle.png", 0.13f, true, 0, 15);
