@@ -56,11 +56,14 @@ void AVendor::BeginPlay()
 		USpriteRenderer* Renderer_Tool = Tool->GetRenderer();
 		FVector VendorLocation;
 
+		float4 ImageScale = UContentsConstValue::MapTexScale;
+		float4 InitLocation = { ImageScale.hX(), -ImageScale.hY(), 0.0f };
+
 		switch (Type)
 		{
 		case EBuildingObjectType::BowVendor:
 		{
-			VendorLocation = UContentsConstValue::InitLocation + float4{ 150.0f, 52.0f, 100.0f };
+			VendorLocation = InitLocation + float4{ 150.0f, 52.0f, 100.0f };
 			Tool->SetActorLocation(VendorLocation + float4{ 16.0f + 6.0f * i, -21.0f, 0.0f, 0.0f });
 			Renderer_Tool->SetSprite("Bow.png");
 			Renderer_Tool->SetAutoSize(1.0f, true);
@@ -69,7 +72,7 @@ void AVendor::BeginPlay()
 		}
 		case EBuildingObjectType::HammerVendor:
 		{
-			VendorLocation = UContentsConstValue::InitLocation + float4{ -150.0f, 52.0f, 100.0f };
+			VendorLocation = InitLocation + float4{ -150.0f, 52.0f, 100.0f };
 			Tool->SetActorLocation(VendorLocation + float4{ -38.0f + 7.0f * i, -24.0f, 0.0f, 0.0f });
 			Renderer_Tool->SetSprite("Hammer.png");
 			Renderer_Tool->SetAutoSize(1.0f, true);

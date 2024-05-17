@@ -73,39 +73,42 @@ void ATownCenter::BeginPlay()
 		Renderer_Walls[3]->SetOrder(ERenderOrder::Back0);
 	}
 	{
+		float4 ImageScale = UContentsConstValue::MapTexScale;
+		float4 InitLocation = { ImageScale.hX(), -ImageScale.hY(), 0.0f };
+
 		InnerWall_L = GetWorld()->SpawnActor<AWall>("InnerWall_L", EObjectOrder::Building);
-		InnerWall_L->SetActorLocation(UContentsConstValue::InitLocation + float4{-283.0f, 36.0f, 100.0f});
+		InnerWall_L->SetActorLocation(InitLocation + float4{-283.0f, 36.0f, 100.0f});
 		InnerWall_L->SetDir(EEngineDir::Left);
 		InnerWall_L->SetIsUpgradable(false);
 
 		InnerWall_R = GetWorld()->SpawnActor<AWall>("InnerWall_R", EObjectOrder::Building);
-		InnerWall_R->SetActorLocation(UContentsConstValue::InitLocation + float4{283.0f, 36.0f, 100.0f});
+		InnerWall_R->SetActorLocation(InitLocation + float4{283.0f, 36.0f, 100.0f});
 		InnerWall_R->SetIsUpgradable(false);
 
 		Tower_L = GetWorld()->SpawnActor<ATower>("Tower_L", EObjectOrder::Building);
-		Tower_L->SetActorLocation(UContentsConstValue::InitLocation + float4{ -900.0f, 54.0f, 100.0f });
+		Tower_L->SetActorLocation(InitLocation + float4{ -900.0f, 54.0f, 100.0f });
 		Tower_L->SetDir(EEngineDir::Left);
 		Tower_L->SetIsUpgradable(false);
 
 		Tower_R = GetWorld()->SpawnActor<ATower>("Tower_R", EObjectOrder::Building);
-		Tower_R->SetActorLocation(UContentsConstValue::InitLocation + float4{ 900.0f, 54.0f, 100.0f });
+		Tower_R->SetActorLocation(InitLocation + float4{ 900.0f, 54.0f, 100.0f });
 		Tower_R->SetIsUpgradable(false);
 
 		OuterWall_L = GetWorld()->SpawnActor<AWall>("OuterWall_L", EObjectOrder::Building);
-		OuterWall_L->SetActorLocation(UContentsConstValue::InitLocation + float4{ -1000.0f, 36.0f, 100.0f });
+		OuterWall_L->SetActorLocation(InitLocation + float4{ -1000.0f, 36.0f, 100.0f });
 		OuterWall_L->SetDir(EEngineDir::Left);
 		OuterWall_L->SetIsUpgradable(false);
 
 		OuterWall_R = GetWorld()->SpawnActor<AWall>("OuterWall_R", EObjectOrder::Building);
-		OuterWall_R->SetActorLocation(UContentsConstValue::InitLocation + float4{ 1000.0f, 36.0f, 100.0f });
+		OuterWall_R->SetActorLocation(InitLocation + float4{ 1000.0f, 36.0f, 100.0f });
 		OuterWall_R->SetIsUpgradable(false);
 
 		BowVendor = GetWorld()->SpawnActor<ABowVendor>("BowVendor", EObjectOrder::Building);
-		BowVendor->SetActorLocation(UContentsConstValue::InitLocation + float4{ 150.0f, 52.0f, 100.0f });
+		BowVendor->SetActorLocation(InitLocation + float4{ 150.0f, 52.0f, 100.0f });
 		BowVendor->SetActive(false);
 
 		HammerVendor = GetWorld()->SpawnActor<AHammerVendor>("HammerVendor", EObjectOrder::Building);
-		HammerVendor->SetActorLocation(UContentsConstValue::InitLocation + float4{ -150.0f, 52.0f, 100.0f });
+		HammerVendor->SetActorLocation(InitLocation + float4{ -150.0f, 52.0f, 100.0f });
 		HammerVendor->SetActive(false);
 	}
 }

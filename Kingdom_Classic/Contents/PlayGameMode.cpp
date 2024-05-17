@@ -37,12 +37,12 @@ void APlayGameMode::BeginPlay()
 
 	UContentsConstValue::MapTex = UEngineTexture::FindRes("Back.png");
 	UContentsConstValue::MapTexScale = UContentsConstValue::MapTex->GetScale();
-	//float4 ImageScale = UContentsConstValue::MapTexScale;
-	//float4 InitLocation = { ImageScale.hX(), -ImageScale.hY(), 0.0f };
+	float4 ImageScale = UContentsConstValue::MapTexScale;
+	float4 InitLocation = { ImageScale.hX(), -ImageScale.hY(), 0.0f };
 
 	{
 		std::shared_ptr<UCamera> Camera = GetWorld()->GetMainCamera();
-		Camera->SetActorLocation(UContentsConstValue::InitLocation + float4{ 0.0f, 60.0f, -100.0f });
+		Camera->SetActorLocation(InitLocation + float4{ 0.0f, 60.0f, -100.0f });
 		Camera->SetProjectionType(ECameraType::Perspective);
 
 		std::shared_ptr<UContentsTime> Timer = GetWorld()->SpawnActor<UContentsTime>("Timer", EObjectOrder::Engine);
@@ -51,40 +51,40 @@ void APlayGameMode::BeginPlay()
 	{
 		{
 			//std::shared_ptr<AGround_Back> GroundBack = GetWorld()->SpawnActor<AGround_Back>("GroundBack", EObjectOrder::Back);
-			//GroundBack->SetActorLocation(UContentsConstValue::InitLocation + float4{ 0.0f, 0.0f, 100.0f });
+			//GroundBack->SetActorLocation(InitLocation + float4{ 0.0f, 0.0f, 100.0f });
 
 			std::shared_ptr<AGround> Ground = GetWorld()->SpawnActor<AGround>("Ground", EObjectOrder::Back);
-			Ground->SetActorLocation(UContentsConstValue::InitLocation + float4{ 0.0f, 0.0f, 100.0f });
+			Ground->SetActorLocation(InitLocation + float4{ 0.0f, 0.0f, 100.0f });
 
 			std::shared_ptr<ABack0> Back0 = GetWorld()->SpawnActor<ABack0>("Back0", EObjectOrder::Back);
-			Back0->SetActorLocation(UContentsConstValue::InitLocation + float4{ 0.0f, 110.0f, 100.0f });
+			Back0->SetActorLocation(InitLocation + float4{ 0.0f, 110.0f, 100.0f });
 
 			std::shared_ptr<ABack1> Back1 = GetWorld()->SpawnActor<ABack1>("Back1", EObjectOrder::Back);
-			Back1->SetActorLocation(UContentsConstValue::InitLocation + float4{ 0.0f, 110.0f, 200.0f });
+			Back1->SetActorLocation(InitLocation + float4{ 0.0f, 110.0f, 200.0f });
 
 			std::shared_ptr<ABack2> Back2 = GetWorld()->SpawnActor<ABack2>("Back2", EObjectOrder::Back);
-			Back2->SetActorLocation(UContentsConstValue::InitLocation + float4{ 0.0f, 170.0f, 500.0f });
+			Back2->SetActorLocation(InitLocation + float4{ 0.0f, 170.0f, 500.0f });
 
 			std::shared_ptr<ABack3> Back3 = GetWorld()->SpawnActor<ABack3>("Back3", EObjectOrder::Back);
-			Back3->SetActorLocation(UContentsConstValue::InitLocation + float4{ 0.0f, -50.0f, 700.0f });
+			Back3->SetActorLocation(InitLocation + float4{ 0.0f, -50.0f, 700.0f });
 
 			std::shared_ptr<ABack4> Back4 = GetWorld()->SpawnActor<ABack4>("Back4", EObjectOrder::Back);
-			Back4->SetActorLocation(UContentsConstValue::InitLocation + float4{ 0.0f, 70.0f, 900.0f });
+			Back4->SetActorLocation(InitLocation + float4{ 0.0f, 70.0f, 900.0f });
 
 			std::shared_ptr<ASky> Sky = GetWorld()->SpawnActor<ASky>("Sky", EObjectOrder::Back);
-			Sky->SetActorLocation(UContentsConstValue::InitLocation + float4{ 0.0f, 0.0f, 1000.0f });
+			Sky->SetActorLocation(InitLocation + float4{ 0.0f, 0.0f, 1000.0f });
 		}
 		{
 			std::shared_ptr<APlayer> Player = GetWorld()->SpawnActor<APlayer>("Player", EObjectOrder::Player);
-			Player->SetActorLocation(UContentsConstValue::InitLocation + float4{ 0.0f, 20.0f, 100.0f });
+			Player->SetActorLocation(InitLocation + float4{ 0.0f, 20.0f, 100.0f });
 			MainPlayer = Player;
 
 			std::shared_ptr<ATownCenter> TownCenter = GetWorld()->SpawnActor<ATownCenter>("TownCenter", EObjectOrder::Building);
-			TownCenter->SetActorLocation(UContentsConstValue::InitLocation + float4{ 0.0f, 84.0f, 100.0f });
+			TownCenter->SetActorLocation(InitLocation + float4{ 0.0f, 84.0f, 100.0f });
 			MyKingdom = TownCenter;
 
 			std::shared_ptr<ANPC> NPC = GetWorld()->SpawnActor<ANPC>("NPC", EObjectOrder::NPC);
-			NPC->SetActorLocation(UContentsConstValue::InitLocation + float4{ 0.0f, 20.0f, 100.0f });
+			NPC->SetActorLocation(InitLocation + float4{ 0.0f, 20.0f, 100.0f });
 		}
 	}
 }
